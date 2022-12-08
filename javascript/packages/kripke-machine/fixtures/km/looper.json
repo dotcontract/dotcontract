@@ -1,0 +1,13 @@
+{
+  "rules": [],
+  "systems": [
+    {
+      "current_states": ["_"],
+      "states": {
+        "_": {
+          "arrows": [["", "_"]]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+LPAREN=1
+RPAREN=2
+TRUE=3
+FALSE=4
+AND=5
+OR=6
+NOT=7
+PROP=8
+WS=9
+LINE_COMMENT=10
+'('=1
+')'=2
+'true'=3
+'false'=4
+'and'=5
+'or'=6
+'not'=7

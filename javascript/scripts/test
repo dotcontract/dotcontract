@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pnpm i -r
+pnpm run -r test
