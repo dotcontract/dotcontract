@@ -1,5 +1,5 @@
 {
-  "name": "@dotcontract/utils",
+  "name": "@dotcontract/file",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,8 +7,7 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
   "files": [
-    "src",
-    "src/*"
+    "src"
   ],
   "exports": {
     "./*": "./src/*.js"
@@ -17,20 +16,15 @@
   "license": "UNLICENSED",
   "type": "module",
   "dependencies": {
-    "@libp2p/crypto": "^1.0.0",
-    "@libp2p/logger": "^2.0.0",
+    "@dotcontract/contract": "workspace:^1.0.0",
+    "@dotcontract/kripke-machine": "workspace:^1.0.0",
+    "@dotcontract/modality": "workspace:^1.0.0",
+    "@dotcontract/utils": "workspace:^1.0.0",
+    "adm-zip": "^0.5.9",
+    "archiver": "^5.3.1",
     "debug": "^4.3.4",
     "jest": "^28.1.1",
-    "json-stringify-deterministic": "^1.0.7",
     "lodash": "^4.17.21",
-    "multiaddr": "^10.0.1",
-    "multiformats": "^9.7.0",
-    "uint8arrays": "^3.0.0"
-  },
-  "devDependencies": {
-    "node-fetch": "^3.2.9"
-  },
-  "peerDependencies": {
-    "node-fetch": "^3.2.9"
+    "temp": "^0.9.4"
   }
 }

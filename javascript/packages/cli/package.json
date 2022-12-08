@@ -1,0 +1,40 @@
+{
+  "name": "@dotcontract/cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "dotcontract": "src/bin/dotcontract-cli.js",
+    "dotc": "src/bin/dotcontract-cli.js"
+  },
+  "scripts": {
+    "test": "echo \"TODO: no tests specified\""
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "@libp2p/peer-id-factory": "^1.0.15",
+    "@dotcontract/contract": "workspace:^1.0.0",
+    "@dotcontract/file": "workspace:^1.0.0",
+    "@dotcontract/utils": "workspace:^1.0.0",
+    "archiver": "^5.3.1",
+    "chalk": "^5.0.1",
+    "debug": "^4.3.4",
+    "jest": "^28.1.1",
+    "lodash": "^4.17.21",
+    "multiaddr": "^10.0.1",
+    "temp": "^0.9.4",
+    "uint8arrays": "^3.0.0",
+    "yargs": "^17.5.1",
+    "zip-store-stream": "^1.1.5"
+  },
+  "devDependencies": {
+    "node-fetch": "^3.2.9",
+    "undici": "^5.8.1"
+  },
+  "peerDependencies": {
+    "node-fetch": "^3.2.9",
+    "undici": "^5.8.1"
+  }
+}

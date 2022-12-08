@@ -8,7 +8,7 @@
     "debug_test": "NODE_OPTIONS=--experimental-vm-modules node --inspect --inspect-brk ./node_modules/jest/bin/jest.js --runInBand -i"
   },
   "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "type": "module",
   "files": [
     "src",

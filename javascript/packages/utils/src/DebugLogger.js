@@ -3,7 +3,7 @@ import { logger } from "@libp2p/logger";
 export default class Logger {
   constructor(scope) {
     this.scope = null;
-    this.logger = logger(scope ? `powo:${scope}` : "powo");
+    this.logger = logger(scope ? `dotcontract:${scope}` : "dotcontract");
     return this;
   }
 
