@@ -4,18 +4,18 @@ import Parser from "../../grammars/build/ModalityParser.js";
 import Lexer from "../../grammars/build/ModalityLexer.js";
 import Visitor from "./Visitor.js";
 
-import BaseFormula from "./BaseFormula";
+import BaseFormula from "./BaseFormula.js";
 
-export { default as PropAtom } from "./PropAtom";
-export { default as TrueAtom } from "./TrueAtom";
-export { default as FalseAtom } from "./FalseAtom";
-export { default as AndFormula } from "./AndFormula";
-export { default as OrFormula } from "./OrFormula";
-export { default as NotFormula } from "./NotFormula";
-export { default as WhenAlsoFormula } from "./WhenAlsoFormula";
-export { default as FunctionAtom } from "./FunctionAtom";
-export { default as HenceforthCanFormula } from './HenceforthCanFormula';
-export { default as HenceforthMustFormula } from './HenceforthMustFormula';
+export { default as PropAtom } from "./PropAtom.js";
+export { default as TrueAtom } from "./TrueAtom.js";
+export { default as FalseAtom } from "./FalseAtom.js";
+export { default as AndFormula } from "./AndFormula.js";
+export { default as OrFormula } from "./OrFormula.js";
+export { default as NotFormula } from "./NotFormula.js";
+export { default as WhenAlsoFormula } from "./WhenAlsoFormula.js";
+export { default as FunctionAtom } from "./FunctionAtom.js";
+export { default as HenceforthCanFormula } from './HenceforthCanFormula.js';
+export { default as HenceforthMustFormula } from './HenceforthMustFormula.js';
 export class Expression {
   constructor(input, defaultTo = null) {
     if (typeof input === "string") {

@@ -11,11 +11,6 @@ import * as contract_create from '../commands/contract/create.js';
 import * as contract_pull from '../commands/contract/pull.js';
 import * as contract_push from '../commands/contract/push.js';
 import * as contract_register from '../commands/contract/register.js';
-import * as network_listen from '../commands/network/listen.js';
-import * as network_ping from '../commands/network/ping.js';
-import * as network_status from '../commands/network/status.js';
-import * as network_witness from '../commands/network/witness.js';
-import * as dev_create_static_devnet from '../commands/dev/create_static_devnet.js';
 
 const { argv } = yargs(hideBin(process.argv))
   .scriptName("dotcontract-cli")

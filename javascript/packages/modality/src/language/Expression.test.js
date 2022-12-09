@@ -1,6 +1,6 @@
 import Expression from "./Expression.js";
 import { functionCallToPropName } from "../Functions.js";
-import Context from "../Context";
+import Context from "../Context.js";
 
 describe("Expression", () => {
   it("should parse", async () => {

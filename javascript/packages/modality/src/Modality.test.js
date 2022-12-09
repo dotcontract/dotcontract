@@ -1,4 +1,4 @@
-import Modality from './Modality';
+import Modality from './Modality.js';
 
 describe("Modality", () => {
   it("expandConstraintFunctions", async () => {

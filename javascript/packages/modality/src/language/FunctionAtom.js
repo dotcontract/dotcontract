@@ -1,4 +1,4 @@
-import BaseFormula from './BaseFormula';
+import BaseFormula from './BaseFormula.js';
 
 import { functionCallToPropName } from "../Functions.js";
 

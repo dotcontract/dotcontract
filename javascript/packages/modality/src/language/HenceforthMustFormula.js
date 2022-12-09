@@ -1,4 +1,4 @@
-import BaseFormula from './BaseFormula';
+import BaseFormula from './BaseFormula.js';
 
 export default class HenceforthMustFormula extends BaseFormula  {
   constructor(inner_formula, until_formula) {
