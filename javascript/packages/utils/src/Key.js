@@ -1,5 +1,9 @@
 import { writeFileSync, readFileSync } from "fs";
-import { generateKeyPair, unmarshalPublicKey, unmarshalPrivateKey } from "@libp2p/crypto/keys";
+import {
+  generateKeyPair,
+  unmarshalPublicKey,
+  unmarshalPrivateKey,
+} from "@libp2p/crypto/keys";
 import { toString as uint8ArrayToString } from "uint8arrays/to-string";
 import { fromString as uint8ArrayFromString } from "uint8arrays/from-string";
 import { base58btc } from "multiformats/bases/base58";
@@ -71,6 +75,10 @@ export default class Key {
     return this.publicKeyToMultiaddrString();
   }
 
+  static fromPublicKey(public_key_id, type = "ed25519") {
+    return this.fromPublicMultiaddress(`/${type}-pub/${public_key_id}`);
+  }
+
   static fromPublicMultiaddress(multiaddress) {
     // TODO for real
     const m = multiaddress.match(/^(.+)-pub\/(.+)$/);
@@ -89,12 +97,16 @@ export default class Key {
 
   // json
 
-  static async fromJSON({id, public_key, private_key}) {
+  static async fromJSON({ id, public_key, private_key }) {
     if (private_key) {
-      const key = await unmarshalPrivateKey(uint8ArrayFromString(private_key, 'base64pad'));
+      const key = await unmarshalPrivateKey(
+        uint8ArrayFromString(private_key, "base64pad")
+      );
       return new Key(key);
     } else if (public_key) {
-      const key = await unmarshalPrivateKey(uint8ArrayFromString(public_key, 'base64pad'));
+      const key = await unmarshalPrivateKey(
+        uint8ArrayFromString(public_key, "base64pad")
+      );
       return new Key(key);
     }
   }
@@ -171,6 +183,14 @@ export default class Key {
     return this.signStringAsBase64Pad(str);
   }
 
+  async signJSONElement(json, name, suffix = ".signature") {
+    const signature = await this.signJSON(json[name]);
+    return {
+      ...json,
+      [`${name}${suffix}`]: signature,
+    };
+  }
+
   async signJSONAsKey(json, key = "signature") {
     const signature = await this.signJSON(json);
     return {
@@ -194,5 +214,24 @@ export default class Key {
   async verifySignatureForJson(signature, json) {
     const str = JSONStringifyDeterministic(json);
     return this.verifySignatureForString(signature, str);
+  }
+
+  async verifySignaturesInJson(json, suffix = ".signature") {
+    const suffix_for_regex = suffix
+      .replace(/[|\\{}()[\]^$+*?.]/g, "\\$&")
+      .replace(/-/g, "\\x2d");
+    const suffix_regex = `(.+)${suffix_for_regex}$`;
+    for (const name in json) {
+      const m = name.match(suffix_regex);
+      if (m) {
+        const str = JSONStringifyDeterministic(json[m[1]]);
+        const sig = json[name];
+        const r = await this.verifySignatureForString(sig, str);
+        if (!r) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 }

@@ -16,5 +16,9 @@ describe("Key", () => {
 
     const result = await shared_key.verifySignatureForJson(signature, json);
     expect(result).toBe(true);
+
+    const json_with_signature = await key.signJSONElement(json, 'ok');
+    const result2 = await shared_key.verifySignaturesInJson(json_with_signature);
+    expect(result2).toBe(true);
   });
 });

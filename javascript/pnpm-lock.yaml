@@ -55,6 +55,30 @@ importers:
       jest: 28.1.3
       lodash: 4.17.21
 
+  packages/directory:
+    specifiers:
+      '@dotcontract/contract': workspace:^1.0.0
+      '@dotcontract/kripke-machine': workspace:^1.0.0
+      '@dotcontract/modality': workspace:^1.0.0
+      '@dotcontract/utils': workspace:^1.0.0
+      adm-zip: ^0.5.9
+      archiver: ^5.3.1
+      debug: ^4.3.4
+      jest: ^28.1.1
+      lodash: ^4.17.21
+      temp: ^0.9.4
+    dependencies:
+      '@dotcontract/contract': link:../contract
+      '@dotcontract/kripke-machine': link:../kripke-machine
+      '@dotcontract/modality': link:../modality
+      '@dotcontract/utils': link:../utils
+      adm-zip: 0.5.9
+      archiver: 5.3.1
+      debug: 4.3.4
+      jest: 28.1.3
+      lodash: 4.17.21
+      temp: 0.9.4
+
   packages/file:
     specifiers:
       '@dotcontract/contract': workspace:^1.0.0

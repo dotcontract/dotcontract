@@ -4,8 +4,6 @@ import Modality, { Functions } from "@dotcontract/modality";
 
 import Commit from "./Commit.js";
 
-const DEFAULT_NETWORK = null;
-
 export default class Contract {
   constructor(genesis) {
     this.id = genesis?.contract_id;
@@ -16,16 +14,17 @@ export default class Contract {
     return this;
   }
 
-  static async generate({ network = DEFAULT_NETWORK } = {}) {
-    const signed_genesis = await this.generateGenesis({ network });
+  static async generate({ network_id } = {}) {
+    const signed_genesis = await this.generateGenesis({ network_id });
     return new Contract(signed_genesis);
   }
 
-  static async generateGenesis({ network = DEFAULT_NETWORK } = {}) {
+  static async generateGenesis({ network_id } = {}) {
     const key = await Key.generate();
     const contract_id = await key.asPublicAddress();
-    const init = { network, contract_id };
-    const signed_genesis = await key.signJSONAsKey(init);
+    const genesis = { network_id: network_id || null, contract_id };
+    const signed_genesis = await key.signJSONElement({ genesis }, "genesis");
+    console.log({signed_genesis});
     return signed_genesis;
   }
 
