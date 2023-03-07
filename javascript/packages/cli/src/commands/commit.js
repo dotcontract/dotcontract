@@ -1,20 +1,56 @@
 export const command = "commit";
-export const describe = "adds commit to a contract";
+export const describe = "adds a commit to a contract";
 
 export const builder = {
-  contract: {},
-  input: {},
-  output: {},
-  body: {},
-  bodyFile: {},
-  signWith: {},
-  attach: {},
-  post: {},
-  rule: {},
-  define: {},
-  create: {},
-  send: {},
-  receive: {},
+  contract: {
+    alias: "c",
+    desc: "contract file for in-place modification [filepath]",
+  },
+  input: {
+    alias: "i",
+    desc: "input contract file [filepath]",
+  },
+  output: {
+    alias: "o",
+    desc: "output contract file [filepath]",
+  },
+  body: {
+    desc: "commit body in standard format [text]",
+  },
+  bodyFromFile: {
+    desc: "commit body in standard format from a local file [filepath]",
+  },
+  sign: {
+    desc: "signs a commit using the given key file [filepath]",
+  },
+  attach: {
+    desc: "attaches a file to a commit [filepath]",
+  },
+  post: {
+    desc: "posts a value to a contract path, two args: [path] [value]",
+    nargs: 2,
+  },
+  rule: {
+    desc: "adds a rule to a contract path, two args: [path] [value]",
+    nargs: 2
+  }, 
+  define: {
+    desc: "defines the type of a contract path, two args: [path] [value]",
+    nargs: 2
+  },
+  // TODO
+  // repost: {
+  //   desc: "reposts a post from another contract",
+  // },
+  // create: {
+  //   desc: "creates an object at a contract path",
+  // },
+  // send: {
+  //   desc: "sends an object to another contract",
+  // },
+  // receive: {
+  //   desc: "receives an object from another contract",
+  // },
 };
 
 import DotContractFile from "@dotcontract/file/DotContractFile";
@@ -22,20 +58,38 @@ import Contract from "@dotcontract/contract/Contract";
 import Commit, { METHODS } from "@dotcontract/contract/Commit";
 
 export async function handler(argv) {
-  let { contract, input, output, method, body, bodyFile, signWith } = argv;
-  if (!contract && (!input && !output)) {
+  let {
+    contract,
+    input,
+    output,
+    method,
+    body,
+    bodyFromFile,
+    sign,
+    attach,
+    post,
+    rule,
+    define,
+    // repost,
+    // create,
+    // send,
+    // receive,
+  } = argv;
+  if (!contract && !input && !output) {
     console.error(
       `Contract required.
   use --contract for in-place modification
   or --input and --output to save the updated contract elsewhere`
     );
   }
-  if (!body && !bodyFile) {
-    console.error("Missing required argument: body or bodyFile");
+  if (!post && !rule && !define && !body && !bodyFromFile) {
+    console.error("Missing required argument: body or bodyFromFile or a particular action like post, rule, or define");
     return;
   }
-  if (bodyFile) {
-    body = fs.readFileSync(bodyFile);
+  if (bodyFromFile) {
+    body = fs.readFileSync(bodyFromFile);
+  } else if (!body) {
+    body = "";
   }
   try {
     body = JSON.parse(body);
