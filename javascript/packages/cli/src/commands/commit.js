@@ -5,10 +5,16 @@ export const builder = {
   contract: {},
   input: {},
   output: {},
-  method: {},
   body: {},
   bodyFile: {},
   signWith: {},
+  attach: {},
+  post: {},
+  rule: {},
+  define: {},
+  create: {},
+  send: {},
+  receive: {},
 };
 
 import DotContractFile from "@dotcontract/file/DotContractFile";
@@ -23,12 +29,6 @@ export async function handler(argv) {
   use --contract for in-place modification
   or --input and --output to save the updated contract elsewhere`
     );
-  }
-  if (METHODS.indexOf(method) === -1) {
-    console.error(
-      "Commit method invalid. Must be post, constrain, send, receive, define, repost, or create"
-    );
-    return;
   }
   if (!body && !bodyFile) {
     console.error("Missing required argument: body or bodyFile");
