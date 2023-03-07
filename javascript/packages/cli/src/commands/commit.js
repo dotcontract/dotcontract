@@ -1,4 +1,4 @@
-export const command = "contract/commit";
+export const command = "commit";
 export const describe = "adds commit to a contract";
 
 export const builder = {

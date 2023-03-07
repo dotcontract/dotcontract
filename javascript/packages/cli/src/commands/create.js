@@ -1,4 +1,4 @@
-export const command = "contract/create";
+export const command = "create";
 export const describe = "creates a new unregistered contract";
 
 export const builder = {

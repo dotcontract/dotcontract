@@ -5,15 +5,15 @@ import * as gen_keypair from '../commands/gen_keypair.js';
 import * as zip from '../commands/unzip.js';
 import * as unzip from '../commands/zip.js';
 
-import * as contract_commit from '../commands/contract/commit.js';
-import * as contract_info from '../commands/contract/info.js';
-import * as contract_create from '../commands/contract/create.js';
-import * as contract_pull from '../commands/contract/pull.js';
-import * as contract_push from '../commands/contract/push.js';
-import * as contract_register from '../commands/contract/register.js';
+import * as contract_commit from '../commands/commit.js';
+import * as contract_info from '../commands/info.js';
+import * as contract_create from '../commands/create.js';
+import * as contract_pull from '../commands/pull.js';
+import * as contract_push from '../commands/push.js';
+import * as contract_register from '../commands/register.js';
 
 const { argv } = yargs(hideBin(process.argv))
-  .scriptName("dotcontract-cli")
+  .scriptName("contract")
   .help('h')
   .alias('h', 'help')
   .wrap(null)

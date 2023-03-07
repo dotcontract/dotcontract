@@ -1,7 +1,7 @@
-export const command = "contract/pull";
+export const command = "pull";
 export const describe = "pulls updated contract state from network";
 
-import { parseNetworkArgs, CommonNetworkArgs } from "../../lib/NetworkArgs.js";
+import { parseNetworkArgs, CommonNetworkArgs } from "../lib/NetworkArgs.js";
 
 export const builder = {
   ...CommonNetworkArgs,

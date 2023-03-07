@@ -1,10 +1,10 @@
-export const command = "contract/register";
+export const command = "register";
 export const describe = "registers a contract";
 
 import {
   parseNetworkArgs,
   CommonNetworkArgs,
-} from "../../lib/NetworkArgs.js";
+} from "../lib/NetworkArgs.js";
 
 export const builder = {
   ...CommonNetworkArgs,

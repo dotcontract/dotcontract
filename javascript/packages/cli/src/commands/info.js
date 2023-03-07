@@ -1,7 +1,7 @@
-export const command = "contract/info";
+export const command = "info";
 export const describe = "describes a contract";
 
-import { parseNetworkArgs, CommonNetworkArgs } from "../../lib/NetworkArgs.js";
+import { parseNetworkArgs, CommonNetworkArgs } from "../lib/NetworkArgs.js";
 
 export const builder = {
   ...CommonNetworkArgs,
@@ -15,7 +15,7 @@ export const builder = {
 import DotContractFile from "@dotcontract/file/DotContractFile";
 
 const log = console.log;
-import { asBold, asSuccess, asError, asWarning } from "../../lib/LogStyles.js";
+import { asBold, asSuccess, asError, asWarning } from "../lib/LogStyles.js";
 
 function describeContract({ contract_id, local_status, network_status }) {
   log(`${asBold(`# Contract Info`)}`);

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "dotcontract": "src/bin/dotcontract-cli.js",
-    "dotc": "src/bin/dotcontract-cli.js"
+    "dotcontract-cli": "src/bin/dotcontract-cli.js",
+    "contract": "src/bin/dotcontract-cli.js"
   },
   "scripts": {
     "test": "echo \"TODO: no tests specified\""
