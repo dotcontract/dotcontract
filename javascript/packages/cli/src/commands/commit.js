@@ -14,6 +14,9 @@ export const builder = {
     alias: "o",
     desc: "output contract file [filepath]",
   },
+  dir: {
+    desc: "dotcontract directory [filepath]"
+  },
   body: {
     desc: "commit body in standard format [text]",
   },
@@ -62,7 +65,7 @@ export async function handler(argv) {
     contract,
     input,
     output,
-    method,
+    dir,
     body,
     bodyFromFile,
     sign,
@@ -75,11 +78,14 @@ export async function handler(argv) {
     // send,
     // receive,
   } = argv;
-  if (!contract && !input && !output) {
+  const in_dotcontract_dir = false;
+  if (!contract && !input && !output && !dir && !in_dotcontract_dir) {
     console.error(
-      `Contract required.
-  use --contract for in-place modification
-  or --input and --output to save the updated contract elsewhere`
+      `ERROR: Contract required:
+*  use --contract for in-place modification of a .contract
+*  use --input and --output to save a modified .contract elsewhere
+*  use --dir or run this command within a .contract directory to work on it
+  `
     );
   }
   if (!post && !rule && !define && !body && !bodyFromFile) {
@@ -100,7 +106,7 @@ export async function handler(argv) {
   }
   const pf = await DotContractFile.open(contract || input);
   const meta = {}; // adding signing
-  await pf.commit(method, body, meta);
+  await pf.commit("POST", body, meta);
   await pf.saveTo(output || contract);
 }
 

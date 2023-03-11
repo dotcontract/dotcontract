@@ -1,5 +1,5 @@
-export const command = "info";
-export const describe = "describe a contract";
+export const command = "status";
+export const describe = "status of a contract and its commits";
 
 import { parseNetworkArgs, CommonNetworkArgs } from "../lib/NetworkArgs.js";
 

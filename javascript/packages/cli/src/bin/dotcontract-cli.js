@@ -2,29 +2,34 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
 import * as gen_keypair from '../commands/gen_keypair.js';
-import * as zip from '../commands/unzip.js';
-import * as unzip from '../commands/zip.js';
+import * as pack from '../commands/pack.js';
+import * as unpack from '../commands/unpack.js';
 
-import * as contract_commit from '../commands/commit.js';
-import * as contract_info from '../commands/info.js';
-import * as contract_create from '../commands/create.js';
-import * as contract_pull from '../commands/pull.js';
-import * as contract_push from '../commands/push.js';
-import * as contract_register from '../commands/register.js';
+import * as commit from '../commands/commit.js';
+import * as info from '../commands/info.js';
+import * as status from '../commands/status.js';
+import * as log from '../commands/log.js';
+import * as create from '../commands/create.js';
+import * as pull from '../commands/pull.js';
+import * as push from '../commands/push.js';
 
+// unused return variable prevents node from prematurely exiting yargs
+/* eslint-disable no-unused-vars */
 const { argv } = yargs(hideBin(process.argv))
   .scriptName("contract")
   .help('h')
   .alias('h', 'help')
   .wrap(null)
-  // .command(zip)
-  // .command(unzip)
-  .command(contract_create)
-  .command(contract_commit)
-  .command(contract_info)
-  .command(contract_pull)
-  .command(contract_push)
-  .command(contract_register)
+
+  .command(create)
+  .command(commit)
+  .command(info)
+  .command(status)
+  .command(log)
+  .command(pull)
+  .command(push)
+  .command(pack)
+  .command(unpack)
   .command(gen_keypair)
   .demandCommand(1, 'command not recognized')
   .strict()

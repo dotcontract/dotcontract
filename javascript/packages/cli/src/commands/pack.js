@@ -1,5 +1,5 @@
-export const command = "zip";
-export const describe = "zip a directory into a .contract file";
+export const command = "pack";
+export const describe = "pack a contract directory into a contract file";
 
 export const builder = {
   input: {

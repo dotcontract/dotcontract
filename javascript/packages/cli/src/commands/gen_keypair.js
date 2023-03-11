@@ -1,5 +1,5 @@
 export const command = "gen_keypair";
-export const describe = "generates a keypair";
+export const describe = "generates a keypair used for signing contracts";
 
 export const builder = {
 };
