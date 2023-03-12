@@ -32,6 +32,22 @@ export default class DotContractFile {
     return pf;
   }
 
+  static async fromFile(input_file, output_file) {
+    const pf = new DotContractFile(input_file);
+    await pf.open();
+    if (output_file) {
+      pf.filepath = output_file;
+    }
+    return pf;
+  }
+
+  static async fromDir(dir_path) {
+    const pf = new DotContractFile(null);
+    console.log(dir_path);
+    pf.directory = await DotContractDirectory.mount(dir_path);
+    return pf;
+  }
+
   async open() {
     if (this.dir_path) {
       return;
@@ -64,6 +80,8 @@ export default class DotContractFile {
   }
 
   async save() {
-    await this.saveTo(this.filepath);
+    if (this.filepath) {
+      await this.saveTo(this.filepath);
+    }
   }
 }

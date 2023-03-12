@@ -23,8 +23,9 @@ export async function handler(argv) {
   if (!dir && !output && !contract && !(contract && output)) {
     console.error(`ERROR: You must specify where to create the contract.
 * use --contract or --output to create a .contract file
-* use --dir to create a .contract unpacked to a directory`);
-    return;
+* use --dir to create a .contract unpacked to a directory
+`);
+    process.exit(-1);
   }
 
   if (output || contract) {

@@ -29,7 +29,7 @@ export default class DotContractDirectory {
     const pd = new DotContractDirectory(path);
     const isValid = await pd.isValid();
     if (!isValid) {
-      throw new Error("unable to mount invalid powo directory");
+      throw new Error("unable to mount invalid dotcontract directory");
     }
     const genesis = await pd.getGenesis();
     pd.contract = new Contract(genesis);
@@ -42,13 +42,17 @@ export default class DotContractDirectory {
     if (!fs.existsSync(this.path)) {
       return false;
     }
-    if (!this.isGenesisValid()) {
+    const genesis_valid = await this.isGenesisValid();
+    if (!genesis_valid) {
       return false;
     }
     return true;
   }
 
   async isGenesisValid() {
+    if (!fs.existsSync(`${this.path}/genesis.json`)) {
+      return false;
+    }
     // TODO
     return true;
   }
