@@ -58,9 +58,9 @@ export default class DotContractFile {
     this.directory = await DotContractDirectory.mount(this.dir_path);
   }
 
-  static unzip(input, output) {
+  static unzip(input, output, password) {
     const zip = new AdmZip(input);
-    zip.extractAllTo(output, true, false, this.password);
+    zip.extractAllTo(output, true, false, password);
   }
 
   async isValid() {
