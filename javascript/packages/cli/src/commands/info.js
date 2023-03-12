@@ -45,10 +45,12 @@ export async function handler(argv) {
 
   const isValid = await dcf.isValid();
   const genesis = await dcf.getGenesis();
+  const commitLog = await dcf.getCommitLog();
+  const commitOrder = await dcf.getCommitOrder();
   const local_status = {
     status: isValid,
-    commit_count: 0,
-    latest_commit: "",
+    commit_count: commitLog.length,
+    latest_commit: commitOrder.length > 0 ? commitOrder[commitOrder.length - 1] : null,
   };
   const contract_id = genesis.genesis.contract_id;
 

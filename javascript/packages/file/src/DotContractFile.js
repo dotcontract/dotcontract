@@ -84,4 +84,12 @@ export default class DotContractFile {
       await this.saveTo(this.filepath);
     }
   }
+
+  async getCommitLog() {
+    return this.directory.getCommitLog();
+  }
+
+  async getCommitOrder() {
+    return this.directory.getCommitOrder();
+  }
 }
