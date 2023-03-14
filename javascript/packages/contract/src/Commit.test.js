@@ -3,13 +3,13 @@ import Commit from "./Commit.js";
 describe("Contract", () => {
   it("should work", async () => {
     new Commit({
-      method: "post",
-      content: "test",
+      body: [{ method: "post", path: "/", value: "hello" }],
+      head: [],
     });
     expect(() => {
       new Commit({
-        method: "duck",
-        content: "test",
+        body: { method: "post", path: "/", value: "hello" },
+        head: []
       });
     }).toThrow();
   });

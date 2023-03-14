@@ -1,4 +1,4 @@
-import Property from "./Property";
+import Property from "./Property.js";
 
 export default class PropertyTable {
   constructor(default_value) {

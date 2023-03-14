@@ -1,4 +1,4 @@
-import System from "./System";
+import System from "./System.js";
 export default class Evolution {
   constructor() {
     this.systems = [];

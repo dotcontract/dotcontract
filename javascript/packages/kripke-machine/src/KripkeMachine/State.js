@@ -1,4 +1,4 @@
-import Arrow from './Arrow';
+import Arrow from './Arrow.js';
 
 export default class State {
   constructor(id, arrows = []) {

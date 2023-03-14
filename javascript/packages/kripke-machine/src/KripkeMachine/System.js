@@ -1,5 +1,5 @@
-import State from "./State";
-import Arrow from "./Arrow";
+import State from "./State.js";
+import Arrow from "./Arrow.js";
 
 export default class System {
   constructor() {

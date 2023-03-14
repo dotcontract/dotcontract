@@ -1,4 +1,4 @@
-import BaseFormula from './BaseFormula';
+import BaseFormula from './BaseFormula.js';
 import { unionOfSets, setMinus } from "@dotcontract/utils/sets";
 
 

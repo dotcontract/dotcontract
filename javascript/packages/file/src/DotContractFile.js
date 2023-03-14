@@ -71,8 +71,8 @@ export default class DotContractFile {
     return this.directory.getDotContractJson();
   }
 
-  async commit(method, body, meta) {
-    return this.directory.commit(method, body, meta);
+  async commit({body, head}) {
+    return this.directory.commit({body, head});
   }
 
   async saveTo(filepath) {

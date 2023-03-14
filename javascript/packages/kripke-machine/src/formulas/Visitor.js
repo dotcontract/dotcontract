@@ -15,7 +15,7 @@ import {
   BoundVar,
 } from "./ModalFormula.js";
 
-import SignedProp from './SignedProp';
+import SignedProp from './SignedProp.js';
 
 export default class Visitor extends AbstractVisitor {
   visitTrueAtom(ctx) {

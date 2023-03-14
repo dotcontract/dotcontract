@@ -81,9 +81,20 @@ export async function handler(argv) {
   //   console.error(e);
   //   return;
   // }
-  const body = {};
-  const meta = {}; // adding signing
-  await dcf.commit("post", body, meta);
+  const body = [];
+  if (post && post.length) {
+    for (let i = 0; i < post.length / 2; i++) {
+      const path = post[i];
+      const value = post[i+1];
+      body.push({
+        method: 'post',
+        path,
+        value
+      });
+    }
+  }
+  const head = {}; // adding signing
+  await dcf.commit({body, head});
   await dcf.save();
 }
 

@@ -1,5 +1,5 @@
-import Property from './Property';
-import PropertyTable from "./PropertyTable";
+import Property from './Property.js';
+import PropertyTable from "./PropertyTable.js";
 
 export default class Arrow {
   constructor(properties_label, target_state_id) {

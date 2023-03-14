@@ -1,4 +1,4 @@
-import BaseFormula from "./BaseFormula";
+import BaseFormula from "./BaseFormula.js";
 
 export default class PropsAtom extends BaseFormula {
   constructor(signed_props) {

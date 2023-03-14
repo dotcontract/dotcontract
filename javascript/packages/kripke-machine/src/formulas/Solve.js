@@ -17,7 +17,7 @@ import {
   DiamondFormula,
   LfpFormula,
   GfpFormula,
-} from "./ModalFormula";
+} from "./ModalFormula.js";
 
 const MAX_RECURSION = process.env.MAX_RECURSION || Infinity;
 

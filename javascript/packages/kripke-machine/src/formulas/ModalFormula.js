@@ -5,19 +5,19 @@ import Lexer from "../../grammars/build/ModalFormulaLexer.js";
 import Visitor from "./Visitor.js";
 import { unionOfSets, setMinus } from "@dotcontract/utils/sets";
 
-import BaseFormula from './BaseFormula';
+import BaseFormula from './BaseFormula.js';
 
-export {default as PropsAtom} from './PropsAtom';
-export {default as TrueAtom} from './TrueAtom';
-export {default as FalseAtom} from './FalseAtom';
-export {default as AndFormula} from './AndFormula';
-export {default as OrFormula} from './OrFormula';
-export {default as NotFormula} from './NotFormula';
-export {default as BoxFormula} from './BoxFormula';
-export {default as DiamondFormula} from './DiamondFormula';
-export {default as GfpFormula} from './GfpFormula';
-export {default as LfpFormula} from './LfpFormula';
-export {default as BoundVar} from './BoundVar';
+export {default as PropsAtom} from './PropsAtom.js';
+export {default as TrueAtom} from './TrueAtom.js';
+export {default as FalseAtom} from './FalseAtom.js';
+export {default as AndFormula} from './AndFormula.js';
+export {default as OrFormula} from './OrFormula.js';
+export {default as NotFormula} from './NotFormula.js';
+export {default as BoxFormula} from './BoxFormula.js';
+export {default as DiamondFormula} from './DiamondFormula.js';
+export {default as GfpFormula} from './GfpFormula.js';
+export {default as LfpFormula} from './LfpFormula.js';
+export {default as BoundVar} from './BoundVar.js';
 class ThrowingErrorListener extends antlr4.error.ErrorListener {
   constructor() {
       super();

@@ -1,6 +1,6 @@
-import System from "./System";
-import Rule from "./Rule";
-import Solve from "../formulas/Solve";
+import System from "./System.js";
+import Rule from "./Rule.js";
+import Solve from "../formulas/Solve.js";
 
 import { areSetsEqual } from "@dotcontract/utils/sets";
 

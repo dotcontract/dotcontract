@@ -1,4 +1,4 @@
-import ModalFormula from "../formulas/ModalFormula";
+import ModalFormula from "../formulas/ModalFormula.js";
 export default class Rule {
   constructor(text, root_states) {
     this.modal_formula_text = text;

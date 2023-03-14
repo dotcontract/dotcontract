@@ -1,7 +1,7 @@
 export const METHODS = [
   "post",
+  "rule",
   "define",
-  "constrain",
   "repost",
   "create",
   "send",
@@ -9,13 +9,14 @@ export const METHODS = [
 ];
 
 export default class Commit {
-  constructor({ method, content, meta }) {
-    if (!METHODS.includes(method)) {
-      throw new Error(`unknown method: ${method}`);
+  constructor({ body, head }) {
+    for (const part of body) {
+      if (!METHODS.includes(part.method)) {
+        throw new Error(`unknown method: ${method}`);
+      }
     }
-    this.method = method;
-    this.content = content;
-    this.meta = meta;
+    this.body = body;
+    this.head = head;
     return this;
   }
 }

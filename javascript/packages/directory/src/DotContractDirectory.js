@@ -147,8 +147,8 @@ export default class Directory {
     );
   }
 
-  async commit(method, body, meta) {
-    const new_commit = { method, content: body, meta };
+  async commit({body, head}) {
+    const new_commit = { body, head };
     const commit_log = await this.getCommitLog();
     const commit_id = commit_log.length + 1; // TODO use hashes
     await this.contract.appendCommitFromJson(new_commit);

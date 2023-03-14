@@ -1,4 +1,4 @@
-import Evolution from "./Evolution";
+import Evolution from "./Evolution.js";
 export default class Step {
   constructor(properties_text, opts = {}) {
     this.properties_text = properties_text;
