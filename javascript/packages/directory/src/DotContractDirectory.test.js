@@ -3,7 +3,7 @@ import temp from "temp";
 
 import Key from "@dotcontract/utils/Key";
 
-import Directory from "./Directory.js";
+import Directory from "./DotContractDirectory.js";
 
 describe("Directory", () => {
   it("should work", async () => {

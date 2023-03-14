@@ -14,10 +14,11 @@
   "license": "UNLICENSED",
   "type": "module",
   "dependencies": {
-    "@libp2p/peer-id-factory": "^1.0.15",
     "@dotcontract/contract": "workspace:^1.0.0",
+    "@dotcontract/directory": "workspace:^1.0.0",
     "@dotcontract/file": "workspace:^1.0.0",
     "@dotcontract/utils": "workspace:^1.0.0",
+    "@libp2p/peer-id-factory": "^1.0.15",
     "archiver": "^5.3.1",
     "chalk": "^5.0.1",
     "debug": "^4.3.4",

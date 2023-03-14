@@ -1,4 +1,4 @@
-export { default as DotContractFile } from "./DotContractFile";
+export { default as DotContractDirectory } from "./DotContractDirectory.js";
 
-import DotContractFile from "./DotContractFile";
-export default DotContractFile;
+import DotContractDirectory from "./DotContractDirectory.js";
+export default DotContractDirectory;

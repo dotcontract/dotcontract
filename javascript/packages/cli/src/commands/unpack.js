@@ -1,7 +1,7 @@
 export const command = "unpack";
 export const describe = "unpack a contract file into a contract directory";
 
-import DotContractFile from "@dotcontract/file/DotContractFile";
+import DotContractFile from "@dotcontract/file";
 
 export const builder = {
   input: {

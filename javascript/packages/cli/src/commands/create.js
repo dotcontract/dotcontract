@@ -15,8 +15,8 @@ export const builder = {
   }
 };
 
-import DotContractFile from "@dotcontract/file/DotContractFile";
-import DotContractDirectory from '@dotcontract/file/DotContractDirectory';
+import DotContractFile from "@dotcontract/file";
+import DotContractDirectory from '@dotcontract/directory';
 
 export async function handler(argv) {
   const { contract, output, dir } = argv;

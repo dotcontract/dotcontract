@@ -8,7 +8,7 @@ import DotContractFile from "./DotContractFile.js";
 describe("DotContractFile", () => {
   it("should work", async () => {
     const pf = await DotContractFile.open(
-      `${__dirname}/../fixtures/EmptyContract.powo`
+      `${__dirname}/../fixtures/EmptyContract.contract`
     );
     const is_valid = await pf.isValid();
     expect(is_valid).toBeTruthy();

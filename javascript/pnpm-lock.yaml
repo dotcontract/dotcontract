@@ -5,6 +5,7 @@ importers:
   packages/cli:
     specifiers:
       '@dotcontract/contract': workspace:^1.0.0
+      '@dotcontract/directory': workspace:^1.0.0
       '@dotcontract/file': workspace:^1.0.0
       '@dotcontract/utils': workspace:^1.0.0
       '@libp2p/peer-id-factory': ^1.0.15
@@ -22,6 +23,7 @@ importers:
       zip-store-stream: ^1.1.5
     dependencies:
       '@dotcontract/contract': link:../contract
+      '@dotcontract/directory': link:../directory
       '@dotcontract/file': link:../file
       '@dotcontract/utils': link:../utils
       '@libp2p/peer-id-factory': 1.0.19
@@ -82,6 +84,7 @@ importers:
   packages/file:
     specifiers:
       '@dotcontract/contract': workspace:^1.0.0
+      '@dotcontract/directory': workspace:^1.0.0
       '@dotcontract/kripke-machine': workspace:^1.0.0
       '@dotcontract/modality': workspace:^1.0.0
       '@dotcontract/utils': workspace:^1.0.0
@@ -93,6 +96,7 @@ importers:
       temp: ^0.9.4
     dependencies:
       '@dotcontract/contract': link:../contract
+      '@dotcontract/directory': link:../directory
       '@dotcontract/kripke-machine': link:../kripke-machine
       '@dotcontract/modality': link:../modality
       '@dotcontract/utils': link:../utils

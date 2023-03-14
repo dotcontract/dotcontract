@@ -7,9 +7,11 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
   "files": [
-    "src"
+    "src",
+    "src/*"
   ],
   "exports": {
+    ".": "./src/index.js",
     "./*": "./src/*.js"
   },
   "author": "",
@@ -17,6 +19,7 @@
   "type": "module",
   "dependencies": {
     "@dotcontract/contract": "workspace:^1.0.0",
+    "@dotcontract/directory": "workspace:^1.0.0",
     "@dotcontract/kripke-machine": "workspace:^1.0.0",
     "@dotcontract/modality": "workspace:^1.0.0",
     "@dotcontract/utils": "workspace:^1.0.0",

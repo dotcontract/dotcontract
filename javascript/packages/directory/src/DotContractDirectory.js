@@ -3,35 +3,35 @@ import archiver from "archiver";
 
 import Contract from "@dotcontract/contract";
 
-export default class DotContractDirectory {
+export default class Directory {
   constructor(path) {
     this.path = path;
     return this;
   }
 
-  static async generate(path) {
+  static async generate(path, opts = {}) {
     if (!path) {
       throw new Error();
     }
     if (!fs.existsSync(path)) {
       fs.mkdirSync(path, { recursive: true });
     }
-    const genesisJSON = await Contract.generateGenesis();
+    const dotcontract_json = await Contract.generateGenesis(opts);
     fs.writeFileSync(
-      `${path}/genesis.json`,
-      JSON.stringify(genesisJSON),
+      `${path}/dotcontract.json`,
+      JSON.stringify(dotcontract_json),
       "utf-8"
     );
-    return new DotContractDirectory(path);
+    return new Directory(path);
   }
 
   static async mount(path) {
-    const pd = new DotContractDirectory(path);
+    const pd = new Directory(path);
     const isValid = await pd.isValid();
     if (!isValid) {
       throw new Error("unable to mount invalid dotcontract directory");
     }
-    const genesis = await pd.getGenesis();
+    const genesis = await pd.getDotContractJson();
     pd.contract = new Contract(genesis);
     const commit_log = await pd.getCommitLog();
     await pd.contract.appendCommitLog(commit_log);
@@ -42,24 +42,20 @@ export default class DotContractDirectory {
     if (!fs.existsSync(this.path)) {
       return false;
     }
-    const genesis_valid = await this.isGenesisValid();
-    if (!genesis_valid) {
+    if (!this.isDotContractJsonValid()) {
       return false;
     }
     return true;
   }
 
-  async isGenesisValid() {
-    if (!fs.existsSync(`${this.path}/genesis.json`)) {
-      return false;
-    }
+  async isDotContractJsonValid() {
     // TODO
     return true;
   }
 
-  async getGenesis() {
+  async getDotContractJson() {
     const genesisFileJson = await fs.readFileSync(
-      `${this.path}/genesis.json`,
+      `${this.path}/dotcontract.json`,
       "utf-8"
     );
     return JSON.parse(genesisFileJson);
@@ -118,7 +114,7 @@ export default class DotContractDirectory {
       });
     };
 
-    archive.file(`${this.path}/genesis.json`, { name: "genesis.json" });
+    archive.file(`${this.path}/dotcontract.json`, { name: "dotcontract.json" });
 
     if (style === "minimal") {
       return finalize();

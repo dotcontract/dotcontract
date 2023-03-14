@@ -1,5 +1,5 @@
 export const DotContractFileStructure = {
-  "genesis.json": {
+  "dotcontract.json": {
     type: InitFile,
     required: true
   },

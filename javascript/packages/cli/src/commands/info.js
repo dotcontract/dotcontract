@@ -44,7 +44,7 @@ export async function handler(argv) {
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
 
   const isValid = await dcf.isValid();
-  const genesis = await dcf.getGenesis();
+  const genesis = await dcf.getDotContractJson();
   const commitLog = await dcf.getCommitLog();
   const commitOrder = await dcf.getCommitOrder();
   const local_status = {

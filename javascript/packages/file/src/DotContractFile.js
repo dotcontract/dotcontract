@@ -2,7 +2,7 @@ import fs from "fs";
 import temp from "temp";
 import AdmZip from "adm-zip";
 
-import DotContractDirectory from "./DotContractDirectory.js";
+import DotContractDirectory from "@dotcontract/directory";
 
 export default class DotContractFile {
   constructor(filepath) {
@@ -67,8 +67,8 @@ export default class DotContractFile {
     return this.directory.isValid();
   }
 
-  async getGenesis() {
-    return this.directory.getGenesis();
+  async getDotContractJson() {
+    return this.directory.getDotContractJson();
   }
 
   async commit(method, body, meta) {

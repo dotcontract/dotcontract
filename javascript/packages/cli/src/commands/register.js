@@ -14,7 +14,7 @@ export const builder = {
   },
 };
 
-import DotContractFile from "@dotcontract/file/DotContractFile";
+import DotContractFile from "@dotcontract/file";
 
 export async function handler(argv) {
   const pf = await DotContractFile.open(argv.contract);

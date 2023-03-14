@@ -1,5 +1,5 @@
-import DotContractDirectory from "@dotcontract/file/DotContractDirectory";
-import DotContractFile from "@dotcontract/file/DotContractFile";
+import DotContractDirectory from "@dotcontract/directory";
+import DotContractFile from "@dotcontract/file";
 
 export const CommonContractArgs = {
   contract: {

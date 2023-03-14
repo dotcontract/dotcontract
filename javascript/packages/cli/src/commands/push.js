@@ -14,7 +14,7 @@ export const builder = {
   },
 };
 
-import DotContractFile from "@dotcontract/file/DotContractFile";
+import DotContractFile from "@dotcontract/file";
 
 const log = console.log;
 import { asSuccess, asBold } from "../lib/LogStyles.js";

@@ -1,7 +1,7 @@
 export const command = "pack";
 export const describe = "pack a contract directory into a contract file";
 
-import DotContractDirectory from "@dotcontract/file/DotContractDirectory";
+import DotContractDirectory from "@dotcontract/directory";
 
 export const builder = {
   output: {

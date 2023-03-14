@@ -20,13 +20,13 @@ export const builder = {
     desc: "posts a value to a contract path, two args: [path] [value]",
     nargs: 2,
   },
-  rule: {
-    desc: "adds a rule to a contract path, two args: [path] [value]",
-    nargs: 2,
-  },
   define: {
     desc: "defines the type of a contract path, two args: [path] [value]",
     nargs: 2,
+  },
+  rule: {
+    desc: "adds a rule to a contract, one arg: [rule]",
+    nargs: 1,
   },
   // TODO
   // repost: {
@@ -43,7 +43,7 @@ export const builder = {
   // },
 };
 
-import DotContractFile from "@dotcontract/file/DotContractFile";
+import DotContractFile from "@dotcontract/file";
 import Contract from "@dotcontract/contract/Contract";
 import Commit, { METHODS } from "@dotcontract/contract/Commit";
 

@@ -16,8 +16,8 @@ export const builder = {
 
 };
 
-import DotContractFile from "@dotcontract/file/DotContractFile";
-import DotContractDirectory from "@dotcontract/file/DotContractDirectory";
+import DotContractFile from "@dotcontract/file";
+import DotContractDirectory from "@dotcontract/directory";
 
 const log = console.log;
 
@@ -32,7 +32,7 @@ export async function handler(argv) {
   if (argv.contract) {
     const pf = await DotContractFile.open(argv.contract);
     const isValid = await pf.isValid();
-    const genesis = await pf.getGenesis();
+    const genesis = await pf.getDotContractJson();
     local_status = {
       status: isValid,
       commit_count: 0,
