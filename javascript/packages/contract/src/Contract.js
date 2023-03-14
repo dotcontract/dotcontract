@@ -24,7 +24,6 @@ export default class Contract {
     const contract_id = await key.asPublicAddress();
     const genesis = { network_id: network_id || null, contract_id };
     const signed_genesis = await key.signJSONElement({ genesis }, "genesis");
-    console.log({ signed_genesis });
     return signed_genesis;
   }
 
@@ -98,7 +97,6 @@ export default class Contract {
   async canAppendBasicCommit(commit) {
     const contextProps = await this.getContextProps(commit);
     const step = new Step(contextProps.join(" "));
-    console.log({step});
     return this.km.canTakeStep(step);
   }
 

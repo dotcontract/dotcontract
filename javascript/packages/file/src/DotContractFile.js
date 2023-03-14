@@ -43,7 +43,6 @@ export default class DotContractFile {
 
   static async fromDir(dir_path) {
     const pf = new DotContractFile(null);
-    console.log(dir_path);
     pf.directory = await DotContractDirectory.mount(dir_path);
     return pf;
   }
