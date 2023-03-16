@@ -1,7 +1,8 @@
 import fs from "fs";
+import path from "path";
 import archiver from "archiver";
 
-import Contract from "@dotcontract/contract";
+import Contract, { Commit, CommitAction } from "@dotcontract/contract";
 
 export default class Directory {
   constructor(path) {
@@ -136,25 +137,35 @@ export default class Directory {
     return finalize();
   }
 
-  async writeCommit(commit_id, commit) {
+  async writeCommit(commit_id, commit, index) {
     if (!fs.existsSync(`${this.path}/commits`)) {
       fs.mkdirSync(`${this.path}/commits`, { recursive: true });
+    }
+    if (!fs.existsSync(`${this.path}/ordered_commits`)) {
+      fs.mkdirSync(`${this.path}/ordered_commits`, { recursive: true });
     }
     fs.writeFileSync(
       `${this.path}/commits/${commit_id}.json`,
       JSON.stringify(commit),
       "utf-8"
     );
+    fs.symlinkSync(
+      path.relative(
+        `${this.path}/ordered_commits`,
+        `${this.path}/commits/${commit_id}.json`
+      ),
+      `${this.path}/ordered_commits/${index}.json`
+    );
   }
 
-  async commit({body, head}) {
-    const new_commit = { body, head };
+  async commit({ body, head }) {
+    const new_commit = Commit.fromJSON({ body, head });
     const commit_log = await this.getCommitLog();
-    const commit_id = commit_log.length + 1; // TODO use hashes
-    await this.contract.appendCommitFromJson(new_commit);
+    const commit_id = new_commit.getHash();
+    await this.contract.appendCommitFromJson(new_commit.toJSON());
     const commit_order = await this.getCommitOrder();
     commit_order.push(commit_id);
     await this.writeCommitOrder(commit_order);
-    await this.writeCommit(commit_id, new_commit);
+    await this.writeCommit(commit_id, new_commit, commit_order.length);
   }
 }

@@ -45,7 +45,6 @@ export const builder = {
 
 import DotContractFile from "@dotcontract/file";
 import Contract from "@dotcontract/contract/Contract";
-import Commit, { METHODS } from "@dotcontract/contract/Commit";
 
 export async function handler(argv) {
   let {

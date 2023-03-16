@@ -147,12 +147,12 @@ export default class Contract {
   }
 
   appendCommitFromJson(commit_json) {
-    const commit = new Commit(commit_json);
+    const commit = Commit.fromJSON(commit_json);
     return this.appendCommit(commit);
   }
 
   canAppendCommitFromJson(commit_json) {
-    const commit = new Commit(commit_json);
+    const commit = Commit.fromJSON(commit_json);
     return this.canAppendCommit(commit);
   }
 
