@@ -38,6 +38,10 @@ export default class Commit {
     return c;
   }
 
+  static fromJSONString(str) {
+    return this.fromJSON(JSON.parse(str));
+  }
+
   toJSON() {
     return {
       body: this.body,
