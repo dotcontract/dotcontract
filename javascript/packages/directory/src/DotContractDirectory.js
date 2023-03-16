@@ -3,7 +3,7 @@ import path from "path";
 import archiver from "archiver";
 
 import Contract, { Commit, CommitAction } from "@dotcontract/contract";
-
+import FileHash from "@dotcontract/utils/FileHash";
 export default class Directory {
   constructor(path) {
     this.path = path;
@@ -75,7 +75,7 @@ export default class Directory {
 
   async getCurrentCommitHash() {
     const commit_order = await this.getCommitOrder();
-    return commit_order[commit_order.length-1];
+    return commit_order[commit_order.length - 1];
   }
 
   async writeCommitOrder(commit_order) {
@@ -166,12 +166,43 @@ export default class Directory {
   async commit({ body, head }) {
     const new_commit = Commit.fromJSON({ body, head });
     const current_commit_hash = await this.getCurrentCommitHash();
-    new_commit.setHead('parent', current_commit_hash);
+    new_commit.setHead("parent", current_commit_hash);
     const commit_id = new_commit.getHash();
     await this.contract.appendCommitFromJson(new_commit.toJSON());
     const commit_order = await this.getCommitOrder();
     commit_order.push(commit_id);
     await this.writeCommitOrder(commit_order);
     await this.writeCommit(commit_id, new_commit, commit_order.length);
+  }
+
+  async attach({ path: contract_path, filepath }) {
+    const attachment_hash = FileHash(filepath);
+    if (!fs.existsSync(`${this.path}/attachments`)) {
+      fs.mkdirSync(`${this.path}/attachments`, { recursive: true });
+    }
+    if (!fs.existsSync(`${this.path}/attached_files`)) {
+      fs.mkdirSync(`${this.path}/attached_files`, { recursive: true });
+    }
+    fs.copyFileSync(filepath, `${this.path}/attachments/${attachment_hash}`);
+    if (fs.existsSync(`${this.path}/attached_files${contract_path}`)) {
+      fs.rmSync(`${this.path}/attached_files${contract_path}`);
+    }
+    if (
+      !fs.existsSync(
+        path.dirname(`${this.path}/attached_files${contract_path}`)
+      )
+    ) {
+      fs.mkdirSync(
+        path.dirname(`${this.path}/attached_files${contract_path}`),
+        { recursive: true }
+      );
+    }
+    fs.symlinkSync(
+      path.relative(
+        path.dirname(`${this.path}/attached_files${contract_path}`),
+        `${this.path}/attachments/${attachment_hash}`
+      ),
+      `${this.path}/attached_files${contract_path}`
+    );
   }
 }

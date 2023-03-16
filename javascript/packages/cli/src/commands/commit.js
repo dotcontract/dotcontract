@@ -19,7 +19,9 @@ export const builder = {
     array: true
   },
   attach: {
-    desc: "attaches a file to a commit [filepath]",
+    desc: "attaches a file to ccontract path, two args: [path] [filepath]",
+    array: true,
+    nargs: 2
   },
   post: {
     desc: "posts a value to a contract path, two args: [path] [value]",
@@ -56,6 +58,7 @@ import path from 'path';
 import DotContractFile from "@dotcontract/file";
 import Contract, { Commit, CommitAction } from "@dotcontract/contract";
 import Key from '@dotcontract/utils/Key';
+import FileHash from '@dotcontract/utils/FileHash';
 
 export async function handler(argv) {
   let {
@@ -74,7 +77,7 @@ export async function handler(argv) {
   } = argv;
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
 
-  if (!post && !rule && !define && !body && !bodyFromFile) {
+  if (!attach && !post && !rule && !define && !body && !bodyFromFile) {
     console.error(
       "Missing required argument: body or bodyFromFile or a particular action like post, rule, or define"
     );
@@ -108,6 +111,19 @@ export async function handler(argv) {
       c.post(path, value);
     }
   }
+  const attachments = [];
+  if (attach && attach.length) {
+    for (let i = 0; i < attach.length; i = i + 2) {
+      const path = attach[i];
+      const filepath = attach[i + 1];
+      const attachment_hash = FileHash(filepath);
+      c.post(path, `attachment://${attachment_hash}`);
+      attachments.push({
+        path,
+        filepath
+      })
+    }
+  }
   if (rule && rule.length) {
     for (let i = 0; i < rule.length; i++) {
       const value = rule[i];
@@ -132,6 +148,9 @@ export async function handler(argv) {
   }
 
   await dcf.commit(c.toJSON());
+  for (const attachment of attachments) {
+    await dcf.attach(attachment)
+  }
   await dcf.save();
 }
 

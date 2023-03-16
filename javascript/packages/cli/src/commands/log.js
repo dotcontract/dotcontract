@@ -27,10 +27,11 @@ function describeCommits({ commitLog, commitOrder }) {
     log(`${asBold(`## Commit #${i + 1} => ${commitOrder[i]}`)}`);
     const c = Commit.fromJSONString(commitLog[i]);
     for (const part of c.body) {
+      const part_value_formatted = (part.value.match(`crypto://`) || part.value.match(`attachment://`)) ? asViolet(part.value) : part.value;
       log(
         `${asGreen(part.method.toUpperCase())}\t${asCyan(
           part.path || ""
-        )}\t\t\t${part.value}`
+        )}\t\t\t${part_value_formatted}`
       );
     }
     if (c.head.signatures) {

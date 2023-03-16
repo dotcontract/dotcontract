@@ -91,4 +91,8 @@ export default class DotContractFile {
   async getCommitOrder() {
     return this.directory.getCommitOrder();
   }
+
+  async attach({path, filepath}) {
+    return this.directory.attach({path, filepath});
+  }
 }
