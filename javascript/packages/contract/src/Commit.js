@@ -61,7 +61,6 @@ export default class Commit {
       const signature = await key.signJSON(this.body);
       signatures[by] = signature;
     }
-    console.log({keys, signatures});
     this.head.signatures = signatures;
   }
 

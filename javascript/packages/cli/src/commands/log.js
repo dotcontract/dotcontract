@@ -33,6 +33,12 @@ function describeCommits({ commitLog, commitOrder }) {
         )}\t\t\t${part.value}`
       );
     }
+    if (c.head.signatures) {
+      log(`${(`### Signed By`)}`);
+      for (const pub_key of Object.keys(c.head.signatures)) {
+        log(`* ${asViolet(`crypto:/${pub_key}`)}`);
+      }
+    }
   }
 }
 
