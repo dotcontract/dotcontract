@@ -18,14 +18,17 @@ export const builder = {
   },
   post: {
     desc: "posts a value to a contract path, two args: [path] [value]",
+    array: true,
     nargs: 2,
   },
   define: {
     desc: "defines the type of a contract path, two args: [path] [value]",
+    array: true,
     nargs: 2,
   },
   rule: {
     desc: "adds a rule to a contract, one arg: [rule]",
+    array: true,
     nargs: 1,
   },
   // TODO
@@ -44,12 +47,12 @@ export const builder = {
 };
 
 import DotContractFile from "@dotcontract/file";
-import Contract from "@dotcontract/contract/Contract";
+import Contract, { Commit, CommitAction } from "@dotcontract/contract";
 
 export async function handler(argv) {
   let {
-    // body,
-    // bodyFromFile,
+    body,
+    bodyFromFile,
     sign,
     attach,
     post,
@@ -66,7 +69,14 @@ export async function handler(argv) {
     console.error(
       "Missing required argument: body or bodyFromFile or a particular action like post, rule, or define"
     );
-    return;
+    return process.exit(-1);
+  }
+  // TODO
+  if (body || bodyFromFile) {
+    console.error(
+      "Input as body not yet implemented"
+    );
+    return process.exit(-1);
   }
   // if (bodyFromFile) {
   //   body = fs.readFileSync(bodyFromFile);
@@ -80,20 +90,22 @@ export async function handler(argv) {
   //   console.error(e);
   //   return;
   // }
-  const body = [];
+  
+  const c = new Commit();
   if (post && post.length) {
-    for (let i = 0; i < post.length / 2; i++) {
+    for (let i = 0; i < post.length; i = i + 2) {
       const path = post[i];
-      const value = post[i+1];
-      body.push({
-        method: 'post',
-        path,
-        value
-      });
+      const value = post[i + 1];
+      c.post(path, value);
     }
   }
-  const head = {}; // adding signing
-  await dcf.commit({body, head});
+  if (rule && rule.length) {
+    for (let i = 0; i < rule.length; i++) {
+      const value = rule[i];
+      c.rule(value);
+    }
+  }
+  await dcf.commit(c.toJSON());
   await dcf.save();
 }
 

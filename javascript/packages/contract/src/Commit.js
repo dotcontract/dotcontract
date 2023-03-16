@@ -12,7 +12,7 @@ export default class Commit {
     if (method === 'post') {
       const paths_used = this.body.map(p => p.path);
       if (paths_used.indexOf(path) !== -1) {
-        throw new Error(`cannot post to same ${method}`);
+        throw new Error(`cannot post to same path ${path} within one commit`);
       }
     }
     this.body.push(ca.toJSON());
@@ -23,7 +23,7 @@ export default class Commit {
   }
 
   rule(value) {
-    this.act({method: 'rule', path, value});
+    this.act({method: 'rule', path: null, value});
   }
 
   static fromJSON({body, head}) {

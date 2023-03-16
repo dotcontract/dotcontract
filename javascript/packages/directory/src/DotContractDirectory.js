@@ -160,7 +160,6 @@ export default class Directory {
 
   async commit({ body, head }) {
     const new_commit = Commit.fromJSON({ body, head });
-    const commit_log = await this.getCommitLog();
     const commit_id = new_commit.getHash();
     await this.contract.appendCommitFromJson(new_commit.toJSON());
     const commit_order = await this.getCommitOrder();
