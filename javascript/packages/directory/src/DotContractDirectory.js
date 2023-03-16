@@ -73,6 +73,11 @@ export default class Directory {
     return JSON.parse(commit_order_json);
   }
 
+  async getCurrentCommitHash() {
+    const commit_order = await this.getCommitOrder();
+    return commit_order[commit_order.length-1];
+  }
+
   async writeCommitOrder(commit_order) {
     fs.writeFileSync(
       `${this.path}/commit_order.json`,
@@ -160,6 +165,8 @@ export default class Directory {
 
   async commit({ body, head }) {
     const new_commit = Commit.fromJSON({ body, head });
+    const current_commit_hash = await this.getCurrentCommitHash();
+    new_commit.setHead('parent', current_commit_hash);
     const commit_id = new_commit.getHash();
     await this.contract.appendCommitFromJson(new_commit.toJSON());
     const commit_order = await this.getCommitOrder();

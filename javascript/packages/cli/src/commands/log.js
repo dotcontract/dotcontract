@@ -14,7 +14,7 @@ function describeCommits({commitLog, commitOrder}) {
   log(`${asBold(`# Contract Commit Log`)}`);
   for (let i = 0; i < commitOrder.length; i++) {
     log();
-    log(`${asBold(`## ${commitOrder[i]}`)}`);
+    log(`${asBold(`## ${i+1} => ${commitOrder[i]}`)}`);
     log(commitLog[i]);
   }
 }

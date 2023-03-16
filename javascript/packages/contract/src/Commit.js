@@ -45,6 +45,10 @@ export default class Commit {
     }
   }
 
+  setHead(key, value) {
+    this.head[key] = value;
+  }
+
   getHash() {
     return JSONHash(this.toJSON());
   }
