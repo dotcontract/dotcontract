@@ -10,8 +10,13 @@ export const builder = {
   bodyFromFile: {
     desc: "commit body in standard format from a local file [filepath]",
   },
-  sign: {
-    desc: "signs a commit using the given key file [filepath]",
+  'sign': {
+    desc: "signs a commit using your default dotcontract keypair ($HOME/.dotcontract/default.keypair)",
+  },
+  'sign-with': {
+    desc: "signs a commit using the given keypair file [filepath]",
+    nargs: 1,
+    array: true
   },
   attach: {
     desc: "attaches a file to a commit [filepath]",
@@ -46,14 +51,18 @@ export const builder = {
   // },
 };
 
+import os from 'os';
+import path from 'path';
 import DotContractFile from "@dotcontract/file";
 import Contract, { Commit, CommitAction } from "@dotcontract/contract";
+import Key from '@dotcontract/utils/Key';
 
 export async function handler(argv) {
   let {
     body,
     bodyFromFile,
     sign,
+    ['sign-with']: sign_with,
     attach,
     post,
     rule,
@@ -90,7 +99,7 @@ export async function handler(argv) {
   //   console.error(e);
   //   return;
   // }
-  
+
   const c = new Commit();
   if (post && post.length) {
     for (let i = 0; i < post.length; i = i + 2) {
@@ -105,6 +114,23 @@ export async function handler(argv) {
       c.rule(value);
     }
   }
+
+  const signing_keys = [];
+  if (sign) {
+    const keypair_path = path.resolve(`${os.homedir}/.dotcontract/default.keypair`);
+    const key = await Key.fromJSONFile(keypair_path);
+    signing_keys.push(key);
+  }
+  if (sign_with) {
+    for (const keypair_path of sign_with) {
+      const key = await Key.fromJSONFile(keypair_path);
+      signing_keys.push(key);
+    } 
+  }
+  if (signing_keys.length) {
+    await c.signWith(signing_keys);
+  }
+
   await dcf.commit(c.toJSON());
   await dcf.save();
 }

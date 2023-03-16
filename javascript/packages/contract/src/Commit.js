@@ -53,6 +53,18 @@ export default class Commit {
     this.head[key] = value;
   }
 
+  async signWith(keys) {
+    if (!Array.isArray(keys)) { keys = [keys]; }
+    const signatures = this.head.signatures || {};
+    for (const key of keys) {
+      const by = await key.asPublicMultiaddress();
+      const signature = await key.signJSON(this.body);
+      signatures[by] = signature;
+    }
+    console.log({keys, signatures});
+    this.head.signatures = signatures;
+  }
+
   getHash() {
     return JSONHash(this.toJSON());
   }
