@@ -18,6 +18,10 @@ export const builder = {
     nargs: 1,
     array: true
   },
+  message: {
+    alias: 'm',
+    desc: "include a message with a commit [text]",
+  },
   attach: {
     desc: "attaches a file to ccontract path, two args: [path] [filepath]",
     array: true,
@@ -62,6 +66,7 @@ import FileHash from '@dotcontract/utils/FileHash';
 
 export async function handler(argv) {
   let {
+    message,
     body,
     bodyFromFile,
     sign,
@@ -129,6 +134,10 @@ export async function handler(argv) {
       const value = rule[i];
       c.rule(value);
     }
+  }
+
+  if (message) {
+    c.setHead('message', message);
   }
 
   const signing_keys = [];

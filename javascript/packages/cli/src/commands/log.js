@@ -26,21 +26,35 @@ function describeCommits({ commitLog, commitOrder }) {
     log();
     log(`${asBold(`## Commit #${i + 1} => ${commitOrder[i]}`)}`);
     const c = Commit.fromJSONString(commitLog[i]);
+    if (c.head.message) {
+      log();
+      log(`${`### Message`}`);
+      log(c.head.message);
+    }
+    if (c.body.length) {
+      log();
+      log(`${`### Actions`}`);
+    }
     for (const part of c.body) {
-      const part_value_formatted = (part.value.match(`crypto://`) || part.value.match(`attachment://`)) ? asViolet(part.value) : part.value;
+      const part_value_formatted =
+        part.value.match(`crypto://`) || part.value.match(`attachment://`)
+          ? asViolet(part.value)
+          : part.value;
       log(
         `${asGreen(part.method.toUpperCase())}\t${asCyan(
-          part.path || ""
+          part.path
         )}\t\t\t${part_value_formatted}`
       );
     }
     if (c.head.signatures) {
-      log(`${(`### Signed By`)}`);
+      log();
+      log(`${`### Signed By`}`);
       for (const pub_key of Object.keys(c.head.signatures)) {
         log(`* ${asViolet(`crypto:/${pub_key}`)}`);
       }
     }
   }
+  log();
 }
 
 export async function handler(argv) {
