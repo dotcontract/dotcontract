@@ -12,7 +12,7 @@ import { asBold, asSuccess, asError, asWarning } from "../lib/LogStyles.js";
 
 function describeContract({ contract_id, local_status, network_status }) {
   log(`${asBold(`# Contract Info`)}`);
-  log(`* Address = ${asBold(contract_id)}`);
+  log(`* ID = ${asBold(contract_id)}`);
   if (local_status) {
     log();
     log(`${asBold(`## Local Status`)}`);
