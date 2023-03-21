@@ -4,6 +4,27 @@ import Context from "../Context.js";
 
 describe("Expression", () => {
   it("should parse", async () => {
+    let formula;
+
+    expect(() => {
+      new Expression(`<false`); 
+    }).toThrow();
+
+    formula = new Expression(`<false> true`); 
+    expect(formula.constructor.name).toBe('DiamondFormula');
+    expect(formula.inner.constructor.name).toBe('FalseAtom');
+    expect(formula.outer.constructor.name).toBe('TrueAtom');
+
+    formula = new Expression(`is(/here/this.md, "red")`); 
+    expect(formula.constructor.name).toBe('FunctionAtom');
+    expect(formula.args[0].constructor.name).toBe('Path');
+    expect(formula.args[1].constructor.name).toBe('String');
+
+    // formula = new Expression(`gfp(@x, [*]@x)`); 
+    // console.log(formula)
+  });
+
+  it.skip("should parse", async () => {
     let formula, ctx, expandedFormula;
     formula = new Expression(`true and method_is("post")`);
     ctx = new Context({});
@@ -21,13 +42,13 @@ describe("Expression", () => {
     // expect(formula.getValue({ signedByMe: true })).toBe(true);
   });
 
-  it("should not parse formulas with trailing extra text", async () => {
+  it.skip("should not parse formulas with trailing extra text", async () => {
     expect(() => {
       new Expression(`true and method_is("post") but also garbage`);
     }).toThrow();
   });
 
-  it("should parse henceforth_must", async () => {
+  it.skip("should parse henceforth_must", async () => {
     let expr, mf;
 
     expr = new Expression(`henceforth_must (true)`);

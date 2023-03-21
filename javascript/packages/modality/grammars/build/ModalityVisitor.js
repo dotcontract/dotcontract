@@ -18,14 +18,8 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
-	// Visit a parse tree produced by ModalityParser#parenFormula.
-	visitParenFormula(ctx) {
-	  return this.visitChildren(ctx);
-	}
-
-
-	// Visit a parse tree produced by ModalityParser#falseAtom.
-	visitFalseAtom(ctx) {
+	// Visit a parse tree produced by ModalityParser#whenNextFormula.
+	visitWhenNextFormula(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
@@ -42,18 +36,6 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
-	// Visit a parse tree produced by ModalityParser#propAtom.
-	visitPropAtom(ctx) {
-	  return this.visitChildren(ctx);
-	}
-
-
-	// Visit a parse tree produced by ModalityParser#henceforthMustFormula.
-	visitHenceforthMustFormula(ctx) {
-	  return this.visitChildren(ctx);
-	}
-
-
 	// Visit a parse tree produced by ModalityParser#notFormula.
 	visitNotFormula(ctx) {
 	  return this.visitChildren(ctx);
@@ -66,6 +48,48 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
+	// Visit a parse tree produced by ModalityParser#lfpFormula.
+	visitLfpFormula(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalityParser#diamondFormula.
+	visitDiamondFormula(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalityParser#parenFormula.
+	visitParenFormula(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalityParser#boxFormula.
+	visitBoxFormula(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalityParser#falseAtom.
+	visitFalseAtom(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalityParser#henceforthMustFormula.
+	visitHenceforthMustFormula(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalityParser#gfpFormula.
+	visitGfpFormula(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
 	// Visit a parse tree produced by ModalityParser#trueAtom.
 	visitTrueAtom(ctx) {
 	  return this.visitChildren(ctx);
@@ -74,6 +98,36 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 
 	// Visit a parse tree produced by ModalityParser#henceforthCanFormula.
 	visitHenceforthCanFormula(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalityParser#propsAtom.
+	visitPropsAtom(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalityParser#unsignedProp.
+	visitUnsignedProp(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalityParser#signedProp.
+	visitSignedProp(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalityParser#sign.
+	visitSign(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalityParser#prop.
+	visitProp(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
@@ -98,6 +152,12 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 
 	// Visit a parse tree produced by ModalityParser#numberArg.
 	visitNumberArg(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalityParser#pathArg.
+	visitPathArg(ctx) {
 	  return this.visitChildren(ctx);
 	}
 

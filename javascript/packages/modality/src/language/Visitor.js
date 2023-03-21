@@ -9,8 +9,14 @@ import {
   OrFormula,
   NotFormula,
   WhenAlsoFormula,
+  WhenNextFormula,
   HenceforthCanFormula,
   HenceforthMustFormula,
+  BoxFormula,
+  DiamondFormula,
+  GfpFormula,
+  LfpFormula,
+  Path
 } from "./Expression.js";
 
 export default class ModalityVisitor extends AbstractVisitor {
@@ -75,6 +81,11 @@ export default class ModalityVisitor extends AbstractVisitor {
     }
   }
 
+  visitPathArg(ctx) {
+    const str = ctx.getText();
+    return new Path(str);
+  }
+
   visitFunctionAtom(ctx) {
     const name = ctx.name.text;
     const args = Array.from(ctx.arg()).map((arg) => {
@@ -90,6 +101,12 @@ export default class ModalityVisitor extends AbstractVisitor {
     return new WhenAlsoFormula(when_formula, also_formula);
   }
 
+  visitWhenNextFormula(ctx) {
+    const when_formula = this.visit(ctx.when_formula);
+    const next_formula = this.visit(ctx.next_formula);
+    return new WhenNextFormula(when_formula, next_formula); 
+  }
+
   visitHenceforthMustFormula(ctx) {
     const inner_formula = this.visit(ctx.inner_formula);
     const until_formula = ctx.until_formula ? this.visit(ctx.until_formula) : null;
@@ -101,4 +118,68 @@ export default class ModalityVisitor extends AbstractVisitor {
     const until_formula = ctx.until_formula ? this.visit(ctx.until_formula) : null;
     return new HenceforthCanFormula(inner_formula, until_formula);
   }
+
+  visitPropsAtom(ctx) {
+    const unsigned_actions = ctx.unsignedProp()
+      ? [this.visit(ctx.unsignedProp())]
+      : [];
+    const signed_actions = Array.from(ctx.signedProp()).map(
+      (signed_action) => {
+        const val = this.visit(signed_action);
+        return val;
+      }
+    );
+    return new PropsAtom([...unsigned_actions, ...signed_actions]);
+  }
+
+  visitUnsignedProp(ctx) {
+    const prop = this.visit(ctx.theProp);
+    return new SignedProp(true, prop); 
+  }
+
+  visitSignedProp(ctx) {
+    const sign = ctx.theSign ? this.visit(ctx.theSign) : "+";
+    const prop = this.visit(ctx.theProp);
+    return new SignedProp(sign === "+", prop);
+  }
+
+  visitSign(ctx) {
+    let str = ctx.getText();
+    return str;
+  }
+
+  visitProp(ctx) {
+    let str = ctx.getText();
+    return str;
+  }
+
+  visitBoxFormula(ctx) {
+    const inner = this.visit(ctx.inner);
+    const outer = this.visit(ctx.outer);
+    return new BoxFormula(inner, outer);
+  }
+
+  visitDiamondFormula(ctx) {
+    const inner = this.visit(ctx.inner);
+    const outer = this.visit(ctx.outer);
+    return new DiamondFormula(inner, outer); 
+  }
+
+  visitLfpFormula(ctx) {
+    const bound_var = this.visit(ctx.boundVar);
+    const inner = this.visit(ctx.inner);
+    return new LfpFormula(bound_var, inner);
+  }
+
+  visitGfpFormula(ctx) {
+    const bound_var = this.visit(ctx.boundVar);
+    const inner = this.visit(ctx.inner);
+    return new GfpFormula(bound_var, inner);
+  }
+  
+  visitBoundVar(ctx) {
+    let str = ctx.getText();
+    return new BoundVar(str);
+  }
+
 }

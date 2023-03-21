@@ -42,7 +42,7 @@ function describeCommits({ commitLog, commitOrder }) {
           : part.value;
       log(
         `${asGreen(part.method.toUpperCase())}\t${asCyan(
-          part.path
+          part.path || ""
         )}\t\t\t${part_value_formatted}`
       );
     }

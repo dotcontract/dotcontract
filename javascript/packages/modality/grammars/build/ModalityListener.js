@@ -23,21 +23,12 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by ModalityParser#parenFormula.
-	enterParenFormula(ctx) {
+	// Enter a parse tree produced by ModalityParser#whenNextFormula.
+	enterWhenNextFormula(ctx) {
 	}
 
-	// Exit a parse tree produced by ModalityParser#parenFormula.
-	exitParenFormula(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalityParser#falseAtom.
-	enterFalseAtom(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#falseAtom.
-	exitFalseAtom(ctx) {
+	// Exit a parse tree produced by ModalityParser#whenNextFormula.
+	exitWhenNextFormula(ctx) {
 	}
 
 
@@ -59,24 +50,6 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by ModalityParser#propAtom.
-	enterPropAtom(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#propAtom.
-	exitPropAtom(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalityParser#henceforthMustFormula.
-	enterHenceforthMustFormula(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#henceforthMustFormula.
-	exitHenceforthMustFormula(ctx) {
-	}
-
-
 	// Enter a parse tree produced by ModalityParser#notFormula.
 	enterNotFormula(ctx) {
 	}
@@ -95,6 +68,69 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by ModalityParser#lfpFormula.
+	enterLfpFormula(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#lfpFormula.
+	exitLfpFormula(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#diamondFormula.
+	enterDiamondFormula(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#diamondFormula.
+	exitDiamondFormula(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#parenFormula.
+	enterParenFormula(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#parenFormula.
+	exitParenFormula(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#boxFormula.
+	enterBoxFormula(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#boxFormula.
+	exitBoxFormula(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#falseAtom.
+	enterFalseAtom(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#falseAtom.
+	exitFalseAtom(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#henceforthMustFormula.
+	enterHenceforthMustFormula(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#henceforthMustFormula.
+	exitHenceforthMustFormula(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#gfpFormula.
+	enterGfpFormula(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#gfpFormula.
+	exitGfpFormula(ctx) {
+	}
+
+
 	// Enter a parse tree produced by ModalityParser#trueAtom.
 	enterTrueAtom(ctx) {
 	}
@@ -110,6 +146,51 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by ModalityParser#henceforthCanFormula.
 	exitHenceforthCanFormula(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#propsAtom.
+	enterPropsAtom(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#propsAtom.
+	exitPropsAtom(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#unsignedProp.
+	enterUnsignedProp(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#unsignedProp.
+	exitUnsignedProp(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#signedProp.
+	enterSignedProp(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#signedProp.
+	exitSignedProp(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#sign.
+	enterSign(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#sign.
+	exitSign(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#prop.
+	enterProp(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#prop.
+	exitProp(ctx) {
 	}
 
 
@@ -146,6 +227,15 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by ModalityParser#numberArg.
 	exitNumberArg(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#pathArg.
+	enterPathArg(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#pathArg.
+	exitPathArg(ctx) {
 	}
 
 
