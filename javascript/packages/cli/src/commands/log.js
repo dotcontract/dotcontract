@@ -37,7 +37,7 @@ function describeCommits({ commitLog, commitOrder }) {
     }
     for (const part of c.body) {
       const part_value_formatted =
-        part.value.match(`crypto://`) || part.value.match(`attachment://`)
+        part.value?.toString().match(`crypto://`) || part.value?.toString().match(`attachment://`)
           ? asViolet(part.value)
           : part.value;
       log(
