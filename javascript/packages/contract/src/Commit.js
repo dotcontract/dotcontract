@@ -16,7 +16,10 @@ export default class Commit {
   act({ method, path, value }) {
     const ca = new CommitAction({ method, path, value });
     if (method === "post") {
-      if (!path.match(`\.(${KNOWN_PATH_TYPES.join("|")})$`)) {
+      if (path.match(`\\.(.*)\/`)) {
+        throw new Error(`Invalid path ${path} contains a '.' nested in the path`);
+      }
+      if (!path.match(`\\.(${KNOWN_PATH_TYPES.join("|")})$`)) {
         throw new Error(`Cannot post to untyped path ${path} \n
     Use an extension from a known data type: ${KNOWN_PATH_DATA_TYPES.join(", ")}
     or an extension from a known file type: ${KNOWN_PATH_FILE_TYPES.join(", ")}
