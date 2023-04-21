@@ -16,7 +16,7 @@ export default class Commit {
   act({ method, path, value }) {
     const ca = new CommitAction({ method, path, value });
     if (method === "post") {
-      if (!path.match(`^///`)) {
+      if (!path.match(`^\/`)) {
         throw new Error(`Invalid path ${path} does not start with a '/'`);
       }
       if (path.match(`\\.(.*)\/`)) {
