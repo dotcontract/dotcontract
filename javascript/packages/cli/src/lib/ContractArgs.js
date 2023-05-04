@@ -1,61 +1,80 @@
 import DotContractDirectory from "@dotcontract/directory";
 import DotContractFile from "@dotcontract/file";
+import path from "path";
+import fs from "fs";
 
 export const CommonContractArgs = {
-  contract: {
-    alias: "c",
-    desc: "contract file (modified in-place) [filepath]",
-  },
-  input: {
-    alias: "input",
-    desc: "input contract file [filepath]",
-  },
-  output: {
-    alias: "o",
-    desc: "output contract file [filepath]",
+  file: {
+    alias: "file",
+    desc: "dotcontract file [filepath]",
   },
   dir: {
-    desc: "contract directory [filepath]",
+    desc: "dotcontract directory [filepath]",
   },
 };
 
-export const isDotContractDir = async function (dir) {
-  const dc_dir = new DotContractDirectory(dir);
-  return dc_dir.isValid();
+export const CommonContractWithOutputArgs = {
+  file: {
+    alias: "file",
+    desc: "dotcontract file [filepath]",
+  },
+  dir: {
+    desc: "dotcontract directory [filepath]",
+  }
+};
+
+export const findNearestDotContractDir = async function (dirpath) {
+  let dotcontract_dirpath = null;
+  const dirs = dirpath.split(path.sep);
+  const dir_depth = dirs.length;
+  for (let i = 1; i < dir_depth; i++) {
+    const dir_path = dirs.join(path.sep);
+    if (fs.existsSync(path.join(dir_path, ".dotcontract"))) {
+      dotcontract_dirpath = dir_path;
+    }
+    dirs.pop();
+  }
+  if (!dotcontract_dirpath) {
+    return;
+  }
+  const dc_dir = new DotContractDirectory(
+    path.join(dotcontract_dirpath, ".dotcontract")
+  );
+  if (!dc_dir.isValid()) {
+    return;
+  }
+  return dotcontract_dirpath;
 };
 
 export const ensureContractArgs = async function (argv) {
-  const { contract, input, output, dir } = argv;
-  const in_dotcontract_dir = await isDotContractDir(process.cwd());
-  if (!contract && !input && !dir && !in_dotcontract_dir) {
+  const { file, dir } = argv;
+  const nearest_dotcontract_dir = await findNearestDotContractDir(
+    process.cwd()
+  );
+  if (!file && !dir && !nearest_dotcontract_dir) {
     console.error(
-      `ERROR: Contract required:
-*  use --contract for in-place modification of a .contract
-*  use --input and --output to save a modified .contract elsewhere
-*  use --dir or run this command within a .contract directory to work on it
+      `ERROR: DotContract required:
+*  run this command within a dotcontract directory to work on it
+*  use --file to specify a dotcontract file
+*  use --dir to specify a dotcontract directory
   `
     );
     process.exit(-1);
   }
 
-  const contract_dir = !dir && in_dotcontract_dir ? process.cwd() : dir
+  const contract_dir = dir || nearest_dotcontract_dir;
 
   const dotcontract_file = await (() => {
-    if (input && output) {
-      return DotContractFile.fromFile(input, output);
-    } else if (contract || input) {
-      return DotContractFile.open(contract || input, output);
+    if (file) {
+      return DotContractFile.open(file);
     } else if (contract_dir) {
-      return DotContractFile.fromDir(contract_dir);
+      return DotContractFile.fromDir(path.join(contract_dir, ".dotcontract"));
     }
   })();
 
-
   return {
-    input,
-    output,
-    contract,
-    dir: !dir && in_dotcontract_dir ? process.cwd() : dir,
-    dotcontract_file
+    file,
+    dir: contract_dir,
+    dotcontract_file,
   };
 };

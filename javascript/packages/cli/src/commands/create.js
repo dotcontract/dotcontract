@@ -2,16 +2,13 @@ export const command = "create";
 export const describe = "creates a new contract";
 
 export const builder = {
-  contract: {
-    alias: "c",
-    desc: "where to output a .contract file [filepath]"
-  },
-  output: {
-    alias: "o",
-    desc: "where to output a .contract file [filepath]"
+  file: {
+    alias: "f",
+    desc: "where to output a dotcontract file [filepath]"
   },
   dir: {
-    desc: "creates a new .contract directory [filepath]"
+    alias: "d",
+    desc: "creates a new dotcontract directory [dirpath]"
   }
 };
 
@@ -19,23 +16,22 @@ import DotContractFile from "@dotcontract/file";
 import DotContractDirectory from '@dotcontract/directory';
 
 export async function handler(argv) {
-  const { contract, output, dir } = argv;
-  if (!dir && !output && !contract && !(contract && output)) {
-    console.error(`ERROR: You must specify where to create the contract.
-* use --contract or --output to create a .contract file
-* use --dir to create a .contract unpacked to a directory
+  const { dir, file } = argv;
+  if (!dir && !file) {
+    console.error(`ERROR: You must specify where to create the dotcontract.
+* use --file to create a dotcontract file
+* use --dir to create a dotcontract directory
 `);
     process.exit(-1);
   }
 
-  if (output || contract) {
-    await DotContractFile.create(output || contract);
-    console.log("Contract created successfully")
-    console.log(`.contract file at: ${output || contract}`);
+  if (file) {
+    await DotContractFile.create(file);
+    console.log(`dotcontract file created at: ${file}`);
   } else if (dir) {
-    await DotContractDirectory.generate(dir);
+    await DotContractDirectory.generate(`${dir}/.dotcontract`);
     console.log("Contract created successfully")
-    console.log(`.contract directory at: ${dir}`);
+    console.log(`dotcontract directory created at: ${dir}`);
   }
 }
 
