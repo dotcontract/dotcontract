@@ -3,7 +3,7 @@ import JSONHash from "@dotcontract/utils/JSONHash";
 import { Expression as ModalityExpression } from "@dotcontract/modality";
 
 const KNOWN_PATH_DATA_TYPES = ["text", "string", "boolean", "bool", "integer", "int", "number", "num", "balance", "bal", "set", "list", "table"];
-const KNOWN_PATH_FILE_TYPES = ["txt", "json", "pdf", "zip", "tar", "html", "png", "jpg", "jpeg", "gif", "svg", "doc", "docx", "xls", "xlsx", "csv"]
+const KNOWN_PATH_FILE_TYPES = ["txt", "json", "md", "pdf", "zip", "tar", "html", "png", "jpg", "jpeg", "gif", "svg", "doc", "docx", "xls", "xlsx", "csv"]
 const KNOWN_PATH_TYPES = [...KNOWN_PATH_DATA_TYPES, ...KNOWN_PATH_FILE_TYPES];
 
 export default class Commit {
@@ -11,6 +11,14 @@ export default class Commit {
     this.body = [];
     this.head = {};
     return this;
+  }
+
+  static isKnownDataType(endpoint) {
+    return endpoint.match(`\\.(${KNOWN_PATH_DATA_TYPES.join("|")})$`)
+  }
+
+  static isKnownFileType(endpoint) {
+    return endpoint.match(`\\.(${KNOWN_PATH_FILE_TYPES.join("|")})$`)
   }
 
   act({ method, path, value }) {

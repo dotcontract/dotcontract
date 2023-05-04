@@ -10,30 +10,20 @@ export const builder = {
   bodyFromFile: {
     desc: "commit body in standard format from a local file [filepath]",
   },
-  'sign': {
+  sign: {
     desc: "signs a commit using your default dotcontract keypair ($HOME/.dotcontract/default.keypair)",
   },
-  'sign-with': {
+  "sign-with": {
     desc: "signs a commit using the given keypair file [filepath]",
     nargs: 1,
-    array: true
+    array: true,
   },
   message: {
-    alias: 'm',
+    alias: "m",
     desc: "include a message with a commit [text]",
-  },
-  attach: {
-    desc: "attaches a file to ccontract path, two args: [path] [filepath]",
-    array: true,
-    nargs: 2
   },
   post: {
     desc: "posts a value to a contract path, two args: [path] [value]",
-    array: true,
-    nargs: 2,
-  },
-  define: {
-    desc: "defines the type of a contract path, two args: [path] [value]",
     array: true,
     nargs: 2,
   },
@@ -43,6 +33,11 @@ export const builder = {
     nargs: 1,
   },
   // TODO
+  // define: {
+  //   desc: "defines the type of a contract path, two args: [path] [value]",
+  //   array: true,
+  //   nargs: 2,
+  // },
   // repost: {
   //   desc: "reposts a post from another contract",
   // },
@@ -57,12 +52,12 @@ export const builder = {
   // },
 };
 
-import os from 'os';
-import path from 'path';
+import os from "os";
+import path from "path";
 import DotContractFile from "@dotcontract/file";
 import Contract, { Commit, CommitAction } from "@dotcontract/contract";
-import Key from '@dotcontract/utils/Key';
-import FileHash from '@dotcontract/utils/FileHash';
+import Key from "@dotcontract/utils/Key";
+import FileHash from "@dotcontract/utils/FileHash";
 
 export async function handler(argv) {
   let {
@@ -70,11 +65,10 @@ export async function handler(argv) {
     body,
     bodyFromFile,
     sign,
-    ['sign-with']: sign_with,
-    attach,
+    ["sign-with"]: sign_with,
     post,
     rule,
-    define,
+    // define,
     // repost,
     // create,
     // send,
@@ -82,7 +76,7 @@ export async function handler(argv) {
   } = argv;
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
 
-  if (!attach && !post && !rule && !define && !body && !bodyFromFile) {
+  if (!post && !rule && !define && !body && !bodyFromFile) {
     console.error(
       "Missing required argument: body or bodyFromFile or a particular action like post, rule, or define"
     );
@@ -90,9 +84,7 @@ export async function handler(argv) {
   }
   // TODO
   if (body || bodyFromFile) {
-    console.error(
-      "Input as body not yet implemented"
-    );
+    console.error("Input as body not yet implemented");
     return process.exit(-1);
   }
   // if (bodyFromFile) {
@@ -109,24 +101,25 @@ export async function handler(argv) {
   // }
 
   const c = new Commit();
+  const attachments = [];
   if (post && post.length) {
     for (let i = 0; i < post.length; i = i + 2) {
       const path = post[i];
-      const value = post[i + 1];
+      let value;
+      if (Commit.isKnownDataType(post[i])) {
+        value = post[i + 1];
+      } else if (Commit.isKnownFileType(post[i])) {
+        const filepath = post[i + 1];
+        const attachment_hash = FileHash(filepath);
+        value = `attachment://${attachment_hash}`;
+        attachments.push({
+          path,
+          filepath,
+        });
+      } else {
+        throw new Error(`Unknown type for post: ${post[i]}`);
+      }
       c.post(path, value);
-    }
-  }
-  const attachments = [];
-  if (attach && attach.length) {
-    for (let i = 0; i < attach.length; i = i + 2) {
-      const path = attach[i];
-      const filepath = attach[i + 1];
-      const attachment_hash = FileHash(filepath);
-      c.post(path, `attachment://${attachment_hash}`);
-      attachments.push({
-        path,
-        filepath
-      })
     }
   }
   if (rule && rule.length) {
@@ -137,12 +130,14 @@ export async function handler(argv) {
   }
 
   if (message) {
-    c.setHead('message', message);
+    c.setHead("message", message);
   }
 
   const signing_keys = [];
   if (sign) {
-    const keypair_path = path.resolve(`${os.homedir}/.dotcontract/default.keypair`);
+    const keypair_path = path.resolve(
+      `${os.homedir}/.dotcontract/default.keypair`
+    );
     const key = await Key.fromJSONFile(keypair_path);
     signing_keys.push(key);
   }
@@ -150,7 +145,7 @@ export async function handler(argv) {
     for (const keypair_path of sign_with) {
       const key = await Key.fromJSONFile(keypair_path);
       signing_keys.push(key);
-    } 
+    }
   }
   if (signing_keys.length) {
     await c.signWith(signing_keys);
@@ -158,7 +153,7 @@ export async function handler(argv) {
 
   await dcf.commit(c.toJSON());
   for (const attachment of attachments) {
-    await dcf.attach(attachment)
+    await dcf.attach(attachment);
   }
   await dcf.save();
 }
