@@ -1,0 +1,27 @@
+{
+  "systems": [
+    {
+      "states": {
+        "anything2": {
+          "arrows": [
+            [
+              "",
+              "anything2"
+            ]
+          ]
+        }
+      },
+      "possible_current_states": [
+        "anything2"
+      ]
+    }
+  ],
+  "mappings": [
+	  {
+		  "source": {"system": 0, "state": "anything1"},
+		  "target": {"system": 0, "state": "anything2"}
+	  }
+  ],
+  "apply_first": true,
+  "rules": []
+}

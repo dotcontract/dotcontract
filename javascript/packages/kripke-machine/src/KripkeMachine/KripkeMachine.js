@@ -65,7 +65,12 @@ export default class KripkeMachine {
   }
 
   canTakeStep(step) {
-    if (!this.canTakeSimpleStep(step)) {
+    const km = this.clone();
+    if (step.hasEarlyEvolution()) {
+      const evolution = step.getEvolution();
+      km.evolve(null, evolution);
+    }
+    if (!km.canTakeSimpleStep(step)) {
       return false;
     }
     if (!step.hasEvolution && !step.hasRule()) {
@@ -77,6 +82,10 @@ export default class KripkeMachine {
 
   takeStep(step) {
     const km = this.clone();
+    if (step.hasEarlyEvolution()) {
+      const evolution = step.getEvolution();
+      km.evolve(null, evolution);
+    }
     for (const sys of km.systems) {
       const r = sys.canTakeStep(step);
       if (!r) {
@@ -90,7 +99,11 @@ export default class KripkeMachine {
       this.systems = km.systems;
       return;
     }
-    if (!step.hasEvolution()) {
+    if (!step.hasEvolution() && step.hasRule()) {
+      if (!km.satisfiesRule(step.rule_text)) {
+        throw new Error('new rule not satisfied')
+      }
+      km.rules.push(new Rule(step.rule_text, km.getPossibleCurrentStateIds()));
       this.systems = km.systems;
       return;
     }

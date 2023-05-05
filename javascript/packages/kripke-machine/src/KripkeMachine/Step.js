@@ -16,7 +16,16 @@ export default class Step {
   }
 
   getEvolution() {
-    if (!this.evolution_json) { return null; }
+    if (!this.evolution_json) {
+      return null;
+    }
     return Evolution.fromJSON(this.evolution_json);
+  }
+
+  hasEarlyEvolution() {
+    if (!this.evolution_json) {
+      return null;
+    }
+    return this.evolution_json.apply_first;
   }
 }
