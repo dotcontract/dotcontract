@@ -29,7 +29,7 @@ export async function handler(argv) {
     await DotContractFile.create(file);
     console.log(`dotcontract file created at: ${file}`);
   } else if (dir) {
-    await DotContractDirectory.generate(`${dir}/.dotcontract`);
+    await DotContractDirectory.generate(`${dir}/.contract`);
     console.log("Contract created successfully")
     console.log(`dotcontract directory created at: ${dir}`);
   }

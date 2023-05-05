@@ -5,20 +5,22 @@ import fs from "fs";
 
 export const CommonContractArgs = {
   file: {
-    alias: "file",
+    alias: "f",
     desc: "dotcontract file [filepath]",
   },
   dir: {
+    alias: "d",
     desc: "dotcontract directory [filepath]",
   },
 };
 
 export const CommonContractWithOutputArgs = {
   file: {
-    alias: "file",
+    alias: "f",
     desc: "dotcontract file [filepath]",
   },
   dir: {
+    alias: "d",
     desc: "dotcontract directory [filepath]",
   }
 };
@@ -29,7 +31,7 @@ export const findNearestDotContractDir = async function (dirpath) {
   const dir_depth = dirs.length;
   for (let i = 1; i < dir_depth; i++) {
     const dir_path = dirs.join(path.sep);
-    if (fs.existsSync(path.join(dir_path, ".dotcontract"))) {
+    if (fs.existsSync(path.join(dir_path, ".contract"))) {
       dotcontract_dirpath = dir_path;
     }
     dirs.pop();
@@ -38,7 +40,7 @@ export const findNearestDotContractDir = async function (dirpath) {
     return;
   }
   const dc_dir = new DotContractDirectory(
-    path.join(dotcontract_dirpath, ".dotcontract")
+    path.join(dotcontract_dirpath, ".contract")
   );
   if (!dc_dir.isValid()) {
     return;
@@ -68,7 +70,7 @@ export const ensureContractArgs = async function (argv) {
     if (file) {
       return DotContractFile.open(file);
     } else if (contract_dir) {
-      return DotContractFile.fromDir(path.join(contract_dir, ".dotcontract"));
+      return DotContractFile.fromDir(path.join(contract_dir, ".contract"));
     }
   })();
 
