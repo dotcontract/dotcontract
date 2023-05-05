@@ -8,6 +8,10 @@ export default class Arrow {
     return this;
   }
 
+  toJSONArray() {
+    return [this.property_table.toText(), this.target_state_id];
+  }
+
   clone() {
     const a = new Arrow(this.property_table.toText(), this.target_state_id);
     return a;

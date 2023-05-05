@@ -10,7 +10,7 @@ export default class Contract {
     this.genesis = genesis;
     this.sign_tools = [];
     this.commits = [];
-    this.km = new KripkeMachine();
+    this.km = KripkeMachine.createLooper();
     return this;
   }
 
@@ -47,14 +47,6 @@ export default class Contract {
     return Array.from(r);
   }
 
-  static async fromCommitLog(commit_log) {
-    const c = new Contract();
-    for (const commit_json of commit_log) {
-      await c.appendCommitFromJson(commit_json);
-    }
-    return c;
-  }
-
   async appendCommitLog(commit_log) {
     for (const commit_json_string of commit_log) {
       const commit_json = JSON.parse(commit_json_string);
@@ -63,87 +55,38 @@ export default class Contract {
     return this;
   }
 
-  async toCommitLog() {
-    const commit_log = [];
-    for (const commit of this.commits) {
-      commit_log.push(commit);
-    }
-    return commit_log;
-  }
-
-  async toNetworkCommitLog() {
-    const r = [];
-    r.push({
-      contract_id: this.id,
-    });
-    const cl = await this.toCommitLog();
-    for (const commit of cl) {
-      r.push({
-        contract_id: this.id,
-        ...commit,
-      });
-    }
-    return r;
-  }
-
-  async canAppendConstrainCommit(commit) {
-    const contextProps = await this.getContextProps(commit);
-    const rule_text = commit.body.filter(i => i.method === "rule").map(i => i.value).join(' AND ');
-    return this.km.canTakeStep(
-      new Step(contextProps.join(" "), { rule_text })
-    );
-  }
-
-  async canAppendBasicCommit(commit) {
-    const contextProps = await this.getContextProps(commit);
-    const step = new Step(contextProps.join(" "));
-    return this.km.canTakeStep(step);
-  }
-
   async canAppendCommit(commit) {
-    if (commit.body.find(i => i.method === "rule") !== -1) {
-      return this.canAppendConstrainCommit(commit);
+    const containsNewRule = commit.body.some(i => i.method === "rule");
+    const containsEvolution = !!commit.head.evolution;
+    const props_text = "";
+    if (containsNewRule && !containsEvolution) {
+      return [false, "Cannot add new rule without evolution"];
+    } else if (containsNewRule) {
+      const step = new Step(props_text, {
+        rule_text: commit.body.filter(i => i.method === "rule").map(i => i.value).join(' AND '),
+        evolution_json: commit.head.evolution,
+      });
+      return this.km.canTakeStep(step);
+    } else if (containsEvolution) {
+      const step = new Step(props_text, {
+        evolution_json: commit.head.evolution,
+      });
+      return this.km.canTakeStep(step);
     } else {
-      return this.canAppendBasicCommit(commit);
+      const step = new Step(props_text, {});
+      return this.km.canTakeStep(step);
     }
-  }
-
-  async appendConstrainCommit(commit) {
-    // const [canAppendCommit, canAppendCommitError] = await this.canAppendCommit(
-    //   commit
-    // );
-    // if (!canAppendCommit) {
-    //   throw canAppendCommitError;
-    // }
-
-    // const ec = Modality.expandConstraintFunctions(commit.content);
-    // const contextProps = await this.getContextProps(commit);
-    // await this.km.takeStep(
-    //   new Step(contextProps.join(" "), { rule_text: ec.constraint })
-    // );
-    this.commits.push(commit);
-  }
-
-  async appendBasicCommit(commit) {
-    // const [canAppendCommit, canAppendCommitError] = await this.canAppendCommit(
-    //   commit
-    // );
-    // if (!canAppendCommit) {
-    //   throw canAppendCommitError;
-    // }
-    // const contextProps = await this.getContextProps(commit);
-    // await this.km.takeStep({
-    //   actions: [...contextProps],
-    // });
-    this.commits.push(commit);
   }
 
   async appendCommit(commit) {
-    if (commit.method === "constrain") {
-      return this.appendConstrainCommit(commit);
-    } else {
-      return this.appendBasicCommit(commit);
-    }
+    const props_text = "";
+    const new_rules = commit.body.filter(i => i.method === "rule").map(i => i.value);
+    const step = new Step(props_text, {
+      rule_text: new_rules.length ? new_rules.join(' AND ') : null,
+      evolution_json: commit.head.evolution,
+    });
+    await this.km.takeStep(step);
+    return this.commits.push(commit);
   }
 
   appendCommitFromJson(commit_json) {
@@ -172,37 +115,5 @@ export default class Contract {
       r.head.signatures = signatures;
     }
     return r;
-  }
-
-  async post(path, value, meta) {
-    const commit_json = await this.prepareCommitJSON("post", path, value, meta);
-    return this.appendCommitFromJson(commit_json);
-  }
-
-  async canPost(path, value, meta) {
-    const commit_json = await this.prepareCommitJSON("post", path, value, meta);
-    return this.canAppendCommitFromJson(commit_json);
-  }
-
-  async addRule(content, meta) {
-    const commit_json = await this.prepareCommitJSON("rule", content, meta);
-    return this.appendCommitFromJson(commit_json);
-  }
-
-  async canAddRule(content, meta) {
-    const commit_json = await this.prepareCommitJSON("rule", content, meta);
-    return this.canAppendCommitFromJson(commit_json);
-  }
-
-  startSigningCommitsWith(sign_tool) {
-    this.sign_tools = [...(this.sign_tools || []), sign_tool];
-  }
-
-  stopSigningCommits() {
-    this.sign_tools = [];
-  }
-
-  startSigningCommitsWithOnly(sign_tool) {
-    this.sign_tools = [sign_tool];
   }
 }

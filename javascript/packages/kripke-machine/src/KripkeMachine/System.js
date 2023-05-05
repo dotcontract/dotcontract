@@ -36,6 +36,17 @@ export default class System {
     return sys;
   }
 
+  toJSON() {
+    const r = {states: {}, possible_current_states: this.possible_current_state_ids};
+    for (const state of Object.values(this.states_by_id)) {
+      const arrows = this.states_by_id[state.id].arrows;
+      r.states[state.id] = {
+        arrows: arrows.map((a) => a.toJSONArray()),
+      }
+    }
+    return r;
+  }
+
   clone() {
     const s = new System();
     s.states_by_id = Object.fromEntries(

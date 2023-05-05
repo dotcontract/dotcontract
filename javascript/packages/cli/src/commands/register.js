@@ -19,7 +19,6 @@ import DotContractFile from "@dotcontract/file";
 export async function handler(argv) {
   const pf = await DotContractFile.open(argv.contract);
   const contract = pf.directory.contract;
-  const events = await contract.toNetworkCommitLog();
   // TODO
 }
 

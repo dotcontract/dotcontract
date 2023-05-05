@@ -1,6 +1,7 @@
 export const command = "commit";
 export const describe = "adds a commit to a contract";
 import { CommonContractArgs, ensureContractArgs } from "../lib/ContractArgs.js";
+import fs from 'fs';
 
 export const builder = {
   ...CommonContractArgs,
@@ -32,6 +33,9 @@ export const builder = {
     array: true,
     nargs: 1,
   },
+  evolution: {
+    desc: "evolves kripke machine, one arg: [evolution.json]",
+  }
   // TODO
   // define: {
   //   desc: "defines the type of a contract path, two args: [path] [value]",
@@ -68,6 +72,7 @@ export async function handler(argv) {
     ["sign-with"]: sign_with,
     post,
     rule,
+    evolution,
     // define,
     // repost,
     // create,
@@ -133,6 +138,10 @@ export async function handler(argv) {
     c.setHead("message", message);
   }
 
+  if (evolution) {
+    c.setHead("evolution", JSON.parse(fs.readFileSync(evolution)));
+  }
+
   const signing_keys = [];
   if (sign) {
     const keypair_path = path.resolve(
@@ -151,7 +160,12 @@ export async function handler(argv) {
     await c.signWith(signing_keys);
   }
 
+  if (!dcf.directory.contract.canAppendCommitFromJson(c.toJSON())) {
+    throw new Error("Unable to append commit to contract.");
+  }
+
   await dcf.commit(c.toJSON());
+
   for (const attachment of attachments) {
     await dcf.attach(attachment);
   }

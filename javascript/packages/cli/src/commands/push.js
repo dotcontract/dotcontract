@@ -23,7 +23,6 @@ export async function handler(argv) {
   const pf = await DotContractFile.open(argv.contract);
   const { data_dir, key, network, listen, announce } = await parseNetworkArgs(argv);
   const contract = pf.directory.contract;
-  const events = await contract.toNetworkCommitLog();
   // TODO
   // log();
   // log(asSuccess(`# Push Accepted`));

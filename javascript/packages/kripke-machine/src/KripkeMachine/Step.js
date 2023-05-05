@@ -11,8 +11,12 @@ export default class Step {
     return !!this.rule_text;
   }
 
+  hasEvolution() {
+    return !!this.evolution_json;
+  }
+
   getEvolution() {
     if (!this.evolution_json) { return null; }
-    return new Evolution(this.evolution_json);
+    return Evolution.fromJSON(this.evolution_json);
   }
 }

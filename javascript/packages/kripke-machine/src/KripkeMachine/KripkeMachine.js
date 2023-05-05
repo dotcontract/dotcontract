@@ -29,6 +29,14 @@ export default class KripkeMachine {
     return km;
   }
 
+
+  toJSON() {
+    return {
+      systems: this.systems.map(sys => sys.toJSON()),
+      rules: this.rules.map(rule => rule.toJSON()),
+    }
+  }
+
   clone() {
     const km = new KripkeMachine();
     km.systems = this.systems.map((sys) => sys.clone());
@@ -60,7 +68,7 @@ export default class KripkeMachine {
     if (!this.canTakeSimpleStep(step)) {
       return false;
     }
-    if (!step.hasRule()) {
+    if (!step.hasEvolution && !step.hasRule()) {
       return true;
     }
     const evolution = step.getEvolution();
@@ -78,13 +86,15 @@ export default class KripkeMachine {
     for (const sys of km.systems) {
       sys.takeStep(step);
     }
-    if (!step.hasRule()) {
+    if (!step.hasEvolution() && !step.hasRule()) {
+      this.systems = km.systems;
+      return;
+    }
+    if (!step.hasEvolution()) {
       this.systems = km.systems;
       return;
     }
     const evolution = step.getEvolution();
-    km.canEvolve(step.rule_text, evolution);
-    this.systems = km.systems;
     this.evolve(step.rule_text, evolution);
   }
 
@@ -108,6 +118,7 @@ export default class KripkeMachine {
         .map((i) => i.state);
       ess.possible_current_state_ids = pcs;
     }
+    this.systems = evolution.systems;
 
     // move root states of rules
     for (const rule of this.rules) {
@@ -122,17 +133,18 @@ export default class KripkeMachine {
         }
       }
       if (!new_root_states.length) {
-        console.log(rule, new_root_states, evolution.mappings);
         throw new Error("rule missing new root state");
       }
-      rule.root_states = new_root_states;
+      rule.root_states = new_root_states; 
     }
   }
 
   canEvolve(rule_text, evolution) {
     const km = this.clone();
-    const new_rule = new Rule(rule_text, this.getPossibleCurrentStateIds());
-    km.rules.push(new_rule);
+    if (rule_text) {
+      const new_rule = new Rule(rule_text, this.getPossibleCurrentStateIds());
+      km.rules.push(new_rule);
+    }
     try {
       km.applyEvolution(evolution);
     } catch (e) {
@@ -147,8 +159,10 @@ export default class KripkeMachine {
 
   // dangerous, should only evolve by taking a step
   evolve(rule_text, evolution) {
-    const new_rule = new Rule(rule_text, this.getPossibleCurrentStateIds());
-    this.rules.push(new_rule);
+    if (rule_text) {
+      const new_rule = new Rule(rule_text, this.getPossibleCurrentStateIds());
+      this.rules.push(new_rule);
+    }
     this.rules.map((i) => i.root_states);
     this.applyEvolution(evolution);
   }
