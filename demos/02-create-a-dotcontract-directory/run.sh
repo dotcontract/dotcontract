@@ -4,17 +4,20 @@
 cd $(dirname -- "$0")
 source ../helpers.sh
 
-rm -rf ./example.contract
+rm -rf ./.contract
 set -x
 
-comment "Create a DotContract file"
-contract create -f example.contract
+comment "Create a DotContract directory"
+contract create -d .
 
-comment "get info about example.contract"
-contract info -f example.contract
+comment "we don't need to specify the directory in future commands"
+comment "this is because we're already in a dir with .contract directory"
+
+comment "get info about .contract"
+contract info
 
 comment "commit a post action"
-contract commit -f example.contract --post /welcome.text "hello"
+contract commit --post /welcome.text "hello"
 
 comment "see what happened"
-contract log -f example.contract
+contract log
