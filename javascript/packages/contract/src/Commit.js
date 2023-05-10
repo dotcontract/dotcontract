@@ -1,11 +1,7 @@
 import CommitAction from "./CommitAction.js";
+import Route from "./Route.js";
 import JSONHash from "@dotcontract/utils/JSONHash";
 import { Expression as ModalityExpression } from "@dotcontract/modality";
-
-const KNOWN_PATH_DATA_TYPES = ["text", "string", "boolean", "bool", "integer", "int", "number", "num", "balance", "bal", "set", "list", "table"];
-const KNOWN_PATH_FILE_TYPES = ["txt", "json", "md", "pdf", "zip", "tar", "html", "png", "jpg", "jpeg", "gif", "svg", "doc", "docx", "xls", "xlsx", "csv"]
-const KNOWN_PATH_TYPES = [...KNOWN_PATH_DATA_TYPES, ...KNOWN_PATH_FILE_TYPES];
-
 export default class Commit {
   constructor() {
     this.body = [];
@@ -13,27 +9,17 @@ export default class Commit {
     return this;
   }
 
-  static isKnownDataType(endpoint) {
-    return endpoint.match(`\\.(${KNOWN_PATH_DATA_TYPES.join("|")})$`)
-  }
-
-  static isKnownFileType(endpoint) {
-    return endpoint.match(`\\.(${KNOWN_PATH_FILE_TYPES.join("|")})$`)
-  }
-
   act({ method, path, value }) {
     const ca = new CommitAction({ method, path, value });
     if (method === "post") {
-      if (!path.match(`^\/`)) {
-        throw new Error(`Invalid path ${path} does not start with a '/'`);
+      if (!Route.isValidPath(path)) {
+        throw new Error(`Invalid path ${path}`);
       }
-      if (path.match(`\\.(.*)\/`)) {
-        throw new Error(`Invalid path ${path} contains a '.' nested in the path`);
-      }
-      if (!path.match(`\\.(${KNOWN_PATH_TYPES.join("|")})$`)) {
-        throw new Error(`Cannot post to untyped path ${path} \n
-    Use an extension from a known data type: ${KNOWN_PATH_DATA_TYPES.join(", ")}
-    or an extension from a known file type: ${KNOWN_PATH_FILE_TYPES.join(", ")}
+      if (!Route.getType(path)) {
+        throw new Error(`Cannot post to route ${path} \n
+    You can only post to routes of known types. \n
+    Primitive file types: ${Route.getPrimitiveTypes().join(", ")}
+    Attachment file type: ${Route.getAttachmentTypes().join(", ")}
 
     For example: ${path}.text
     `);

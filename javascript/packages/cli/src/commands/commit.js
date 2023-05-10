@@ -59,7 +59,7 @@ export const builder = {
 import os from "os";
 import path from "path";
 import DotContractFile from "@dotcontract/file";
-import Contract, { Commit, CommitAction } from "@dotcontract/contract";
+import Contract, { Commit, CommitAction, Route } from "@dotcontract/contract";
 import Key from "@dotcontract/utils/Key";
 import FileHash from "@dotcontract/utils/FileHash";
 
@@ -111,9 +111,9 @@ export async function handler(argv) {
     for (let i = 0; i < post.length; i = i + 2) {
       const path = post[i];
       let value;
-      if (Commit.isKnownDataType(post[i])) {
+      if (Route.isPrimitive(post[i])) {
         value = post[i + 1];
-      } else if (Commit.isKnownFileType(post[i])) {
+      } else if (Route.isAttachment(post[i])) {
         const filepath = post[i + 1];
         const attachment_hash = FileHash(filepath);
         value = `attachment://${attachment_hash}`;
@@ -122,7 +122,13 @@ export async function handler(argv) {
           filepath,
         });
       } else {
-        throw new Error(`Unknown type for post: ${post[i]}`);
+        throw new Error(`Cannot post to route ${path} \n
+You can only post to routes of known types. \n
+Primitive file types: ${Route.getPrimitiveTypes().join(", ")}\n
+Attachment file type: ${Route.getAttachmentTypes().join(", ")}
+    
+For example: ${path}.text
+        `);
       }
       c.post(path, value);
     }

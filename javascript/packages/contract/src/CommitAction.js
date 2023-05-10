@@ -1,11 +1,11 @@
 export const METHODS = [
   "post",
   "rule",
-  "define",
-  "repost",
-  "create",
-  "send",
-  "receive",
+  // "define",
+  // "repost",
+  // "create",
+  // "send",
+  // "receive",
 ];
 
 export default class CommitAction {
