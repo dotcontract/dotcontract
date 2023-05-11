@@ -1,5 +1,4 @@
 import AbstractVisitor from "../../grammars/build/ModalFormulaVisitor.js";
-import Parser from "../../grammars/build/PropositionalFormulaParser.js";
 
 import {
   TrueAtom,

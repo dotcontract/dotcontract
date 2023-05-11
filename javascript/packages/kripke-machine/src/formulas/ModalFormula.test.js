@@ -1,6 +1,6 @@
 import ModalFormula from "./ModalFormula.js";
-import System from "../KripkeMachine/System";
-import Solve from "./Solve";
+import Solve from "./Solve.js";
+import System from "../parts/System.js";
 
 import JSONFile from "@dotcontract/utils/JSONFile";
 import dirnameFromImportMeta from "@dotcontract/utils/dirnameFromImportMeta";
