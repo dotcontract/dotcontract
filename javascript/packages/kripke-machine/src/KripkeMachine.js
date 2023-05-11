@@ -29,12 +29,11 @@ export default class KripkeMachine {
     return km;
   }
 
-
   toJSON() {
     return {
-      systems: this.systems.map(sys => sys.toJSON()),
-      rules: this.rules.map(rule => rule.toJSON()),
-    }
+      systems: this.systems.map((sys) => sys.toJSON()),
+      rules: this.rules.map((rule) => rule.toJSON()),
+    };
   }
 
   clone() {
@@ -101,7 +100,7 @@ export default class KripkeMachine {
     }
     if (!step.hasEvolution() && step.hasRule()) {
       if (!km.satisfiesRule(step.rule_text)) {
-        throw new Error('new rule not satisfied')
+        throw new Error("new rule not satisfied");
       }
       km.rules.push(new Rule(step.rule_text, km.getPossibleCurrentStateIds()));
       this.systems = km.systems;
@@ -148,36 +147,37 @@ export default class KripkeMachine {
       if (!new_root_states.length) {
         throw new Error("rule missing new root state");
       }
-      rule.root_states = new_root_states; 
+      rule.root_states = new_root_states;
     }
   }
 
   canEvolve(evolution, rule_text) {
     const km = this.clone();
+    try {
+      km.evolve(evolution, rule_text);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  evolve(evolution, rule_text) {
+    const km = this.clone();
     if (rule_text) {
       const new_rule = new Rule(rule_text, this.getPossibleCurrentStateIds());
       km.rules.push(new_rule);
     }
-    try {
-      km.applyEvolution(evolution);
-    } catch (e) {
-      return false;
-    }
+    km.applyEvolution(evolution);
     const r = km.satisfiesRules();
     if (!r.ok) {
-      return false;
+      throw new Error(
+        `new rule not satisfied: ${r.errors
+          .map((i) => i.modal_formula_text)
+          .join(", ")}`
+      );
     }
-    return true;
-  }
-
-  // dangerous, should only evolve by taking a step
-  evolve(evolution, rule_text) {
-    if (rule_text) {
-      const new_rule = new Rule(rule_text, this.getPossibleCurrentStateIds());
-      this.rules.push(new_rule);
-    }
-    this.rules.map((i) => i.root_states);
-    this.applyEvolution(evolution);
+    this.rules = km.rules;
+    this.systems = km.systems;
   }
 
   satisfiesRules() {

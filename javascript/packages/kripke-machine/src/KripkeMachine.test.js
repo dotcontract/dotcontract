@@ -61,8 +61,11 @@ describe("KripkeMachine", () => {
     expect(km3.rules.length).toBe(1);
     expect(km3.systems.length).toBe(2);
 
-    // test evolution with rule
+    // test evolution with unsatisfiable rule and satisfiable rule
     const km4 = km.clone();
+    expect(() => {
+      km4.evolve(evolution, "lfp(@x, [*]@x and <defraud>true)");
+    }).toThrow();
     km4.evolve(evolution, "gfp(@x, [*]@x and [defraud]false)");
     expect(km4.rules.length).toBe(2);
     expect(km4.systems.length).toBe(2);
