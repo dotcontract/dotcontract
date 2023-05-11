@@ -1,7 +1,5 @@
 import CommitAction from "./CommitAction.js";
-import Route from "./Route.js";
 import JSONHash from "@dotcontract/utils/JSONHash";
-import { Expression as ModalityExpression } from "@dotcontract/modality";
 export default class Commit {
   constructor() {
     this.body = [];
@@ -11,38 +9,22 @@ export default class Commit {
 
   act({ method, path, value }) {
     const ca = new CommitAction({ method, path, value });
-    if (method === "post") {
-      if (!Route.isValidPath(path)) {
-        throw new Error(`Invalid path ${path}`);
-      }
-      if (!Route.getType(path)) {
-        throw new Error(`Cannot post to route ${path} \n
-    You can only post to routes of known types. \n
-    Primitive file types: ${Route.getPrimitiveTypes().join(", ")}
-    Attachment file type: ${Route.getAttachmentTypes().join(", ")}
-
-    For example: ${path}.text
-    `);
-      }
-      const paths_used = this.body.map((p) => p.path);
-      if (paths_used.indexOf(path) !== -1) {
-        throw new Error(`cannot post to same path ${path} within one commit`);
-      }
-    } else if (method === "rule") {
-      try {
-        new ModalityExpression(value);
-      } catch(e) {
-        throw new Error(`unable to parse rule: ${value}`)
-      }
+    ca.validateOrThrow();
+    if (this.getRoutePaths().includes(path)) {
+      throw new Error(`cannot post to same path ${path} within one commit`);
     }
-    this.body.push(ca.toJSON());
+     this.body.push(ca.toJSON());
   }
 
-  post(path, value) {
+  getRoutePaths() {
+    return this.body.map((p) => p.path);
+  }
+
+  addPost(path, value) {
     this.act({ method: "post", path, value });
   }
 
-  rule(value) {
+  addRule(value) {
     this.act({ method: "rule", path: null, value });
   }
 
@@ -50,6 +32,7 @@ export default class Commit {
     const actions = [];
     for (const part of body) {
       const ca = new CommitAction(part);
+      ca.validateOrThrow();
       actions.push(ca);
     }
     const c = new Commit();

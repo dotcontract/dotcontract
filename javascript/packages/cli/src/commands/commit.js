@@ -59,7 +59,7 @@ export const builder = {
 import os from "os";
 import path from "path";
 import DotContractFile from "@dotcontract/file";
-import Contract, { Commit, CommitAction, Route } from "@dotcontract/contract";
+import Contract, { Commit, Route } from "@dotcontract/contract";
 import Key from "@dotcontract/utils/Key";
 import FileHash from "@dotcontract/utils/FileHash";
 
@@ -130,13 +130,13 @@ Attachment file type: ${Route.getAttachmentTypes().join(", ")}
 For example: ${path}.text
         `);
       }
-      c.post(path, value);
+      c.addPost(path, value);
     }
   }
   if (rule && rule.length) {
     for (let i = 0; i < rule.length; i++) {
       const value = rule[i];
-      c.rule(value);
+      c.addRule(value);
     }
   }
 

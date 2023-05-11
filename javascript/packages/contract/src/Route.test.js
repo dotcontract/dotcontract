@@ -2,7 +2,6 @@ import Route from "./Route.js";
 
 describe("Route", () => {
   it("should work", async () => {
-    let route;
     expect(Route.getType("/test.txt")).toBe("attachment");
     expect(Route.getType("/test.text")).toBe("primitive");
     expect(Route.getType("not/")).toBe(null);

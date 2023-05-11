@@ -80,6 +80,8 @@ export class Expression {
   static parse(text) {
     const chars = new antlr4.InputStream(text);
     const lexer = new Lexer(chars);
+    lexer.removeErrorListeners();
+    lexer.addErrorListener(new CustomErrorListener());
     const tokens = new antlr4.CommonTokenStream(lexer);
     const parser = new Parser(tokens);
     parser.buildParseTrees = true;

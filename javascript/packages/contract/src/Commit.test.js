@@ -20,12 +20,16 @@ describe("Contract", () => {
     }).toThrow();
 
     const c = new Commit();
-    c.post('/value.text', 'hello');
-    c.post('/value2.text', 'hello');
+    c.addPost('/value.text', 'hello');
+    c.addPost('/value2.text', 'hello');
     expect(c.body[0].path).toBe('/value.text');
     expect(c.body.length).toBe(2);
     expect(() => {
-      c.post('/value.text', 'hello again');
+      c.addPost('/value.text', 'hello again');
+    }).toThrow();
+    c.addRule('true');
+    expect(() => {
+      c.addRule('???');
     }).toThrow();
   });
 });
