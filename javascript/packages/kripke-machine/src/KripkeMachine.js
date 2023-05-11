@@ -68,7 +68,7 @@ export default class KripkeMachine {
     const km = this.clone();
     if (step.hasEarlyEvolution()) {
       const evolution = step.getEvolution();
-      km.evolve(null, evolution);
+      km.evolve(evolution, null);
     }
     if (!km.canTakeSimpleStep(step)) {
       return false;
@@ -77,14 +77,14 @@ export default class KripkeMachine {
       return true;
     }
     const evolution = step.getEvolution();
-    return this.canEvolve(step.rule_text, evolution);
+    return this.canEvolve(evolution, step.rule_text);
   }
 
   takeStep(step) {
     const km = this.clone();
     if (step.hasEarlyEvolution()) {
       const evolution = step.getEvolution();
-      km.evolve(null, evolution);
+      km.evolve(evolution, null);
     }
     for (const sys of km.systems) {
       const r = sys.canTakeStep(step);
@@ -108,7 +108,7 @@ export default class KripkeMachine {
       return;
     }
     const evolution = step.getEvolution();
-    this.evolve(step.rule_text, evolution);
+    this.evolve(evolution, step.rule_text);
   }
 
   applyEvolution(evolution) {
@@ -152,7 +152,7 @@ export default class KripkeMachine {
     }
   }
 
-  canEvolve(rule_text, evolution) {
+  canEvolve(evolution, rule_text) {
     const km = this.clone();
     if (rule_text) {
       const new_rule = new Rule(rule_text, this.getPossibleCurrentStateIds());
@@ -163,7 +163,7 @@ export default class KripkeMachine {
     } catch (e) {
       return false;
     }
-    const r = this.satisfiesRules();
+    const r = km.satisfiesRules();
     if (!r.ok) {
       return false;
     }
@@ -171,7 +171,7 @@ export default class KripkeMachine {
   }
 
   // dangerous, should only evolve by taking a step
-  evolve(rule_text, evolution) {
+  evolve(evolution, rule_text) {
     if (rule_text) {
       const new_rule = new Rule(rule_text, this.getPossibleCurrentStateIds());
       this.rules.push(new_rule);

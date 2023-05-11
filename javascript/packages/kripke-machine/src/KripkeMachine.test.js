@@ -31,8 +31,8 @@ describe("KripkeMachine", () => {
     expect(r).toBe(true);
   });
 
-  it("applyEvolution", async () => {
-    let km;
+  it("evolves", async () => {
+    let km, r;
     const json = JSONFile.readSync(fixturesFile("km/sign.json"));
     km = KripkeMachine.fromJSON(json);
 
@@ -41,10 +41,30 @@ describe("KripkeMachine", () => {
     );
     const evolution = Evolution.fromJSON(evolution_json);
 
-    const km2 = km.clone();
-    km2.applyEvolution(evolution);
+    // test trivial rules with evolution
+    const km1 = km.clone();
+    r = km1.canEvolve(evolution, "true");
+    expect(r).toBe(true);
+    r = km1.canEvolve(evolution, "false");
+    expect(r).toBe(false);
 
+    // test rule and its inverse rule with evolution
+    const km2 = km.clone();
+    r = km2.canEvolve(evolution, "gfp(@x, [*]@x and [defraud]false)");
+    expect(r).toBe(true);
+    r = km2.canEvolve(evolution, "gfp(@x, [*]@x and [-defraud]false)");
+    expect(r).toBe(false);
+
+    // test application of evolution without rule
     const km3 = km.clone();
-    km3.canEvolve("gfp(@x, [*]@x and [defraud]false)", evolution);
+    km3.applyEvolution(evolution);
+    expect(km3.rules.length).toBe(1);
+    expect(km3.systems.length).toBe(2);
+
+    // test evolution with rule
+    const km4 = km.clone();
+    km4.evolve(evolution, "gfp(@x, [*]@x and [defraud]false)");
+    expect(km4.rules.length).toBe(2);
+    expect(km4.systems.length).toBe(2);
   });
 });
