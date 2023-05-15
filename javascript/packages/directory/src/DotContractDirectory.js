@@ -27,6 +27,7 @@ export default class Directory {
   }
 
   static async mount(path) {
+    
     const pd = new Directory(path);
     const isValid = await pd.isValid();
     if (!isValid) {
@@ -35,6 +36,7 @@ export default class Directory {
     const genesis = await pd.getDotContractJson();
     pd.contract = new Contract(genesis);
     const commit_log = await pd.getCommitLog();
+    console.log(commit_log)
     await pd.contract.appendCommitLog(commit_log);
     return pd;
   }
@@ -87,6 +89,7 @@ export default class Directory {
   }
 
   async getCommitLog() {
+    
     const commit_order = await this.getCommitOrder();
     const commit_log = [];
     for (const commit_id of commit_order) {
@@ -96,6 +99,7 @@ export default class Directory {
       );
       commit_log.push(commit_json);
     }
+    
     return commit_log;
   }
 
@@ -161,6 +165,35 @@ export default class Directory {
       ),
       `${this.path}/ordered_commits/${index}.json`
     );
+  }
+
+  async deleteCommit(commit_id, commit){
+    
+    const commit_order = await this.getCommitOrder(); 
+    const new_commit_order = commit_order.pop();
+    console.log(new_commit_order)
+    //fs.writeFileSync(`${this.path}/commit_order.json`, new_commit_order)
+    //const commit_log = await this.getCommitLog(); 
+
+    //const latest_commit_id = commit_order.pop()
+    //const latest_commit_body = commit_log.pop()
+
+    const err = fs.rmSync(`${this.path}/commits/${commit_id}.json`);
+    const err1 = fs.rmSync(`${this.path}/ordered_commits/${commit_id}.json`);
+
+    //need to remove from commit_order.json ==> need to rewrite, or remove content.
+    //log(err, err1);
+
+    console.log("\nCurrent filenames:"); 
+    fs.readdirSync(`${this.path}/ordered_commits`).forEach(file => { 
+        console.log(file); 
+    }); 
+    fs.readdirSync(`${this.path}/commits`).forEach(file => { 
+      console.log(file); 
+  }); 
+    console.log(""); 
+
+    return 1; 
   }
 
   async commit({ body, head }) {

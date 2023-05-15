@@ -12,6 +12,7 @@ import * as log from '../commands/log.js';
 import * as create from '../commands/create.js';
 import * as pull from '../commands/pull.js';
 import * as push from '../commands/push.js';
+import * as delete_commit from '../commands/delete.js';
 
 // unused return variable prevents node from prematurely exiting yargs
 /* eslint-disable no-unused-vars */
@@ -31,6 +32,7 @@ const { argv } = yargs(hideBin(process.argv))
   .command(pack)
   .command(unpack)
   .command(gen_keypair)
+  .command(delete_commit)
   .demandCommand(1, 'command not recognized')
   .strict()
   ;

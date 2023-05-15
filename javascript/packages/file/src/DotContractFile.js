@@ -92,6 +92,10 @@ export default class DotContractFile {
     return this.directory.getCommitOrder();
   }
 
+  async deleteCommit(commit_id, commit) {
+    return this.directory.deleteCommit(commit_id, commit);
+  }
+
   async attach({path, filepath}) {
     return this.directory.attach({path, filepath});
   }
