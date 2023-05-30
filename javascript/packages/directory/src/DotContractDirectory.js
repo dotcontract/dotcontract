@@ -10,14 +10,14 @@ export default class Directory {
     return this;
   }
 
-  static async generate(path, opts = {}) {
+  static async generate(path, genesis = null) {
     if (!path) {
       throw new Error();
     }
     if (!fs.existsSync(path)) {
       fs.mkdirSync(path, { recursive: true });
     }
-    const dotcontract_json = await Contract.generateGenesis(opts);
+    const dotcontract_json = genesis? genesis : await Contract.generateGenesis();
     fs.writeFileSync(
       `${path}/dotcontract.json`,
       JSON.stringify(dotcontract_json),

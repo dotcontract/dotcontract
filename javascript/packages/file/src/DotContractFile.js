@@ -13,10 +13,10 @@ export default class DotContractFile {
     return this;
   }
 
-  static async create(filepath) {
+  static async create(filepath, genesis = null) {
     const temp_dir = temp.mkdirSync();
     try {
-      const pd = await DotContractDirectory.generate(temp_dir);
+      const pd = await DotContractDirectory.generate(temp_dir, genesis);
       await pd.zip(filepath, temp_dir);
     } catch (e) {
       throw e;
