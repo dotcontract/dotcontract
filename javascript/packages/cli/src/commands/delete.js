@@ -37,7 +37,7 @@ export async function handler(argv) {
     }
     else{
         fs.rmSync(`${dcf.directory.path}`, { recursive: true });
-        const dcd = await DotContractDirectory.generate(`${dcf.directory.path}`, dotcontract_json);
+        const dcd = await DotContractDirectory.generate(dcf.directory.path, dotcontract_json);
         dcf = await DotContractFile.fromDir(dcd.path);
     }
 
