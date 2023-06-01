@@ -12,8 +12,8 @@ export default class ModalFormulaVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
-	// Visit a parse tree produced by ModalFormulaParser#parenFormula.
-	visitParenFormula(ctx) {
+	// Visit a parse tree produced by ModalFormulaParser#emptyBoxFormula.
+	visitEmptyBoxFormula(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
@@ -24,26 +24,14 @@ export default class ModalFormulaVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
-	// Visit a parse tree produced by ModalFormulaParser#boxFormula.
-	visitBoxFormula(ctx) {
-	  return this.visitChildren(ctx);
-	}
-
-
-	// Visit a parse tree produced by ModalFormulaParser#falseAtom.
-	visitFalseAtom(ctx) {
+	// Visit a parse tree produced by ModalFormulaParser#emptyDiamondFormula.
+	visitEmptyDiamondFormula(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
 
 	// Visit a parse tree produced by ModalFormulaParser#andFormula.
 	visitAndFormula(ctx) {
-	  return this.visitChildren(ctx);
-	}
-
-
-	// Visit a parse tree produced by ModalFormulaParser#gfpFormula.
-	visitGfpFormula(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
@@ -60,26 +48,50 @@ export default class ModalFormulaVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
-	// Visit a parse tree produced by ModalFormulaParser#trueAtom.
-	visitTrueAtom(ctx) {
-	  return this.visitChildren(ctx);
-	}
-
-
 	// Visit a parse tree produced by ModalFormulaParser#lfpFormula.
 	visitLfpFormula(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
 
-	// Visit a parse tree produced by ModalFormulaParser#propsAtom.
-	visitPropsAtom(ctx) {
+	// Visit a parse tree produced by ModalFormulaParser#diamondFormula.
+	visitDiamondFormula(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
 
-	// Visit a parse tree produced by ModalFormulaParser#diamondFormula.
-	visitDiamondFormula(ctx) {
+	// Visit a parse tree produced by ModalFormulaParser#parenFormula.
+	visitParenFormula(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalFormulaParser#boxFormula.
+	visitBoxFormula(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalFormulaParser#falseAtom.
+	visitFalseAtom(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalFormulaParser#gfpFormula.
+	visitGfpFormula(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalFormulaParser#trueAtom.
+	visitTrueAtom(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by ModalFormulaParser#propsAtom.
+	visitPropsAtom(ctx) {
 	  return this.visitChildren(ctx);
 	}
 

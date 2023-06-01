@@ -80,6 +80,18 @@ export default class Visitor extends AbstractVisitor {
     return str;
   }
 
+  visitEmptyBoxFormula(ctx) {
+    const inner = new PropsAtom([])
+    const outer = this.visit(ctx.outer);
+    return new BoxFormula(inner, outer);
+  }
+
+  visitEmptyDiamondFormula(ctx) {
+    const inner = new PropsAtom([])
+    const outer = this.visit(ctx.outer);
+    return new DiamondFormula(inner, outer); 
+  }
+
   visitBoxFormula(ctx) {
     const inner = this.visit(ctx.inner);
     const outer = this.visit(ctx.outer);

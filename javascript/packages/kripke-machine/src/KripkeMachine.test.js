@@ -50,9 +50,9 @@ describe("KripkeMachine", () => {
 
     // test rule and its inverse rule with evolution
     const km2 = km.clone();
-    r = km2.canEvolve(evolution, "gfp(@x, [*]@x and [defraud]false)");
+    r = km2.canEvolve(evolution, "gfp(@x, []@x and [defraud]false)");
     expect(r).toBe(true);
-    r = km2.canEvolve(evolution, "gfp(@x, [*]@x and [-defraud]false)");
+    r = km2.canEvolve(evolution, "gfp(@x, []@x and [-defraud]false)");
     expect(r).toBe(false);
 
     // test application of evolution without rule
@@ -64,9 +64,9 @@ describe("KripkeMachine", () => {
     // test evolution with unsatisfiable rule and satisfiable rule
     const km4 = km.clone();
     expect(() => {
-      km4.evolve(evolution, "lfp(@x, [*]@x and <defraud>true)");
+      km4.evolve(evolution, "lfp(@x, []@x and <defraud>true)");
     }).toThrow();
-    km4.evolve(evolution, "gfp(@x, [*]@x and [defraud]false)");
+    km4.evolve(evolution, "gfp(@x, []@x and [defraud]false)");
     expect(km4.rules.length).toBe(2);
     expect(km4.systems.length).toBe(2);
   });

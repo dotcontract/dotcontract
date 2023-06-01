@@ -50,9 +50,9 @@ describe("ModalFormula", () => {
 
   it("should parse modal mu fixed points formula", async () => {
     new ModalFormula("lfp(@x, true)");
-    const text = "gfp(@x, [*]@x and [-write] false)";
+    const text = "gfp(@x, []@x and [-write] false)";
     f = new ModalFormula(text);
-    expect(f.toText()).toBe("gfp(@x, [+*] @x and [-write] false)");
+    expect(f.toText()).toBe("gfp(@x, [] @x and [-write] false)");
   });
 
   it("should be solvable in an system", async () => {
@@ -117,11 +117,11 @@ describe("ModalFormula", () => {
     r = Solve.inSystem(f, sign_ss);
     expect(r.size).toBe(0);
 
-    f = new ModalFormula("gfp(@x, [*]@x)");
+    f = new ModalFormula("gfp(@x, []@x)");
     r = Solve.inSystem(f, sign_ss);
     expect(r.size).toBe(1);
 
-    f = new ModalFormula("lfp(@x, <*>@x)");
+    f = new ModalFormula("lfp(@x, <>@x)");
     r = Solve.inSystem(f, sign_ss);
     expect(r.size).toBe(0);
 
@@ -141,11 +141,11 @@ describe("ModalFormula", () => {
     r = Solve.inSystem(f, sign_ss);
     expect(r.size).toBe(0);
 
-    f = new ModalFormula("gfp(@x, [*]@x and [-sign] false)");
+    f = new ModalFormula("gfp(@x, []@x and [-sign] false)");
     r = Solve.inSystem(f, sign_ss);
     expect(r.size).toBe(1);
 
-    f = new ModalFormula("gfp(@x, [*]@x and [sign] false)");
+    f = new ModalFormula("gfp(@x, []@x and [sign] false)");
     r = Solve.inSystem(f, sign_ss);
     expect(r.size).toBe(0);
   });

@@ -1,14 +1,14 @@
 {
   "rules": [
     {
-      "modal_formula": "gfp(@x, [*]@x and ([-sign]false))",
+      "modal_formula": "gfp(@x, []@x and ([-sign]false))",
       "root_states": [
         [0, "_"],
         [1, "_"]
       ]
     },
     {
-      "modal_formula": "gfp(@x, [*]@x and ([defraud]false))",
+      "modal_formula": "gfp(@x, []@x and ([defraud]false))",
       "root_states": [
         [0, "_"],
         [1, "_"]

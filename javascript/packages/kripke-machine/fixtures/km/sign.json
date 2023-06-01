@@ -1,7 +1,7 @@
 {
   "rules": [
     {
-      "modal_formula": "gfp(@x, [*]@x and ([-sign]false))",
+      "modal_formula": "gfp(@x, []@x and ([-sign]false))",
       "root_states": [{ "system": 0, "state": "_" }]
     }
   ],

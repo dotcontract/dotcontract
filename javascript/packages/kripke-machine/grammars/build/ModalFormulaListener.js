@@ -14,12 +14,12 @@ export default class ModalFormulaListener extends antlr4.tree.ParseTreeListener 
 	}
 
 
-	// Enter a parse tree produced by ModalFormulaParser#parenFormula.
-	enterParenFormula(ctx) {
+	// Enter a parse tree produced by ModalFormulaParser#emptyBoxFormula.
+	enterEmptyBoxFormula(ctx) {
 	}
 
-	// Exit a parse tree produced by ModalFormulaParser#parenFormula.
-	exitParenFormula(ctx) {
+	// Exit a parse tree produced by ModalFormulaParser#emptyBoxFormula.
+	exitEmptyBoxFormula(ctx) {
 	}
 
 
@@ -32,21 +32,12 @@ export default class ModalFormulaListener extends antlr4.tree.ParseTreeListener 
 	}
 
 
-	// Enter a parse tree produced by ModalFormulaParser#boxFormula.
-	enterBoxFormula(ctx) {
+	// Enter a parse tree produced by ModalFormulaParser#emptyDiamondFormula.
+	enterEmptyDiamondFormula(ctx) {
 	}
 
-	// Exit a parse tree produced by ModalFormulaParser#boxFormula.
-	exitBoxFormula(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalFormulaParser#falseAtom.
-	enterFalseAtom(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalFormulaParser#falseAtom.
-	exitFalseAtom(ctx) {
+	// Exit a parse tree produced by ModalFormulaParser#emptyDiamondFormula.
+	exitEmptyDiamondFormula(ctx) {
 	}
 
 
@@ -56,15 +47,6 @@ export default class ModalFormulaListener extends antlr4.tree.ParseTreeListener 
 
 	// Exit a parse tree produced by ModalFormulaParser#andFormula.
 	exitAndFormula(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalFormulaParser#gfpFormula.
-	enterGfpFormula(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalFormulaParser#gfpFormula.
-	exitGfpFormula(ctx) {
 	}
 
 
@@ -86,15 +68,6 @@ export default class ModalFormulaListener extends antlr4.tree.ParseTreeListener 
 	}
 
 
-	// Enter a parse tree produced by ModalFormulaParser#trueAtom.
-	enterTrueAtom(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalFormulaParser#trueAtom.
-	exitTrueAtom(ctx) {
-	}
-
-
 	// Enter a parse tree produced by ModalFormulaParser#lfpFormula.
 	enterLfpFormula(ctx) {
 	}
@@ -104,21 +77,66 @@ export default class ModalFormulaListener extends antlr4.tree.ParseTreeListener 
 	}
 
 
-	// Enter a parse tree produced by ModalFormulaParser#propsAtom.
-	enterPropsAtom(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalFormulaParser#propsAtom.
-	exitPropsAtom(ctx) {
-	}
-
-
 	// Enter a parse tree produced by ModalFormulaParser#diamondFormula.
 	enterDiamondFormula(ctx) {
 	}
 
 	// Exit a parse tree produced by ModalFormulaParser#diamondFormula.
 	exitDiamondFormula(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalFormulaParser#parenFormula.
+	enterParenFormula(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalFormulaParser#parenFormula.
+	exitParenFormula(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalFormulaParser#boxFormula.
+	enterBoxFormula(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalFormulaParser#boxFormula.
+	exitBoxFormula(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalFormulaParser#falseAtom.
+	enterFalseAtom(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalFormulaParser#falseAtom.
+	exitFalseAtom(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalFormulaParser#gfpFormula.
+	enterGfpFormula(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalFormulaParser#gfpFormula.
+	exitGfpFormula(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalFormulaParser#trueAtom.
+	enterTrueAtom(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalFormulaParser#trueAtom.
+	exitTrueAtom(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalFormulaParser#propsAtom.
+	enterPropsAtom(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalFormulaParser#propsAtom.
+	exitPropsAtom(ctx) {
 	}
 
 

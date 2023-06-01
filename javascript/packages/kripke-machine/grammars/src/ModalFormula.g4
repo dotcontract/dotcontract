@@ -7,6 +7,8 @@ subformula:
 	| FALSE																# falseAtom
 	| BOUND_VAR															# boundVar
 	| (unsignedProp (signedProp)* | (signedProp)+)						# propsAtom
+	| LBOX RBOX outer = subformula					# emptyBoxFormula
+	| LDIA RDIA outer = subformula					# emptyDiamondFormula
 	| LBOX inner = subformula RBOX outer = subformula					# boxFormula
 	| LDIA inner = subformula RDIA outer = subformula					# diamondFormula
 	| LFP LPAREN boundVar = subformula COMMA inner = subformula RPAREN	# lfpFormula
@@ -19,7 +21,7 @@ subformula:
 unsignedProp: theProp = prop;
 signedProp: (theSign = sign) WS* theProp = prop;
 sign: PLUS | MINUS # sign;
-prop: TRUE | FALSE | STAR | NAME # prop;
+prop: TRUE | FALSE | NAME # prop;
 
 TRUE: 'true';
 FALSE: 'false';
@@ -27,7 +29,6 @@ FALSE: 'false';
 AND: 'and';
 OR: 'or';
 NOT: 'not';
-STAR: '*';
 
 COMMA: ',';
 
