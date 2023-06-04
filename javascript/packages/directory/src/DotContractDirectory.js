@@ -137,6 +137,9 @@ export default class Directory {
       });
       archive.directory(`${this.path}/commits`, "commits");
     }
+    if(fs.existsSync(`${this.path}/attachments`)){
+      archive.directory(`${this.path}/attachments`, "attachments")
+    }
 
     // TODO add other artifacts
     return finalize();
@@ -204,5 +207,17 @@ export default class Directory {
       ),
       `${this.path}/attached_files${contract_path}`
     );
+  }
+
+  async hasAttachments(){
+    return fs.existsSync(`${this.path}/attachments`)
+  }
+
+  async copyAttachments(target_dir){
+    fs.cpSync(`${this.path}/attachments`, target_dir, {recursive: true});
+  }
+
+  async clear(){
+    fs.rmSync(`${this.path}`, { recursive: true });
   }
 }

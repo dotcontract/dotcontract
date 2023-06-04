@@ -95,4 +95,19 @@ export default class DotContractFile {
   async attach({path, filepath}) {
     return this.directory.attach({path, filepath});
   }
+
+  async hasAttachments(){
+    return this.directory.hasAttachments();
+  }
+
+  async copyAttachments(path){
+    await this.directory.copyAttachments(path);
+  }
+
+  async clear(){
+    if(this.filepath){
+      fs.rmSync(`${this.filepath}`, { recursive: true });
+    }
+    await this.directory.clear();
+  }
 }
