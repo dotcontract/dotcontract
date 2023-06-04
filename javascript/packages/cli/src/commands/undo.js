@@ -16,7 +16,6 @@ export const builder = {
 import DotContractFile from "@dotcontract/file";
 import DotContractDirectory from '@dotcontract/directory';
 import { Commit } from "@dotcontract/contract";
-import fs from "fs";
 import temp from "temp";
 
 export async function handler(argv) {

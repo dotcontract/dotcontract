@@ -41,7 +41,7 @@ export default class Commit {
 
   getFileHash(indx){
     if(this.hasAttachment(indx)){
-      return this.body[indx].value.substr('^attachment://'.length-1);
+      return this.body[indx].value.substr('attachment://'.length);
     }
     return null;
     
