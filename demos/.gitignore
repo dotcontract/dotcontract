@@ -1,3 +1,6 @@
 tmp/**
 .contract
 *.contract
+temp.txt
+example
+example_undo_target
