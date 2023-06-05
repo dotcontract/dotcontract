@@ -44,11 +44,14 @@ export default class Commit {
       return this.body[indx].value.substr('attachment://'.length);
     }
     return null;
-    
   }
 
   getPath(indx){
     return this.body[indx].path;
+  }
+
+  getBodyLength(){
+    return this.body.length;
   }
 
   hasRule() {

@@ -35,7 +35,6 @@ export async function handler(argv) {
     let delete_from_indx = commitOrder.length - 1;
     if(commit_hash){
         let valid_hash = false;
-        delete_from_indx = 0;
         for (let i= commitOrder.length - 1; i >= 0; i--)
         {
             if(commitOrder[i] == commit_hash){
@@ -73,7 +72,7 @@ export async function handler(argv) {
     for (let i = 0; i < delete_from_indx; i++) {
         const attachments = []
         const c = Commit.fromJSONString(commitLog[i]);
-        for(let i =0; i<c.body.length; i++)
+        for(let i =0; i<c.getBodyLength(); i++)
         {
             if(c.hasAttachment(i)){
                 const file_hash = c.getFileHash(i);
