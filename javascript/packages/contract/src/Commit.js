@@ -35,25 +35,6 @@ export default class Commit {
     this.act({ method: "rule", path: null, value });
   }
 
-  hasAttachment(indx){
-    return this.body[indx].value.match('^attachment://');
-  }
-
-  getFileHash(indx){
-    if(this.hasAttachment(indx)){
-      return this.body[indx].value.substr('attachment://'.length);
-    }
-    return null;
-  }
-
-  getPath(indx){
-    return this.body[indx].path;
-  }
-
-  getBodyLength(){
-    return this.body.length;
-  }
-
   hasRule() {
     return this.body.some((p) => p.method === "rule");
   }

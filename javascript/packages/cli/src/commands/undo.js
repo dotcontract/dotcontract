@@ -15,7 +15,7 @@ export const builder = {
 
 import DotContractFile from "@dotcontract/file";
 import DotContractDirectory from '@dotcontract/directory';
-import { Commit } from "@dotcontract/contract";
+import { Commit, CommitAction } from "@dotcontract/contract";
 import temp from "temp";
 
 export async function handler(argv) {
@@ -72,11 +72,12 @@ export async function handler(argv) {
     for (let i = 0; i < delete_from_indx; i++) {
         const attachments = []
         const c = Commit.fromJSONString(commitLog[i]);
-        for(let i =0; i<c.getBodyLength(); i++)
+        for(const part of c.body)
         {
-            if(c.hasAttachment(i)){
-                const file_hash = c.getFileHash(i);
-                const path = c.getPath(i);
+            const ca = new CommitAction(part);
+            if(ca.hasAttachment()){
+                const file_hash = ca.getFileHash();
+                const path = ca.getPath();
                 const filepath = `${attachments_dir}/${file_hash}`
                 attachments.push({
                   path,

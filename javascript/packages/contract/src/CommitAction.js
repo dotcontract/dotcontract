@@ -56,4 +56,20 @@ export default class CommitAction {
       value: this.value,
     };
   }
+
+  hasAttachment(){
+    return this.value.match('^attachment://');
+  }
+
+  getFileHash(){
+    if(this.hasAttachment()){
+      return this.value.substr('attachment://'.length);
+    }
+    return null;
+  }
+
+  getPath(){
+    return this.path;
+  }
+
 }
