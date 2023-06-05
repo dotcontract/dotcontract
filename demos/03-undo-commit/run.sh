@@ -3,9 +3,10 @@
 # prepare example
 cd $(dirname -- "$0")
 source ../helpers.sh
-echo "This is some text" >> temp.txt 
+rm temp.txt
 rm -rf example
 rm -rf example_undo_target
+echo "This is some text" >> temp.txt 
 
 set -x
 
@@ -35,3 +36,5 @@ comment 'You should see only the dotcontract.json files differing since they are
 
 comment 'Clean up'
 rm temp.txt
+rm -rf example
+rm -rf example_undo_target
