@@ -22,7 +22,7 @@ import { Commit } from "@dotcontract/contract";
 
 function describeCommits({ commitLog, commitOrder }) {
   log(`${asBold(`# Contract Commit Log`)}`);
-  for (let i = commitOrder.length - 1; i >= 0; i--) {
+  for (let i = 0; i < commitOrder.length; i++) {
     log();
     log(`${asBold(`## Commit #${i + 1} => ${commitOrder[i]}`)}`);
     const c = Commit.fromJSONString(commitLog[i]);
