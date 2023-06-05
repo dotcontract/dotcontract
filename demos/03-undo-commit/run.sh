@@ -3,7 +3,7 @@
 # prepare example
 cd $(dirname -- "$0")
 source ../helpers.sh
-rm temp.txt
+rm -f temp.txt
 rm -rf example
 rm -rf example_undo_target
 echo "This is some text" >> temp.txt 
