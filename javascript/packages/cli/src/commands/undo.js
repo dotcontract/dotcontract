@@ -17,6 +17,7 @@ import DotContractFile from "@dotcontract/file";
 import DotContractDirectory from "@dotcontract/directory";
 import { Commit, CommitAction } from "@dotcontract/contract";
 import temp from "temp";
+temp.track();
 
 export async function handler(argv) {
   let commit_hash = argv["commit-hash"];

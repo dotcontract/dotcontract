@@ -1,5 +1,6 @@
 import fs from "fs";
 import temp from "temp";
+temp.track();
 import AdmZip from "adm-zip";
 
 import DotContractDirectory from "@dotcontract/directory";

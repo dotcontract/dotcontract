@@ -1,6 +1,7 @@
 import JSONFile from "@dotcontract/utils/JSONFile";
 import Key from "@dotcontract/utils/Key";
 import temp from "temp";
+temp.track();
 
 export const CommonNetworkArgs = {
   "data-dir": {
