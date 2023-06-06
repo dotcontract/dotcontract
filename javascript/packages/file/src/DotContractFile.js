@@ -70,8 +70,8 @@ export default class DotContractFile {
     return this.directory.getDotContractJson();
   }
 
-  async commit({body, head}) {
-    return this.directory.commit({body, head});
+  async commit({ body, head }) {
+    return this.directory.commit({ body, head });
   }
 
   async saveTo(filepath) {
@@ -92,20 +92,20 @@ export default class DotContractFile {
     return this.directory.getCommitOrder();
   }
 
-  async attach({path, filepath}) {
-    return this.directory.attach({path, filepath});
+  async attach({ path, filepath }) {
+    return this.directory.attach({ path, filepath });
   }
 
-  async hasAttachments(){
+  async hasAttachments() {
     return this.directory.hasAttachments();
   }
 
-  async copyAttachments(path){
+  async copyAttachments(path) {
     await this.directory.copyAttachments(path);
   }
 
-  async clear(){
-    if(this.filepath){
+  async clear() {
+    if (this.filepath) {
       fs.rmSync(`${this.filepath}`, { recursive: true });
     }
     await this.directory.clear();
