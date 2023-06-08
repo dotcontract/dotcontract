@@ -11,7 +11,6 @@ export const METHODS = [
   // "receive",
 ];
 
-
 export default class CommitAction {
   constructor({ method, path, value }) {
     if (!METHODS.includes(method)) {
@@ -55,5 +54,20 @@ export default class CommitAction {
       path: this.path,
       value: this.value,
     };
+  }
+
+  hasAttachment() {
+    return this.value.match("^attachment://");
+  }
+
+  getFileHash() {
+    if (this.hasAttachment()) {
+      return this.value.substr("attachment://".length);
+    }
+    return null;
+  }
+
+  getPath() {
+    return this.path;
   }
 }

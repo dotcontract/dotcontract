@@ -10,14 +10,16 @@ export default class Directory {
     return this;
   }
 
-  static async generate(path, opts = {}) {
+  static async generate(path, genesis = null) {
     if (!path) {
       throw new Error();
     }
     if (!fs.existsSync(path)) {
       fs.mkdirSync(path, { recursive: true });
     }
-    const dotcontract_json = await Contract.generateGenesis(opts);
+    const dotcontract_json = genesis
+      ? genesis
+      : await Contract.generateGenesis();
     fs.writeFileSync(
       `${path}/dotcontract.json`,
       JSON.stringify(dotcontract_json),
@@ -137,6 +139,9 @@ export default class Directory {
       });
       archive.directory(`${this.path}/commits`, "commits");
     }
+    if (fs.existsSync(`${this.path}/attachments`)) {
+      archive.directory(`${this.path}/attachments`, "attachments");
+    }
 
     // TODO add other artifacts
     return finalize();
@@ -204,5 +209,17 @@ export default class Directory {
       ),
       `${this.path}/attached_files${contract_path}`
     );
+  }
+
+  async hasAttachments() {
+    return fs.existsSync(`${this.path}/attachments`);
+  }
+
+  async copyAttachments(target_dir) {
+    fs.cpSync(`${this.path}/attachments`, target_dir, { recursive: true });
+  }
+
+  async clear() {
+    fs.rmSync(`${this.path}`, { recursive: true });
   }
 }

@@ -1,5 +1,6 @@
 import fs from "fs";
 import temp from "temp";
+temp.track();
 import AdmZip from "adm-zip";
 
 import DotContractDirectory from "@dotcontract/directory";
@@ -13,10 +14,10 @@ export default class DotContractFile {
     return this;
   }
 
-  static async create(filepath) {
+  static async create(filepath, genesis = null) {
     const temp_dir = temp.mkdirSync();
     try {
-      const pd = await DotContractDirectory.generate(temp_dir);
+      const pd = await DotContractDirectory.generate(temp_dir, genesis);
       await pd.zip(filepath, temp_dir);
     } catch (e) {
       throw e;
@@ -70,8 +71,8 @@ export default class DotContractFile {
     return this.directory.getDotContractJson();
   }
 
-  async commit({body, head}) {
-    return this.directory.commit({body, head});
+  async commit({ body, head }) {
+    return this.directory.commit({ body, head });
   }
 
   async saveTo(filepath) {
@@ -92,7 +93,22 @@ export default class DotContractFile {
     return this.directory.getCommitOrder();
   }
 
-  async attach({path, filepath}) {
-    return this.directory.attach({path, filepath});
+  async attach({ path, filepath }) {
+    return this.directory.attach({ path, filepath });
+  }
+
+  async hasAttachments() {
+    return this.directory.hasAttachments();
+  }
+
+  async copyAttachments(path) {
+    await this.directory.copyAttachments(path);
+  }
+
+  async clear() {
+    if (this.filepath) {
+      fs.rmSync(`${this.filepath}`, { recursive: true });
+    }
+    await this.directory.clear();
   }
 }

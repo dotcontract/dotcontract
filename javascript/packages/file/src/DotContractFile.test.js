@@ -1,5 +1,6 @@
 import fs from "fs";
 import temp from "temp";
+temp.track();
 import dirnameFromImportMeta from "@dotcontract/utils/dirnameFromImportMeta";
 const __dirname = dirnameFromImportMeta(import.meta);
 

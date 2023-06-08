@@ -1,5 +1,6 @@
 import fs from "fs";
 import temp from "temp";
+temp.track();
 
 import Key from "@dotcontract/utils/Key";
 
@@ -7,11 +8,8 @@ import Directory from "./DotContractDirectory.js";
 
 describe("Directory", () => {
   it("should work", async () => {
-    temp.track();
     const dir = temp.mkdirSync("ex1");
-    const pd = await Directory.generate(dir, {
-      network_id: "12D3KooWGf3DanX8cx1uFV585akq6ecSZy9Z4zjpKqxg6bYQN44J",
-    });
+    const pd = await Directory.generate(dir);
 
     const dotcontract_json_string = fs
       .readFileSync(`${dir}/dotcontract.json`)
