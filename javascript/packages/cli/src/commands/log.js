@@ -6,8 +6,10 @@ import { CommonContractArgs, ensureContractArgs } from "../lib/ContractArgs.js";
 export const builder = {
   ...CommonContractArgs,
   order: {
-    alias: "o",
     default: "desc"
+  },
+  limit: {
+    default: 5
   }
 };
 
@@ -24,17 +26,20 @@ import {
 
 import { Commit } from "@dotcontract/contract";
 
-function describeCommits({ commitLog, commitOrder, order }) {
+function describeCommits({ commitLog, commitOrder, order, limit }) {
   log(`${asBold(`# Contract Commit Log`)}`);
   
-  let orderList = [];
+  const orderList = [];
   for (let i = 0; i < commitOrder.length; i++) {
     orderList.push(i)
   }
-  if (order == "desc") {
-    orderList = orderList.reverse();
+  if (order === "desc") {
+    orderList.reverse();
   }
-  for (let i of orderList) {
+  if (limit < orderList.length) {
+    orderList.splice(limit);
+  }
+  for (const i of orderList) {
     log();
     log(`${asBold(`## Commit #${i + 1} => ${commitOrder[i]}`)}`);
     const c = Commit.fromJSONString(commitLog[i]);
@@ -71,9 +76,14 @@ function describeCommits({ commitLog, commitOrder, order }) {
 
 export async function handler(argv) {
 
-  let order = argv["order"];
-  if(order != "desc" && order != "asc") {
+  const order = argv["order"];
+  const limit = argv["limit"];
+  if(order !== "desc" && order !== "asc") {
     console.error(`ERROR: Invalid order provided. Valid options are: desc, asc`);
+    process.exit(-1);
+  }
+  if(limit < 1) {
+    console.error(`ERROR: Invalid limit provided. Valid options are: positive integers`);
     process.exit(-1);
   }
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
@@ -81,7 +91,7 @@ export async function handler(argv) {
   const commitLog = await dcf.getCommitLog();
   const commitOrder = await dcf.getCommitOrder();
 
-  describeCommits({ commitLog, commitOrder, order });
+  describeCommits({ commitLog, commitOrder, order, limit });
 }
 
 export default handler;
