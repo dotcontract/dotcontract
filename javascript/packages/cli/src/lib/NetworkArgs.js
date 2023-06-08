@@ -26,7 +26,6 @@ export async function parseNetworkArgs(argv) {
     }
     const data_dir = temp.mkdirSync();
     return data_dir;
-    p;
   })();
   let network;
   let listen = [];

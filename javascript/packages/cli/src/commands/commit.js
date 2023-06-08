@@ -81,7 +81,7 @@ export async function handler(argv) {
   } = argv;
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
 
-  if (!post && !rule && !define && !body && !bodyFromFile) {
+  if (!post && !rule && !body && !bodyFromFile) {
     console.error(
       "Missing required argument: body or bodyFromFile or a particular action like post, rule, or define"
     );

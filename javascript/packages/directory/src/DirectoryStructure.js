@@ -11,10 +11,7 @@ export const DirectoryStructure = {
   },
   files: {
     type: "directory",
-  },
-  files: {
-    type: "directory",
-  },
+  }
 };
 
 export default DirectoryStructure;
