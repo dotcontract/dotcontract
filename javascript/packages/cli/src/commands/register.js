@@ -1,16 +1,13 @@
 export const command = "register";
 export const describe = "registers a contract";
 
-import {
-  parseNetworkArgs,
-  CommonNetworkArgs,
-} from "../lib/NetworkArgs.js";
+import { parseNetworkArgs, CommonNetworkArgs } from "../lib/NetworkArgs.js";
 
 export const builder = {
   ...CommonNetworkArgs,
   contract: {
     alias: "c",
-    required: true
+    required: true,
   },
 };
 

@@ -1,11 +1,11 @@
 export const DotContractFileStructure = {
   "dotcontract.json": {
     type: InitFile,
-    required: true
+    required: true,
   },
   "status.json": {
     type: StatusFile,
-    required: true
+    required: true,
   },
   "README.txt": {
     type: "file",
@@ -19,8 +19,8 @@ export const DotContractFileStructure = {
       },
       "state.json": {
         type: StateFile,
-      }
-    }
+      },
+    },
   },
   commits: {
     type: "directory",

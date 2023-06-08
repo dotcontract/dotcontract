@@ -49,7 +49,9 @@ export default class Route {
   }
 
   static getType(path) {
-    if (!Route.isValidPath(path)) { return null; }
+    if (!Route.isValidPath(path)) {
+      return null;
+    }
     if (Route.isFolder(path)) {
       return "folder";
     } else if (Route.isPrimitive(path)) {
@@ -62,7 +64,9 @@ export default class Route {
   }
 
   static isFolder(path) {
-    if (!Route.isValidPath(path)) { return null; }
+    if (!Route.isValidPath(path)) {
+      return null;
+    }
     return !path.match(`\\.`);
   }
 
@@ -78,33 +82,39 @@ export default class Route {
     const folderMatcher = `^\\/([\\/a-zA-Z0-9_\\-]+\\/)*([a-zA-Z0-9_\\-]+)$`;
     const fileMatcher = `^\\/([\\/a-zA-Z0-9_\\-]+\\/)*([a-zA-Z0-9_\\-]+)\\.([a-zA-Z0-9]+)$`;
     let m;
-    if (m = path.match(fileMatcher)) {
+    if ((m = path.match(fileMatcher))) {
       return {
         folder_path: `/${m[1]}`,
         file_name: m[2],
-        file_type: m[3]
-      }
-    } else if (m = path.match(folderMatcher)) {
+        file_type: m[3],
+      };
+    } else if ((m = path.match(folderMatcher))) {
       return {
         folder_path: `/${m[1]}`,
         file_name: null,
-        file_type: null
-      }
+        file_type: null,
+      };
     }
   }
 
   static isFile(path) {
-    if (!Route.isValidPath(path)) { return false; }
+    if (!Route.isValidPath(path)) {
+      return false;
+    }
     return path.match(`\\.(${ROUTE_FILE_TYPES.join("|")})$`);
   }
 
   static isPrimitive(path) {
-    if (!Route.isValidPath(path)) { return false; }
+    if (!Route.isValidPath(path)) {
+      return false;
+    }
     return path.match(`\\.(${ROUTE_PRIMITIVE_TYPES.join("|")})$`);
   }
 
   static isAttachment(path) {
-    if (!Route.isValidPath(path)) { return false; }
+    if (!Route.isValidPath(path)) {
+      return false;
+    }
     return path.match(`\\.(${ROUTE_ATTACHMENT_TYPES.join("|")})$`);
   }
 }

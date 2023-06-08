@@ -9,27 +9,27 @@ describe("Contract", () => {
     expect(() => {
       Commit.fromJSON({
         body: { method: "post", path: "/value.text", value: "hello" },
-        head: []
+        head: [],
       });
     }).toThrow();
     expect(() => {
       Commit.fromJSON({
         body: [{ method: "wrong", path: "/value.text", value: "hello" }],
-        head: []
+        head: [],
       });
     }).toThrow();
 
     const c = new Commit();
-    c.addPost('/value.text', 'hello');
-    c.addPost('/value2.text', 'hello');
-    expect(c.body[0].path).toBe('/value.text');
+    c.addPost("/value.text", "hello");
+    c.addPost("/value2.text", "hello");
+    expect(c.body[0].path).toBe("/value.text");
     expect(c.body.length).toBe(2);
     expect(() => {
-      c.addPost('/value.text', 'hello again');
+      c.addPost("/value.text", "hello again");
     }).toThrow();
-    c.addRule('true');
+    c.addRule("true");
     expect(() => {
-      c.addRule('???');
+      c.addRule("???");
     }).toThrow();
   });
 });

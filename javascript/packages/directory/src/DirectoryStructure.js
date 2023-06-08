@@ -1,7 +1,7 @@
 export const DirectoryStructure = {
   "dotcontract.json": {
     type: InitFile,
-    required: true
+    required: true,
   },
   "README.txt": {
     type: "file",

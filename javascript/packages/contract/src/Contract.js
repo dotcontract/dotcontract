@@ -46,7 +46,7 @@ export default class Contract {
     const commit = Commit.fromJSON(commit_json);
     return this.appendCommit(commit);
   }
-  
+
   async canAppendCommit(commit) {
     const clone = this.clone();
     try {
@@ -56,7 +56,7 @@ export default class Contract {
       return false;
     }
   }
-  
+
   async canAppendCommitFromJson(commit_json) {
     const clone = this.clone();
     try {

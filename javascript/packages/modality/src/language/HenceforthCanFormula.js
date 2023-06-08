@@ -1,4 +1,4 @@
-import BaseFormula from './BaseFormula.js';
+import BaseFormula from "./BaseFormula.js";
 
 export default class HenceforthCanFormula extends BaseFormula {
   constructor(formula) {
@@ -8,6 +8,6 @@ export default class HenceforthCanFormula extends BaseFormula {
   }
 
   toModalFormula() {
-    throw new Error('not yet implemented');
+    throw new Error("not yet implemented");
   }
 }

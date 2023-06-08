@@ -7,20 +7,20 @@ describe("Expression", () => {
     let formula;
 
     expect(() => {
-      new Expression(`<false`); 
+      new Expression(`<false`);
     }).toThrow();
 
-    formula = new Expression(`<false> true`); 
-    expect(formula.constructor.name).toBe('DiamondFormula');
-    expect(formula.inner.constructor.name).toBe('FalseAtom');
-    expect(formula.outer.constructor.name).toBe('TrueAtom');
+    formula = new Expression(`<false> true`);
+    expect(formula.constructor.name).toBe("DiamondFormula");
+    expect(formula.inner.constructor.name).toBe("FalseAtom");
+    expect(formula.outer.constructor.name).toBe("TrueAtom");
 
-    formula = new Expression(`is(/here/this.md, "red")`); 
-    expect(formula.constructor.name).toBe('FunctionAtom');
-    expect(formula.args[0].constructor.name).toBe('Path');
-    expect(formula.args[1].constructor.name).toBe('String');
+    formula = new Expression(`is(/here/this.md, "red")`);
+    expect(formula.constructor.name).toBe("FunctionAtom");
+    expect(formula.args[0].constructor.name).toBe("Path");
+    expect(formula.args[1].constructor.name).toBe("String");
 
-    // formula = new Expression(`gfp(@x, [*]@x)`); 
+    // formula = new Expression(`gfp(@x, [*]@x)`);
     // console.log(formula)
   });
 

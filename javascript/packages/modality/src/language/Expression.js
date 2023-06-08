@@ -17,11 +17,11 @@ export { default as WhenNextFormula } from "./WhenNextFormula.js";
 export { default as FunctionAtom } from "./FunctionAtom.js";
 export { default as HenceforthCanFormula } from "./HenceforthCanFormula.js";
 export { default as HenceforthMustFormula } from "./HenceforthMustFormula.js";
-export { default as BoxFormula } from './BoxFormula.js';
-export { default as DiamondFormula } from './DiamondFormula.js';
-export { default as GfpFormula } from './GfpFormula.js';
-export { default as LfpFormula } from './LfpFormula.js';
-export { default as Path } from './Path.js';
+export { default as BoxFormula } from "./BoxFormula.js";
+export { default as DiamondFormula } from "./DiamondFormula.js";
+export { default as GfpFormula } from "./GfpFormula.js";
+export { default as LfpFormula } from "./LfpFormula.js";
+export { default as Path } from "./Path.js";
 class CustomErrorListener extends antlr4.error.ErrorListener {
   syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
     throw new Error(

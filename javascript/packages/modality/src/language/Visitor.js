@@ -16,7 +16,7 @@ import {
   DiamondFormula,
   GfpFormula,
   LfpFormula,
-  Path
+  Path,
 } from "./Expression.js";
 
 export default class ModalityVisitor extends AbstractVisitor {
@@ -104,18 +104,22 @@ export default class ModalityVisitor extends AbstractVisitor {
   visitWhenNextFormula(ctx) {
     const when_formula = this.visit(ctx.when_formula);
     const next_formula = this.visit(ctx.next_formula);
-    return new WhenNextFormula(when_formula, next_formula); 
+    return new WhenNextFormula(when_formula, next_formula);
   }
 
   visitHenceforthMustFormula(ctx) {
     const inner_formula = this.visit(ctx.inner_formula);
-    const until_formula = ctx.until_formula ? this.visit(ctx.until_formula) : null;
+    const until_formula = ctx.until_formula
+      ? this.visit(ctx.until_formula)
+      : null;
     return new HenceforthMustFormula(inner_formula, until_formula);
   }
 
   visitHenceforthCanFormula(ctx) {
     const inner_formula = this.visit(ctx.inner_formula);
-    const until_formula = ctx.until_formula ? this.visit(ctx.until_formula) : null;
+    const until_formula = ctx.until_formula
+      ? this.visit(ctx.until_formula)
+      : null;
     return new HenceforthCanFormula(inner_formula, until_formula);
   }
 
@@ -123,18 +127,16 @@ export default class ModalityVisitor extends AbstractVisitor {
     const unsigned_actions = ctx.unsignedProp()
       ? [this.visit(ctx.unsignedProp())]
       : [];
-    const signed_actions = Array.from(ctx.signedProp()).map(
-      (signed_action) => {
-        const val = this.visit(signed_action);
-        return val;
-      }
-    );
+    const signed_actions = Array.from(ctx.signedProp()).map((signed_action) => {
+      const val = this.visit(signed_action);
+      return val;
+    });
     return new PropsAtom([...unsigned_actions, ...signed_actions]);
   }
 
   visitUnsignedProp(ctx) {
     const prop = this.visit(ctx.theProp);
-    return new SignedProp(true, prop); 
+    return new SignedProp(true, prop);
   }
 
   visitSignedProp(ctx) {
@@ -162,7 +164,7 @@ export default class ModalityVisitor extends AbstractVisitor {
   visitDiamondFormula(ctx) {
     const inner = this.visit(ctx.inner);
     const outer = this.visit(ctx.outer);
-    return new DiamondFormula(inner, outer); 
+    return new DiamondFormula(inner, outer);
   }
 
   visitLfpFormula(ctx) {
@@ -176,10 +178,9 @@ export default class ModalityVisitor extends AbstractVisitor {
     const inner = this.visit(ctx.inner);
     return new GfpFormula(bound_var, inner);
   }
-  
+
   visitBoundVar(ctx) {
     let str = ctx.getText();
     return new BoundVar(str);
   }
-
 }

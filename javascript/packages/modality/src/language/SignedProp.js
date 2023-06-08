@@ -1,12 +1,12 @@
 export default class SignedProp {
   constructor(sign, prop) {
     this.sign = sign;
-    if (prop === '*') {
-      this.prop = '*';
-      this.type = 'star'
+    if (prop === "*") {
+      this.prop = "*";
+      this.type = "star";
     } else {
       this.prop = prop;
-      this.type = 'prop';
+      this.type = "prop";
     }
     return this;
   }
@@ -20,6 +20,6 @@ export default class SignedProp {
   }
 
   toText() {
-    return `${this.sign ? '+' : '-'}${this.prop}`;
+    return `${this.sign ? "+" : "-"}${this.prop}`;
   }
 }

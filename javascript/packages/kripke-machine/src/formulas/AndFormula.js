@@ -1,6 +1,5 @@
-import BaseFormula from './BaseFormula.js';
+import BaseFormula from "./BaseFormula.js";
 import { unionOfSets } from "@dotcontract/utils/sets";
-
 
 export default class AndFormula extends BaseFormula {
   constructor(left, right) {

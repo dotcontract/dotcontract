@@ -7,11 +7,11 @@ export const builder = {
   output: {
     alias: "o",
     desc: "output contract file [filepath]",
-    required: true
+    required: true,
   },
   dir: {
     desc: "contract directory [filepath]",
-    required: true
+    required: true,
   },
 };
 

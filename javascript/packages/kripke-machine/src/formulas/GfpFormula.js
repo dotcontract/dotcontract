@@ -1,6 +1,5 @@
-import BaseFormula from './BaseFormula.js';
+import BaseFormula from "./BaseFormula.js";
 import { unionOfSets, setMinus } from "@dotcontract/utils/sets";
-
 
 export default class GfpFormula extends BaseFormula {
   constructor(bound_var, inner) {

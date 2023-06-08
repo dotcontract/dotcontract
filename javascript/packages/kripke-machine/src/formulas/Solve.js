@@ -115,7 +115,10 @@ export default class Solve {
           system,
           env
         );
-      } while (i < MAX_RECURSION && !areSetsEqual(s, env[formula.bound_var.name]));
+      } while (
+        i < MAX_RECURSION &&
+        !areSetsEqual(s, env[formula.bound_var.name])
+      );
       return s;
     } else if (formula_type === GfpFormula) {
       env[formula.bound_var.name] = new Set(...system.getAllStateIds());
@@ -129,7 +132,10 @@ export default class Solve {
           system,
           env
         );
-      } while (i < MAX_RECURSION && !areSetsEqual(s, env[formula.bound_var.name]));
+      } while (
+        i < MAX_RECURSION &&
+        !areSetsEqual(s, env[formula.bound_var.name])
+      );
       return s;
     }
     return new Set();
