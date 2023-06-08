@@ -6,11 +6,22 @@ import { CommonContractArgs, ensureContractArgs } from "../lib/ContractArgs.js";
 export const builder = {
   ...CommonContractArgs,
   order: {
-    default: "desc"
+    default: "desc",
+    type: "string",
+    describe: "order of the commits to print (desc or asc)",
+
   },
   limit: {
-    default: 5
-  }
+    default: 5,
+    type: "number",
+    describe: "limit the number of commits to print",
+
+  },
+  all: {
+    default: false,
+    type: "boolean",
+    describe: "print all commits (if set, overrides --limit)",
+  },
 };
 
 const log = console.log;
@@ -26,7 +37,7 @@ import {
 
 import { Commit } from "@dotcontract/contract";
 
-function describeCommits({ commitLog, commitOrder, order, limit }) {
+function describeCommits({ commitLog, commitOrder, order, limit, all }) {
   log(`${asBold(`# Contract Commit Log`)}`);
   
   const orderList = [];
@@ -36,8 +47,12 @@ function describeCommits({ commitLog, commitOrder, order, limit }) {
   if (order === "desc") {
     orderList.reverse();
   }
-  if (limit < orderList.length) {
-    orderList.splice(limit);
+  if(!all) {
+    if (limit < orderList.length) {
+      log()
+      log(`Printing the ${order === "desc"? "last" : "first"} ${limit} commits. There are ${commitOrder.length} commits in total. Use --all to print all commits.`);
+      orderList.splice(limit);
+    }
   }
   for (const i of orderList) {
     log();
@@ -78,10 +93,13 @@ export async function handler(argv) {
 
   const order = argv["order"];
   const limit = argv["limit"];
+  const all = argv["all"];
+
   if(order !== "desc" && order !== "asc") {
     console.error(`ERROR: Invalid order provided. Valid options are: desc, asc`);
     process.exit(-1);
   }
+
   if(limit < 1) {
     console.error(`ERROR: Invalid limit provided. Valid options are: positive integers`);
     process.exit(-1);
@@ -91,7 +109,7 @@ export async function handler(argv) {
   const commitLog = await dcf.getCommitLog();
   const commitOrder = await dcf.getCommitOrder();
 
-  describeCommits({ commitLog, commitOrder, order, limit });
+  describeCommits({ commitLog, commitOrder, order, limit, all });
 }
 
 export default handler;
