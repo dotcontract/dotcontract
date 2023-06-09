@@ -50,7 +50,8 @@ export async function handler(argv) {
   const local_status = {
     status: isValid,
     commit_count: commitLog.length,
-    latest_commit: commitOrder.length > 0 ? commitOrder[commitOrder.length - 1] : null,
+    latest_commit:
+      commitOrder.length > 0 ? commitOrder[commitOrder.length - 1] : null,
   };
   const contract_id = genesis.genesis.contract_id;
 

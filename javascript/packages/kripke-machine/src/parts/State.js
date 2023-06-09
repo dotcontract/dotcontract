@@ -1,4 +1,4 @@
-import Arrow from './Arrow.js';
+import Arrow from "./Arrow.js";
 
 export default class State {
   constructor(id, arrows = []) {
@@ -16,7 +16,7 @@ export default class State {
   clone() {
     const s = new State();
     s.id = this.id;
-    s.arrows = this.arrows.map(a => a.clone());
+    s.arrows = this.arrows.map((a) => a.clone());
     return s;
   }
 

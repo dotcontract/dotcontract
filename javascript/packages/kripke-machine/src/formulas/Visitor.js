@@ -14,7 +14,7 @@ import {
   BoundVar,
 } from "./ModalFormula.js";
 
-import SignedProp from './SignedProp.js';
+import SignedProp from "./SignedProp.js";
 
 export default class Visitor extends AbstractVisitor {
   visitTrueAtom(ctx) {
@@ -50,18 +50,16 @@ export default class Visitor extends AbstractVisitor {
     const unsigned_actions = ctx.unsignedProp()
       ? [this.visit(ctx.unsignedProp())]
       : [];
-    const signed_actions = Array.from(ctx.signedProp()).map(
-      (signed_action) => {
-        const val = this.visit(signed_action);
-        return val;
-      }
-    );
+    const signed_actions = Array.from(ctx.signedProp()).map((signed_action) => {
+      const val = this.visit(signed_action);
+      return val;
+    });
     return new PropsAtom([...unsigned_actions, ...signed_actions]);
   }
 
   visitUnsignedProp(ctx) {
     const prop = this.visit(ctx.theProp);
-    return new SignedProp(true, prop); 
+    return new SignedProp(true, prop);
   }
 
   visitSignedProp(ctx) {
@@ -81,15 +79,15 @@ export default class Visitor extends AbstractVisitor {
   }
 
   visitEmptyBoxFormula(ctx) {
-    const inner = new PropsAtom([])
+    const inner = new PropsAtom([]);
     const outer = this.visit(ctx.outer);
     return new BoxFormula(inner, outer);
   }
 
   visitEmptyDiamondFormula(ctx) {
-    const inner = new PropsAtom([])
+    const inner = new PropsAtom([]);
     const outer = this.visit(ctx.outer);
-    return new DiamondFormula(inner, outer); 
+    return new DiamondFormula(inner, outer);
   }
 
   visitBoxFormula(ctx) {
@@ -101,7 +99,7 @@ export default class Visitor extends AbstractVisitor {
   visitDiamondFormula(ctx) {
     const inner = this.visit(ctx.inner);
     const outer = this.visit(ctx.outer);
-    return new DiamondFormula(inner, outer); 
+    return new DiamondFormula(inner, outer);
   }
 
   visitLfpFormula(ctx) {
@@ -115,10 +113,9 @@ export default class Visitor extends AbstractVisitor {
     const inner = this.visit(ctx.inner);
     return new GfpFormula(bound_var, inner);
   }
-  
+
   visitBoundVar(ctx) {
     let str = ctx.getText();
     return new BoundVar(str);
   }
-
 }

@@ -22,10 +22,16 @@ describe("Directory", () => {
     expect(v0).toBeTruthy();
     const dotcontract_json_changed_genesis = {
       ...dotcontract_json,
-      genesis: { ...dotcontract_json.genesis, network_id: null, contract_id: null },
+      genesis: {
+        ...dotcontract_json.genesis,
+        network_id: null,
+        contract_id: null,
+      },
     };
-    const v1 = await genesis_key.verifySignaturesInJson(dotcontract_json_changed_genesis);
-    expect(v1).toBeFalsy();  
+    const v1 = await genesis_key.verifySignaturesInJson(
+      dotcontract_json_changed_genesis
+    );
+    expect(v1).toBeFalsy();
 
     // adding a commit
     // --

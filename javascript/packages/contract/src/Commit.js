@@ -10,7 +10,7 @@ export default class Commit {
   clone() {
     const clone = new Commit();
     clone.body = this.body.map((p) => ({ ...p }));
-    clone.head = {...this.head}
+    clone.head = { ...this.head };
     return clone;
   }
 

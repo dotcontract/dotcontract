@@ -40,7 +40,7 @@ export function areSetsEqual(...sets) {
     }
     if (![...set_a].every((value) => set_b.has(value))) {
       return false;
-    };
+    }
   }
   return true;
 }

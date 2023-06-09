@@ -20,6 +20,7 @@ export default class DotContractFile {
       const pd = await DotContractDirectory.generate(temp_dir, genesis);
       await pd.zip(filepath, temp_dir);
     } catch (e) {
+      console.error(e);
       throw e;
     } finally {
       temp.cleanupSync();

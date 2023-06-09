@@ -1,4 +1,4 @@
-import BaseFormula from './BaseFormula.js';
+import BaseFormula from "./BaseFormula.js";
 
 export default class TrueAtom extends BaseFormula {
   constructor() {

@@ -1,243 +1,162 @@
 // Generated from Modality.g4 by ANTLR 4.9.3
 // jshint ignore: start
-import antlr4 from 'antlr4';
+import antlr4 from "antlr4";
 
 // This class defines a complete listener for a parse tree produced by ModalityParser.
 export default class ModalityListener extends antlr4.tree.ParseTreeListener {
+  // Enter a parse tree produced by ModalityParser#expression.
+  enterExpression(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#expression.
-	enterExpression(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#expression.
+  exitExpression(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#expression.
-	exitExpression(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#whenAlsoFormula.
+  enterWhenAlsoFormula(ctx) {}
 
+  // Exit a parse tree produced by ModalityParser#whenAlsoFormula.
+  exitWhenAlsoFormula(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#whenAlsoFormula.
-	enterWhenAlsoFormula(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#whenNextFormula.
+  enterWhenNextFormula(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#whenAlsoFormula.
-	exitWhenAlsoFormula(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#whenNextFormula.
+  exitWhenNextFormula(ctx) {}
 
+  // Enter a parse tree produced by ModalityParser#andFormula.
+  enterAndFormula(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#whenNextFormula.
-	enterWhenNextFormula(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#andFormula.
+  exitAndFormula(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#whenNextFormula.
-	exitWhenNextFormula(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#functionAtom.
+  enterFunctionAtom(ctx) {}
 
+  // Exit a parse tree produced by ModalityParser#functionAtom.
+  exitFunctionAtom(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#andFormula.
-	enterAndFormula(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#notFormula.
+  enterNotFormula(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#andFormula.
-	exitAndFormula(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#notFormula.
+  exitNotFormula(ctx) {}
 
+  // Enter a parse tree produced by ModalityParser#orFormula.
+  enterOrFormula(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#functionAtom.
-	enterFunctionAtom(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#orFormula.
+  exitOrFormula(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#functionAtom.
-	exitFunctionAtom(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#lfpFormula.
+  enterLfpFormula(ctx) {}
 
+  // Exit a parse tree produced by ModalityParser#lfpFormula.
+  exitLfpFormula(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#notFormula.
-	enterNotFormula(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#diamondFormula.
+  enterDiamondFormula(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#notFormula.
-	exitNotFormula(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#diamondFormula.
+  exitDiamondFormula(ctx) {}
 
+  // Enter a parse tree produced by ModalityParser#parenFormula.
+  enterParenFormula(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#orFormula.
-	enterOrFormula(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#parenFormula.
+  exitParenFormula(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#orFormula.
-	exitOrFormula(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#boxFormula.
+  enterBoxFormula(ctx) {}
 
+  // Exit a parse tree produced by ModalityParser#boxFormula.
+  exitBoxFormula(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#lfpFormula.
-	enterLfpFormula(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#falseAtom.
+  enterFalseAtom(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#lfpFormula.
-	exitLfpFormula(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#falseAtom.
+  exitFalseAtom(ctx) {}
 
+  // Enter a parse tree produced by ModalityParser#henceforthMustFormula.
+  enterHenceforthMustFormula(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#diamondFormula.
-	enterDiamondFormula(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#henceforthMustFormula.
+  exitHenceforthMustFormula(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#diamondFormula.
-	exitDiamondFormula(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#gfpFormula.
+  enterGfpFormula(ctx) {}
 
+  // Exit a parse tree produced by ModalityParser#gfpFormula.
+  exitGfpFormula(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#parenFormula.
-	enterParenFormula(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#trueAtom.
+  enterTrueAtom(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#parenFormula.
-	exitParenFormula(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#trueAtom.
+  exitTrueAtom(ctx) {}
 
+  // Enter a parse tree produced by ModalityParser#henceforthCanFormula.
+  enterHenceforthCanFormula(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#boxFormula.
-	enterBoxFormula(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#henceforthCanFormula.
+  exitHenceforthCanFormula(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#boxFormula.
-	exitBoxFormula(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#propsAtom.
+  enterPropsAtom(ctx) {}
 
+  // Exit a parse tree produced by ModalityParser#propsAtom.
+  exitPropsAtom(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#falseAtom.
-	enterFalseAtom(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#unsignedProp.
+  enterUnsignedProp(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#falseAtom.
-	exitFalseAtom(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#unsignedProp.
+  exitUnsignedProp(ctx) {}
 
+  // Enter a parse tree produced by ModalityParser#signedProp.
+  enterSignedProp(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#henceforthMustFormula.
-	enterHenceforthMustFormula(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#signedProp.
+  exitSignedProp(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#henceforthMustFormula.
-	exitHenceforthMustFormula(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#sign.
+  enterSign(ctx) {}
 
+  // Exit a parse tree produced by ModalityParser#sign.
+  exitSign(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#gfpFormula.
-	enterGfpFormula(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#prop.
+  enterProp(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#gfpFormula.
-	exitGfpFormula(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#prop.
+  exitProp(ctx) {}
 
+  // Enter a parse tree produced by ModalityParser#trueArg.
+  enterTrueArg(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#trueAtom.
-	enterTrueAtom(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#trueArg.
+  exitTrueArg(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#trueAtom.
-	exitTrueAtom(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#falseArg.
+  enterFalseArg(ctx) {}
 
+  // Exit a parse tree produced by ModalityParser#falseArg.
+  exitFalseArg(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#henceforthCanFormula.
-	enterHenceforthCanFormula(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#stringArg.
+  enterStringArg(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#henceforthCanFormula.
-	exitHenceforthCanFormula(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#stringArg.
+  exitStringArg(ctx) {}
 
+  // Enter a parse tree produced by ModalityParser#numberArg.
+  enterNumberArg(ctx) {}
 
-	// Enter a parse tree produced by ModalityParser#propsAtom.
-	enterPropsAtom(ctx) {
-	}
+  // Exit a parse tree produced by ModalityParser#numberArg.
+  exitNumberArg(ctx) {}
 
-	// Exit a parse tree produced by ModalityParser#propsAtom.
-	exitPropsAtom(ctx) {
-	}
+  // Enter a parse tree produced by ModalityParser#pathArg.
+  enterPathArg(ctx) {}
 
-
-	// Enter a parse tree produced by ModalityParser#unsignedProp.
-	enterUnsignedProp(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#unsignedProp.
-	exitUnsignedProp(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalityParser#signedProp.
-	enterSignedProp(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#signedProp.
-	exitSignedProp(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalityParser#sign.
-	enterSign(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#sign.
-	exitSign(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalityParser#prop.
-	enterProp(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#prop.
-	exitProp(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalityParser#trueArg.
-	enterTrueArg(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#trueArg.
-	exitTrueArg(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalityParser#falseArg.
-	enterFalseArg(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#falseArg.
-	exitFalseArg(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalityParser#stringArg.
-	enterStringArg(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#stringArg.
-	exitStringArg(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalityParser#numberArg.
-	enterNumberArg(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#numberArg.
-	exitNumberArg(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalityParser#pathArg.
-	enterPathArg(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#pathArg.
-	exitPathArg(ctx) {
-	}
-
-
-
+  // Exit a parse tree produced by ModalityParser#pathArg.
+  exitPathArg(ctx) {}
 }

@@ -1,6 +1,5 @@
-import BaseFormula from './BaseFormula.js';
+import BaseFormula from "./BaseFormula.js";
 import { unionOfSets } from "@dotcontract/utils/sets";
-
 
 export default class DiamondFormula extends BaseFormula {
   constructor(inner, outer) {
@@ -18,7 +17,10 @@ export default class DiamondFormula extends BaseFormula {
   }
 
   getBoundVars(ctx) {
-    return new unionOfSets(this.inner.getBoundVars(), this.outer.getBoundVars());
+    return new unionOfSets(
+      this.inner.getBoundVars(),
+      this.outer.getBoundVars()
+    );
   }
 
   toText() {

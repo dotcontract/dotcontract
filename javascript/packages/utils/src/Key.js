@@ -125,7 +125,6 @@ export default class Key {
     return {
       id,
       public_key,
-      private_key,
     };
   }
 

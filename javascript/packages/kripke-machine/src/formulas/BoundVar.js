@@ -1,4 +1,4 @@
-import BaseFormula from './BaseFormula.js';
+import BaseFormula from "./BaseFormula.js";
 
 export default class BoundVar extends BaseFormula {
   constructor(name) {

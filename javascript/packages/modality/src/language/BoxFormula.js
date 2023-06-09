@@ -1,8 +1,7 @@
-import BaseFormula from './BaseFormula.js';
+import BaseFormula from "./BaseFormula.js";
 import { unionOfSets } from "@dotcontract/utils/sets";
 
-
-export default class  BoxFormula extends BaseFormula {
+export default class BoxFormula extends BaseFormula {
   constructor(inner, outer) {
     super();
     this.inner = inner;
@@ -18,7 +17,10 @@ export default class  BoxFormula extends BaseFormula {
   }
 
   getBoundVars(ctx) {
-    return new unionOfSets(this.inner.getBoundVars(), this.outer.getBoundVars());
+    return new unionOfSets(
+      this.inner.getBoundVars(),
+      this.outer.getBoundVars()
+    );
   }
 
   toText() {

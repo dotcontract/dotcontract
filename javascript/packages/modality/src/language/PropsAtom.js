@@ -19,8 +19,6 @@ export default class PropsAtom extends BaseFormula {
   }
 
   toText() {
-    return `${this.props
-      .map((sa) => sa.toText())
-      .join(" ")}`;
+    return `${this.props.map((sa) => sa.toText()).join(" ")}`;
   }
 }

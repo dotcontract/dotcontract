@@ -1,4 +1,4 @@
-import BaseFormula from './BaseFormula.js';
+import BaseFormula from "./BaseFormula.js";
 
 export default class NotFormula extends BaseFormula {
   constructor(formula) {
@@ -21,5 +21,4 @@ export default class NotFormula extends BaseFormula {
   toText() {
     return `not (${this.inner.toText()})`;
   }
-
 }

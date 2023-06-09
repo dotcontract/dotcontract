@@ -1,7 +1,7 @@
 export const command = "commit";
 export const describe = "adds a commit to a contract";
 import { CommonContractArgs, ensureContractArgs } from "../lib/ContractArgs.js";
-import fs from 'fs';
+import fs from "fs";
 
 export const builder = {
   ...CommonContractArgs,
@@ -35,7 +35,7 @@ export const builder = {
   },
   evolution: {
     desc: "evolves kripke machine, one arg: [evolution.json]",
-  }
+  },
   // TODO
   // define: {
   //   desc: "defines the type of a contract path, two args: [path] [value]",
@@ -81,7 +81,7 @@ export async function handler(argv) {
   } = argv;
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
 
-  if (!post && !rule && !define && !body && !bodyFromFile) {
+  if (!post && !rule && !body && !bodyFromFile) {
     console.error(
       "Missing required argument: body or bodyFromFile or a particular action like post, rule, or define"
     );

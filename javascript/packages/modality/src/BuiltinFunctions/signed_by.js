@@ -1,4 +1,4 @@
-import Key from '@dotcontract/utils/Key';
+import Key from "@dotcontract/utils/Key";
 
 export default async function signed_by(ctx, multiaddress) {
   const { method, content, meta } = ctx;
@@ -13,9 +13,9 @@ export default async function signed_by(ctx, multiaddress) {
 
   const json = {
     method,
-    content
+    content,
   };
   const shared_key = Key.fromPublicMultiaddress(multiaddress);
-  const result = await shared_key.verifySignatureForJson(signature, json);  
+  const result = await shared_key.verifySignatureForJson(signature, json);
   return result;
 }

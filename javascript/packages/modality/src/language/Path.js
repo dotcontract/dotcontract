@@ -1,4 +1,4 @@
-import BaseFormula from './BaseFormula.js';
+import BaseFormula from "./BaseFormula.js";
 
 export default class Path extends BaseFormula {
   constructor(str) {

@@ -1,13 +1,12 @@
 import System from "./System";
-import Step from './Step';
+import Step from "./Step";
 
-import JSONFile from '@dotcontract/utils/JSONFile';
+import JSONFile from "@dotcontract/utils/JSONFile";
 import dirnameFromImportMeta from "@dotcontract/utils/dirnameFromImportMeta";
 const __dirname = dirnameFromImportMeta(import.meta);
 function fixturesFile(fn) {
   return `${__dirname}/../../fixtures/${fn}`;
 }
-
 
 describe("System", () => {
   it("should work", async () => {
@@ -16,7 +15,7 @@ describe("System", () => {
     r = ss.canTakeStep(new Step("anything"));
     expect(r).toBe(true);
 
-    const json = JSONFile.readSync(fixturesFile('km/two_step.json'));
+    const json = JSONFile.readSync(fixturesFile("km/two_step.json"));
     ss = System.fromJSON(json.systems[0]);
 
     r = ss.canTakeStep(new Step("left"));

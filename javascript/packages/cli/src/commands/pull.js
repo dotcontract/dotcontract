@@ -7,13 +7,12 @@ export const builder = {
   ...CommonNetworkArgs,
   output: {
     alias: "o",
-    required: true
+    required: true,
   },
   contract: {
     alias: "c",
-    required: true
+    required: true,
   },
-
 };
 
 import DotContractFile from "@dotcontract/file";
@@ -23,7 +22,7 @@ const log = console.log;
 
 export async function handler(argv) {
   if (!argv.contract && !argv.output) {
-    console.error('--contract && --output required');
+    console.error("--contract && --output required");
     return;
   }
 
@@ -36,18 +35,16 @@ export async function handler(argv) {
     local_status = {
       status: isValid,
       commit_count: 0,
-      latest_commit: ''
+      latest_commit: "",
     };
     contract_id = genesis.contract_id;
-    log(pf)
+    log(pf);
     await pf.saveTo(argv.output);
   }
-  
+
   // TODO
   //once dotcontract file is opened --> setup a node and DotContractQuery on the node
   //push the query_res into a dotcontract file --> TBD
-  
 }
-
 
 export default handler;

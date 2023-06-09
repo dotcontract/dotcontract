@@ -17,7 +17,7 @@ export const allFunctions = {
   method_is,
   content_keyIsPresent,
   content_keyHasValue,
-  signed_by
+  signed_by,
 };
 
 export function getFunction(name) {

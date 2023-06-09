@@ -22,7 +22,7 @@ export const CommonContractWithOutputArgs = {
   dir: {
     alias: "d",
     desc: "dotcontract directory [filepath]",
-  }
+  },
 };
 
 export const findNearestDotContractDir = async function (dirpath) {

@@ -1,4 +1,4 @@
-import Functions from './Functions.js';
+import Functions from "./Functions.js";
 
 export default class Context {
   constructor(values = {}) {
@@ -17,18 +17,17 @@ export default class Context {
   callFunction(name, args) {
     if (Functions.allFunctions[name]) {
       return this.callBuiltinFunction(name, args);
-    // } else if (this.userFunctions[])
+      // } else if (this.userFunctions[])
     } else {
       throw new Error(`Unknown function: ${name}`);
     }
   }
 
   callBuiltinFunction(name, args) {
-    const func = Functions.allFunctions[name]
+    const func = Functions.allFunctions[name];
     const ctx = this.getValues();
-    return func(ctx, ...(args || []))
+    return func(ctx, ...(args || []));
   }
 
-  callUserFunction(name, args) {
-  }
+  callUserFunction(name, args) {}
 }

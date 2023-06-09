@@ -7,11 +7,11 @@ export const builder = {
   input: {
     alias: "i",
     desc: "input contract file [filepath]",
-    required: true
+    required: true,
   },
   dir: {
     desc: "contract directory [filepath]",
-    required: true
+    required: true,
   },
 };
 
