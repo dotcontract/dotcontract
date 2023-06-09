@@ -32,6 +32,10 @@ export default class Contract {
     return signed_genesis;
   }
 
+  static async generateConfig() {
+    return {"remote": {"url": null}}
+  }
+
   async appendCommit(commit) {
     const props_text = "";
     const step = new Step(props_text, {
