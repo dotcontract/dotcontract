@@ -88,7 +88,7 @@ export async function reCommit(dcf, commitLog, attachments_dir, start_indx, end_
 }
 
 export async function handler(argv) {
-  let commit_hash = argv["commit-hash"];
+  const commit_hash = argv["commit-hash"];
   var { dotcontract_file: dcf } = await ensureContractArgs(argv);
 
   const commitLog = await dcf.getCommitLog();
