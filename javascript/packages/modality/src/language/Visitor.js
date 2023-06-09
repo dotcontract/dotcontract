@@ -5,6 +5,7 @@ import {
   FalseAtom,
   FunctionAtom,
   PropAtom,
+  PropsAtom,
   AndFormula,
   OrFormula,
   NotFormula,
@@ -17,6 +18,7 @@ import {
   GfpFormula,
   LfpFormula,
   Path,
+  SignedProp
 } from "./Expression.js";
 
 export default class ModalityVisitor extends AbstractVisitor {
@@ -181,6 +183,7 @@ export default class ModalityVisitor extends AbstractVisitor {
 
   visitBoundVar(ctx) {
     let str = ctx.getText();
-    return new BoundVar(str);
+    // TODO return new BoundVar(str);
+    return str;
   }
 }

@@ -5,8 +5,11 @@ import Lexer from "../../grammars/build/ModalityLexer.js";
 import Visitor from "./Visitor.js";
 
 import BaseFormula from "./BaseFormula.js";
+import TrueAtom from "./TrueAtom.js";
+import FalseAtom from "./FalseAtom.js";
 
 export { default as PropAtom } from "./PropAtom.js";
+export { default as PropsAtom } from "./PropsAtom.js";
 export { default as TrueAtom } from "./TrueAtom.js";
 export { default as FalseAtom } from "./FalseAtom.js";
 export { default as AndFormula } from "./AndFormula.js";
@@ -22,6 +25,8 @@ export { default as DiamondFormula } from "./DiamondFormula.js";
 export { default as GfpFormula } from "./GfpFormula.js";
 export { default as LfpFormula } from "./LfpFormula.js";
 export { default as Path } from "./Path.js";
+export { default as SignedProp } from './SignedProp.js';
+
 class CustomErrorListener extends antlr4.error.ErrorListener {
   syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
     throw new Error(

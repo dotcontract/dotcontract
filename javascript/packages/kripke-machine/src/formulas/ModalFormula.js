@@ -6,6 +6,8 @@ import Visitor from "./Visitor.js";
 import { unionOfSets, setMinus } from "@dotcontract/utils/sets";
 
 import BaseFormula from "./BaseFormula.js";
+import TrueAtom from "./TrueAtom.js";
+import FalseAtom from "./FalseAtom.js";
 
 export { default as PropsAtom } from "./PropsAtom.js";
 export { default as TrueAtom } from "./TrueAtom.js";
