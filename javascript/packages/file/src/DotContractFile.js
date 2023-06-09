@@ -72,6 +72,10 @@ export default class DotContractFile {
     return this.directory.getDotContractJson();
   }
 
+  async getConfigJson() {
+    return this.directory.getConfigJson();
+  }
+
   async commit({ body, head }) {
     return this.directory.commit({ body, head });
   }
@@ -96,6 +100,14 @@ export default class DotContractFile {
 
   async attach({ path, filepath }) {
     return this.directory.attach({ path, filepath });
+  }
+
+  async linkContract(contract_path) {
+    await this.directory.linkContract(contract_path);
+  }
+
+  async getLinkedContract() {
+    return this.directory.getLinkedContract();
   }
 
   async hasAttachments() {
