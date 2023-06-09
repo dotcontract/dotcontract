@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
+
+${SCRIPT_DIR}/lint
+${SCRIPT_DIR}/format
+${SCRIPT_DIR}/test

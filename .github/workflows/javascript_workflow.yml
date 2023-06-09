@@ -42,7 +42,7 @@ jobs:
       - name: Run tests
         run: scripts/test
       - name: Run prettier
-        run: pnpm prettier --check .
+        run: scripts/formatting/check
       - name: Run eslint
-        run: pnpm eslint .
+        run: scripts/lint
         continue-on-error: true # temporary
