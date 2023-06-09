@@ -19,18 +19,7 @@ import { Commit, CommitAction } from "@dotcontract/contract";
 import temp from "temp";
 temp.track();
 
-export async function handler(argv) {
-  let commit_hash = argv["commit-hash"];
-  var { dotcontract_file: dcf } = await ensureContractArgs(argv);
-
-  const commitLog = await dcf.getCommitLog();
-  const commitOrder = await dcf.getCommitOrder();
-
-  if (commitLog.length < 1) {
-    console.error(`ERROR: No commits in the specified contract`);
-    process.exit(-1);
-  }
-
+export function findDeleteIndex(commit_hash, commitOrder){
   // check if commit hash is valid
   let delete_from_indx = commitOrder.length - 1;
   if (commit_hash) {
@@ -42,21 +31,24 @@ export async function handler(argv) {
         break;
       }
     }
-
     if (valid_hash == false) {
       console.error(`ERROR: Invalid commit hash provided.`);
       process.exit(-1);
     }
   }
+  return delete_from_indx;
+}
 
-  // Handle attachments
+export async function copyAttachmentsToDir(dcf){
   let attachments_dir = null;
   if (await dcf.hasAttachments()) {
     attachments_dir = temp.mkdirSync();
     await dcf.copyAttachments(attachments_dir);
   }
+  return attachments_dir;
+}
 
-  // Create empty contract with same dotcontract json
+export async function createEmptyContract(dcf){
   const dotcontract_json = await dcf.getDotContractJson();
   await dcf.clear();
   if (dcf.filepath) {
@@ -68,9 +60,11 @@ export async function handler(argv) {
     );
     dcf = await DotContractFile.fromDir(dcd.path);
   }
+  return dcf;
+}
 
-  // Recommit
-  for (let i = 0; i < delete_from_indx; i++) {
+export async function reCommit(dcf, commitLog, attachments_dir, start_indx, end_indx){
+  for (let i = start_indx; i <= end_indx; i++) {
     const attachments = [];
     const c = Commit.fromJSONString(commitLog[i]);
     for (const part of c.body) {
@@ -91,6 +85,24 @@ export async function handler(argv) {
     await dcf.commit(c.toJSON());
   }
   await dcf.save();
+}
+
+export async function handler(argv) {
+  let commit_hash = argv["commit-hash"];
+  var { dotcontract_file: dcf } = await ensureContractArgs(argv);
+
+  const commitLog = await dcf.getCommitLog();
+  const commitOrder = await dcf.getCommitOrder();
+
+  if (commitLog.length < 1) {
+    console.error(`ERROR: No commits in the specified contract`);
+    process.exit(-1);
+  }
+
+  const delete_from_indx = findDeleteIndex(commit_hash, commitOrder);
+  const attachments_dir = await copyAttachmentsToDir(dcf);
+  dcf = await createEmptyContract(dcf);
+  await reCommit(dcf, commitLog, attachments_dir, 0, delete_from_indx-1);
 
   if (delete_from_indx == commitOrder.length - 1)
     log(`Deleted latest commit - ${commitOrder[delete_from_indx]}`);
