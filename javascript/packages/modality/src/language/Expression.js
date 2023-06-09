@@ -25,7 +25,7 @@ export { default as DiamondFormula } from "./DiamondFormula.js";
 export { default as GfpFormula } from "./GfpFormula.js";
 export { default as LfpFormula } from "./LfpFormula.js";
 export { default as Path } from "./Path.js";
-export { default as SignedProp } from './SignedProp.js';
+export { default as SignedProp } from "./SignedProp.js";
 
 class CustomErrorListener extends antlr4.error.ErrorListener {
   syntaxError(recognizer, offendingSymbol, line, column, msg, e) {

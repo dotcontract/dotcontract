@@ -18,7 +18,7 @@ import {
   GfpFormula,
   LfpFormula,
   Path,
-  SignedProp
+  SignedProp,
 } from "./Expression.js";
 
 export default class ModalityVisitor extends AbstractVisitor {
