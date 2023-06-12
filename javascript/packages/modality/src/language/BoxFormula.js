@@ -26,4 +26,10 @@ export default class BoxFormula extends BaseFormula {
   toText() {
     return `[${this.inner.toText()}] ${this.outer.toText()}`;
   }
+
+  toModalFormula() {
+    return `[${this.inner.toModalFormula({
+      filterMaybe: true,
+    })}] ${this.outer.toModalFormula()}`;
+  }
 }

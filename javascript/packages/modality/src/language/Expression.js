@@ -7,6 +7,7 @@ import Visitor from "./Visitor.js";
 import BaseFormula from "./BaseFormula.js";
 import TrueAtom from "./TrueAtom.js";
 import FalseAtom from "./FalseAtom.js";
+import PropsAtom from "./PropsAtom.js";
 
 export { default as PropAtom } from "./PropAtom.js";
 export { default as PropsAtom } from "./PropsAtom.js";
@@ -26,6 +27,8 @@ export { default as GfpFormula } from "./GfpFormula.js";
 export { default as LfpFormula } from "./LfpFormula.js";
 export { default as Path } from "./Path.js";
 export { default as SignedProp } from "./SignedProp.js";
+export { default as MustMacro } from "./MustMacro.js";
+export { default as CanMacro } from "./CanMacro.js";
 
 class CustomErrorListener extends antlr4.error.ErrorListener {
   syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
@@ -66,7 +69,7 @@ export class Expression {
   constructor(input, defaultTo = null) {
     if (typeof input === "string") {
       if (input.match(/^\s*$/)) {
-        return defaultTo ? new TrueAtom() : new FalseAtom();
+        return new PropsAtom([]);
       }
       const parser = this.constructor.parse(input);
       parser.removeErrorListeners();

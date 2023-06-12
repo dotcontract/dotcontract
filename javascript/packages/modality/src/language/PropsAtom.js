@@ -18,7 +18,27 @@ export default class PropsAtom extends BaseFormula {
     return new Set();
   }
 
+  negated({ filterMaybe = false } = {}) {
+    let props = [...this.props];
+    if (filterMaybe) {
+      props = [...this.props.filter((i) => !i.isMaybe())];
+    }
+    const pa = new PropsAtom(props.map((sa) => sa.negated()));
+    return pa;
+  }
+
   toText() {
     return `${this.props.map((sa) => sa.toText()).join(" ")}`;
+  }
+
+  toModalFormula({ filterMaybe = false } = {}) {
+    let props = [...this.props];
+    if (filterMaybe) {
+      props = [...this.props.filter((i) => !i.isMaybe())];
+    }
+    return `${props
+      .map((sa) => sa.toText())
+      .filter((i) => !!i.length)
+      .join(" ")}`;
   }
 }

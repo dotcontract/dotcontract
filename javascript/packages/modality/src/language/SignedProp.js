@@ -11,6 +11,16 @@ export default class SignedProp {
     return this;
   }
 
+  negated() {
+    if (this.sign === true) {
+      return new SignedProp(false, this.prop);
+    } else if (this.sign === false) {
+      return new SignedProp(true, this.prop);
+    } else {
+      return new SignedProp(null, this.prop);
+    }
+  }
+
   getValue() {
     return true; // TODO
   }
@@ -19,7 +29,24 @@ export default class SignedProp {
     return new Set([this.prop]);
   }
 
+  signToText() {
+    if (this.sign === true) {
+      return "+";
+    } else if (this.sign === false) {
+      return "-";
+    } else {
+      return "?";
+    }
+  }
+
+  isMaybe() {
+    return this.signToText() === "?";
+  }
+
   toText() {
-    return `${this.sign ? "+" : "-"}${this.prop}`;
+    if (this.isMaybe()) {
+      return "";
+    }
+    return `${this.signToText()}${this.prop}`;
   }
 }

@@ -48,6 +48,12 @@ describe("ModalFormula", () => {
     f = new ModalFormula("[write] [write] <publish> true");
   });
 
+  it("should parse empty multiActions, boxes, and diamonds", async () => {
+    new ModalFormula("");
+    new ModalFormula("[] true");
+    new ModalFormula("<> true");
+  });
+
   it("should parse modal mu fixed points formula", async () => {
     new ModalFormula("lfp(@x, true)");
     const text = "gfp(@x, []@x and [-write] false)";

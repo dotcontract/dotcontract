@@ -2,7 +2,48 @@ import Expression from "./Expression.js";
 import { functionCallToPropName } from "../Functions.js";
 import Context from "../Context.js";
 
+const VALID_FORMULAS = {
+  [`false`]: `false`,
+  [`true`]: `true`,
+  [`[true] false`]: `[true] false`,
+  [`<true> true`]: `<true> true`,
+  [`+a`]: "+a",
+  [`-a`]: "-a",
+  [`?a`]: "",
+  [`+a -b ?c`]: "+a -b",
+  [`[+a] false`]: `[+a] false`,
+  [`[-b] false`]: `[-b] false`,
+  [`[?c] false`]: `[] false`,
+  [`[+a -b ?c] false`]: `[+a -b] false`,
+  [`[+a -b ?c] +a -b ?c`]: `[+a -b] +a -b`,
+  [`must(+a -b ?c)`]: `[-a +b] false`,
+  [`can(+a -b ?c)`]: `<+a -b> true`,
+};
+
 describe("Expression", () => {
+  it("should parse valid formulas", async () => {
+    for (const [formula, modalFormula] of Object.entries(VALID_FORMULAS)) {
+      expect(() => {
+        try {
+          const expr = new Expression(formula);
+          const mf = expr.toModalFormula();
+          const expr2 = new Expression(modalFormula);
+          const mf2 = expr2.toModalFormula();
+          expect(mf).toBe(mf2);
+        } catch (e) {
+          console.error(`Attempting to parse: ${formula}`);
+          throw e;
+        }
+      }).not.toThrow();
+    }
+  });
+
+  it("should parse empty signed props, boxes, and diamonds", async () => {
+    new Expression("");
+    new Expression("[] true");
+    new Expression("<> true");
+  });
+
   it("should parse", async () => {
     let formula;
 
@@ -20,11 +61,13 @@ describe("Expression", () => {
     expect(formula.args[0].constructor.name).toBe("Path");
     expect(formula.args[1].constructor.name).toBe("String");
 
+    formula = new Expression(`[+a -b ?c] false`);
+
     // formula = new Expression(`gfp(@x, [*]@x)`);
     // console.log(formula)
   });
 
-  it.skip("should parse", async () => {
+  it.skip("Expressionshould parse", async () => {
     let formula, ctx, expandedFormula;
     formula = new Expression(`true and method_is("post")`);
     ctx = new Context({});

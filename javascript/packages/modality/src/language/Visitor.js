@@ -19,6 +19,8 @@ import {
   LfpFormula,
   Path,
   SignedProp,
+  MustMacro,
+  CanMacro,
 } from "./Expression.js";
 
 export default class ModalityVisitor extends AbstractVisitor {
@@ -144,7 +146,16 @@ export default class ModalityVisitor extends AbstractVisitor {
   visitSignedProp(ctx) {
     const sign = ctx.theSign ? this.visit(ctx.theSign) : "+";
     const prop = this.visit(ctx.theProp);
-    return new SignedProp(sign === "+", prop);
+    const sign_as_pseudobool = (() => {
+      if (sign === "+") {
+        return true;
+      } else if (sign === "-") {
+        return false;
+      } else {
+        return null;
+      }
+    })();
+    return new SignedProp(sign_as_pseudobool, prop);
   }
 
   visitSign(ctx) {
@@ -155,6 +166,18 @@ export default class ModalityVisitor extends AbstractVisitor {
   visitProp(ctx) {
     let str = ctx.getText();
     return str;
+  }
+
+  visitEmptyBoxFormula(ctx) {
+    const inner = new PropsAtom([]);
+    const outer = this.visit(ctx.outer);
+    return new BoxFormula(inner, outer);
+  }
+
+  visitEmptyDiamondFormula(ctx) {
+    const inner = new PropsAtom([]);
+    const outer = this.visit(ctx.outer);
+    return new DiamondFormula(inner, outer);
   }
 
   visitBoxFormula(ctx) {
@@ -185,5 +208,15 @@ export default class ModalityVisitor extends AbstractVisitor {
     let str = ctx.getText();
     // TODO return new BoundVar(str);
     return str;
+  }
+
+  visitMustMacro(ctx) {
+    const formula = this.visit(ctx.formula());
+    return new MustMacro(formula);
+  }
+
+  visitCanMacro(ctx) {
+    const formula = this.visit(ctx.formula());
+    return new CanMacro(formula);
   }
 }

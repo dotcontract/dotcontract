@@ -6,9 +6,13 @@ formula:
 	TRUE												# trueAtom
 	| FALSE												# falseAtom
 	| (unsignedProp (signedProp)* | (signedProp)+)						# propsAtom
+	| MUST LPAREN formula RPAREN # mustMacro
+	| CAN LPAREN formula RPAREN # canMacro
 	| HENCEFORTH_MUST LPAREN inner_formula = formula RPAREN (UNTIL LPAREN until_formula = formula RPAREN)? # henceforthMustFormula
 	| HENCEFORTH_CAN LPAREN inner_formula = formula RPAREN (UNTIL until_formula = formula RPAREN)? # henceforthCanFormula
 	| name = NAME LPAREN (arg (',' arg)*)? RPAREN	# functionAtom
+	| LBOX RBOX outer = formula					# emptyBoxFormula
+	| LDIA RDIA outer = formula					# emptyDiamondFormula
 	| LBOX inner = formula RBOX outer = formula					# boxFormula
 	| LDIA inner = formula RDIA outer = formula					# diamondFormula
 	| LFP LPAREN boundVar = formula COMMA inner = formula RPAREN	# lfpFormula
@@ -22,8 +26,8 @@ formula:
 
 unsignedProp: theProp = prop;
 signedProp: (theSign = sign) WS* theProp = prop;
-sign: PLUS | MINUS # sign;
-prop: TRUE | FALSE | STAR | NAME # prop;
+sign: PLUS | MINUS | QMARK # sign;
+prop: TRUE | FALSE | NAME # prop;
 
 arg:
 	TRUE # trueArg
@@ -32,6 +36,9 @@ arg:
 	| NUMBER # numberArg
 	| PATH # pathArg
 	;
+
+MUST: 'must';
+CAN: 'can';
 
 HENCEFORTH_MUST: 'henceforth_must';
 HENCEFORTH_CAN: 'henceforth_can';
@@ -59,6 +66,7 @@ COMMA: ',';
 
 PLUS: '+';
 MINUS: '-';
+QMARK: '?';
 
 LFP: 'lfp';
 GFP: 'gfp';
