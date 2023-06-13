@@ -18,18 +18,26 @@ const VALID_FORMULAS = {
   [`[+a -b ?c] +a -b ?c`]: `[+a -b] +a -b`,
   [`must(+a -b ?c)`]: `[-a +b] false`,
   [`can(+a -b ?c)`]: `<+a -b> true`,
+  [`always(must(+a))`]: `gfp(@x, [] @x and [-a] false)`,
+  [`eventually(can(+a))`]: `lfp(@x, [] @x or <+a> true)`,
 };
 
 describe("Expression", () => {
   it("should parse valid formulas", async () => {
-    for (const [formula, modalFormula] of Object.entries(VALID_FORMULAS)) {
+    for (const [formula, validModalFormula] of Object.entries(VALID_FORMULAS)) {
       expect(() => {
         try {
           const expr = new Expression(formula);
           const mf = expr.toModalFormula();
-          const expr2 = new Expression(modalFormula);
+
+          // run second time for consistent whitespace
+          const expr2 = new Expression(mf);
           const mf2 = expr2.toModalFormula();
-          expect(mf).toBe(mf2);
+
+          // compare to valid modal formula
+          const vmf_expr = new Expression(validModalFormula);
+          const vmf_mf = vmf_expr.toModalFormula();
+          expect(mf2).toBe(vmf_mf);
         } catch (e) {
           console.error(`Attempting to parse: ${formula}`);
           throw e;

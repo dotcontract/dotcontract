@@ -2,9 +2,9 @@ import BaseFormula from "./BaseFormula.js";
 import { unionOfSets, setMinus } from "@dotcontract/utils/sets";
 
 export default class GfpFormula extends BaseFormula {
-  constructor(bound_var, inner) {
+  constructor(state_set_variable, inner) {
     super();
-    this.bound_var = bound_var;
+    this.state_set_variable = state_set_variable;
     this.inner = inner;
   }
 
@@ -13,14 +13,18 @@ export default class GfpFormula extends BaseFormula {
   }
 
   getFreeVars(ctx) {
-    return new setMinus(this.inner.getFreeVars(), this.bound_var.toText());
+    return new setMinus(this.inner.getFreeVars(), this.state_set_variable.toText());
   }
 
   getBoundVars(ctx) {
-    return new unionOfSets(this.inner.getBoundVars(), this.bound_var.toText());
+    return new unionOfSets(this.inner.getBoundVars(), this.state_set_variable.toText());
   }
 
   toText() {
-    return `gfp(${this.bound_var.toText()}, ${this.inner.toText()})`;
+    return `gfp(${this.state_set_variable.toText()}, ${this.inner.toText()})`;
+  }
+
+  toModalFormula() {
+    return `gfp(${this.state_set_variable.toModalFormula()}, ${this.inner.toModalFormula()})`;
   }
 }

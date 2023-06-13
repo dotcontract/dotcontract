@@ -18,6 +18,12 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
+	// Visit a parse tree produced by ModalityParser#alwaysMacro.
+	visitAlwaysMacro(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
 	// Visit a parse tree produced by ModalityParser#emptyBoxFormula.
 	visitEmptyBoxFormula(ctx) {
 	  return this.visitChildren(ctx);
@@ -72,6 +78,12 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
+	// Visit a parse tree produced by ModalityParser#eventuallyMacro.
+	visitEventuallyMacro(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
 	// Visit a parse tree produced by ModalityParser#diamondFormula.
 	visitDiamondFormula(ctx) {
 	  return this.visitChildren(ctx);
@@ -102,12 +114,6 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
-	// Visit a parse tree produced by ModalityParser#henceforthMustFormula.
-	visitHenceforthMustFormula(ctx) {
-	  return this.visitChildren(ctx);
-	}
-
-
 	// Visit a parse tree produced by ModalityParser#gfpFormula.
 	visitGfpFormula(ctx) {
 	  return this.visitChildren(ctx);
@@ -120,14 +126,14 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
-	// Visit a parse tree produced by ModalityParser#henceforthCanFormula.
-	visitHenceforthCanFormula(ctx) {
+	// Visit a parse tree produced by ModalityParser#propsAtom.
+	visitPropsAtom(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
 
-	// Visit a parse tree produced by ModalityParser#propsAtom.
-	visitPropsAtom(ctx) {
+	// Visit a parse tree produced by ModalityParser#stateSetVariable.
+	visitStateSetVariable(ctx) {
 	  return this.visitChildren(ctx);
 	}
 

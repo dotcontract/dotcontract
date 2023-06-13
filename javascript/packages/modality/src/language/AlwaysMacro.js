@@ -1,6 +1,6 @@
 import BaseFormula from "./BaseFormula.js";
 
-export default class HenceforthMustFormula extends BaseFormula {
+export default class AlwaysMacro extends BaseFormula {
   constructor(inner_formula, until_formula) {
     super();
     this.inner_formula = inner_formula;
@@ -22,8 +22,8 @@ export default class HenceforthMustFormula extends BaseFormula {
 
   toModalFormula() {
     if (this.until_formula) {
-      throw new Error("not yet implemented");
+      return `gfp(@x, ([]@x and ${this.inner_formula.toModalFormula()}) or ${this.until_formula.toModalFormula()})`;
     }
-    return `gfp(@x, [*]@x and ${this.inner_formula.toModalFormula()})`;
+    return `gfp(@x, []@x and ${this.inner_formula.toModalFormula()})`;
   }
 }

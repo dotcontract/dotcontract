@@ -23,6 +23,15 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by ModalityParser#alwaysMacro.
+	enterAlwaysMacro(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#alwaysMacro.
+	exitAlwaysMacro(ctx) {
+	}
+
+
 	// Enter a parse tree produced by ModalityParser#emptyBoxFormula.
 	enterEmptyBoxFormula(ctx) {
 	}
@@ -104,6 +113,15 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by ModalityParser#eventuallyMacro.
+	enterEventuallyMacro(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#eventuallyMacro.
+	exitEventuallyMacro(ctx) {
+	}
+
+
 	// Enter a parse tree produced by ModalityParser#diamondFormula.
 	enterDiamondFormula(ctx) {
 	}
@@ -149,15 +167,6 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by ModalityParser#henceforthMustFormula.
-	enterHenceforthMustFormula(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#henceforthMustFormula.
-	exitHenceforthMustFormula(ctx) {
-	}
-
-
 	// Enter a parse tree produced by ModalityParser#gfpFormula.
 	enterGfpFormula(ctx) {
 	}
@@ -176,21 +185,21 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by ModalityParser#henceforthCanFormula.
-	enterHenceforthCanFormula(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#henceforthCanFormula.
-	exitHenceforthCanFormula(ctx) {
-	}
-
-
 	// Enter a parse tree produced by ModalityParser#propsAtom.
 	enterPropsAtom(ctx) {
 	}
 
 	// Exit a parse tree produced by ModalityParser#propsAtom.
 	exitPropsAtom(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#stateSetVariable.
+	enterStateSetVariable(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#stateSetVariable.
+	exitStateSetVariable(ctx) {
 	}
 
 

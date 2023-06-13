@@ -9,26 +9,37 @@ import TrueAtom from "./TrueAtom.js";
 import FalseAtom from "./FalseAtom.js";
 import PropsAtom from "./PropsAtom.js";
 
+// propositions
 export { default as PropAtom } from "./PropAtom.js";
 export { default as PropsAtom } from "./PropsAtom.js";
+export { default as SignedProp } from "./SignedProp.js";
+
+// propositional logic
 export { default as TrueAtom } from "./TrueAtom.js";
 export { default as FalseAtom } from "./FalseAtom.js";
 export { default as AndFormula } from "./AndFormula.js";
 export { default as OrFormula } from "./OrFormula.js";
 export { default as NotFormula } from "./NotFormula.js";
-export { default as WhenAlsoFormula } from "./WhenAlsoFormula.js";
-export { default as WhenNextFormula } from "./WhenNextFormula.js";
-export { default as FunctionAtom } from "./FunctionAtom.js";
-export { default as HenceforthCanFormula } from "./HenceforthCanFormula.js";
-export { default as HenceforthMustFormula } from "./HenceforthMustFormula.js";
+
+// temporal logic
 export { default as BoxFormula } from "./BoxFormula.js";
 export { default as DiamondFormula } from "./DiamondFormula.js";
 export { default as GfpFormula } from "./GfpFormula.js";
 export { default as LfpFormula } from "./LfpFormula.js";
-export { default as Path } from "./Path.js";
-export { default as SignedProp } from "./SignedProp.js";
+export { default as StateSetVariable } from "./StateSetVariable.js";
+
+// temporal logic macros
 export { default as MustMacro } from "./MustMacro.js";
 export { default as CanMacro } from "./CanMacro.js";
+export { default as AlwaysMacro } from "./AlwaysMacro.js";
+export { default as EventuallyMacro } from "./EventuallyMacro.js";
+// ...
+export { default as WhenAlsoFormula } from "./WhenAlsoFormula.js";
+export { default as WhenNextFormula } from "./WhenNextFormula.js";
+
+// other
+export { default as FunctionAtom } from "./FunctionAtom.js";
+export { default as Path } from "./Path.js";
 
 class CustomErrorListener extends antlr4.error.ErrorListener {
   syntaxError(recognizer, offendingSymbol, line, column, msg, e) {

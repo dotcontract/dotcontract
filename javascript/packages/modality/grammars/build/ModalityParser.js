@@ -6,112 +6,115 @@ import ModalityVisitor from './ModalityVisitor.js';
 
 
 const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
-    "\u5964\u0003#\u00a2\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004",
+    "\u5964\u0003#\u00a3\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004",
     "\t\u0004\u0004\u0005\t\u0005\u0004\u0006\t\u0006\u0004\u0007\t\u0007",
     "\u0004\b\t\b\u0003\u0002\u0003\u0002\u0003\u0002\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0007\u0003\u0019\n\u0003\f\u0003",
-    "\u000e\u0003\u001c\u000b\u0003\u0003\u0003\u0006\u0003\u001f\n\u0003",
-    "\r\u0003\u000e\u0003 \u0005\u0003#\n\u0003\u0003\u0003\u0003\u0003\u0003",
+    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0007\u0003\u001a\n",
+    "\u0003\f\u0003\u000e\u0003\u001d\u000b\u0003\u0003\u0003\u0006\u0003",
+    " \n\u0003\r\u0003\u000e\u0003!\u0005\u0003$\n\u0003\u0003\u0003\u0003",
     "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
     "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0005\u00038",
+    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0005",
+    "\u00039\n\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
+    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0005\u0003C\n\u0003\u0003",
+    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0007\u0003J",
+    "\n\u0003\f\u0003\u000e\u0003M\u000b\u0003\u0005\u0003O\n\u0003\u0003",
+    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
+    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
+    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
+    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
+    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
+    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
+    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
+    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0005\u0003\u0080",
     "\n\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0005\u0003B\n\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0007\u0003I\n\u0003",
-    "\f\u0003\u000e\u0003L\u000b\u0003\u0005\u0003N\n\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0005\u0003\u007f\n\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0007\u0003\u0087\n\u0003\f\u0003\u000e\u0003\u008a\u000b\u0003\u0003",
-    "\u0004\u0003\u0004\u0003\u0005\u0003\u0005\u0007\u0005\u0090\n\u0005",
-    "\f\u0005\u000e\u0005\u0093\u000b\u0005\u0003\u0005\u0003\u0005\u0003",
-    "\u0006\u0003\u0006\u0003\u0007\u0003\u0007\u0003\b\u0003\b\u0003\b\u0003",
-    "\b\u0003\b\u0005\b\u00a0\n\b\u0003\b\u0002\u0003\u0004\t\u0002\u0004",
-    "\u0006\b\n\f\u000e\u0002\u0004\u0003\u0002\u0018\u001a\u0004\u0002\b",
-    "\t\u001d\u001d\u0002\u00b9\u0002\u0010\u0003\u0002\u0002\u0002\u0004",
-    "~\u0003\u0002\u0002\u0002\u0006\u008b\u0003\u0002\u0002\u0002\b\u008d",
-    "\u0003\u0002\u0002\u0002\n\u0096\u0003\u0002\u0002\u0002\f\u0098\u0003",
-    "\u0002\u0002\u0002\u000e\u009f\u0003\u0002\u0002\u0002\u0010\u0011\u0005",
-    "\u0004\u0003\u0002\u0011\u0012\u0007\u0002\u0002\u0003\u0012\u0003\u0003",
-    "\u0002\u0002\u0002\u0013\u0014\b\u0003\u0001\u0002\u0014\u007f\u0007",
-    "\b\u0002\u0002\u0015\u007f\u0007\t\u0002\u0002\u0016\u001a\u0005\u0006",
-    "\u0004\u0002\u0017\u0019\u0005\b\u0005\u0002\u0018\u0017\u0003\u0002",
-    "\u0002\u0002\u0019\u001c\u0003\u0002\u0002\u0002\u001a\u0018\u0003\u0002",
-    "\u0002\u0002\u001a\u001b\u0003\u0002\u0002\u0002\u001b#\u0003\u0002",
-    "\u0002\u0002\u001c\u001a\u0003\u0002\u0002\u0002\u001d\u001f\u0005\b",
-    "\u0005\u0002\u001e\u001d\u0003\u0002\u0002\u0002\u001f \u0003\u0002",
-    "\u0002\u0002 \u001e\u0003\u0002\u0002\u0002 !\u0003\u0002\u0002\u0002",
-    "!#\u0003\u0002\u0002\u0002\"\u0016\u0003\u0002\u0002\u0002\"\u001e\u0003",
-    "\u0002\u0002\u0002#\u007f\u0003\u0002\u0002\u0002$%\u0007\u0003\u0002",
-    "\u0002%&\u0007\u0014\u0002\u0002&\'\u0005\u0004\u0003\u0002\'(\u0007",
-    "\u0015\u0002\u0002(\u007f\u0003\u0002\u0002\u0002)*\u0007\u0004\u0002",
-    "\u0002*+\u0007\u0014\u0002\u0002+,\u0005\u0004\u0003\u0002,-\u0007\u0015",
-    "\u0002\u0002-\u007f\u0003\u0002\u0002\u0002./\u0007\u0005\u0002\u0002",
-    "/0\u0007\u0014\u0002\u000201\u0005\u0004\u0003\u000217\u0007\u0015\u0002",
-    "\u000223\u0007\u0007\u0002\u000234\u0007\u0014\u0002\u000245\u0005\u0004",
-    "\u0003\u000256\u0007\u0015\u0002\u000268\u0003\u0002\u0002\u000272\u0003",
-    "\u0002\u0002\u000278\u0003\u0002\u0002\u00028\u007f\u0003\u0002\u0002",
-    "\u00029:\u0007\u0006\u0002\u0002:;\u0007\u0014\u0002\u0002;<\u0005\u0004",
-    "\u0003\u0002<A\u0007\u0015\u0002\u0002=>\u0007\u0007\u0002\u0002>?\u0005",
-    "\u0004\u0003\u0002?@\u0007\u0015\u0002\u0002@B\u0003\u0002\u0002\u0002",
-    "A=\u0003\u0002\u0002\u0002AB\u0003\u0002\u0002\u0002B\u007f\u0003\u0002",
-    "\u0002\u0002CD\u0007\u001d\u0002\u0002DM\u0007\u0014\u0002\u0002EJ\u0005",
-    "\u000e\b\u0002FG\u0007\u0017\u0002\u0002GI\u0005\u000e\b\u0002HF\u0003",
-    "\u0002\u0002\u0002IL\u0003\u0002\u0002\u0002JH\u0003\u0002\u0002\u0002",
-    "JK\u0003\u0002\u0002\u0002KN\u0003\u0002\u0002\u0002LJ\u0003\u0002\u0002",
-    "\u0002ME\u0003\u0002\u0002\u0002MN\u0003\u0002\u0002\u0002NO\u0003\u0002",
-    "\u0002\u0002O\u007f\u0007\u0015\u0002\u0002PQ\u0007\u0010\u0002\u0002",
-    "QR\u0007\u0011\u0002\u0002R\u007f\u0005\u0004\u0003\u000eST\u0007\u0012",
-    "\u0002\u0002TU\u0007\u0013\u0002\u0002U\u007f\u0005\u0004\u0003\rVW",
-    "\u0007\u0010\u0002\u0002WX\u0005\u0004\u0003\u0002XY\u0007\u0011\u0002",
-    "\u0002YZ\u0005\u0004\u0003\fZ\u007f\u0003\u0002\u0002\u0002[\\\u0007",
-    "\u0012\u0002\u0002\\]\u0005\u0004\u0003\u0002]^\u0007\u0013\u0002\u0002",
-    "^_\u0005\u0004\u0003\u000b_\u007f\u0003\u0002\u0002\u0002`a\u0007\u001b",
-    "\u0002\u0002ab\u0007\u0014\u0002\u0002bc\u0005\u0004\u0003\u0002cd\u0007",
-    "\u0017\u0002\u0002de\u0005\u0004\u0003\u0002ef\u0007\u0015\u0002\u0002",
-    "f\u007f\u0003\u0002\u0002\u0002gh\u0007\u001c\u0002\u0002hi\u0007\u0014",
-    "\u0002\u0002ij\u0005\u0004\u0003\u0002jk\u0007\u0017\u0002\u0002kl\u0005",
-    "\u0004\u0003\u0002lm\u0007\u0015\u0002\u0002m\u007f\u0003\u0002\u0002",
-    "\u0002no\u0007\r\u0002\u0002op\u0005\u0004\u0003\u0002pq\u0007\u000e",
-    "\u0002\u0002qr\u0005\u0004\u0003\u0006r\u007f\u0003\u0002\u0002\u0002",
-    "st\u0007\r\u0002\u0002tu\u0005\u0004\u0003\u0002uv\u0007\u000f\u0002",
-    "\u0002vw\u0005\u0004\u0003\u0005w\u007f\u0003\u0002\u0002\u0002xy\u0007",
-    "\f\u0002\u0002y\u007f\u0005\u0004\u0003\u0004z{\u0007\u0014\u0002\u0002",
-    "{|\u0005\u0004\u0003\u0002|}\u0007\u0015\u0002\u0002}\u007f\u0003\u0002",
-    "\u0002\u0002~\u0013\u0003\u0002\u0002\u0002~\u0015\u0003\u0002\u0002",
-    "\u0002~\"\u0003\u0002\u0002\u0002~$\u0003\u0002\u0002\u0002~)\u0003",
-    "\u0002\u0002\u0002~.\u0003\u0002\u0002\u0002~9\u0003\u0002\u0002\u0002",
-    "~C\u0003\u0002\u0002\u0002~P\u0003\u0002\u0002\u0002~S\u0003\u0002\u0002",
-    "\u0002~V\u0003\u0002\u0002\u0002~[\u0003\u0002\u0002\u0002~`\u0003\u0002",
-    "\u0002\u0002~g\u0003\u0002\u0002\u0002~n\u0003\u0002\u0002\u0002~s\u0003",
-    "\u0002\u0002\u0002~x\u0003\u0002\u0002\u0002~z\u0003\u0002\u0002\u0002",
-    "\u007f\u0088\u0003\u0002\u0002\u0002\u0080\u0081\f\b\u0002\u0002\u0081",
-    "\u0082\u0007\u000b\u0002\u0002\u0082\u0087\u0005\u0004\u0003\t\u0083",
-    "\u0084\f\u0007\u0002\u0002\u0084\u0085\u0007\n\u0002\u0002\u0085\u0087",
-    "\u0005\u0004\u0003\b\u0086\u0080\u0003\u0002\u0002\u0002\u0086\u0083",
-    "\u0003\u0002\u0002\u0002\u0087\u008a\u0003\u0002\u0002\u0002\u0088\u0086",
-    "\u0003\u0002\u0002\u0002\u0088\u0089\u0003\u0002\u0002\u0002\u0089\u0005",
-    "\u0003\u0002\u0002\u0002\u008a\u0088\u0003\u0002\u0002\u0002\u008b\u008c",
-    "\u0005\f\u0007\u0002\u008c\u0007\u0003\u0002\u0002\u0002\u008d\u0091",
-    "\u0005\n\u0006\u0002\u008e\u0090\u0007\"\u0002\u0002\u008f\u008e\u0003",
-    "\u0002\u0002\u0002\u0090\u0093\u0003\u0002\u0002\u0002\u0091\u008f\u0003",
-    "\u0002\u0002\u0002\u0091\u0092\u0003\u0002\u0002\u0002\u0092\u0094\u0003",
-    "\u0002\u0002\u0002\u0093\u0091\u0003\u0002\u0002\u0002\u0094\u0095\u0005",
-    "\f\u0007\u0002\u0095\t\u0003\u0002\u0002\u0002\u0096\u0097\t\u0002\u0002",
-    "\u0002\u0097\u000b\u0003\u0002\u0002\u0002\u0098\u0099\t\u0003\u0002",
-    "\u0002\u0099\r\u0003\u0002\u0002\u0002\u009a\u00a0\u0007\b\u0002\u0002",
-    "\u009b\u00a0\u0007\t\u0002\u0002\u009c\u00a0\u0007\u001e\u0002\u0002",
-    "\u009d\u00a0\u0007\u001f\u0002\u0002\u009e\u00a0\u0007!\u0002\u0002",
-    "\u009f\u009a\u0003\u0002\u0002\u0002\u009f\u009b\u0003\u0002\u0002\u0002",
-    "\u009f\u009c\u0003\u0002\u0002\u0002\u009f\u009d\u0003\u0002\u0002\u0002",
-    "\u009f\u009e\u0003\u0002\u0002\u0002\u00a0\u000f\u0003\u0002\u0002\u0002",
-    "\u000e\u001a \"7AJM~\u0086\u0088\u0091\u009f"].join("");
+    "\u0003\u0003\u0007\u0003\u0088\n\u0003\f\u0003\u000e\u0003\u008b\u000b",
+    "\u0003\u0003\u0004\u0003\u0004\u0003\u0005\u0003\u0005\u0007\u0005\u0091",
+    "\n\u0005\f\u0005\u000e\u0005\u0094\u000b\u0005\u0003\u0005\u0003\u0005",
+    "\u0003\u0006\u0003\u0006\u0003\u0007\u0003\u0007\u0003\b\u0003\b\u0003",
+    "\b\u0003\b\u0003\b\u0005\b\u00a1\n\b\u0003\b\u0002\u0003\u0004\t\u0002",
+    "\u0004\u0006\b\n\f\u000e\u0002\u0004\u0003\u0002\u0018\u001a\u0004\u0002",
+    "\b\t\u001d\u001d\u0002\u00bb\u0002\u0010\u0003\u0002\u0002\u0002\u0004",
+    "\u007f\u0003\u0002\u0002\u0002\u0006\u008c\u0003\u0002\u0002\u0002\b",
+    "\u008e\u0003\u0002\u0002\u0002\n\u0097\u0003\u0002\u0002\u0002\f\u0099",
+    "\u0003\u0002\u0002\u0002\u000e\u00a0\u0003\u0002\u0002\u0002\u0010\u0011",
+    "\u0005\u0004\u0003\u0002\u0011\u0012\u0007\u0002\u0002\u0003\u0012\u0003",
+    "\u0003\u0002\u0002\u0002\u0013\u0014\b\u0003\u0001\u0002\u0014\u0080",
+    "\u0007\b\u0002\u0002\u0015\u0080\u0007\t\u0002\u0002\u0016\u0080\u0007",
+    " \u0002\u0002\u0017\u001b\u0005\u0006\u0004\u0002\u0018\u001a\u0005",
+    "\b\u0005\u0002\u0019\u0018\u0003\u0002\u0002\u0002\u001a\u001d\u0003",
+    "\u0002\u0002\u0002\u001b\u0019\u0003\u0002\u0002\u0002\u001b\u001c\u0003",
+    "\u0002\u0002\u0002\u001c$\u0003\u0002\u0002\u0002\u001d\u001b\u0003",
+    "\u0002\u0002\u0002\u001e \u0005\b\u0005\u0002\u001f\u001e\u0003\u0002",
+    "\u0002\u0002 !\u0003\u0002\u0002\u0002!\u001f\u0003\u0002\u0002\u0002",
+    "!\"\u0003\u0002\u0002\u0002\"$\u0003\u0002\u0002\u0002#\u0017\u0003",
+    "\u0002\u0002\u0002#\u001f\u0003\u0002\u0002\u0002$\u0080\u0003\u0002",
+    "\u0002\u0002%&\u0007\u0003\u0002\u0002&\'\u0007\u0014\u0002\u0002\'",
+    "(\u0005\u0004\u0003\u0002()\u0007\u0015\u0002\u0002)\u0080\u0003\u0002",
+    "\u0002\u0002*+\u0007\u0004\u0002\u0002+,\u0007\u0014\u0002\u0002,-\u0005",
+    "\u0004\u0003\u0002-.\u0007\u0015\u0002\u0002.\u0080\u0003\u0002\u0002",
+    "\u0002/0\u0007\u0005\u0002\u000201\u0007\u0014\u0002\u000212\u0005\u0004",
+    "\u0003\u000228\u0007\u0015\u0002\u000234\u0007\u0007\u0002\u000245\u0007",
+    "\u0014\u0002\u000256\u0005\u0004\u0003\u000267\u0007\u0015\u0002\u0002",
+    "79\u0003\u0002\u0002\u000283\u0003\u0002\u0002\u000289\u0003\u0002\u0002",
+    "\u00029\u0080\u0003\u0002\u0002\u0002:;\u0007\u0006\u0002\u0002;<\u0007",
+    "\u0014\u0002\u0002<=\u0005\u0004\u0003\u0002=B\u0007\u0015\u0002\u0002",
+    ">?\u0007\u0007\u0002\u0002?@\u0005\u0004\u0003\u0002@A\u0007\u0015\u0002",
+    "\u0002AC\u0003\u0002\u0002\u0002B>\u0003\u0002\u0002\u0002BC\u0003\u0002",
+    "\u0002\u0002C\u0080\u0003\u0002\u0002\u0002DE\u0007\u001d\u0002\u0002",
+    "EN\u0007\u0014\u0002\u0002FK\u0005\u000e\b\u0002GH\u0007\u0017\u0002",
+    "\u0002HJ\u0005\u000e\b\u0002IG\u0003\u0002\u0002\u0002JM\u0003\u0002",
+    "\u0002\u0002KI\u0003\u0002\u0002\u0002KL\u0003\u0002\u0002\u0002LO\u0003",
+    "\u0002\u0002\u0002MK\u0003\u0002\u0002\u0002NF\u0003\u0002\u0002\u0002",
+    "NO\u0003\u0002\u0002\u0002OP\u0003\u0002\u0002\u0002P\u0080\u0007\u0015",
+    "\u0002\u0002QR\u0007\u0010\u0002\u0002RS\u0007\u0011\u0002\u0002S\u0080",
+    "\u0005\u0004\u0003\u000eTU\u0007\u0012\u0002\u0002UV\u0007\u0013\u0002",
+    "\u0002V\u0080\u0005\u0004\u0003\rWX\u0007\u0010\u0002\u0002XY\u0005",
+    "\u0004\u0003\u0002YZ\u0007\u0011\u0002\u0002Z[\u0005\u0004\u0003\f[",
+    "\u0080\u0003\u0002\u0002\u0002\\]\u0007\u0012\u0002\u0002]^\u0005\u0004",
+    "\u0003\u0002^_\u0007\u0013\u0002\u0002_`\u0005\u0004\u0003\u000b`\u0080",
+    "\u0003\u0002\u0002\u0002ab\u0007\u001b\u0002\u0002bc\u0007\u0014\u0002",
+    "\u0002cd\u0005\u0004\u0003\u0002de\u0007\u0017\u0002\u0002ef\u0005\u0004",
+    "\u0003\u0002fg\u0007\u0015\u0002\u0002g\u0080\u0003\u0002\u0002\u0002",
+    "hi\u0007\u001c\u0002\u0002ij\u0007\u0014\u0002\u0002jk\u0005\u0004\u0003",
+    "\u0002kl\u0007\u0017\u0002\u0002lm\u0005\u0004\u0003\u0002mn\u0007\u0015",
+    "\u0002\u0002n\u0080\u0003\u0002\u0002\u0002op\u0007\r\u0002\u0002pq",
+    "\u0005\u0004\u0003\u0002qr\u0007\u000e\u0002\u0002rs\u0005\u0004\u0003",
+    "\u0006s\u0080\u0003\u0002\u0002\u0002tu\u0007\r\u0002\u0002uv\u0005",
+    "\u0004\u0003\u0002vw\u0007\u000f\u0002\u0002wx\u0005\u0004\u0003\u0005",
+    "x\u0080\u0003\u0002\u0002\u0002yz\u0007\f\u0002\u0002z\u0080\u0005\u0004",
+    "\u0003\u0004{|\u0007\u0014\u0002\u0002|}\u0005\u0004\u0003\u0002}~\u0007",
+    "\u0015\u0002\u0002~\u0080\u0003\u0002\u0002\u0002\u007f\u0013\u0003",
+    "\u0002\u0002\u0002\u007f\u0015\u0003\u0002\u0002\u0002\u007f\u0016\u0003",
+    "\u0002\u0002\u0002\u007f#\u0003\u0002\u0002\u0002\u007f%\u0003\u0002",
+    "\u0002\u0002\u007f*\u0003\u0002\u0002\u0002\u007f/\u0003\u0002\u0002",
+    "\u0002\u007f:\u0003\u0002\u0002\u0002\u007fD\u0003\u0002\u0002\u0002",
+    "\u007fQ\u0003\u0002\u0002\u0002\u007fT\u0003\u0002\u0002\u0002\u007f",
+    "W\u0003\u0002\u0002\u0002\u007f\\\u0003\u0002\u0002\u0002\u007fa\u0003",
+    "\u0002\u0002\u0002\u007fh\u0003\u0002\u0002\u0002\u007fo\u0003\u0002",
+    "\u0002\u0002\u007ft\u0003\u0002\u0002\u0002\u007fy\u0003\u0002\u0002",
+    "\u0002\u007f{\u0003\u0002\u0002\u0002\u0080\u0089\u0003\u0002\u0002",
+    "\u0002\u0081\u0082\f\b\u0002\u0002\u0082\u0083\u0007\u000b\u0002\u0002",
+    "\u0083\u0088\u0005\u0004\u0003\t\u0084\u0085\f\u0007\u0002\u0002\u0085",
+    "\u0086\u0007\n\u0002\u0002\u0086\u0088\u0005\u0004\u0003\b\u0087\u0081",
+    "\u0003\u0002\u0002\u0002\u0087\u0084\u0003\u0002\u0002\u0002\u0088\u008b",
+    "\u0003\u0002\u0002\u0002\u0089\u0087\u0003\u0002\u0002\u0002\u0089\u008a",
+    "\u0003\u0002\u0002\u0002\u008a\u0005\u0003\u0002\u0002\u0002\u008b\u0089",
+    "\u0003\u0002\u0002\u0002\u008c\u008d\u0005\f\u0007\u0002\u008d\u0007",
+    "\u0003\u0002\u0002\u0002\u008e\u0092\u0005\n\u0006\u0002\u008f\u0091",
+    "\u0007\"\u0002\u0002\u0090\u008f\u0003\u0002\u0002\u0002\u0091\u0094",
+    "\u0003\u0002\u0002\u0002\u0092\u0090\u0003\u0002\u0002\u0002\u0092\u0093",
+    "\u0003\u0002\u0002\u0002\u0093\u0095\u0003\u0002\u0002\u0002\u0094\u0092",
+    "\u0003\u0002\u0002\u0002\u0095\u0096\u0005\f\u0007\u0002\u0096\t\u0003",
+    "\u0002\u0002\u0002\u0097\u0098\t\u0002\u0002\u0002\u0098\u000b\u0003",
+    "\u0002\u0002\u0002\u0099\u009a\t\u0003\u0002\u0002\u009a\r\u0003\u0002",
+    "\u0002\u0002\u009b\u00a1\u0007\b\u0002\u0002\u009c\u00a1\u0007\t\u0002",
+    "\u0002\u009d\u00a1\u0007\u001e\u0002\u0002\u009e\u00a1\u0007\u001f\u0002",
+    "\u0002\u009f\u00a1\u0007!\u0002\u0002\u00a0\u009b\u0003\u0002\u0002",
+    "\u0002\u00a0\u009c\u0003\u0002\u0002\u0002\u00a0\u009d\u0003\u0002\u0002",
+    "\u0002\u00a0\u009e\u0003\u0002\u0002\u0002\u00a0\u009f\u0003\u0002\u0002",
+    "\u0002\u00a1\u000f\u0003\u0002\u0002\u0002\u000e\u001b!#8BKN\u007f\u0087",
+    "\u0089\u0092\u00a0"].join("");
 
 
 const atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -123,19 +126,18 @@ const sharedContextCache = new antlr4.PredictionContextCache();
 export default class ModalityParser extends antlr4.Parser {
 
     static grammarFileName = "Modality.g4";
-    static literalNames = [ null, "'must'", "'can'", "'henceforth_must'", 
-                            "'henceforth_can'", "'until'", "'true'", "'false'", 
-                            "'and'", "'or'", "'not'", "'when'", "'also'", 
-                            "'next'", "'['", "']'", "'<'", "'>'", "'('", 
-                            "')'", "'*'", "','", "'+'", "'-'", "'?'", "'lfp'", 
-                            "'gfp'" ];
-    static symbolicNames = [ null, "MUST", "CAN", "HENCEFORTH_MUST", "HENCEFORTH_CAN", 
+    static literalNames = [ null, "'must'", "'can'", "'always'", "'eventually'", 
+                            "'until'", "'true'", "'false'", "'and'", "'or'", 
+                            "'not'", "'when'", "'also'", "'next'", "'['", 
+                            "']'", "'<'", "'>'", "'('", "')'", "'*'", "','", 
+                            "'+'", "'-'", "'?'", "'lfp'", "'gfp'" ];
+    static symbolicNames = [ null, "MUST", "CAN", "ALWAYS", "EVENTUALLY", 
                              "UNTIL", "TRUE", "FALSE", "AND", "OR", "NOT", 
                              "WHEN", "ALSO", "NEXT", "LBOX", "RBOX", "LDIA", 
                              "RDIA", "LPAREN", "RPAREN", "STAR", "COMMA", 
                              "PLUS", "MINUS", "QMARK", "LFP", "GFP", "NAME", 
-                             "STRING", "NUMBER", "BOUND_VAR", "PATH", "WS", 
-                             "LINE_COMMENT" ];
+                             "STRING", "NUMBER", "STATE_SET_VARIABLE", "PATH", 
+                             "WS", "LINE_COMMENT" ];
     static ruleNames = [ "expression", "formula", "unsignedProp", "signedProp", 
                          "sign", "prop", "arg" ];
 
@@ -211,7 +213,7 @@ export default class ModalityParser extends antlr4.Parser {
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 124;
+	        this.state = 125;
 	        this._errHandler.sync(this);
 	        var la_ = this._interp.adaptivePredict(this._input,7,this._ctx);
 	        switch(la_) {
@@ -233,26 +235,34 @@ export default class ModalityParser extends antlr4.Parser {
 	            break;
 
 	        case 3:
+	            localctx = new StateSetVariableContext(this, localctx);
+	            this._ctx = localctx;
+	            _prevctx = localctx;
+	            this.state = 20;
+	            this.match(ModalityParser.STATE_SET_VARIABLE);
+	            break;
+
+	        case 4:
 	            localctx = new PropsAtomContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 32;
+	            this.state = 33;
 	            this._errHandler.sync(this);
 	            switch(this._input.LA(1)) {
 	            case ModalityParser.TRUE:
 	            case ModalityParser.FALSE:
 	            case ModalityParser.NAME:
-	                this.state = 20;
+	                this.state = 21;
 	                this.unsignedProp();
-	                this.state = 24;
+	                this.state = 25;
 	                this._errHandler.sync(this);
 	                var _alt = this._interp.adaptivePredict(this._input,0,this._ctx)
 	                while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
 	                    if(_alt===1) {
-	                        this.state = 21;
+	                        this.state = 22;
 	                        this.signedProp(); 
 	                    }
-	                    this.state = 26;
+	                    this.state = 27;
 	                    this._errHandler.sync(this);
 	                    _alt = this._interp.adaptivePredict(this._input,0,this._ctx);
 	                }
@@ -261,19 +271,19 @@ export default class ModalityParser extends antlr4.Parser {
 	            case ModalityParser.PLUS:
 	            case ModalityParser.MINUS:
 	            case ModalityParser.QMARK:
-	                this.state = 28; 
+	                this.state = 29; 
 	                this._errHandler.sync(this);
 	                var _alt = 1;
 	                do {
 	                	switch (_alt) {
 	                	case 1:
-	                		this.state = 27;
+	                		this.state = 28;
 	                		this.signedProp();
 	                		break;
 	                	default:
 	                		throw new antlr4.error.NoViableAltException(this);
 	                	}
-	                	this.state = 30; 
+	                	this.state = 31; 
 	                	this._errHandler.sync(this);
 	                	_alt = this._interp.adaptivePredict(this._input,1, this._ctx);
 	                } while ( _alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER );
@@ -283,261 +293,261 @@ export default class ModalityParser extends antlr4.Parser {
 	            }
 	            break;
 
-	        case 4:
+	        case 5:
 	            localctx = new MustMacroContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 34;
-	            this.match(ModalityParser.MUST);
 	            this.state = 35;
-	            this.match(ModalityParser.LPAREN);
+	            this.match(ModalityParser.MUST);
 	            this.state = 36;
-	            this.formula(0);
-	            this.state = 37;
-	            this.match(ModalityParser.RPAREN);
-	            break;
-
-	        case 5:
-	            localctx = new CanMacroContext(this, localctx);
-	            this._ctx = localctx;
-	            _prevctx = localctx;
-	            this.state = 39;
-	            this.match(ModalityParser.CAN);
-	            this.state = 40;
 	            this.match(ModalityParser.LPAREN);
-	            this.state = 41;
+	            this.state = 37;
 	            this.formula(0);
-	            this.state = 42;
+	            this.state = 38;
 	            this.match(ModalityParser.RPAREN);
 	            break;
 
 	        case 6:
-	            localctx = new HenceforthMustFormulaContext(this, localctx);
+	            localctx = new CanMacroContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 44;
-	            this.match(ModalityParser.HENCEFORTH_MUST);
-	            this.state = 45;
+	            this.state = 40;
+	            this.match(ModalityParser.CAN);
+	            this.state = 41;
 	            this.match(ModalityParser.LPAREN);
-	            this.state = 46;
-	            localctx.inner_formula = this.formula(0);
-	            this.state = 47;
+	            this.state = 42;
+	            this.formula(0);
+	            this.state = 43;
 	            this.match(ModalityParser.RPAREN);
-	            this.state = 53;
-	            this._errHandler.sync(this);
-	            var la_ = this._interp.adaptivePredict(this._input,3,this._ctx);
-	            if(la_===1) {
-	                this.state = 48;
-	                this.match(ModalityParser.UNTIL);
-	                this.state = 49;
-	                this.match(ModalityParser.LPAREN);
-	                this.state = 50;
-	                localctx.until_formula = this.formula(0);
-	                this.state = 51;
-	                this.match(ModalityParser.RPAREN);
-
-	            }
 	            break;
 
 	        case 7:
-	            localctx = new HenceforthCanFormulaContext(this, localctx);
+	            localctx = new AlwaysMacroContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 55;
-	            this.match(ModalityParser.HENCEFORTH_CAN);
-	            this.state = 56;
+	            this.state = 45;
+	            this.match(ModalityParser.ALWAYS);
+	            this.state = 46;
 	            this.match(ModalityParser.LPAREN);
-	            this.state = 57;
+	            this.state = 47;
 	            localctx.inner_formula = this.formula(0);
-	            this.state = 58;
+	            this.state = 48;
 	            this.match(ModalityParser.RPAREN);
-	            this.state = 63;
+	            this.state = 54;
 	            this._errHandler.sync(this);
-	            var la_ = this._interp.adaptivePredict(this._input,4,this._ctx);
+	            var la_ = this._interp.adaptivePredict(this._input,3,this._ctx);
 	            if(la_===1) {
-	                this.state = 59;
+	                this.state = 49;
 	                this.match(ModalityParser.UNTIL);
-	                this.state = 60;
+	                this.state = 50;
+	                this.match(ModalityParser.LPAREN);
+	                this.state = 51;
 	                localctx.until_formula = this.formula(0);
-	                this.state = 61;
+	                this.state = 52;
 	                this.match(ModalityParser.RPAREN);
 
 	            }
 	            break;
 
 	        case 8:
+	            localctx = new EventuallyMacroContext(this, localctx);
+	            this._ctx = localctx;
+	            _prevctx = localctx;
+	            this.state = 56;
+	            this.match(ModalityParser.EVENTUALLY);
+	            this.state = 57;
+	            this.match(ModalityParser.LPAREN);
+	            this.state = 58;
+	            localctx.inner_formula = this.formula(0);
+	            this.state = 59;
+	            this.match(ModalityParser.RPAREN);
+	            this.state = 64;
+	            this._errHandler.sync(this);
+	            var la_ = this._interp.adaptivePredict(this._input,4,this._ctx);
+	            if(la_===1) {
+	                this.state = 60;
+	                this.match(ModalityParser.UNTIL);
+	                this.state = 61;
+	                localctx.until_formula = this.formula(0);
+	                this.state = 62;
+	                this.match(ModalityParser.RPAREN);
+
+	            }
+	            break;
+
+	        case 9:
 	            localctx = new FunctionAtomContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 65;
-	            localctx.name = this.match(ModalityParser.NAME);
 	            this.state = 66;
+	            localctx.name = this.match(ModalityParser.NAME);
+	            this.state = 67;
 	            this.match(ModalityParser.LPAREN);
-	            this.state = 75;
+	            this.state = 76;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	            if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << ModalityParser.TRUE) | (1 << ModalityParser.FALSE) | (1 << ModalityParser.STRING) | (1 << ModalityParser.NUMBER) | (1 << ModalityParser.PATH))) !== 0)) {
-	                this.state = 67;
+	                this.state = 68;
 	                this.arg();
-	                this.state = 72;
+	                this.state = 73;
 	                this._errHandler.sync(this);
 	                _la = this._input.LA(1);
 	                while(_la===ModalityParser.COMMA) {
-	                    this.state = 68;
-	                    this.match(ModalityParser.COMMA);
 	                    this.state = 69;
+	                    this.match(ModalityParser.COMMA);
+	                    this.state = 70;
 	                    this.arg();
-	                    this.state = 74;
+	                    this.state = 75;
 	                    this._errHandler.sync(this);
 	                    _la = this._input.LA(1);
 	                }
 	            }
 
-	            this.state = 77;
-	            this.match(ModalityParser.RPAREN);
-	            break;
-
-	        case 9:
-	            localctx = new EmptyBoxFormulaContext(this, localctx);
-	            this._ctx = localctx;
-	            _prevctx = localctx;
 	            this.state = 78;
-	            this.match(ModalityParser.LBOX);
-	            this.state = 79;
-	            this.match(ModalityParser.RBOX);
-	            this.state = 80;
-	            localctx.outer = this.formula(12);
+	            this.match(ModalityParser.RPAREN);
 	            break;
 
 	        case 10:
-	            localctx = new EmptyDiamondFormulaContext(this, localctx);
+	            localctx = new EmptyBoxFormulaContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
+	            this.state = 79;
+	            this.match(ModalityParser.LBOX);
+	            this.state = 80;
+	            this.match(ModalityParser.RBOX);
 	            this.state = 81;
-	            this.match(ModalityParser.LDIA);
-	            this.state = 82;
-	            this.match(ModalityParser.RDIA);
-	            this.state = 83;
-	            localctx.outer = this.formula(11);
+	            localctx.outer = this.formula(12);
 	            break;
 
 	        case 11:
-	            localctx = new BoxFormulaContext(this, localctx);
+	            localctx = new EmptyDiamondFormulaContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
+	            this.state = 82;
+	            this.match(ModalityParser.LDIA);
+	            this.state = 83;
+	            this.match(ModalityParser.RDIA);
 	            this.state = 84;
-	            this.match(ModalityParser.LBOX);
-	            this.state = 85;
-	            localctx.inner = this.formula(0);
-	            this.state = 86;
-	            this.match(ModalityParser.RBOX);
-	            this.state = 87;
-	            localctx.outer = this.formula(10);
+	            localctx.outer = this.formula(11);
 	            break;
 
 	        case 12:
-	            localctx = new DiamondFormulaContext(this, localctx);
+	            localctx = new BoxFormulaContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 89;
-	            this.match(ModalityParser.LDIA);
-	            this.state = 90;
+	            this.state = 85;
+	            this.match(ModalityParser.LBOX);
+	            this.state = 86;
 	            localctx.inner = this.formula(0);
-	            this.state = 91;
-	            this.match(ModalityParser.RDIA);
-	            this.state = 92;
-	            localctx.outer = this.formula(9);
+	            this.state = 87;
+	            this.match(ModalityParser.RBOX);
+	            this.state = 88;
+	            localctx.outer = this.formula(10);
 	            break;
 
 	        case 13:
-	            localctx = new LfpFormulaContext(this, localctx);
+	            localctx = new DiamondFormulaContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 94;
-	            this.match(ModalityParser.LFP);
-	            this.state = 95;
-	            this.match(ModalityParser.LPAREN);
-	            this.state = 96;
-	            localctx.boundVar = this.formula(0);
-	            this.state = 97;
-	            this.match(ModalityParser.COMMA);
-	            this.state = 98;
+	            this.state = 90;
+	            this.match(ModalityParser.LDIA);
+	            this.state = 91;
 	            localctx.inner = this.formula(0);
-	            this.state = 99;
-	            this.match(ModalityParser.RPAREN);
+	            this.state = 92;
+	            this.match(ModalityParser.RDIA);
+	            this.state = 93;
+	            localctx.outer = this.formula(9);
 	            break;
 
 	        case 14:
-	            localctx = new GfpFormulaContext(this, localctx);
+	            localctx = new LfpFormulaContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 101;
-	            this.match(ModalityParser.GFP);
-	            this.state = 102;
+	            this.state = 95;
+	            this.match(ModalityParser.LFP);
+	            this.state = 96;
 	            this.match(ModalityParser.LPAREN);
-	            this.state = 103;
-	            localctx.boundVar = this.formula(0);
-	            this.state = 104;
+	            this.state = 97;
+	            localctx.stateSetVariable = this.formula(0);
+	            this.state = 98;
 	            this.match(ModalityParser.COMMA);
-	            this.state = 105;
+	            this.state = 99;
 	            localctx.inner = this.formula(0);
-	            this.state = 106;
+	            this.state = 100;
 	            this.match(ModalityParser.RPAREN);
 	            break;
 
 	        case 15:
-	            localctx = new WhenAlsoFormulaContext(this, localctx);
+	            localctx = new GfpFormulaContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 108;
-	            this.match(ModalityParser.WHEN);
-	            this.state = 109;
-	            localctx.when_formula = this.formula(0);
-	            this.state = 110;
-	            this.match(ModalityParser.ALSO);
-	            this.state = 111;
-	            localctx.also_formula = this.formula(4);
+	            this.state = 102;
+	            this.match(ModalityParser.GFP);
+	            this.state = 103;
+	            this.match(ModalityParser.LPAREN);
+	            this.state = 104;
+	            localctx.stateSetVariable = this.formula(0);
+	            this.state = 105;
+	            this.match(ModalityParser.COMMA);
+	            this.state = 106;
+	            localctx.inner = this.formula(0);
+	            this.state = 107;
+	            this.match(ModalityParser.RPAREN);
 	            break;
 
 	        case 16:
-	            localctx = new WhenNextFormulaContext(this, localctx);
+	            localctx = new WhenAlsoFormulaContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 113;
+	            this.state = 109;
 	            this.match(ModalityParser.WHEN);
-	            this.state = 114;
+	            this.state = 110;
 	            localctx.when_formula = this.formula(0);
-	            this.state = 115;
-	            this.match(ModalityParser.NEXT);
-	            this.state = 116;
-	            localctx.next_formula = this.formula(3);
+	            this.state = 111;
+	            this.match(ModalityParser.ALSO);
+	            this.state = 112;
+	            localctx.also_formula = this.formula(4);
 	            break;
 
 	        case 17:
-	            localctx = new NotFormulaContext(this, localctx);
+	            localctx = new WhenNextFormulaContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 118;
-	            this.match(ModalityParser.NOT);
-	            this.state = 119;
-	            localctx.inner = this.formula(2);
+	            this.state = 114;
+	            this.match(ModalityParser.WHEN);
+	            this.state = 115;
+	            localctx.when_formula = this.formula(0);
+	            this.state = 116;
+	            this.match(ModalityParser.NEXT);
+	            this.state = 117;
+	            localctx.next_formula = this.formula(3);
 	            break;
 
 	        case 18:
+	            localctx = new NotFormulaContext(this, localctx);
+	            this._ctx = localctx;
+	            _prevctx = localctx;
+	            this.state = 119;
+	            this.match(ModalityParser.NOT);
+	            this.state = 120;
+	            localctx.inner = this.formula(2);
+	            break;
+
+	        case 19:
 	            localctx = new ParenFormulaContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 120;
-	            this.match(ModalityParser.LPAREN);
 	            this.state = 121;
-	            localctx.inner = this.formula(0);
+	            this.match(ModalityParser.LPAREN);
 	            this.state = 122;
+	            localctx.inner = this.formula(0);
+	            this.state = 123;
 	            this.match(ModalityParser.RPAREN);
 	            break;
 
 	        }
 	        this._ctx.stop = this._input.LT(-1);
-	        this.state = 134;
+	        this.state = 135;
 	        this._errHandler.sync(this);
 	        var _alt = this._interp.adaptivePredict(this._input,9,this._ctx)
 	        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -546,7 +556,7 @@ export default class ModalityParser extends antlr4.Parser {
 	                    this.triggerExitRuleEvent();
 	                }
 	                _prevctx = localctx;
-	                this.state = 132;
+	                this.state = 133;
 	                this._errHandler.sync(this);
 	                var la_ = this._interp.adaptivePredict(this._input,8,this._ctx);
 	                switch(la_) {
@@ -554,13 +564,13 @@ export default class ModalityParser extends antlr4.Parser {
 	                    localctx = new OrFormulaContext(this, new FormulaContext(this, _parentctx, _parentState));
 	                    localctx.left = _prevctx;
 	                    this.pushNewRecursionContext(localctx, _startState, ModalityParser.RULE_formula);
-	                    this.state = 126;
+	                    this.state = 127;
 	                    if (!( this.precpred(this._ctx, 6))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 6)");
 	                    }
-	                    this.state = 127;
-	                    this.match(ModalityParser.OR);
 	                    this.state = 128;
+	                    this.match(ModalityParser.OR);
+	                    this.state = 129;
 	                    localctx.right = this.formula(7);
 	                    break;
 
@@ -568,19 +578,19 @@ export default class ModalityParser extends antlr4.Parser {
 	                    localctx = new AndFormulaContext(this, new FormulaContext(this, _parentctx, _parentState));
 	                    localctx.left = _prevctx;
 	                    this.pushNewRecursionContext(localctx, _startState, ModalityParser.RULE_formula);
-	                    this.state = 129;
+	                    this.state = 130;
 	                    if (!( this.precpred(this._ctx, 5))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 5)");
 	                    }
-	                    this.state = 130;
-	                    this.match(ModalityParser.AND);
 	                    this.state = 131;
+	                    this.match(ModalityParser.AND);
+	                    this.state = 132;
 	                    localctx.right = this.formula(6);
 	                    break;
 
 	                } 
 	            }
-	            this.state = 136;
+	            this.state = 137;
 	            this._errHandler.sync(this);
 	            _alt = this._interp.adaptivePredict(this._input,9,this._ctx);
 	        }
@@ -606,7 +616,7 @@ export default class ModalityParser extends antlr4.Parser {
 	    this.enterRule(localctx, 4, ModalityParser.RULE_unsignedProp);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 137;
+	        this.state = 138;
 	        localctx.theProp = this.prop();
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -630,19 +640,19 @@ export default class ModalityParser extends antlr4.Parser {
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 139;
+	        this.state = 140;
 	        localctx.theSign = this.sign();
-	        this.state = 143;
+	        this.state = 144;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
 	        while(_la===ModalityParser.WS) {
-	            this.state = 140;
+	            this.state = 141;
 	            this.match(ModalityParser.WS);
-	            this.state = 145;
+	            this.state = 146;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
 	        }
-	        this.state = 146;
+	        this.state = 147;
 	        localctx.theProp = this.prop();
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -666,7 +676,7 @@ export default class ModalityParser extends antlr4.Parser {
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 148;
+	        this.state = 149;
 	        _la = this._input.LA(1);
 	        if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << ModalityParser.PLUS) | (1 << ModalityParser.MINUS) | (1 << ModalityParser.QMARK))) !== 0))) {
 	        this._errHandler.recoverInline(this);
@@ -697,7 +707,7 @@ export default class ModalityParser extends antlr4.Parser {
 	    var _la = 0; // Token type
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 150;
+	        this.state = 151;
 	        _la = this._input.LA(1);
 	        if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << ModalityParser.TRUE) | (1 << ModalityParser.FALSE) | (1 << ModalityParser.NAME))) !== 0))) {
 	        this._errHandler.recoverInline(this);
@@ -726,37 +736,37 @@ export default class ModalityParser extends antlr4.Parser {
 	    let localctx = new ArgContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 12, ModalityParser.RULE_arg);
 	    try {
-	        this.state = 157;
+	        this.state = 158;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
 	        case ModalityParser.TRUE:
 	            localctx = new TrueArgContext(this, localctx);
 	            this.enterOuterAlt(localctx, 1);
-	            this.state = 152;
+	            this.state = 153;
 	            this.match(ModalityParser.TRUE);
 	            break;
 	        case ModalityParser.FALSE:
 	            localctx = new FalseArgContext(this, localctx);
 	            this.enterOuterAlt(localctx, 2);
-	            this.state = 153;
+	            this.state = 154;
 	            this.match(ModalityParser.FALSE);
 	            break;
 	        case ModalityParser.STRING:
 	            localctx = new StringArgContext(this, localctx);
 	            this.enterOuterAlt(localctx, 3);
-	            this.state = 154;
+	            this.state = 155;
 	            this.match(ModalityParser.STRING);
 	            break;
 	        case ModalityParser.NUMBER:
 	            localctx = new NumberArgContext(this, localctx);
 	            this.enterOuterAlt(localctx, 4);
-	            this.state = 155;
+	            this.state = 156;
 	            this.match(ModalityParser.NUMBER);
 	            break;
 	        case ModalityParser.PATH:
 	            localctx = new PathArgContext(this, localctx);
 	            this.enterOuterAlt(localctx, 5);
-	            this.state = 156;
+	            this.state = 157;
 	            this.match(ModalityParser.PATH);
 	            break;
 	        default:
@@ -782,8 +792,8 @@ export default class ModalityParser extends antlr4.Parser {
 ModalityParser.EOF = antlr4.Token.EOF;
 ModalityParser.MUST = 1;
 ModalityParser.CAN = 2;
-ModalityParser.HENCEFORTH_MUST = 3;
-ModalityParser.HENCEFORTH_CAN = 4;
+ModalityParser.ALWAYS = 3;
+ModalityParser.EVENTUALLY = 4;
 ModalityParser.UNTIL = 5;
 ModalityParser.TRUE = 6;
 ModalityParser.FALSE = 7;
@@ -809,7 +819,7 @@ ModalityParser.GFP = 26;
 ModalityParser.NAME = 27;
 ModalityParser.STRING = 28;
 ModalityParser.NUMBER = 29;
-ModalityParser.BOUND_VAR = 30;
+ModalityParser.STATE_SET_VARIABLE = 30;
 ModalityParser.PATH = 31;
 ModalityParser.WS = 32;
 ModalityParser.LINE_COMMENT = 33;
@@ -945,6 +955,83 @@ class WhenAlsoFormulaContext extends FormulaContext {
 }
 
 ModalityParser.WhenAlsoFormulaContext = WhenAlsoFormulaContext;
+
+class AlwaysMacroContext extends FormulaContext {
+
+    constructor(parser, ctx) {
+        super(parser);
+        this.inner_formula = null; // FormulaContext;
+        this.until_formula = null; // FormulaContext;
+        super.copyFrom(ctx);
+    }
+
+	ALWAYS() {
+	    return this.getToken(ModalityParser.ALWAYS, 0);
+	};
+
+	LPAREN = function(i) {
+		if(i===undefined) {
+			i = null;
+		}
+	    if(i===null) {
+	        return this.getTokens(ModalityParser.LPAREN);
+	    } else {
+	        return this.getToken(ModalityParser.LPAREN, i);
+	    }
+	};
+
+
+	RPAREN = function(i) {
+		if(i===undefined) {
+			i = null;
+		}
+	    if(i===null) {
+	        return this.getTokens(ModalityParser.RPAREN);
+	    } else {
+	        return this.getToken(ModalityParser.RPAREN, i);
+	    }
+	};
+
+
+	formula = function(i) {
+	    if(i===undefined) {
+	        i = null;
+	    }
+	    if(i===null) {
+	        return this.getTypedRuleContexts(FormulaContext);
+	    } else {
+	        return this.getTypedRuleContext(FormulaContext,i);
+	    }
+	};
+
+	UNTIL() {
+	    return this.getToken(ModalityParser.UNTIL, 0);
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof ModalityListener ) {
+	        listener.enterAlwaysMacro(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof ModalityListener ) {
+	        listener.exitAlwaysMacro(this);
+		}
+	}
+
+	accept(visitor) {
+	    if ( visitor instanceof ModalityVisitor ) {
+	        return visitor.visitAlwaysMacro(this);
+	    } else {
+	        return visitor.visitChildren(this);
+	    }
+	}
+
+
+}
+
+ModalityParser.AlwaysMacroContext = AlwaysMacroContext;
 
 class EmptyBoxFormulaContext extends FormulaContext {
 
@@ -1300,7 +1387,7 @@ class LfpFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.boundVar = null; // FormulaContext;
+        this.stateSetVariable = null; // FormulaContext;
         this.inner = null; // FormulaContext;
         super.copyFrom(ctx);
     }
@@ -1404,6 +1491,75 @@ class CanMacroContext extends FormulaContext {
 }
 
 ModalityParser.CanMacroContext = CanMacroContext;
+
+class EventuallyMacroContext extends FormulaContext {
+
+    constructor(parser, ctx) {
+        super(parser);
+        this.inner_formula = null; // FormulaContext;
+        this.until_formula = null; // FormulaContext;
+        super.copyFrom(ctx);
+    }
+
+	EVENTUALLY() {
+	    return this.getToken(ModalityParser.EVENTUALLY, 0);
+	};
+
+	LPAREN() {
+	    return this.getToken(ModalityParser.LPAREN, 0);
+	};
+
+	RPAREN = function(i) {
+		if(i===undefined) {
+			i = null;
+		}
+	    if(i===null) {
+	        return this.getTokens(ModalityParser.RPAREN);
+	    } else {
+	        return this.getToken(ModalityParser.RPAREN, i);
+	    }
+	};
+
+
+	formula = function(i) {
+	    if(i===undefined) {
+	        i = null;
+	    }
+	    if(i===null) {
+	        return this.getTypedRuleContexts(FormulaContext);
+	    } else {
+	        return this.getTypedRuleContext(FormulaContext,i);
+	    }
+	};
+
+	UNTIL() {
+	    return this.getToken(ModalityParser.UNTIL, 0);
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof ModalityListener ) {
+	        listener.enterEventuallyMacro(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof ModalityListener ) {
+	        listener.exitEventuallyMacro(this);
+		}
+	}
+
+	accept(visitor) {
+	    if ( visitor instanceof ModalityVisitor ) {
+	        return visitor.visitEventuallyMacro(this);
+	    } else {
+	        return visitor.visitChildren(this);
+	    }
+	}
+
+
+}
+
+ModalityParser.EventuallyMacroContext = EventuallyMacroContext;
 
 class DiamondFormulaContext extends FormulaContext {
 
@@ -1640,88 +1796,11 @@ class FalseAtomContext extends FormulaContext {
 
 ModalityParser.FalseAtomContext = FalseAtomContext;
 
-class HenceforthMustFormulaContext extends FormulaContext {
-
-    constructor(parser, ctx) {
-        super(parser);
-        this.inner_formula = null; // FormulaContext;
-        this.until_formula = null; // FormulaContext;
-        super.copyFrom(ctx);
-    }
-
-	HENCEFORTH_MUST() {
-	    return this.getToken(ModalityParser.HENCEFORTH_MUST, 0);
-	};
-
-	LPAREN = function(i) {
-		if(i===undefined) {
-			i = null;
-		}
-	    if(i===null) {
-	        return this.getTokens(ModalityParser.LPAREN);
-	    } else {
-	        return this.getToken(ModalityParser.LPAREN, i);
-	    }
-	};
-
-
-	RPAREN = function(i) {
-		if(i===undefined) {
-			i = null;
-		}
-	    if(i===null) {
-	        return this.getTokens(ModalityParser.RPAREN);
-	    } else {
-	        return this.getToken(ModalityParser.RPAREN, i);
-	    }
-	};
-
-
-	formula = function(i) {
-	    if(i===undefined) {
-	        i = null;
-	    }
-	    if(i===null) {
-	        return this.getTypedRuleContexts(FormulaContext);
-	    } else {
-	        return this.getTypedRuleContext(FormulaContext,i);
-	    }
-	};
-
-	UNTIL() {
-	    return this.getToken(ModalityParser.UNTIL, 0);
-	};
-
-	enterRule(listener) {
-	    if(listener instanceof ModalityListener ) {
-	        listener.enterHenceforthMustFormula(this);
-		}
-	}
-
-	exitRule(listener) {
-	    if(listener instanceof ModalityListener ) {
-	        listener.exitHenceforthMustFormula(this);
-		}
-	}
-
-	accept(visitor) {
-	    if ( visitor instanceof ModalityVisitor ) {
-	        return visitor.visitHenceforthMustFormula(this);
-	    } else {
-	        return visitor.visitChildren(this);
-	    }
-	}
-
-
-}
-
-ModalityParser.HenceforthMustFormulaContext = HenceforthMustFormulaContext;
-
 class GfpFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.boundVar = null; // FormulaContext;
+        this.stateSetVariable = null; // FormulaContext;
         this.inner = null; // FormulaContext;
         super.copyFrom(ctx);
     }
@@ -1814,75 +1893,6 @@ class TrueAtomContext extends FormulaContext {
 
 ModalityParser.TrueAtomContext = TrueAtomContext;
 
-class HenceforthCanFormulaContext extends FormulaContext {
-
-    constructor(parser, ctx) {
-        super(parser);
-        this.inner_formula = null; // FormulaContext;
-        this.until_formula = null; // FormulaContext;
-        super.copyFrom(ctx);
-    }
-
-	HENCEFORTH_CAN() {
-	    return this.getToken(ModalityParser.HENCEFORTH_CAN, 0);
-	};
-
-	LPAREN() {
-	    return this.getToken(ModalityParser.LPAREN, 0);
-	};
-
-	RPAREN = function(i) {
-		if(i===undefined) {
-			i = null;
-		}
-	    if(i===null) {
-	        return this.getTokens(ModalityParser.RPAREN);
-	    } else {
-	        return this.getToken(ModalityParser.RPAREN, i);
-	    }
-	};
-
-
-	formula = function(i) {
-	    if(i===undefined) {
-	        i = null;
-	    }
-	    if(i===null) {
-	        return this.getTypedRuleContexts(FormulaContext);
-	    } else {
-	        return this.getTypedRuleContext(FormulaContext,i);
-	    }
-	};
-
-	UNTIL() {
-	    return this.getToken(ModalityParser.UNTIL, 0);
-	};
-
-	enterRule(listener) {
-	    if(listener instanceof ModalityListener ) {
-	        listener.enterHenceforthCanFormula(this);
-		}
-	}
-
-	exitRule(listener) {
-	    if(listener instanceof ModalityListener ) {
-	        listener.exitHenceforthCanFormula(this);
-		}
-	}
-
-	accept(visitor) {
-	    if ( visitor instanceof ModalityVisitor ) {
-	        return visitor.visitHenceforthCanFormula(this);
-	    } else {
-	        return visitor.visitChildren(this);
-	    }
-	}
-
-
-}
-
-ModalityParser.HenceforthCanFormulaContext = HenceforthCanFormulaContext;
-
 class PropsAtomContext extends FormulaContext {
 
     constructor(parser, ctx) {
@@ -1929,6 +1939,42 @@ class PropsAtomContext extends FormulaContext {
 }
 
 ModalityParser.PropsAtomContext = PropsAtomContext;
+
+class StateSetVariableContext extends FormulaContext {
+
+    constructor(parser, ctx) {
+        super(parser);
+        super.copyFrom(ctx);
+    }
+
+	STATE_SET_VARIABLE() {
+	    return this.getToken(ModalityParser.STATE_SET_VARIABLE, 0);
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof ModalityListener ) {
+	        listener.enterStateSetVariable(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof ModalityListener ) {
+	        listener.exitStateSetVariable(this);
+		}
+	}
+
+	accept(visitor) {
+	    if ( visitor instanceof ModalityVisitor ) {
+	        return visitor.visitStateSetVariable(this);
+	    } else {
+	        return visitor.visitChildren(this);
+	    }
+	}
+
+
+}
+
+ModalityParser.StateSetVariableContext = StateSetVariableContext;
 
 class UnsignedPropContext extends antlr4.ParserRuleContext {
 

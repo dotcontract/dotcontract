@@ -3,20 +3,21 @@ grammar Modality;
 expression: f = formula EOF;
 
 formula:
-	TRUE												# trueAtom
-	| FALSE												# falseAtom
+	TRUE												                              # trueAtom
+	| FALSE												                            # falseAtom
+	| STATE_SET_VARIABLE                                      # stateSetVariable
 	| (unsignedProp (signedProp)* | (signedProp)+)						# propsAtom
-	| MUST LPAREN formula RPAREN # mustMacro
-	| CAN LPAREN formula RPAREN # canMacro
-	| HENCEFORTH_MUST LPAREN inner_formula = formula RPAREN (UNTIL LPAREN until_formula = formula RPAREN)? # henceforthMustFormula
-	| HENCEFORTH_CAN LPAREN inner_formula = formula RPAREN (UNTIL until_formula = formula RPAREN)? # henceforthCanFormula
-	| name = NAME LPAREN (arg (',' arg)*)? RPAREN	# functionAtom
-	| LBOX RBOX outer = formula					# emptyBoxFormula
-	| LDIA RDIA outer = formula					# emptyDiamondFormula
-	| LBOX inner = formula RBOX outer = formula					# boxFormula
-	| LDIA inner = formula RDIA outer = formula					# diamondFormula
-	| LFP LPAREN boundVar = formula COMMA inner = formula RPAREN	# lfpFormula
-	| GFP LPAREN boundVar = formula COMMA inner = formula RPAREN	# gfpFormula
+	| MUST LPAREN formula RPAREN                              # mustMacro
+	| CAN LPAREN formula RPAREN                               # canMacro
+	| ALWAYS LPAREN inner_formula = formula RPAREN (UNTIL LPAREN until_formula = formula RPAREN)?  # alwaysMacro
+	| EVENTUALLY LPAREN inner_formula = formula RPAREN (UNTIL until_formula = formula RPAREN)?     # eventuallyMacro
+	| name = NAME LPAREN (arg (',' arg)*)? RPAREN	            # functionAtom
+	| LBOX RBOX outer = formula					                      # emptyBoxFormula
+	| LDIA RDIA outer = formula					                      # emptyDiamondFormula
+	| LBOX inner = formula RBOX outer = formula					      # boxFormula
+	| LDIA inner = formula RDIA outer = formula					      # diamondFormula
+	| LFP LPAREN stateSetVariable = formula COMMA inner = formula RPAREN	# lfpFormula
+	| GFP LPAREN stateSetVariable = formula COMMA inner = formula RPAREN	# gfpFormula
 	| left = formula OR right = formula					# orFormula
 	| left = formula AND right = formula				# andFormula
 	| WHEN when_formula = formula ALSO also_formula = formula  # whenAlsoFormula
@@ -40,8 +41,8 @@ arg:
 MUST: 'must';
 CAN: 'can';
 
-HENCEFORTH_MUST: 'henceforth_must';
-HENCEFORTH_CAN: 'henceforth_can';
+ALWAYS: 'always';
+EVENTUALLY: 'eventually';
 UNTIL: 'until';
 
 TRUE: 'true';
@@ -83,7 +84,7 @@ NUMBER: '-'? INT ('.' [0-9]+)? EXP?;
 fragment INT: '0' | [1-9] [0-9]*;
 fragment EXP: [Ee] [+\-]? INT;
 
-BOUND_VAR: [@][A-Za-z0-9_]*;
+STATE_SET_VARIABLE: [@][A-Za-z0-9_]*;
 PATH: [/][A-Za-z0-9_/.]*;
 
 // whitespace

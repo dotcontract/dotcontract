@@ -1,26 +1,32 @@
 import AbstractVisitor from "../../grammars/build/ModalityVisitor.js";
 
 import {
-  TrueAtom,
-  FalseAtom,
-  FunctionAtom,
+  // propositions
   PropAtom,
   PropsAtom,
+  SignedProp,
+  // propositional logic
+  TrueAtom,
+  FalseAtom,
   AndFormula,
   OrFormula,
   NotFormula,
-  WhenAlsoFormula,
-  WhenNextFormula,
-  HenceforthCanFormula,
-  HenceforthMustFormula,
+  // temporal logic
   BoxFormula,
   DiamondFormula,
   GfpFormula,
   LfpFormula,
-  Path,
-  SignedProp,
+  StateSetVariable,
+  // temporal macros
   MustMacro,
   CanMacro,
+  AlwaysMacro,
+  EventuallyMacro,
+  WhenAlsoFormula,
+  WhenNextFormula,
+  // other
+  FunctionAtom,
+  Path,
 } from "./Expression.js";
 
 export default class ModalityVisitor extends AbstractVisitor {
@@ -111,20 +117,20 @@ export default class ModalityVisitor extends AbstractVisitor {
     return new WhenNextFormula(when_formula, next_formula);
   }
 
-  visitHenceforthMustFormula(ctx) {
+  visitAlwaysMacro(ctx) {
     const inner_formula = this.visit(ctx.inner_formula);
     const until_formula = ctx.until_formula
       ? this.visit(ctx.until_formula)
       : null;
-    return new HenceforthMustFormula(inner_formula, until_formula);
+    return new AlwaysMacro(inner_formula, until_formula);
   }
 
-  visitHenceforthCanFormula(ctx) {
+  visitEventuallyMacro(ctx) {
     const inner_formula = this.visit(ctx.inner_formula);
     const until_formula = ctx.until_formula
       ? this.visit(ctx.until_formula)
       : null;
-    return new HenceforthCanFormula(inner_formula, until_formula);
+    return new EventuallyMacro(inner_formula, until_formula);
   }
 
   visitPropsAtom(ctx) {
@@ -193,23 +199,21 @@ export default class ModalityVisitor extends AbstractVisitor {
   }
 
   visitLfpFormula(ctx) {
-    const bound_var = this.visit(ctx.boundVar);
+    const state_set_variable = this.visit(ctx.stateSetVariable);
     const inner = this.visit(ctx.inner);
-    return new LfpFormula(bound_var, inner);
+    return new LfpFormula(state_set_variable, inner);
   }
 
   visitGfpFormula(ctx) {
-    const bound_var = this.visit(ctx.boundVar);
+    const state_set_variable = this.visit(ctx.stateSetVariable);
     const inner = this.visit(ctx.inner);
-    return new GfpFormula(bound_var, inner);
+    return new GfpFormula(state_set_variable, inner);
   }
 
-  visitBoundVar(ctx) {
+  visitStateSetVariable(ctx) {
     let str = ctx.getText();
-    // TODO return new BoundVar(str);
-    return str;
+    return new StateSetVariable(str);
   }
-
   visitMustMacro(ctx) {
     const formula = this.visit(ctx.formula());
     return new MustMacro(formula);
