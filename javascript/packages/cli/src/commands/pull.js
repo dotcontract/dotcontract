@@ -15,7 +15,7 @@ temp.track();
 
 const log = console.log;
 
-export async function sync(source_dcf, dcf) {
+export async function sync_target(source_dcf, dcf) {
   const source_commit_order = await source_dcf.getCommitOrder();
   const cur_commit_order = await dcf.getCommitOrder();
   const source_commit_log = await source_dcf.getCommitLog();
@@ -106,7 +106,7 @@ export async function handler(argv) {
     log("Invalid linked contract!");
     process.exit(-1);
   }
-  await sync(source_dcf, dcf);
+  await sync_target(source_dcf, dcf);
 }
 
 export default handler;
