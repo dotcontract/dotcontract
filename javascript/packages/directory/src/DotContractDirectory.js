@@ -14,9 +14,10 @@ export default class Directory {
     if (!path) {
       throw new Error();
     }
-    if (!fs.existsSync(path)) {
-      fs.mkdirSync(path, { recursive: true });
+    if (fs.existsSync(path)) {
+      fs.rmSync(path, { recursive: true });
     }
+    fs.mkdirSync(path, { recursive: true });
     const dotcontract_json = genesis
       ? genesis
       : await Contract.generateGenesis();
