@@ -13,11 +13,17 @@ export default class GfpFormula extends BaseFormula {
   }
 
   getFreeVars(ctx) {
-    return new setMinus(this.inner.getFreeVars(), this.state_set_variable.toText());
+    return new setMinus(
+      this.inner.getFreeVars(),
+      this.state_set_variable.toText()
+    );
   }
 
   getBoundVars(ctx) {
-    return new unionOfSets(this.inner.getBoundVars(), this.state_set_variable.toText());
+    return new unionOfSets(
+      this.inner.getBoundVars(),
+      this.state_set_variable.toText()
+    );
   }
 
   toText() {

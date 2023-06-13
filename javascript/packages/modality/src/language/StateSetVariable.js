@@ -25,5 +25,4 @@ export default class StateSetVariable extends BaseFormula {
   toModalFormula() {
     return `${this.name}`;
   }
-
 }
