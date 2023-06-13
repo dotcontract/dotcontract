@@ -8,7 +8,7 @@ export const builder = {
 };
 
 import DotContractFile from "@dotcontract/file";
-import { copyAttachmentsToDir, createEmptyContract, reCommit } from "./undo.js";
+import { copyAttachmentsToDir, reCommit } from "./undo.js";
 import path from "path";
 import temp from "temp";
 temp.track();
@@ -18,7 +18,6 @@ const log = console.log;
 export async function sync_source(source_dcf, dcf) {
   const source_commit_order = await source_dcf.getCommitOrder();
   const cur_commit_order = await dcf.getCommitOrder();
-  const source_commit_log = await source_dcf.getCommitLog();
   const cur_commit_log = await dcf.getCommitLog();
 
   const source_commit_length = source_commit_order.length;
@@ -89,43 +88,3 @@ export async function handler(argv) {
 }
 
 export default handler;
-
-// 1. Dir <- File
-// contract create --dir linktest
-// contract create --file linktest.contract
-// contract link --dir linktest --path linktest.contract
-// contract commit --dir linktest --post /a.text "assd"
-// contract commit --file linktest.contract --post /a.text "assd"
-// contract commit --file linktest.contract --post /c.text "lolly"
-// contract push --dir linktest
-// contract log --file linktest.contract
-
-// 2. Dir <- Dir
-// contract create --dir linktest
-// contract create --dir linktest2
-// contract link --dir linktest --path linktest2
-// contract commit --dir linktest --post /a.text "assd"
-// contract commit --dir linktest2 --post /a.text "assd"
-// contract commit --dir linktest --post /b.text "polly"
-// contract push --dir linktest
-// contract log --dir linktest2
-
-// 3. File <- File
-// contract create --file linktest.contract
-// contract create --file linktest2.contract
-// contract link --file linktest.contract --path linktest2.contract
-// contract commit --file linktest.contract --post /a.text "assd"
-// contract commit --file linktest2.contract --post /a.text "assd"
-// contract commit --file linktest.contract --post /b.text "polly"
-// contract commit --file linktest2.contract --post /c.text "lolly"
-// contract push --file linktest.contract
-// contract log --file linktest2.contract
-
-// 4. File <- Dir
-// contract create --file linktest.contract
-// contract create --dir linktest
-// contract link --file linktest.contract --path linktest
-// contract commit --file linktest.contract --post /a.text "assd"
-// contract commit --dir linktest --post /a.text "assd"
-// contract push --file linktest.contract
-// contract log --dir linktest
