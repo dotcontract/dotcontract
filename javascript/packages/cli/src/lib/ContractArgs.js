@@ -42,7 +42,7 @@ export const findNearestDotContractDir = async function (dirpath) {
   const dc_dir = new DotContractDirectory(
     path.join(dotcontract_dirpath, ".contract")
   );
-  if (!await dc_dir.isValid()) {
+  if (!(await dc_dir.isValid())) {
     return;
   }
   return dotcontract_dirpath;
@@ -86,14 +86,11 @@ export const ensureContractPath = async function (contract_path) {
   let dir = null;
   if (fs.existsSync(path.join(contract_path, ".contract"))) {
     dir = contract_path;
-  }
-  else if (fs.existsSync(contract_path)) {
+  } else if (fs.existsSync(contract_path)) {
     file = contract_path;
   }
   if (!file && !dir) {
-    console.error(
-      `ERROR: Invalid contract path`
-    );
+    console.error(`ERROR: Invalid contract path`);
     process.exit(-1);
   }
   let dcf = null;
@@ -102,10 +99,8 @@ export const ensureContractPath = async function (contract_path) {
   } else if (dir) {
     dcf = await DotContractFile.fromDir(path.join(dir, ".contract"));
   }
-  if(!dcf.isValid()){
-    console.error(
-      `ERROR: Invalid contract`
-    );
+  if (!dcf.isValid()) {
+    console.error(`ERROR: Invalid contract`);
     process.exit(-1);
   }
   return dcf;

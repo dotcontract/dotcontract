@@ -19,7 +19,7 @@ import { Commit, CommitAction } from "@dotcontract/contract";
 import temp from "temp";
 temp.track();
 
-export function findDeleteIndex(commit_hash, commitOrder){
+export function findDeleteIndex(commit_hash, commitOrder) {
   // check if commit hash is valid
   let delete_from_indx = commitOrder.length - 1;
   if (commit_hash) {
@@ -39,7 +39,7 @@ export function findDeleteIndex(commit_hash, commitOrder){
   return delete_from_indx;
 }
 
-export async function copyAttachmentsToDir(dcf){
+export async function copyAttachmentsToDir(dcf) {
   let attachments_dir = null;
   if (await dcf.hasAttachments()) {
     attachments_dir = temp.mkdirSync();
@@ -48,7 +48,7 @@ export async function copyAttachmentsToDir(dcf){
   return attachments_dir;
 }
 
-export async function createEmptyContract(dcf){
+export async function createEmptyContract(dcf) {
   const dotcontract_json = await dcf.getDotContractJson();
   await dcf.clear();
   if (dcf.filepath) {
@@ -63,7 +63,13 @@ export async function createEmptyContract(dcf){
   return dcf;
 }
 
-export async function reCommit(dcf, commitLog, attachments_dir, start_indx, end_indx){
+export async function reCommit(
+  dcf,
+  commitLog,
+  attachments_dir,
+  start_indx,
+  end_indx
+) {
   for (let i = start_indx; i <= end_indx; i++) {
     const attachments = [];
     const c = Commit.fromJSONString(commitLog[i]);
@@ -102,7 +108,7 @@ export async function handler(argv) {
   const delete_from_indx = findDeleteIndex(commit_hash, commitOrder);
   const attachments_dir = await copyAttachmentsToDir(dcf);
   dcf = await createEmptyContract(dcf);
-  await reCommit(dcf, commitLog, attachments_dir, 0, delete_from_indx-1);
+  await reCommit(dcf, commitLog, attachments_dir, 0, delete_from_indx - 1);
 
   if (delete_from_indx == commitOrder.length - 1)
     log(`Deleted latest commit - ${commitOrder[delete_from_indx]}`);

@@ -234,9 +234,9 @@ export default class Directory {
       JSON.stringify(config_obj),
       "utf-8"
     );
- }
+  }
 
- async getLinkedContract() {
+  async getLinkedContract() {
     const config_str = fs.readFileSync(`${this.path}/config.json`, "utf-8");
     const config_obj = JSON.parse(config_str);
     return config_obj["remote"]["url"];

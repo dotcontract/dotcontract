@@ -10,7 +10,12 @@ export const builder = {
 const log = console.log;
 import { asBold, asSuccess, asError, asWarning } from "../lib/LogStyles.js";
 
-function describeContract({ contract_id, local_status, config, network_status }) {
+function describeContract({
+  contract_id,
+  local_status,
+  config,
+  network_status,
+}) {
   log(`${asBold(`# Contract Info`)}`);
   log(`* ID = ${asBold(contract_id)}`);
   log();

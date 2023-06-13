@@ -33,7 +33,7 @@ export default class Contract {
   }
 
   static async generateConfig() {
-    return {"remote": {"url": null}}
+    return { remote: { url: null } };
   }
 
   async appendCommit(commit) {
