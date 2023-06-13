@@ -24,6 +24,17 @@ export function getFunction(name) {
   return allFunctions[name];
 }
 
+export function escapeArgs(...args) {
+  const arg_suffix = uint8ArrayFromString(JSON.stringify(args || [])).join("_");
+  return `${arg_suffix}`;
+}
+
+export function unescapeArgs(args) {
+  const arg_bytes = args.split("_").map((i) => parseInt(i));
+  const str = uint8ArrayToString(new Uint8Array(arg_bytes));
+  return str;
+}
+
 export function functionCallToPropName(name, args) {
   const arg_suffix = uint8ArrayFromString(JSON.stringify(args || [])).join("_");
   return `${name}__${arg_suffix}`;

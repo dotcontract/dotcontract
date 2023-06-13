@@ -23,21 +23,21 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by ModalityParser#alwaysMacro.
-	enterAlwaysMacro(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#alwaysMacro.
-	exitAlwaysMacro(ctx) {
-	}
-
-
 	// Enter a parse tree produced by ModalityParser#emptyBoxFormula.
 	enterEmptyBoxFormula(ctx) {
 	}
 
 	// Exit a parse tree produced by ModalityParser#emptyBoxFormula.
 	exitEmptyBoxFormula(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#alwaysMacro.
+	enterAlwaysMacro(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#alwaysMacro.
+	exitAlwaysMacro(ctx) {
 	}
 
 
@@ -140,21 +140,21 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by ModalityParser#mustMacro.
-	enterMustMacro(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#mustMacro.
-	exitMustMacro(ctx) {
-	}
-
-
 	// Enter a parse tree produced by ModalityParser#boxFormula.
 	enterBoxFormula(ctx) {
 	}
 
 	// Exit a parse tree produced by ModalityParser#boxFormula.
 	exitBoxFormula(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#mustMacro.
+	enterMustMacro(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#mustMacro.
+	exitMustMacro(ctx) {
 	}
 
 

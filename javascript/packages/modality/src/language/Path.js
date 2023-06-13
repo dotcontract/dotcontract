@@ -21,7 +21,7 @@ export default class Path extends BaseFormula {
   }
 
   // TODO
-  toModalFormula() {
-    return `false`;
+  toFunctionArg() {
+    return `${this.str}`;
   }
 }

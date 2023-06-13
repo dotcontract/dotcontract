@@ -214,6 +214,7 @@ export default class ModalityVisitor extends AbstractVisitor {
     let str = ctx.getText();
     return new StateSetVariable(str);
   }
+
   visitMustMacro(ctx) {
     const formula = this.visit(ctx.formula());
     return new MustMacro(formula);

@@ -1,4 +1,5 @@
 import BaseFormula from "./BaseFormula.js";
+import NegatedFormula from "./NegatedFormula.js";
 
 import { functionCallToPropName } from "../Functions.js";
 
@@ -25,8 +26,15 @@ export default class FunctionAtom extends BaseFormula {
     };
   }
 
+  negated({ filterMaybe = false } = {}) {
+    return new NegatedFormula(this);
+  }
+
   toModalFormula() {
-    const funcCallPropName = functionCallToPropName(this.name, this.args);
+    const funcCallPropName = functionCallToPropName(
+      this.name,
+      this.args.map((i) => (i.toFunctionArg ? i.toFunctionArg() : i))
+    );
     return `${funcCallPropName}`;
   }
 }

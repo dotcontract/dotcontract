@@ -20,6 +20,10 @@ export default class NotFormula extends BaseFormula {
     };
   }
 
+  negated() {
+    return this.formula;
+  }
+
   toModalFormula() {
     return `not ${this.inner.toModalFormula()}`;
   }

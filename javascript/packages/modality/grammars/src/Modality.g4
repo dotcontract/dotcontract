@@ -3,27 +3,29 @@ grammar Modality;
 expression: f = formula EOF;
 
 formula:
-	TRUE												                              # trueAtom
-	| FALSE												                            # falseAtom
-	| STATE_SET_VARIABLE                                      # stateSetVariable
-	| (unsignedProp (signedProp)* | (signedProp)+)						# propsAtom
-	| MUST LPAREN formula RPAREN                              # mustMacro
-	| CAN LPAREN formula RPAREN                               # canMacro
+	TRUE												                                                                   # trueAtom
+	| FALSE												                                                                 # falseAtom
+	| left = formula OR right = formula              					                                     # orFormula
+	| left = formula AND right = formula              				                                     # andFormula
+	| NOT inner = formula								                                                           # notFormula
+	| (unsignedProp (signedProp)* | (signedProp)+)						                                     # propsAtom
+	| STATE_SET_VARIABLE                                                                           # stateSetVariable
+	| name = NAME LPAREN (arg (',' arg)*)? RPAREN	                                                 # functionAtom
+  | LBOX RBOX outer = formula					                                                           # emptyBoxFormula
+	| LDIA RDIA outer = formula					                                                           # emptyDiamondFormula
+	| LBOX inner = formula RBOX outer = formula					                                           # boxFormula
+	| LDIA inner = formula RDIA outer = formula					                                           # diamondFormula
+	| LFP LPAREN stateSetVariable = formula COMMA inner = formula RPAREN	                         # lfpFormula
+	| GFP LPAREN stateSetVariable = formula COMMA inner = formula RPAREN	                         # gfpFormula
+	| MUST LPAREN formula RPAREN                                                                   # mustMacro
+	| CAN LPAREN formula RPAREN                                                                    # canMacro
 	| ALWAYS LPAREN inner_formula = formula RPAREN (UNTIL LPAREN until_formula = formula RPAREN)?  # alwaysMacro
 	| EVENTUALLY LPAREN inner_formula = formula RPAREN (UNTIL until_formula = formula RPAREN)?     # eventuallyMacro
-	| name = NAME LPAREN (arg (',' arg)*)? RPAREN	            # functionAtom
-	| LBOX RBOX outer = formula					                      # emptyBoxFormula
-	| LDIA RDIA outer = formula					                      # emptyDiamondFormula
-	| LBOX inner = formula RBOX outer = formula					      # boxFormula
-	| LDIA inner = formula RDIA outer = formula					      # diamondFormula
-	| LFP LPAREN stateSetVariable = formula COMMA inner = formula RPAREN	# lfpFormula
-	| GFP LPAREN stateSetVariable = formula COMMA inner = formula RPAREN	# gfpFormula
-	| left = formula OR right = formula					# orFormula
-	| left = formula AND right = formula				# andFormula
-	| WHEN when_formula = formula ALSO also_formula = formula  # whenAlsoFormula
-	| WHEN when_formula = formula NEXT next_formula = formula  # whenNextFormula
-	| NOT inner = formula								# notFormula
-	| LPAREN inner = formula RPAREN						# parenFormula;
+	| WHEN when_formula = formula ALSO also_formula = formula                                      # whenAlsoFormula
+	| WHEN when_formula = formula NEXT next_formula = formula                                      # whenNextFormula
+	| LPAREN inner = formula RPAREN						                                                     # parenFormula
+	;
+
 
 unsignedProp: theProp = prop;
 signedProp: (theSign = sign) WS* theProp = prop;

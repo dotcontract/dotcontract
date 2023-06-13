@@ -18,14 +18,14 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
-	// Visit a parse tree produced by ModalityParser#alwaysMacro.
-	visitAlwaysMacro(ctx) {
+	// Visit a parse tree produced by ModalityParser#emptyBoxFormula.
+	visitEmptyBoxFormula(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
 
-	// Visit a parse tree produced by ModalityParser#emptyBoxFormula.
-	visitEmptyBoxFormula(ctx) {
+	// Visit a parse tree produced by ModalityParser#alwaysMacro.
+	visitAlwaysMacro(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
@@ -96,14 +96,14 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
-	// Visit a parse tree produced by ModalityParser#mustMacro.
-	visitMustMacro(ctx) {
+	// Visit a parse tree produced by ModalityParser#boxFormula.
+	visitBoxFormula(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
 
-	// Visit a parse tree produced by ModalityParser#boxFormula.
-	visitBoxFormula(ctx) {
+	// Visit a parse tree produced by ModalityParser#mustMacro.
+	visitMustMacro(ctx) {
 	  return this.visitChildren(ctx);
 	}
 

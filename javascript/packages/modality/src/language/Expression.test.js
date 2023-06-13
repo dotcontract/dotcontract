@@ -1,5 +1,5 @@
 import Expression from "./Expression.js";
-import { functionCallToPropName } from "../Functions.js";
+import { functionCallToPropName, escapeArgs } from "../Functions.js";
 import Context from "../Context.js";
 
 const VALID_FORMULAS = {
@@ -20,6 +20,10 @@ const VALID_FORMULAS = {
   [`can(+a -b ?c)`]: `<+a -b> true`,
   [`always(must(+a))`]: `gfp(@x, [] @x and [-a] false)`,
   [`eventually(can(+a))`]: `lfp(@x, [] @x or <+a> true)`,
+  [`post(/a.text)`]: `+post__${escapeArgs("/a.text")}`,
+  [`must(post(/a.text))`]: `[-post__${escapeArgs("/a.text")}] false`,
+  // [`must(-post(/a.text))`]: `[+post__${escapeArgs('/a.text')}] false`,
+  // [`must(+post(/a.text) -post(/b.text) ?post(/c.text))`]: `[+post__${escapeArgs('/a.text')}] false`
 };
 
 describe("Expression", () => {
@@ -39,7 +43,9 @@ describe("Expression", () => {
           const vmf_mf = vmf_expr.toModalFormula();
           expect(mf2).toBe(vmf_mf);
         } catch (e) {
-          console.error(`Attempting to parse: ${formula}`);
+          console.error(
+            `Attempting to parse:   ${formula}\nAgainst modal formula: ${validModalFormula}`
+          );
           throw e;
         }
       }).not.toThrow();
