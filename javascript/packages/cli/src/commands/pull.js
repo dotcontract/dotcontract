@@ -1,50 +1,112 @@
 export const command = "pull";
-export const describe = "pulls updated contract state from network";
+export const describe = "pulls updated contract state from linked contract";
 
-import { parseNetworkArgs, CommonNetworkArgs } from "../lib/NetworkArgs.js";
+import { CommonContractArgs, ensureContractArgs } from "../lib/ContractArgs.js";
 
 export const builder = {
-  ...CommonNetworkArgs,
-  output: {
-    alias: "o",
-    required: true,
-  },
-  contract: {
-    alias: "c",
-    required: true,
-  },
+  ...CommonContractArgs,
 };
 
 import DotContractFile from "@dotcontract/file";
-import DotContractDirectory from "@dotcontract/directory";
+import { copyAttachmentsToDir, createEmptyContract, reCommit } from "./undo.js";
+import path from "path";
+import temp from "temp";
+temp.track();
 
 const log = console.log;
 
-export async function handler(argv) {
-  if (!argv.contract && !argv.output) {
-    console.error("--contract && --output required");
+export async function sync_target(source_dcf, dcf) {
+  const source_commit_order = await source_dcf.getCommitOrder();
+  const cur_commit_order = await dcf.getCommitOrder();
+  const source_commit_log = await source_dcf.getCommitLog();
+  const cur_commit_log = await dcf.getCommitLog();
+
+  const source_commit_length = source_commit_order.length;
+  const cur_commit_length = cur_commit_order.length;
+
+  let largest_common_commit_index = -1;
+  let si = 0;
+  let ci = 0;
+
+  while (si < source_commit_length && ci < cur_commit_length) {
+    if (source_commit_order[si] === cur_commit_order[ci]) {
+      largest_common_commit_index = si;
+      si++;
+      ci++;
+    } else {
+      break;
+    }
+  }
+  const source_attachments_dir = await copyAttachmentsToDir(source_dcf);
+
+  if (largest_common_commit_index === cur_commit_length - 1) {
+    // Equal length and equal commits
+    if (source_commit_length == cur_commit_length) {
+      log("Nothing to pull");
+      return;
+    }
+    // fast-forward pull
+    else if (source_commit_length > cur_commit_length) {
+      await reCommit(
+        dcf,
+        source_commit_log,
+        source_attachments_dir,
+        largest_common_commit_index + 1,
+        source_commit_length - 1
+      );
+      log("Fast-forward pull complete");
+      return;
+    }
+  }
+  // Additional commits in local contract
+  else if (largest_common_commit_index === source_commit_length - 1) {
+    log("Nothing to pull");
     return;
   }
+  // Additional commits in both contracts - Rebase
+  else {
+    dcf = await createEmptyContract(dcf);
+    await reCommit(
+      dcf,
+      source_commit_log,
+      source_attachments_dir,
+      0,
+      source_commit_length - 1
+    );
+    const cur_attachments_dir = await copyAttachmentsToDir(dcf);
+    await reCommit(
+      dcf,
+      cur_commit_log,
+      cur_attachments_dir,
+      largest_common_commit_index + 1,
+      cur_commit_length - 1
+    );
+    log("Pull with rebase complete");
+  }
+}
 
-  let contract_id = argv.contract_id;
-  let local_status = null;
-  if (argv.contract) {
-    const pf = await DotContractFile.open(argv.contract);
-    const isValid = await pf.isValid();
-    const genesis = await pf.getDotContractJson();
-    local_status = {
-      status: isValid,
-      commit_count: 0,
-      latest_commit: "",
-    };
-    contract_id = genesis.contract_id;
-    log(pf);
-    await pf.saveTo(argv.output);
+export async function handler(argv) {
+  const { dotcontract_file: dcf } = await ensureContractArgs(argv);
+  const contract_path = await dcf.getLinkedContract();
+  if (contract_path == null) {
+    log("No linked contract found!");
+    process.exit(-1);
   }
 
-  // TODO
-  //once dotcontract file is opened --> setup a node and DotContractQuery on the node
-  //push the query_res into a dotcontract file --> TBD
+  let source_dcf = null;
+
+  if (contract_path.endsWith(".contract")) {
+    source_dcf = await DotContractFile.open(contract_path);
+  } else {
+    source_dcf = await DotContractFile.fromDir(
+      path.join(contract_path, ".contract")
+    );
+  }
+  if (!source_dcf.isValid()) {
+    log("Invalid linked contract!");
+    process.exit(-1);
+  }
+  await sync_target(source_dcf, dcf);
 }
 
 export default handler;

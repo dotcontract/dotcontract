@@ -25,6 +25,11 @@ export default class Directory {
       JSON.stringify(dotcontract_json),
       "utf-8"
     );
+    fs.writeFileSync(
+      `${path}/config.json`,
+      JSON.stringify(await Contract.generateConfig()),
+      "utf-8"
+    );
     return new Directory(path);
   }
 
@@ -62,6 +67,14 @@ export default class Directory {
       "utf-8"
     );
     return JSON.parse(genesisFileJson);
+  }
+
+  async getConfigJson() {
+    const configFileJson = await fs.readFileSync(
+      `${this.path}/config.json`,
+      "utf-8"
+    );
+    return JSON.parse(configFileJson);
   }
 
   async getCommitOrder() {
@@ -123,6 +136,7 @@ export default class Directory {
     };
 
     archive.file(`${this.path}/dotcontract.json`, { name: "dotcontract.json" });
+    archive.file(`${this.path}/config.json`, { name: "config.json" });
 
     if (style === "minimal") {
       return finalize();
@@ -209,6 +223,23 @@ export default class Directory {
       ),
       `${this.path}/attached_files${contract_path}`
     );
+  }
+
+  async linkContract(contract_path) {
+    const config_str = fs.readFileSync(`${this.path}/config.json`, "utf-8");
+    const config_obj = JSON.parse(config_str);
+    config_obj["remote"]["url"] = `${contract_path}`;
+    fs.writeFileSync(
+      `${this.path}/config.json`,
+      JSON.stringify(config_obj),
+      "utf-8"
+    );
+  }
+
+  async getLinkedContract() {
+    const config_str = fs.readFileSync(`${this.path}/config.json`, "utf-8");
+    const config_obj = JSON.parse(config_str);
+    return config_obj["remote"]["url"];
   }
 
   async hasAttachments() {

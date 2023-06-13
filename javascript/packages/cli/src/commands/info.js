@@ -10,9 +10,18 @@ export const builder = {
 const log = console.log;
 import { asBold, asSuccess, asError, asWarning } from "../lib/LogStyles.js";
 
-function describeContract({ contract_id, local_status, network_status }) {
+function describeContract({
+  contract_id,
+  local_status,
+  config,
+  network_status,
+}) {
   log(`${asBold(`# Contract Info`)}`);
   log(`* ID = ${asBold(contract_id)}`);
+  log();
+  log(`${asBold(`## Config`)}`);
+  log(`* Remote URL = ${config.remote.url}`);
+
   if (local_status) {
     log();
     log(`${asBold(`## Local Status`)}`);
@@ -47,6 +56,7 @@ export async function handler(argv) {
   const genesis = await dcf.getDotContractJson();
   const commitLog = await dcf.getCommitLog();
   const commitOrder = await dcf.getCommitOrder();
+  const config = await dcf.getConfigJson();
   const local_status = {
     status: isValid,
     commit_count: commitLog.length,
@@ -55,7 +65,7 @@ export async function handler(argv) {
   };
   const contract_id = genesis.genesis.contract_id;
 
-  describeContract({ contract_id, local_status });
+  describeContract({ contract_id, local_status, config });
 }
 
 export default handler;
