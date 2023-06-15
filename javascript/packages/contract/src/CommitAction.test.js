@@ -1,3 +1,5 @@
+import { expect, describe, it } from "@jest/globals";
+
 import CommitAction from "./CommitAction.js";
 
 describe("CommitAction", () => {

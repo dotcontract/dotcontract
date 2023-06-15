@@ -1,3 +1,5 @@
+import { expect, describe, it } from "@jest/globals";
+
 import Arrow from "./Arrow";
 
 describe("Arrow", () => {

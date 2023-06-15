@@ -1,3 +1,5 @@
+import { expect, describe, it } from "@jest/globals";
+
 import KripkeMachine from "./KripkeMachine.js";
 import Step from "./parts/Step.js";
 import Evolution from "./parts/Evolution.js";

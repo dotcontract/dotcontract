@@ -1,3 +1,5 @@
+import { expect, describe, it } from "@jest/globals";
+
 import Expression from "./Expression.js";
 import { functionCallToPropName, escapeArgs } from "../Functions.js";
 import Context from "../Context.js";

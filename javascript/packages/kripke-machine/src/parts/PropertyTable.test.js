@@ -1,3 +1,5 @@
+import { expect, describe, it } from "@jest/globals";
+
 import PropertyTable from "./PropertyTable";
 
 describe("PropertyTable", () => {
