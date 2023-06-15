@@ -12,6 +12,12 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
+	// Visit a parse tree produced by ModalityParser#propsSet.
+	visitPropsSet(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
 	// Visit a parse tree produced by ModalityParser#whenAlsoFormula.
 	visitWhenAlsoFormula(ctx) {
 	  return this.visitChildren(ctx);
@@ -44,12 +50,6 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 
 	// Visit a parse tree produced by ModalityParser#andFormula.
 	visitAndFormula(ctx) {
-	  return this.visitChildren(ctx);
-	}
-
-
-	// Visit a parse tree produced by ModalityParser#functionAtom.
-	visitFunctionAtom(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
@@ -114,6 +114,12 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
+	// Visit a parse tree produced by ModalityParser#negatedFormula.
+	visitNegatedFormula(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
 	// Visit a parse tree produced by ModalityParser#gfpFormula.
 	visitGfpFormula(ctx) {
 	  return this.visitChildren(ctx);
@@ -126,14 +132,14 @@ export default class ModalityVisitor extends antlr4.tree.ParseTreeVisitor {
 	}
 
 
-	// Visit a parse tree produced by ModalityParser#propsAtom.
-	visitPropsAtom(ctx) {
+	// Visit a parse tree produced by ModalityParser#stateSetVariable.
+	visitStateSetVariable(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
 
-	// Visit a parse tree produced by ModalityParser#stateSetVariable.
-	visitStateSetVariable(ctx) {
+	// Visit a parse tree produced by ModalityParser#functionProp.
+	visitFunctionProp(ctx) {
 	  return this.visitChildren(ctx);
 	}
 

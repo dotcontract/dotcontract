@@ -22,8 +22,10 @@ const VALID_FORMULAS = {
   [`eventually(can(+a))`]: `lfp(@x, [] @x or <+a> true)`,
   [`post(/a.text)`]: `+post__${escapeArgs("/a.text")}`,
   [`must(post(/a.text))`]: `[-post__${escapeArgs("/a.text")}] false`,
-  // [`must(-post(/a.text))`]: `[+post__${escapeArgs('/a.text')}] false`,
-  // [`must(+post(/a.text) -post(/b.text) ?post(/c.text))`]: `[+post__${escapeArgs('/a.text')}] false`
+  [`must(-post(/a.text))`]: `[+post__${escapeArgs("/a.text")}] false`,
+  [`must(+post(/a.text) -post(/b.text) ?post(/c.text))`]: `[-post__${escapeArgs(
+    "/a.text"
+  )} +post__${escapeArgs("/b.text")}] false`,
 };
 
 describe("Expression", () => {
@@ -71,6 +73,7 @@ describe("Expression", () => {
     expect(formula.outer.constructor.name).toBe("TrueAtom");
 
     formula = new Expression(`is(/here/this.md, "red")`);
+    formula = formula.props[0].prop;
     expect(formula.constructor.name).toBe("FunctionAtom");
     expect(formula.args[0].constructor.name).toBe("Path");
     expect(formula.args[1].constructor.name).toBe("String");

@@ -3,7 +3,7 @@ import AbstractVisitor from "../../grammars/build/ModalityVisitor.js";
 import {
   // propositions
   PropAtom,
-  PropsAtom,
+  PropsSet,
   SignedProp,
   // propositional logic
   TrueAtom,
@@ -11,6 +11,7 @@ import {
   AndFormula,
   OrFormula,
   NotFormula,
+  NegatedFormula,
   // temporal logic
   BoxFormula,
   DiamondFormula,
@@ -47,6 +48,11 @@ export default class ModalityVisitor extends AbstractVisitor {
     return new NotFormula(formula);
   }
 
+  visitNegatedFormula(ctx) {
+    const formula = this.visit(ctx.inner);
+    return new NegatedFormula(formula);
+  }
+
   visitParenFormula(ctx) {
     return this.visit(ctx.inner);
   }
@@ -72,7 +78,7 @@ export default class ModalityVisitor extends AbstractVisitor {
     return true;
   }
 
-  visitFalseARgs(ctx) {
+  visitFalseArg(ctx) {
     return false;
   }
 
@@ -96,7 +102,7 @@ export default class ModalityVisitor extends AbstractVisitor {
     return new Path(str);
   }
 
-  visitFunctionAtom(ctx) {
+  visitFunctionProp(ctx) {
     const name = ctx.name.text;
     const args = Array.from(ctx.arg()).map((arg) => {
       const val = this.visit(arg);
@@ -133,7 +139,7 @@ export default class ModalityVisitor extends AbstractVisitor {
     return new EventuallyMacro(inner_formula, until_formula);
   }
 
-  visitPropsAtom(ctx) {
+  visitPropsSet(ctx) {
     const unsigned_actions = ctx.unsignedProp()
       ? [this.visit(ctx.unsignedProp())]
       : [];
@@ -141,7 +147,7 @@ export default class ModalityVisitor extends AbstractVisitor {
       const val = this.visit(signed_action);
       return val;
     });
-    return new PropsAtom([...unsigned_actions, ...signed_actions]);
+    return new PropsSet([...unsigned_actions, ...signed_actions]);
   }
 
   visitUnsignedProp(ctx) {
@@ -170,18 +176,33 @@ export default class ModalityVisitor extends AbstractVisitor {
   }
 
   visitProp(ctx) {
-    let str = ctx.getText();
+    const hasFunctionProp = ctx.children
+      .map((i) => i.constructor.name)
+      .filter((i) => i === "FunctionPropContext").length;
+    if (hasFunctionProp) {
+      if (ctx.children.length === 1) {
+        return this.visit(ctx.children[0]);
+      } else {
+        throw new Error("confusion function prop");
+      }
+    } else {
+      return ctx.getText();
+    }
+  }
+
+  visitName(ctx) {
+    const str = ctx.getText();
     return str;
   }
 
   visitEmptyBoxFormula(ctx) {
-    const inner = new PropsAtom([]);
+    const inner = new PropsSet([]);
     const outer = this.visit(ctx.outer);
     return new BoxFormula(inner, outer);
   }
 
   visitEmptyDiamondFormula(ctx) {
-    const inner = new PropsAtom([]);
+    const inner = new PropsSet([]);
     const outer = this.visit(ctx.outer);
     return new DiamondFormula(inner, outer);
   }

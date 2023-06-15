@@ -47,6 +47,10 @@ export default class SignedProp {
     if (this.isMaybe()) {
       return "";
     }
-    return `${this.signToText()}${this.prop}`;
+    if (this.prop.toModalFormula) {
+      return `${this.signToText()}${this.prop.toModalFormula()}`;
+    } else {
+      return `${this.signToText()}${this.prop}`;
+    }
   }
 }

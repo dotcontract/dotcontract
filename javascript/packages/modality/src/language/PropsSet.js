@@ -1,6 +1,6 @@
 import BaseFormula from "./BaseFormula.js";
 
-export default class PropsAtom extends BaseFormula {
+export default class PropsSet extends BaseFormula {
   constructor(signed_props) {
     super();
     this.props = signed_props;
@@ -23,7 +23,7 @@ export default class PropsAtom extends BaseFormula {
     if (filterMaybe) {
       props = [...this.props.filter((i) => !i.isMaybe())];
     }
-    const pa = new PropsAtom(props.map((sa) => sa.negated()));
+    const pa = new PropsSet(props.map((sa) => sa.negated()));
     return pa;
   }
 

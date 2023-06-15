@@ -7,10 +7,10 @@ formula:
 	| FALSE												                                                                 # falseAtom
 	| left = formula OR right = formula              					                                     # orFormula
 	| left = formula AND right = formula              				                                     # andFormula
+	| MINUS inner = formula																																				 # negatedFormula
 	| NOT inner = formula								                                                           # notFormula
-	| (unsignedProp (signedProp)* | (signedProp)+)						                                     # propsAtom
+	| (unsignedProp (signedProp)* | (signedProp)+)						                                     # propsSet
 	| STATE_SET_VARIABLE                                                                           # stateSetVariable
-	| name = NAME LPAREN (arg (',' arg)*)? RPAREN	                                                 # functionAtom
   | LBOX RBOX outer = formula					                                                           # emptyBoxFormula
 	| LDIA RDIA outer = formula					                                                           # emptyDiamondFormula
 	| LBOX inner = formula RBOX outer = formula					                                           # boxFormula
@@ -26,11 +26,12 @@ formula:
 	| LPAREN inner = formula RPAREN						                                                     # parenFormula
 	;
 
+functionProp: name = NAME LPAREN (arg (',' arg)*)? RPAREN;
 
 unsignedProp: theProp = prop;
 signedProp: (theSign = sign) WS* theProp = prop;
 sign: PLUS | MINUS | QMARK # sign;
-prop: TRUE | FALSE | NAME # prop;
+prop: TRUE | FALSE | NAME | functionProp;
 
 arg:
 	TRUE # trueArg

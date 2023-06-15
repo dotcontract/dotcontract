@@ -14,6 +14,15 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by ModalityParser#propsSet.
+	enterPropsSet(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#propsSet.
+	exitPropsSet(ctx) {
+	}
+
+
 	// Enter a parse tree produced by ModalityParser#whenAlsoFormula.
 	enterWhenAlsoFormula(ctx) {
 	}
@@ -65,15 +74,6 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by ModalityParser#andFormula.
 	exitAndFormula(ctx) {
-	}
-
-
-	// Enter a parse tree produced by ModalityParser#functionAtom.
-	enterFunctionAtom(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#functionAtom.
-	exitFunctionAtom(ctx) {
 	}
 
 
@@ -167,6 +167,15 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by ModalityParser#negatedFormula.
+	enterNegatedFormula(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#negatedFormula.
+	exitNegatedFormula(ctx) {
+	}
+
+
 	// Enter a parse tree produced by ModalityParser#gfpFormula.
 	enterGfpFormula(ctx) {
 	}
@@ -185,21 +194,21 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by ModalityParser#propsAtom.
-	enterPropsAtom(ctx) {
-	}
-
-	// Exit a parse tree produced by ModalityParser#propsAtom.
-	exitPropsAtom(ctx) {
-	}
-
-
 	// Enter a parse tree produced by ModalityParser#stateSetVariable.
 	enterStateSetVariable(ctx) {
 	}
 
 	// Exit a parse tree produced by ModalityParser#stateSetVariable.
 	exitStateSetVariable(ctx) {
+	}
+
+
+	// Enter a parse tree produced by ModalityParser#functionProp.
+	enterFunctionProp(ctx) {
+	}
+
+	// Exit a parse tree produced by ModalityParser#functionProp.
+	exitFunctionProp(ctx) {
 	}
 
 

@@ -7,11 +7,11 @@ import Visitor from "./Visitor.js";
 import BaseFormula from "./BaseFormula.js";
 import TrueAtom from "./TrueAtom.js";
 import FalseAtom from "./FalseAtom.js";
-import PropsAtom from "./PropsAtom.js";
+import PropsSet from "./PropsSet.js";
 
 // propositions
 export { default as PropAtom } from "./PropAtom.js";
-export { default as PropsAtom } from "./PropsAtom.js";
+export { default as PropsSet } from "./PropsSet.js";
 export { default as SignedProp } from "./SignedProp.js";
 
 // propositional logic
@@ -20,6 +20,7 @@ export { default as FalseAtom } from "./FalseAtom.js";
 export { default as AndFormula } from "./AndFormula.js";
 export { default as OrFormula } from "./OrFormula.js";
 export { default as NotFormula } from "./NotFormula.js";
+export { default as NegatedFormula } from "./NegatedFormula.js";
 
 // temporal logic
 export { default as BoxFormula } from "./BoxFormula.js";
@@ -80,7 +81,7 @@ export class Expression {
   constructor(input, defaultTo = null) {
     if (typeof input === "string") {
       if (input.match(/^\s*$/)) {
-        return new PropsAtom([]);
+        return new PropsSet([]);
       }
       const parser = this.constructor.parse(input);
       parser.removeErrorListeners();
