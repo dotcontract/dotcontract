@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+. `dirname $0`/vars
+
+docker -l "debug" build -t $CONTAINER_NAME ./remote

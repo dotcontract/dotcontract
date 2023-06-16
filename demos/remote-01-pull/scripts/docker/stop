@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+. `dirname $0`/vars
+
+IMAGES=`docker ps --filter="ancestor=$CONTAINER_NAME" --format="{{.ID}}"`
+for i in $IMAGES; do
+  docker kill $i &> /dev/null
+  docker rm $i &> /dev/null
+done
+
+sleep 1

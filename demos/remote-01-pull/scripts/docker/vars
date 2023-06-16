@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
+
+CONTAINER_NAME="dotcontract-remote-01-pull"
+LOCAL_PORT=12345
+SSH_USER=dotcontract
+SSH_GROUP=dotcontractgroup
+
+AUTHORIZED_KEYS="$(cat ${SCRIPT_DIR}/../../config/authorized_keys)"
+ALLOWED_IPS="AllowUsers *"
