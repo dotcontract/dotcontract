@@ -8,6 +8,7 @@ set -x
 comment start ssh server
 set +x
 ./scripts/docker/stop
+./scripts/docker/build-once &> /dev/null
 sleep 3
 ./scripts/docker/start &> /dev/null &
 SSH_SERVER_PID=$!
