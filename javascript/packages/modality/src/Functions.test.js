@@ -4,18 +4,18 @@ import Functions from "./Functions.js";
 
 class PathSemantics {
   static getEffectedParentDirectories(variable) {
-    if (variable[0] !== '/') {
+    if (variable[0] !== "/") {
       return [variable];
     }
-    let dirs = variable.split('/');
+    let dirs = variable.split("/");
     const r = [];
     const pwd = [];
     for (const dir of dirs) {
       pwd.push(dir);
       if (pwd.length > 1) {
-        r.push(pwd.join('/'))
+        r.push(pwd.join("/"));
       } else {
-        r.push('/')
+        r.push("/");
       }
     }
     return r;
