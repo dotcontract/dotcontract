@@ -27,7 +27,7 @@ import {
   WhenNextFormula,
   // other
   FunctionAtom,
-  Path,
+  Variable,
 } from "./Expression.js";
 
 export default class ModalityVisitor extends AbstractVisitor {
@@ -97,9 +97,9 @@ export default class ModalityVisitor extends AbstractVisitor {
     }
   }
 
-  visitPathArg(ctx) {
+  visitVariableArg(ctx) {
     const str = ctx.getText();
-    return new Path(str);
+    return new Variable(str);
   }
 
   visitFunctionProp(ctx) {

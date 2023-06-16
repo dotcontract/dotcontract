@@ -284,12 +284,12 @@ export default class ModalityListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by ModalityParser#pathArg.
-	enterPathArg(ctx) {
+	// Enter a parse tree produced by ModalityParser#variableArg.
+	enterVariableArg(ctx) {
 	}
 
-	// Exit a parse tree produced by ModalityParser#pathArg.
-	exitPathArg(ctx) {
+	// Exit a parse tree produced by ModalityParser#variableArg.
+	exitVariableArg(ctx) {
 	}
 
 

@@ -40,7 +40,7 @@ export { default as WhenNextFormula } from "./WhenNextFormula.js";
 
 // other
 export { default as FunctionAtom } from "./FunctionAtom.js";
-export { default as Path } from "./Path.js";
+export { default as Variable } from "./Variable.js";
 
 class CustomErrorListener extends antlr4.error.ErrorListener {
   syntaxError(recognizer, offendingSymbol, line, column, msg, e) {

@@ -38,7 +38,7 @@ arg:
 	| FALSE # falseArg
 	| STRING # stringArg
 	| NUMBER # numberArg
-	| PATH # pathArg
+	| VARIABLE # variableArg
 	;
 
 MUST: 'must';
@@ -88,7 +88,7 @@ fragment INT: '0' | [1-9] [0-9]*;
 fragment EXP: [Ee] [+\-]? INT;
 
 STATE_SET_VARIABLE: [@][A-Za-z0-9_]*;
-PATH: [/][A-Za-z0-9_/.]*;
+VARIABLE: [A-Za-z0-9_/][A-Za-z0-9_/.]*;
 
 // whitespace
 WS: [ \n\t\r]+ -> skip;

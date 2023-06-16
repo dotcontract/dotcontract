@@ -77,7 +77,7 @@ describe("Expression", () => {
     formula = new Expression(`is(/here/this.md, "red")`);
     formula = formula.props[0].prop;
     expect(formula.constructor.name).toBe("FunctionAtom");
-    expect(formula.args[0].constructor.name).toBe("Path");
+    expect(formula.args[0].constructor.name).toBe("Variable");
     expect(formula.args[1].constructor.name).toBe("String");
 
     formula = new Expression(`[+a -b ?c] false`);

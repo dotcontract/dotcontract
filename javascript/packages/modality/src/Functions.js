@@ -13,11 +13,19 @@ import content_keyHasValue from "./BuiltinFunctions/content_keyHasValue.js";
 export { default as signed_by } from "./BuiltinFunctions/signed_by.js";
 import signed_by from "./BuiltinFunctions/signed_by.js";
 
+export { default as post } from "./BuiltinFunctions/post.js";
+import post from "./BuiltinFunctions/post.js";
+
+export { default as affect } from "./BuiltinFunctions/affect.js";
+import affect from "./BuiltinFunctions/affect.js";
+
 export const allFunctions = {
   method_is,
   content_keyIsPresent,
   content_keyHasValue,
   signed_by,
+  post,
+  affect,
 };
 
 export function getFunction(name) {
@@ -60,8 +68,11 @@ export function propNameToFunctionCall(propName) {
 }
 
 export default {
+  builtins: allFunctions,
   allFunctions,
   getFunction,
   functionCallToPropName,
   propNameToFunctionCall,
+  escapeArgs,
+  unescapeArgs,
 };

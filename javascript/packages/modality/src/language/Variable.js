@@ -1,6 +1,6 @@
 import BaseFormula from "./BaseFormula.js";
 
-export default class Path extends BaseFormula {
+export default class Variable extends BaseFormula {
   constructor(str) {
     super();
     this.str = str;

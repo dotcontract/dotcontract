@@ -139,7 +139,7 @@ export default class ModalityParser extends antlr4.Parser {
                              "WHEN", "ALSO", "NEXT", "LBOX", "RBOX", "LDIA", 
                              "RDIA", "LPAREN", "RPAREN", "STAR", "COMMA", 
                              "PLUS", "MINUS", "QMARK", "LFP", "GFP", "NAME", 
-                             "STRING", "NUMBER", "STATE_SET_VARIABLE", "PATH", 
+                             "STRING", "NUMBER", "STATE_SET_VARIABLE", "VARIABLE", 
                              "WS", "LINE_COMMENT" ];
     static ruleNames = [ "expression", "formula", "functionProp", "unsignedProp", 
                          "signedProp", "sign", "prop", "arg" ];
@@ -604,7 +604,7 @@ export default class ModalityParser extends antlr4.Parser {
 	        this.state = 139;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
-	        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << ModalityParser.TRUE) | (1 << ModalityParser.FALSE) | (1 << ModalityParser.STRING) | (1 << ModalityParser.NUMBER) | (1 << ModalityParser.PATH))) !== 0)) {
+	        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << ModalityParser.TRUE) | (1 << ModalityParser.FALSE) | (1 << ModalityParser.STRING) | (1 << ModalityParser.NUMBER) | (1 << ModalityParser.VARIABLE))) !== 0)) {
 	            this.state = 131;
 	            this.arg();
 	            this.state = 136;
@@ -809,11 +809,11 @@ export default class ModalityParser extends antlr4.Parser {
 	            this.state = 165;
 	            this.match(ModalityParser.NUMBER);
 	            break;
-	        case ModalityParser.PATH:
-	            localctx = new PathArgContext(this, localctx);
+	        case ModalityParser.VARIABLE:
+	            localctx = new VariableArgContext(this, localctx);
 	            this.enterOuterAlt(localctx, 5);
 	            this.state = 166;
-	            this.match(ModalityParser.PATH);
+	            this.match(ModalityParser.VARIABLE);
 	            break;
 	        default:
 	            throw new antlr4.error.NoViableAltException(this);
@@ -866,7 +866,7 @@ ModalityParser.NAME = 27;
 ModalityParser.STRING = 28;
 ModalityParser.NUMBER = 29;
 ModalityParser.STATE_SET_VARIABLE = 30;
-ModalityParser.PATH = 31;
+ModalityParser.VARIABLE = 31;
 ModalityParser.WS = 32;
 ModalityParser.LINE_COMMENT = 33;
 
@@ -2341,6 +2341,42 @@ class FalseArgContext extends ArgContext {
 
 ModalityParser.FalseArgContext = FalseArgContext;
 
+class VariableArgContext extends ArgContext {
+
+    constructor(parser, ctx) {
+        super(parser);
+        super.copyFrom(ctx);
+    }
+
+	VARIABLE() {
+	    return this.getToken(ModalityParser.VARIABLE, 0);
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof ModalityListener ) {
+	        listener.enterVariableArg(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof ModalityListener ) {
+	        listener.exitVariableArg(this);
+		}
+	}
+
+	accept(visitor) {
+	    if ( visitor instanceof ModalityVisitor ) {
+	        return visitor.visitVariableArg(this);
+	    } else {
+	        return visitor.visitChildren(this);
+	    }
+	}
+
+
+}
+
+ModalityParser.VariableArgContext = VariableArgContext;
+
 class TrueArgContext extends ArgContext {
 
     constructor(parser, ctx) {
@@ -2412,42 +2448,6 @@ class StringArgContext extends ArgContext {
 }
 
 ModalityParser.StringArgContext = StringArgContext;
-
-class PathArgContext extends ArgContext {
-
-    constructor(parser, ctx) {
-        super(parser);
-        super.copyFrom(ctx);
-    }
-
-	PATH() {
-	    return this.getToken(ModalityParser.PATH, 0);
-	};
-
-	enterRule(listener) {
-	    if(listener instanceof ModalityListener ) {
-	        listener.enterPathArg(this);
-		}
-	}
-
-	exitRule(listener) {
-	    if(listener instanceof ModalityListener ) {
-	        listener.exitPathArg(this);
-		}
-	}
-
-	accept(visitor) {
-	    if ( visitor instanceof ModalityVisitor ) {
-	        return visitor.visitPathArg(this);
-	    } else {
-	        return visitor.visitChildren(this);
-	    }
-	}
-
-
-}
-
-ModalityParser.PathArgContext = PathArgContext;
 
 class NumberArgContext extends ArgContext {
 
