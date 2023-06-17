@@ -81,7 +81,7 @@ export const ensureContractArgs = async function (argv) {
   };
 };
 
-export const ensureContractPath = async function (contract_path) {
+export const ensureLocalContractPath = async function (contract_path) {
   let file = null;
   let dir = null;
   if (fs.existsSync(path.join(contract_path, ".contract"))) {

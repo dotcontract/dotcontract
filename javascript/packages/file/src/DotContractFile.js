@@ -102,8 +102,8 @@ export default class DotContractFile {
     return this.directory.attach({ path, filepath });
   }
 
-  async linkContract(contract_path) {
-    await this.directory.linkContract(contract_path);
+  async linkContract(contract_path, server = null, user = null, port = null, identity = null) {
+    await this.directory.linkContract(contract_path, server, user, port, identity);
   }
 
   async getLinkedContract() {
