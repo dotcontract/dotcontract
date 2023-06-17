@@ -9,7 +9,7 @@ export const builder = {
 
 import DotContractFile from "@dotcontract/file";
 import { copyAttachmentsToDir, createEmptyContract, reCommit } from "./undo.js";
-import { cleanUp, validateRemoteContract } from "./link.js";
+import { validateRemoteContract } from "./link.js";
 import path from "path";
 import temp from "temp";
 temp.track();
@@ -115,9 +115,6 @@ export async function handler(argv) {
     process.exit(-1);
   }
   await sync_target(source_dcf, dcf);
-  if("server" in link_config_obj){
-    cleanUp();
-  }
 }
 
 export default handler;

@@ -8,7 +8,8 @@ import {
 } from "../lib/ContractArgs.js";
 
 import SSH2Promise from 'ssh2-promise';
-import fs from "fs";
+import temp from "temp";
+temp.track();
 
 export const builder = {
   ...CommonContractArgs,
@@ -46,10 +47,6 @@ export function getSSHConfig(server, user, port, identity){
   }
 }
 
-export function cleanUp(){
-  fs.rmSync("temp.contract");
-}
-
 export async function validateRemoteContract(path, server, user, port, identity){
     const sshconfig = getSSHConfig(server, user, port, identity);
     const ssh = new SSH2Promise(sshconfig);
@@ -61,7 +58,8 @@ export async function validateRemoteContract(path, server, user, port, identity)
     log("Connection verified...");
    
     const sftp = ssh.sftp();
-    const temp_file = 'temp.contract';
+    const dir_path = temp.mkdirSync();
+    const temp_file = dir_path+"/temp.contract";
     await sftp.fastGet(path, temp_file).catch(err => {
       console.error("ERROR: Invalid remote contract path provided!");
       console.error(err);
@@ -92,7 +90,6 @@ export async function handler(argv) {
     }
     
     await validateRemoteContract(path, server, user, port, identity);
-    cleanUp();
     await dcf.linkContract(path, server, user, port, identity);
     await dcf.save();
     log(`Remote contract linked successfully!`);
