@@ -2,4 +2,4 @@
 
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
 
-pnpm prettier --write ${SCRIPT_DIR}/../..
+pnpm prettier --write ${SCRIPT_DIR}/../../packages
