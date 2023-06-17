@@ -16,8 +16,24 @@ sleep 3
 set -x
 comment ssh server up
 
-comment run cmd via ssh
-./scripts/run-ssh-cmd "echo hello there"
+comment create a contract and copy it to the remote server
+contract create --file linktest.contract
+contract commit --file linktest.contract --post /hello.text "world"
+contract commit --file linktest.contract --post /welcome.text "back"
+docker cp linktest.contract dotcontract-remote-01-pull:/home/dotcontract/linktest.contract
+
+comment create a contract and link it to the remote contract
+contract create --dir linktest
+contract link --dir linktest -s localhost -u dotcontract -p 12345 -i ./config/id_ed25519 -l /home/dotcontract/linktest.contract
+
+comment check log before pull
+contract log --dir linktest
+
+comment pull commits from the remote contract to the local contract
+contract pull --dir linktest
+
+comment check log after pull
+contract log --dir linktest
 
 comment stop ssh server
 set +x

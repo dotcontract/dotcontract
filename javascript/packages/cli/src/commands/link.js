@@ -37,6 +37,42 @@ export const builder = {
 
 const log = console.log;
 
+export function getSSHConfig(server, user, port, identity){
+  return {
+    host: server,
+    username: user,
+    port: port,
+    identity: identity
+  }
+}
+
+export function cleanUp(){
+  fs.rmSync("temp.contract");
+}
+
+export async function validateRemoteContract(path, server, user, port, identity){
+    const sshconfig = getSSHConfig(server, user, port, identity);
+    const ssh = new SSH2Promise(sshconfig);
+    await ssh.connect().catch(err => {
+      console.error("ERROR: Invalid ssh credentials!");
+      console.error(err);
+      process.exit(1);
+    });
+    log("Connection verified...");
+   
+    const sftp = ssh.sftp();
+    const temp_file = 'temp.contract';
+    await sftp.fastGet(path, temp_file).catch(err => {
+      console.error("ERROR: Invalid remote contract path provided!");
+      console.error(err);
+      process.exit(1);
+    });
+    ssh.close();
+    const new_dcf = await ensureLocalContractPath(temp_file);
+    log("Remote contract verified...");
+    return new_dcf;
+}
+
 export async function handler(argv) {
   const { path, server, user, port, identity} = argv;
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
@@ -54,29 +90,9 @@ export async function handler(argv) {
       console.error("ERROR: Please provide all of the following arguments: user, port, identity, path");
       process.exit(1);
     }
-    const sshconfig = {
-      host: server,
-      username: user,
-      port: port,
-      identity: identity
-    }
-    const ssh = new SSH2Promise(sshconfig);
-    await ssh.connect().catch(err => {
-      console.error("ERROR: Invalid ssh credentials!");
-      process.exit(1);
-    });
-    log("Connection verified...");
-   
-    const sftp = ssh.sftp();
-    const temp_file = 'temp.contract';
-    await sftp.fastGet(path, temp_file).catch(err => {
-      console.error("ERROR: Invalid remote contract path provided!");
-      process.exit(1);
-    });
-    ssh.close();
-    await ensureLocalContractPath(temp_file);
-    log("Remote contract verified...");
-    fs.rmSync(temp_file);
+    
+    await validateRemoteContract(path, server, user, port, identity);
+    cleanUp();
     await dcf.linkContract(path, server, user, port, identity);
     await dcf.save();
     log(`Remote contract linked successfully!`);
