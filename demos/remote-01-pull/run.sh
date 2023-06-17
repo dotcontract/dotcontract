@@ -24,7 +24,7 @@ docker cp linktest.contract dotcontract-remote-01-pull:/home/dotcontract/linktes
 
 comment create a contract and link it to the remote contract
 contract create --dir linktest
-contract link --dir linktest -s localhost -u dotcontract -p 12345 -i ./config/id_ed25519 -l /home/dotcontract/linktest.contract
+contract link --dir linktest --url dotcontract@localhost:12345/home/dotcontract/linktest.contract -i ./config/id_ed25519
 
 comment check log before pull
 contract log --dir linktest

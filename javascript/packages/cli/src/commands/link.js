@@ -15,20 +15,11 @@ export const builder = {
   ...CommonContractArgs,
   path: {
     alias: "l",
-    describe: "local/remote contract path to be linked",
-    required: true
+    describe: "local contract path to be linked",
   },
-  server: {
-    alias: "s",
-    describe: "SSH server address",
-  },
-  user: {
+  url: {
     alias: "u",
-    describe: "SSH username",
-  },
-  port: {
-    alias: "p",
-    describe: "SSH port",
+    describe: "SSH server url to remote contract. Example: user@host:port/path",
   },
   identity: {
     alias: "i",
@@ -72,10 +63,14 @@ export async function validateRemoteContract(path, server, user, port, identity)
 }
 
 export async function handler(argv) {
-  const { path, server, user, port, identity} = argv;
+  const { path, url, identity} = argv;
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
-  
-  if(!server){
+  if(!url && !path || url && path){
+    console.error("ERROR: Please provide either a url for an ssh server or a local path");
+    process.exit(1);
+  }
+
+  if(!url){
     await ensureLocalContractPath(path);
     log("Local contract verified...");
     await dcf.linkContract(path);
@@ -84,8 +79,19 @@ export async function handler(argv) {
   }
 
   else{
-    if(!user || !port || !identity || !path){
-      console.error("ERROR: Please provide all of the following arguments: user, port, identity, path");
+    const [user, server_port_path] = url.split("@");
+    const [server, port_path] = server_port_path.split(":");
+    const port_path_list = port_path.split("/");
+    const port = port_path_list[0];
+    const path = "/" + port_path_list.slice(1).join("/");
+    log(user, server, port, path)
+    if(!user || !port || !server || !path){
+      console.error("ERROR: Please provide a valid url. Example: user@host:port/path");
+      process.exit(1);
+    }
+
+    if(!identity){
+      console.error("ERROR: Please provide a valid identity file");
       process.exit(1);
     }
     
