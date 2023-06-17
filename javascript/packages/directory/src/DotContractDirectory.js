@@ -10,7 +10,7 @@ export default class Directory {
     return this;
   }
 
-  static async generate(path, genesis = null) {
+  static async generate(path, genesis = null, config = null) {
     if (!path) {
       throw new Error();
     }
@@ -21,6 +21,9 @@ export default class Directory {
     const dotcontract_json = genesis
       ? genesis
       : await Contract.generateGenesis();
+    const config_json = config
+      ? config
+      : await Contract.generateConfig();
     fs.writeFileSync(
       `${path}/dotcontract.json`,
       JSON.stringify(dotcontract_json),
@@ -28,7 +31,7 @@ export default class Directory {
     );
     fs.writeFileSync(
       `${path}/config.json`,
-      JSON.stringify(await Contract.generateConfig()),
+      JSON.stringify(config_json),
       "utf-8"
     );
     return new Directory(path);

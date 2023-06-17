@@ -50,13 +50,15 @@ export async function copyAttachmentsToDir(dcf) {
 
 export async function createEmptyContract(dcf) {
   const dotcontract_json = await dcf.getDotContractJson();
+  const config_json = await dcf.getConfigJson();
   await dcf.clear();
   if (dcf.filepath) {
-    dcf = await DotContractFile.create(dcf.filepath, dotcontract_json);
+    dcf = await DotContractFile.create(dcf.filepath, dotcontract_json, config_json);
   } else {
     const dcd = await DotContractDirectory.generate(
       dcf.directory.path,
-      dotcontract_json
+      dotcontract_json,
+      config_json
     );
     dcf = await DotContractFile.fromDir(dcd.path);
   }
