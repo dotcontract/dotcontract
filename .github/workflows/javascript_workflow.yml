@@ -42,7 +42,8 @@ jobs:
       - name: Run tests
         run: scripts/test
       - name: Run prettier
+        working-directory: ./javascript/packages
         run: scripts/formatting/check
       - name: Run eslint
+        working-directory: ./javascript/packages
         run: scripts/lint
-        continue-on-error: true # temporary

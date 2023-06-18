@@ -2,4 +2,4 @@
 
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
 
-pnpm prettier --check ${SCRIPT_DIR}/../../packages
+pnpm prettier --check ${SCRIPT_DIR}/../..
