@@ -38,7 +38,7 @@ export function getSSHConfig(server, user, port, identity){
   }
 }
 
-export async function validateRemoteContract(path, server, user, port, identity){
+export async function validateRemoteContract(file_path, server, user, port, identity){
     const sshconfig = getSSHConfig(server, user, port, identity);
     const ssh = new SSH2Promise(sshconfig);
     await ssh.connect().catch(err => {
@@ -51,8 +51,8 @@ export async function validateRemoteContract(path, server, user, port, identity)
     const sftp = ssh.sftp();
     const dir_path = temp.mkdirSync();
     const temp_file = dir_path+"/temp.contract";
-    await sftp.fastGet(path, temp_file).catch(err => {
-      console.error("ERROR: Invalid remote contract path provided!");
+    await sftp.fastGet(file_path, temp_file).catch(err => {
+      console.error("ERROR: Error in reading contract from remote!");
       console.error(err);
       process.exit(1);
     });
@@ -83,9 +83,8 @@ export async function handler(argv) {
     const [server, port_path] = server_port_path.split(":");
     const port_path_list = port_path.split("/");
     const port = port_path_list[0];
-    const path = "/" + port_path_list.slice(1).join("/");
-    log(user, server, port, path)
-    if(!user || !port || !server || !path){
+    const file_path = "/" + port_path_list.slice(1).join("/");
+    if(!user || !port || !server || !file_path){
       console.error("ERROR: Please provide a valid url. Example: user@host:port/path");
       process.exit(1);
     }
@@ -95,8 +94,8 @@ export async function handler(argv) {
       process.exit(1);
     }
     
-    await validateRemoteContract(path, server, user, port, identity);
-    await dcf.linkContract(path, server, user, port, identity);
+    await validateRemoteContract(file_path, server, user, port, identity);
+    await dcf.linkContract(file_path, server, user, port, identity);
     await dcf.save();
     log(`Remote contract linked successfully!`);
 

@@ -251,6 +251,9 @@ export default class Directory {
   async getLinkedContract() {
     const config_str = fs.readFileSync(`${this.path}/config.json`, "utf-8");
     const config_obj = JSON.parse(config_str);
+    if (!("link" in config_obj)) {
+      return null;
+    }
     return config_obj["link"];
   }
 

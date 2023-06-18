@@ -10,7 +10,6 @@ export const builder = {
 import DotContractFile from "@dotcontract/file";
 import { copyAttachmentsToDir, createEmptyContract, reCommit } from "./undo.js";
 import { validateRemoteContract } from "./link.js";
-import path from "path";
 import temp from "temp";
 temp.track();
 
@@ -88,26 +87,18 @@ export async function sync_target(source_dcf, dcf) {
 
 export async function handler(argv) {
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
-  const link_config_obj = await dcf.getLinkedContract();
-  const contract_path = link_config_obj["path"];
-  if (contract_path == null) {
+  const link_config = await dcf.getLinkedContract();
+  if (link_config == null) {
     log("No linked contract found!");
     process.exit(-1);
   }
-
+  const contract_path = link_config["path"];
   let source_dcf = null;
-
-  if("server" in link_config_obj){
-    source_dcf = await validateRemoteContract(contract_path, link_config_obj["server"], link_config_obj["user"], link_config_obj["port"], link_config_obj["identity"]);
+  if("server" in link_config){
+    source_dcf = await validateRemoteContract(contract_path, link_config["server"], link_config["user"], link_config["port"], link_config["identity"]);
   }
   else{
-    if (contract_path.endsWith(".contract")) {
-      source_dcf = await DotContractFile.open(contract_path);
-    } else {
-      source_dcf = await DotContractFile.fromDir(
-        path.join(contract_path, ".contract")
-      );
-    }
+    source_dcf = await DotContractFile.getDcfFromPath(contract_path);
   }
   
   if (!source_dcf.isValid()) {

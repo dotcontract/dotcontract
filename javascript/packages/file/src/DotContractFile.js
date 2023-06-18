@@ -2,6 +2,7 @@ import fs from "fs";
 import temp from "temp";
 temp.track();
 import AdmZip from "adm-zip";
+import path from "path";
 
 import DotContractDirectory from "@dotcontract/directory";
 
@@ -47,6 +48,16 @@ export default class DotContractFile {
     const pf = new DotContractFile(null);
     pf.directory = await DotContractDirectory.mount(dir_path);
     return pf;
+  }
+
+  static async getDcfFromPath(contract_path) {
+    let dcf = null;
+    if (contract_path.endsWith(".contract")) {
+      dcf = await this.open(contract_path);
+    } else {
+      dcf = await this.fromDir(path.join(contract_path, ".contract"));
+    }
+    return dcf;
   }
 
   async open() {

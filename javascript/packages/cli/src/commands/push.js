@@ -9,8 +9,9 @@ export const builder = {
 
 import DotContractFile from "@dotcontract/file";
 import { copyAttachmentsToDir, reCommit } from "./undo.js";
-import path from "path";
 import temp from "temp";
+import SSH2Promise from 'ssh2-promise';
+import { getSSHConfig, validateRemoteContract } from "./link.js";
 temp.track();
 
 const log = console.log;
@@ -63,28 +64,53 @@ export async function sync_source(source_dcf, dcf) {
   }
 }
 
+export async function pushToRemote(dcf, file_path, server, user, port, identity){
+  const sshconfig = getSSHConfig(server, user, port, identity);
+  const ssh = new SSH2Promise(sshconfig);
+  await ssh.connect().catch(err => {
+    console.error("ERROR: Invalid ssh credentials!");
+    console.error(err);
+    process.exit(1);
+  });
+  log("Connection verified...");
+ 
+  const sftp = ssh.sftp();
+  const dir_path = temp.mkdirSync();
+  const temp_file = dir_path+"/"+file_path.split("/").pop();
+  await dcf.directory.zip(temp_file);
+  await sftp.unlink(file_path);
+  await sftp.fastPut(temp_file, file_path).catch(err => {
+    console.error("ERROR: Error in writing contract to remote!");
+    console.error(err);
+    process.exit(1);
+  });
+  ssh.close();
+  log("Remote contract updated!");
+}
+
 export async function handler(argv) {
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
-  const contract_path = await dcf.getLinkedContract();
-  if (contract_path == null) {
+  const link_config = await dcf.getLinkedContract();
+  if (link_config == null) {
     log("No linked contract found!");
     process.exit(-1);
   }
-
+  const contract_path = link_config["path"];
   let source_dcf = null;
-
-  if (contract_path.endsWith(".contract")) {
-    source_dcf = await DotContractFile.open(contract_path);
-  } else {
-    source_dcf = await DotContractFile.fromDir(
-      path.join(contract_path, ".contract")
-    );
+  if("server" in link_config){
+    source_dcf = await validateRemoteContract(contract_path, link_config["server"], link_config["user"], link_config["port"], link_config["identity"]);
+  }
+  else{
+    source_dcf = await DotContractFile.getDcfFromPath(contract_path);
   }
   if (!source_dcf.isValid()) {
     log("Invalid linked contract!");
     process.exit(-1);
   }
   await sync_source(source_dcf, dcf);
+  if("server" in link_config){
+    await pushToRemote(source_dcf, contract_path, link_config["server"], link_config["user"], link_config["port"], link_config["identity"]);
+  }
 }
 
 export default handler;
