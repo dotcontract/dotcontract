@@ -22,10 +22,14 @@ function describeContract({
   log(`* ID = ${asBold(contract_id)}`);
   log();
 
-  if(link_status){
+  if (link_status) {
     log(`${asBold(`## Link status`)}`);
-    log(`* Status = ${link_status.status ? asSuccess("VALID") : asError("INVALID")}`);
-    if(link_status.remote){
+    log(
+      `* Status = ${
+        link_status.status ? asSuccess("VALID") : asError("INVALID")
+      }`
+    );
+    if (link_status.remote) {
       log(`* Server = ${link_status.server}`);
       log(`* User = ${link_status.user}`);
       log(`* Port = ${link_status.port}`);
@@ -38,7 +42,7 @@ function describeContract({
       log(`* Latest Commit = ${link_status.latest_commit}`);
     }
   }
-  
+
   if (local_status) {
     log();
     log(`${asBold(`## Local Status`)}`);
@@ -71,13 +75,18 @@ export async function handler(argv) {
 
   const link_config = await dcf.getLinkedContract();
   let link_status = null;
-  if(link_config){
+  if (link_config) {
     const contract_path = link_config["path"];
     let source_dcf = null;
-    if("server" in link_config){
-      source_dcf = await validateRemoteContract(contract_path, link_config["server"], link_config["user"], link_config["port"], link_config["identity"]);
-    }
-    else{
+    if ("server" in link_config) {
+      source_dcf = await validateRemoteContract(
+        contract_path,
+        link_config["server"],
+        link_config["user"],
+        link_config["port"],
+        link_config["identity"]
+      );
+    } else {
       source_dcf = await DotContractFile.getDcfFromPath(contract_path);
     }
     const isValidLinked = await source_dcf.isValid();
@@ -94,8 +103,10 @@ export async function handler(argv) {
       remote: "server" in link_config,
       commit_count: commitLogLinked.length,
       latest_commit:
-        commitOrderLinked.length > 0 ? commitOrderLinked[commitOrderLinked.length - 1] : null,
-    }
+        commitOrderLinked.length > 0
+          ? commitOrderLinked[commitOrderLinked.length - 1]
+          : null,
+    };
   }
 
   describeContract({ contract_id, local_status, link_status });

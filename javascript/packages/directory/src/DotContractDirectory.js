@@ -21,9 +21,7 @@ export default class Directory {
     const dotcontract_json = genesis
       ? genesis
       : await Contract.generateGenesis();
-    const config_json = config
-      ? config
-      : await Contract.generateConfig();
+    const config_json = config ? config : await Contract.generateConfig();
     fs.writeFileSync(
       `${path}/dotcontract.json`,
       JSON.stringify(dotcontract_json),
@@ -229,13 +227,19 @@ export default class Directory {
     );
   }
 
-  async linkContract(contract_path, server = null, user = null, port = null, identity = null) {
+  async linkContract(
+    contract_path,
+    server = null,
+    user = null,
+    port = null,
+    identity = null
+  ) {
     const config_str = fs.readFileSync(`${this.path}/config.json`, "utf-8");
     const config_obj = JSON.parse(config_str);
-    
+
     config_obj["link"] = {};
     config_obj["link"]["path"] = `${contract_path}`; // can be a local or remote path
-    if(server){
+    if (server) {
       config_obj["link"]["server"] = server;
       config_obj["link"]["user"] = user;
       config_obj["link"]["port"] = port;

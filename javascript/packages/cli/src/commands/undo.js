@@ -53,7 +53,11 @@ export async function createEmptyContract(dcf) {
   const config_json = await dcf.getConfigJson();
   await dcf.clear();
   if (dcf.filepath) {
-    dcf = await DotContractFile.create(dcf.filepath, dotcontract_json, config_json);
+    dcf = await DotContractFile.create(
+      dcf.filepath,
+      dotcontract_json,
+      config_json
+    );
   } else {
     const dcd = await DotContractDirectory.generate(
       dcf.directory.path,

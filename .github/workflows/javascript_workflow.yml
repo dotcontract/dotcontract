@@ -43,7 +43,7 @@ jobs:
         run: scripts/test
       - name: Run prettier
         working-directory: ./javascript/packages
-        run: scripts/formatting/check
+        run: ../scripts/formatting/check
       - name: Run eslint
         working-directory: ./javascript/packages
-        run: scripts/lint
+        run: ../scripts/lint

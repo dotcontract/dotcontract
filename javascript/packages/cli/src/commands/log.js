@@ -24,7 +24,7 @@ export const builder = {
     default: false,
     type: "boolean",
     describe: "print commits of the linked contract",
-  }
+  },
 };
 
 const log = console.log;
@@ -40,6 +40,7 @@ import {
 
 import { Commit } from "@dotcontract/contract";
 import { validateRemoteContract } from "./link.js";
+import DotContractFile from "@dotcontract/file";
 
 function describeCommits({ commitLog, commitOrder, order, limit, all }) {
   log(`${asBold(`# Contract Commit Log`)}`);
@@ -101,7 +102,7 @@ function describeCommits({ commitLog, commitOrder, order, limit, all }) {
 }
 
 export async function handler(argv) {
-  const {order, limit, all, linked} = argv;
+  const { order, limit, all, linked } = argv;
 
   if (order !== "desc" && order !== "asc") {
     console.error(
@@ -124,12 +125,17 @@ export async function handler(argv) {
       process.exit(-1);
     }
     const contract_path = link_config["path"];
-    console.log(contract_path)
+    console.log(contract_path);
 
-    if("server" in link_config){
-      dcf = await validateRemoteContract(contract_path, link_config["server"], link_config["user"], link_config["port"], link_config["identity"]);
-    }
-    else{
+    if ("server" in link_config) {
+      dcf = await validateRemoteContract(
+        contract_path,
+        link_config["server"],
+        link_config["user"],
+        link_config["port"],
+        link_config["identity"]
+      );
+    } else {
       dcf = await DotContractFile.getDcfFromPath(contract_path);
     }
   }

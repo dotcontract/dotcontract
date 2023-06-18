@@ -94,13 +94,18 @@ export async function handler(argv) {
   }
   const contract_path = link_config["path"];
   let source_dcf = null;
-  if("server" in link_config){
-    source_dcf = await validateRemoteContract(contract_path, link_config["server"], link_config["user"], link_config["port"], link_config["identity"]);
-  }
-  else{
+  if ("server" in link_config) {
+    source_dcf = await validateRemoteContract(
+      contract_path,
+      link_config["server"],
+      link_config["user"],
+      link_config["port"],
+      link_config["identity"]
+    );
+  } else {
     source_dcf = await DotContractFile.getDcfFromPath(contract_path);
   }
-  
+
   if (!source_dcf.isValid()) {
     log("Invalid linked contract!");
     process.exit(-1);
