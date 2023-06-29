@@ -9,18 +9,39 @@ export const builder = {
 
 const log = console.log;
 import { asBold, asSuccess, asError, asWarning } from "../lib/LogStyles.js";
+import { validateRemoteContract } from "./link.js";
+import DotContractFile from "@dotcontract/file";
 
 function describeContract({
   contract_id,
   local_status,
-  config,
+  link_status,
   network_status,
 }) {
   log(`${asBold(`# Contract Info`)}`);
   log(`* ID = ${asBold(contract_id)}`);
   log();
-  log(`${asBold(`## Config`)}`);
-  log(`* Remote URL = ${config.remote.url}`);
+
+  if (link_status) {
+    log(`${asBold(`## Link status`)}`);
+    log(
+      `* Status = ${
+        link_status.status ? asSuccess("VALID") : asError("INVALID")
+      }`
+    );
+    if (link_status.remote) {
+      log(`* Server = ${link_status.server}`);
+      log(`* User = ${link_status.user}`);
+      log(`* Port = ${link_status.port}`);
+      log(`* Identity File = ${link_status.identity}`);
+    }
+    log(`* Contract Path = ${link_status.path}`);
+    log(`* Remote = ${link_status.remote}`);
+    log(`* Commit Count = ${link_status.commit_count}`);
+    if (link_status.commit_count) {
+      log(`* Latest Commit = ${link_status.latest_commit}`);
+    }
+  }
 
   if (local_status) {
     log();
@@ -35,18 +56,6 @@ function describeContract({
       log(`* Latest Commit = ${local_status.latest_commit}`);
     }
   }
-  // if (network_status && network_status?.commit_count) {
-  //   log();
-  //   log(`${asBold(`## Network Status`)}`);
-  //   log(`* Status = ${asSuccess("REGISTERED")}`);
-  //   log(`* Commit Count = ${network_status.commit_count}`);
-  //   log(`* Latest Commit = ${network_status.latest_commit}`);
-  // } else {
-  //   log();
-  //   log(`${asBold(`## Network Status`)}`);
-  //   log(`* Status = ${asWarning("UNREGISTERED")}`);
-  //   log(`* Commit Count = 0`);
-  // }
 }
 
 export async function handler(argv) {
@@ -56,7 +65,6 @@ export async function handler(argv) {
   const genesis = await dcf.getDotContractJson();
   const commitLog = await dcf.getCommitLog();
   const commitOrder = await dcf.getCommitOrder();
-  const config = await dcf.getConfigJson();
   const local_status = {
     status: isValid,
     commit_count: commitLog.length,
@@ -65,7 +73,43 @@ export async function handler(argv) {
   };
   const contract_id = genesis.genesis.contract_id;
 
-  describeContract({ contract_id, local_status, config });
+  const link_config = await dcf.getLinkedContract();
+  let link_status = null;
+  if (link_config) {
+    const contract_path = link_config["path"];
+    let source_dcf = null;
+    if ("server" in link_config) {
+      source_dcf = await validateRemoteContract(
+        contract_path,
+        link_config["server"],
+        link_config["user"],
+        link_config["port"],
+        link_config["identity"]
+      );
+    } else {
+      source_dcf = await DotContractFile.getDcfFromPath(contract_path);
+    }
+    const isValidLinked = await source_dcf.isValid();
+    const commitLogLinked = await source_dcf.getCommitLog();
+    const commitOrderLinked = await source_dcf.getCommitOrder();
+
+    link_status = {
+      status: isValidLinked,
+      server: link_config?.server,
+      user: link_config?.user,
+      port: link_config?.port,
+      identity: link_config?.identity,
+      path: link_config?.path,
+      remote: "server" in link_config,
+      commit_count: commitLogLinked.length,
+      latest_commit:
+        commitOrderLinked.length > 0
+          ? commitOrderLinked[commitOrderLinked.length - 1]
+          : null,
+    };
+  }
+
+  describeContract({ contract_id, local_status, link_status });
 }
 
 export default handler;

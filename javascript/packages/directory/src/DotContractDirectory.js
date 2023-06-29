@@ -10,7 +10,7 @@ export default class Directory {
     return this;
   }
 
-  static async generate(path, genesis = null) {
+  static async generate(path, genesis = null, config = null) {
     if (!path) {
       throw new Error();
     }
@@ -21,6 +21,7 @@ export default class Directory {
     const dotcontract_json = genesis
       ? genesis
       : await Contract.generateGenesis();
+    const config_json = config ? config : await Contract.generateConfig();
     fs.writeFileSync(
       `${path}/dotcontract.json`,
       JSON.stringify(dotcontract_json),
@@ -28,7 +29,7 @@ export default class Directory {
     );
     fs.writeFileSync(
       `${path}/config.json`,
-      JSON.stringify(await Contract.generateConfig()),
+      JSON.stringify(config_json),
       "utf-8"
     );
     return new Directory(path);
@@ -226,10 +227,24 @@ export default class Directory {
     );
   }
 
-  async linkContract(contract_path) {
+  async linkContract(
+    contract_path,
+    server = null,
+    user = null,
+    port = null,
+    identity = null
+  ) {
     const config_str = fs.readFileSync(`${this.path}/config.json`, "utf-8");
     const config_obj = JSON.parse(config_str);
-    config_obj["remote"]["url"] = `${contract_path}`;
+
+    config_obj["link"] = {};
+    config_obj["link"]["path"] = `${contract_path}`; // can be a local or remote path
+    if (server) {
+      config_obj["link"]["server"] = server;
+      config_obj["link"]["user"] = user;
+      config_obj["link"]["port"] = port;
+      config_obj["link"]["identity"] = identity;
+    }
     fs.writeFileSync(
       `${this.path}/config.json`,
       JSON.stringify(config_obj),
@@ -240,7 +255,10 @@ export default class Directory {
   async getLinkedContract() {
     const config_str = fs.readFileSync(`${this.path}/config.json`, "utf-8");
     const config_obj = JSON.parse(config_str);
-    return config_obj["remote"]["url"];
+    if (!("link" in config_obj)) {
+      return null;
+    }
+    return config_obj["link"];
   }
 
   async hasAttachments() {

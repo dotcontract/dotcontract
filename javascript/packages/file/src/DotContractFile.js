@@ -2,6 +2,7 @@ import fs from "fs";
 import temp from "temp";
 temp.track();
 import AdmZip from "adm-zip";
+import path from "path";
 
 import DotContractDirectory from "@dotcontract/directory";
 
@@ -14,10 +15,10 @@ export default class DotContractFile {
     return this;
   }
 
-  static async create(filepath, genesis = null) {
+  static async create(filepath, genesis = null, config = null) {
     const temp_dir = temp.mkdirSync();
     try {
-      const pd = await DotContractDirectory.generate(temp_dir, genesis);
+      const pd = await DotContractDirectory.generate(temp_dir, genesis, config);
       await pd.zip(filepath, temp_dir);
     } catch (e) {
       console.error(e);
@@ -47,6 +48,16 @@ export default class DotContractFile {
     const pf = new DotContractFile(null);
     pf.directory = await DotContractDirectory.mount(dir_path);
     return pf;
+  }
+
+  static async getDcfFromPath(contract_path) {
+    let dcf = null;
+    if (contract_path.endsWith(".contract")) {
+      dcf = await this.open(contract_path);
+    } else {
+      dcf = await this.fromDir(path.join(contract_path, ".contract"));
+    }
+    return dcf;
   }
 
   async open() {
@@ -102,8 +113,20 @@ export default class DotContractFile {
     return this.directory.attach({ path, filepath });
   }
 
-  async linkContract(contract_path) {
-    await this.directory.linkContract(contract_path);
+  async linkContract(
+    contract_path,
+    server = null,
+    user = null,
+    port = null,
+    identity = null
+  ) {
+    await this.directory.linkContract(
+      contract_path,
+      server,
+      user,
+      port,
+      identity
+    );
   }
 
   async getLinkedContract() {
