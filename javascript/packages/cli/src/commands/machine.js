@@ -22,7 +22,7 @@ import { Commit } from "@dotcontract/contract";
 
 export async function handler(argv) {
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
-  console.log(JSON.stringify(dcf.directory.contract.km.toJSON(), null, 2));
+  log(JSON.stringify(dcf.directory.contract.km.toJSON(), null, 2));
 }
 
 export default handler;

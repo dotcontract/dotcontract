@@ -83,7 +83,6 @@ describe("Expression", () => {
     formula = new Expression(`[+a -b ?c] false`);
 
     // formula = new Expression(`gfp(@x, [*]@x)`);
-    // console.log(formula)
   });
 
   it.skip("Expressionshould parse", async () => {
