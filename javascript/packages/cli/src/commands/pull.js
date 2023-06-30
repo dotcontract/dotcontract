@@ -89,8 +89,7 @@ export async function handler(argv) {
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
   const link_config = await dcf.getLinkedContract();
   if (link_config == null) {
-    log("No linked contract found!");
-    process.exit(-1);
+    throw new Error("No linked contract found!");
   }
   const contract_path = link_config["path"];
   let source_dcf = null;
@@ -107,8 +106,7 @@ export async function handler(argv) {
   }
 
   if (!source_dcf.isValid()) {
-    log("Invalid linked contract!");
-    process.exit(-1);
+    throw new Error("Invalid linked contract!");
   }
   await sync_target(source_dcf, dcf);
 }

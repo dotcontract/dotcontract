@@ -105,24 +105,21 @@ export async function handler(argv) {
   const { order, limit, all, linked } = argv;
 
   if (order !== "desc" && order !== "asc") {
-    console.error(
+    throw new Error(
       `ERROR: Invalid order provided. Valid options are: desc, asc`
     );
-    process.exit(-1);
   }
 
   if (limit < 1) {
-    console.error(
+    throw new Error(
       `ERROR: Invalid limit provided. Valid options are: positive integers`
     );
-    process.exit(-1);
   }
   var { dotcontract_file: dcf } = await ensureContractArgs(argv);
   if (linked) {
     const link_config = await dcf.getLinkedContract();
     if (link_config == null) {
-      log("No linked contract found!");
-      process.exit(-1);
+      throw new Error("No linked contract found!");
     }
     const contract_path = link_config["path"];
     console.log(contract_path);

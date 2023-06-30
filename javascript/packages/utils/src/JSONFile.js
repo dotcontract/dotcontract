@@ -9,8 +9,7 @@ export default class JSONFile {
       const buf = fs.readFileSync(path, "utf-8");
       return JSON.parse(buf);
     } catch (e) {
-      console.error(e);
-      return null;
+      throw e;
     }
   }
 }

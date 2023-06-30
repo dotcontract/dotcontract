@@ -54,14 +54,13 @@ export const ensureContractArgs = async function (argv) {
     process.cwd()
   );
   if (!file && !dir && !nearest_dotcontract_dir) {
-    console.error(
+    throw new Error(
       `ERROR: DotContract required:
 *  run this command within a dotcontract directory to work on it
 *  use --file to specify a dotcontract file
 *  use --dir to specify a dotcontract directory
   `
     );
-    process.exit(-1);
   }
 
   const contract_dir = dir || nearest_dotcontract_dir;
@@ -90,8 +89,7 @@ export const ensureLocalContractPath = async function (contract_path) {
     file = contract_path;
   }
   if (!file && !dir) {
-    console.error(`ERROR: Invalid contract path`);
-    process.exit(-1);
+    throw new Error(`ERROR: Invalid contract path`);
   }
   let dcf = null;
   if (file) {
@@ -100,8 +98,7 @@ export const ensureLocalContractPath = async function (contract_path) {
     dcf = await DotContractFile.fromDir(path.join(dir, ".contract"));
   }
   if (!dcf.isValid()) {
-    console.error(`ERROR: Invalid contract`);
-    process.exit(-1);
+    throw new Error(`ERROR: Invalid contract`);
   }
   return dcf;
 };

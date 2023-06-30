@@ -82,15 +82,13 @@ export async function handler(argv) {
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
 
   if (!post && !rule && !body && !bodyFromFile) {
-    console.error(
+    throw new Error(
       "Missing required argument: body or bodyFromFile or a particular action like post, rule, or define"
     );
-    return process.exit(-1);
   }
   // TODO
   if (body || bodyFromFile) {
-    console.error("Input as body not yet implemented");
-    return process.exit(-1);
+    throw new Error("Input as body not yet implemented");
   }
   // if (bodyFromFile) {
   //   body = fs.readFileSync(bodyFromFile);
@@ -100,9 +98,7 @@ export async function handler(argv) {
   // try {
   //   body = JSON.parse(body);
   // } catch (e) {
-  //   console.error("Unable to parse body.");
-  //   console.error(e);
-  //   return;
+  //   throw new Error("Unable to parse body.");
   // }
 
   const c = new Commit();

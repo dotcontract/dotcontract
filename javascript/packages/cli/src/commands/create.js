@@ -19,11 +19,10 @@ import DotContractDirectory from "@dotcontract/directory";
 export async function handler(argv) {
   const { dir, file } = argv;
   if (!dir && !file) {
-    console.error(`ERROR: You must specify where to create the dotcontract.
+    throw new Error(`ERROR: You must specify where to create the dotcontract.
 * use --file to create a dotcontract file
 * use --dir to create a dotcontract directory
 `);
-    process.exit(-1);
   }
 
   if (file) {

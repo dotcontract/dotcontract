@@ -32,8 +32,7 @@ export function findDeleteIndex(commit_hash, commitOrder) {
       }
     }
     if (valid_hash == false) {
-      console.error(`ERROR: Invalid commit hash provided.`);
-      process.exit(-1);
+      throw new Error(`ERROR: Invalid commit hash provided.`);
     }
   }
   return delete_from_indx;
@@ -107,8 +106,7 @@ export async function handler(argv) {
   const commitOrder = await dcf.getCommitOrder();
 
   if (commitLog.length < 1) {
-    console.error(`ERROR: No commits in the specified contract`);
-    process.exit(-1);
+    throw new Error(`ERROR: No commits in the specified contract`);
   }
 
   const delete_from_indx = findDeleteIndex(commit_hash, commitOrder);
