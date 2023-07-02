@@ -1,0 +1,39 @@
+#!/bin/bash
+export PATH=$PATH:$PWD/../javascript/packages/cli/bin # Remove
+
+# Create a dotcontract file
+contract create -f test.contract
+
+# Create a dotcontract directory
+contract create -d test
+
+# Commit - 1
+
+# Undo commit - last commit
+
+# Undo commit - Commit hash
+
+# Log 
+
+# Info
+
+# Machine
+
+# Pack
+
+# Unpack
+
+# Local Link Operations
+# Link
+
+# Push
+
+# Pull
+
+# Remote Link Operations
+# Link
+
+# Push 
+
+# Pull
+
