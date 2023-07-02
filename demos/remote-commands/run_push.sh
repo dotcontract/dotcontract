@@ -18,7 +18,7 @@ comment ssh server up
 
 comment create a contract and copy it to the remote server
 contract create --file remote_push_test.contract
-docker cp remote_push_test.contract dotcontract-remote-01-pull:/home/dotcontract/remote_push_test.contract
+docker cp remote_push_test.contract dotcontract-remote:/home/dotcontract/remote_push_test.contract
 
 comment create a contract and link it to the remote contract
 contract create --dir remote_push_test

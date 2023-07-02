@@ -20,7 +20,7 @@ comment create a contract and copy it to the remote server
 contract create --file remote_pull_test.contract
 contract commit --file remote_pull_test.contract --post /hello.text "world"
 contract commit --file remote_pull_test.contract --post /welcome.text "back"
-docker cp remote_pull_test.contract dotcontract-remote-01-pull:/home/dotcontract/remote_pull_test.contract
+docker cp remote_pull_test.contract dotcontract-remote:/home/dotcontract/remote_pull_test.contract
 
 comment create a contract and link it to the remote contract
 contract create --dir remote_pull_test
