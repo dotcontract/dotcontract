@@ -5,11 +5,7 @@ export default class JSONFile {
     if (!path) {
       return null;
     }
-    try {
-      const buf = fs.readFileSync(path, "utf-8");
-      return JSON.parse(buf);
-    } catch (e) {
-      throw e;
-    }
+    const buf = fs.readFileSync(path, "utf-8");
+    return JSON.parse(buf);
   }
 }
