@@ -51,8 +51,8 @@ contract unpack -i a.contract -d b/.contract
 
 # Local Link Operations
 contract create -d localtest1
-contract commit -d localtest2 -m "Commit1" --post /commit1.text 'Commit1'
 contract create -d localtest2
+contract commit -d localtest2 -m "Commit1" --post /commit1.text 'Commit1'
 
 # Link
 contract link -d localtest1 -l localtest2
