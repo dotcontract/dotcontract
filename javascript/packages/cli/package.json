@@ -8,7 +8,7 @@
     "contract": "src/bin/dotcontract-cli.js"
   },
   "scripts": {
-    "test": "echo \"TODO: no tests specified\""
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
   "author": "",
   "license": "UNLICENSED",
@@ -25,6 +25,7 @@
     "jest": "^28.1.1",
     "lodash": "^4.17.21",
     "multiaddr": "^10.0.1",
+    "shelljs": "^0.8.5",
     "ssh2-promise": "^1.0.3",
     "temp": "^0.9.4",
     "uint8arrays": "^3.0.0",
