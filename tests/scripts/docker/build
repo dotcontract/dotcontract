@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+. `dirname $0`/vars
+
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
+
+docker -l "debug" build -t $CONTAINER_NAME ${SCRIPT_DIR}/../../config/

@@ -1,39 +1,102 @@
 #!/bin/bash
 export PATH=$PATH:$PWD/../javascript/packages/cli/bin # Remove
 
-# Create a dotcontract file
+rm -f temp.txt
+rm -f key.keypair
+echo "This is some text" >> temp.txt 
+contract gen_keypair >> key.keypair
+
+# Create a dotcontract file 
 contract create -f test.contract
 
 # Create a dotcontract directory
 contract create -d test
 
-# Commit - 1
+# Commit - Text
+contract commit -d test -m "Commit - Text" --post /hello.text 'Welcome'
 
-# Undo commit - last commit
+# Commit - Text file
+contract commit -d test -m "Commit - Text File" --post /temp.txt ./temp.txt
 
-# Undo commit - Commit hash
+# Commit - Sign
+contract commit -d test -m "Commit - Sign" --post /sign.text 'Signed' --sign-with key.keypair
+
+# Commit - Rule
+
 
 # Log 
+contract log -d test --order desc
+contract log -d test --order asc
+contract log -d test --limit 10
+contract log -d test --limit 10 --all
+
+
+# Undo commit - last commit
+contract undo -d test 
+
+# Undo commit - Commit hash
+contract undo -d test -h d7284479a58a7c1e27e382049cf2bdc4ec529b1109690846ad562e57a8fb16b6
 
 # Info
+contract info -d test
 
 # Machine
+contract machine -d test
 
 # Pack
+contract pack --dir test/.contract -o a.contract 
 
 # Unpack
+contract unpack -i a.contract -d b/.contract
 
 # Local Link Operations
+contract create -d localtest1
+contract commit -d localtest2 -m "Commit1" --post /commit1.text 'Commit1'
+contract create -d localtest2
+
 # Link
+contract link -d localtest1 -l localtest2
+
+# Pull
+contract pull -d localtest1
 
 # Push
+contract commit -d localtest1 -m "Commit2" --post /commit2.text 'Commit2'
+contract push -d localtest1
 
-# Pull
+# Log linked
+contract log -d localtest1
 
 # Remote Link Operations
-# Link
+./scripts/docker/stop
+./scripts/docker/build-once &> /dev/null
+sleep 3
+./scripts/docker/start &> /dev/null &
+SSH_SERVER_PID=$!
+sleep 3
 
-# Push 
+contract create -f remote_test1.contract
+contract commit -f remote_test1.contract --post /hello.text "world"
+docker cp remote_test1.contract dotcontract-remote:/home/dotcontract/remote_test1.contract
+
+contract create -d remote_test2
+
+# Link
+contract link -d remote_test2 --url dotcontract@localhost:12345/home/dotcontract/remote_test1.contract -i ./config/id_ed25519
 
 # Pull
+contract pull -d remote_test2
 
+# Push
+contract commit -d remote_test2 --post /welcome.text "back"
+contract push -d remote_test2
+
+# Log linked
+contract log -d remote_test2 --linked
+
+# Stop docker
+./scripts/docker/stop
+
+# Cleanup
+rm -f temp.txt
+rm -f key.keypair
