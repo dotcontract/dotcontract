@@ -10,6 +10,7 @@ export const builder = {
     required: true,
   },
   dir: {
+    alias: "d",
     desc: "contract directory [filepath]",
     required: true,
   },
