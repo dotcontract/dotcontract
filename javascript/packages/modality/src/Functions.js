@@ -1,31 +1,19 @@
 import { toString as uint8ArrayToString } from "uint8arrays/to-string";
 import { fromString as uint8ArrayFromString } from "uint8arrays/from-string";
 
-export { default as method_is } from "./BuiltinFunctions/method_is.js";
-import method_is from "./BuiltinFunctions/method_is.js";
+export { default as signed_by } from "./functions/signed_by.js";
+import signed_by from "./functions/signed_by.js";
 
-export { default as content_keyIsPresent } from "./BuiltinFunctions/content_keyIsPresent.js";
-import content_keyIsPresent from "./BuiltinFunctions/content_keyIsPresent.js";
+export { default as affect } from "./functions/affect.js";
+import affect from "./functions/affect.js";
 
-export { default as content_keyHasValue } from "./BuiltinFunctions/content_keyHasValue.js";
-import content_keyHasValue from "./BuiltinFunctions/content_keyHasValue.js";
-
-export { default as signed_by } from "./BuiltinFunctions/signed_by.js";
-import signed_by from "./BuiltinFunctions/signed_by.js";
-
-export { default as post } from "./BuiltinFunctions/post.js";
-import post from "./BuiltinFunctions/post.js";
-
-export { default as affect } from "./BuiltinFunctions/affect.js";
-import affect from "./BuiltinFunctions/affect.js";
+export { default as change } from "./functions/change.js";
+import change from "./functions/change.js";
 
 export const allFunctions = {
-  method_is,
-  content_keyIsPresent,
-  content_keyHasValue,
-  signed_by,
-  post,
   affect,
+  change,
+  // include_signature_of,
 };
 
 export function getFunction(name) {
@@ -68,7 +56,7 @@ export function propNameToFunctionCall(propName) {
 }
 
 export default {
-  builtins: allFunctions,
+  list: allFunctions,
   allFunctions,
   getFunction,
   functionCallToPropName,

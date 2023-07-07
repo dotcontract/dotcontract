@@ -1,6 +1,6 @@
 import Key from "@dotcontract/utils/Key";
 
-export default async function signed_by(ctx, multiaddress) {
+export default async function include_sig(ctx, multiaddress) {
   const { method, content, meta } = ctx;
   if (!meta?.signatures) {
     return false;

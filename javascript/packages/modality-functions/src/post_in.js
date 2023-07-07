@@ -1,4 +1,4 @@
-export default async function affect(ctx, variable) {
+export default async function post_in(ctx, variable) {
   let { effected } = ctx;
   if (ctx.semantics) {
     effected = ctx.semantics.expandEffected(effected);

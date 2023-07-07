@@ -131,6 +131,8 @@ importers:
         specifier: ^0.9.4
         version: 0.9.4
 
+  packages/dotcontract: {}
+
   packages/file:
     dependencies:
       '@dotcontract/contract':
@@ -190,6 +192,30 @@ importers:
 
   packages/modality:
     dependencies:
+      '@dotcontract/utils':
+        specifier: workspace:^1.0.0
+        version: link:../utils
+      antlr4:
+        specifier: ^4.10.1
+        version: 4.11.0
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4
+      jest:
+        specifier: ^28.1.1
+        version: 28.1.3
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      uint8arrays:
+        specifier: ^3.0.0
+        version: 3.1.1
+
+  packages/modality-functions:
+    dependencies:
+      '@dotcontract/modality':
+        specifier: workspace:^
+        version: link:../modality
       '@dotcontract/utils':
         specifier: workspace:^1.0.0
         version: link:../utils
