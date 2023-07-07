@@ -1,6 +1,8 @@
 #!/bin/bash
 export PATH=$PATH:$PWD/../javascript/packages/cli/bin # Remove
 
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
+
 rm -f temp.txt
 rm -f key.keypair
 echo "This is some text" >> temp.txt 
@@ -68,21 +70,25 @@ contract push -d localtest1
 contract log -d localtest1
 
 # Remote Link Operations
-./scripts/docker/stop
-./scripts/docker/build-once &> /dev/null
+NODE_VERSION_ID=$(node -v | sed 's/[^0-9]*//g')
+export SSH_PORT=$((12300 + $NODE_VERSION_ID))
+export CONTAINER_SUFFIX="-run-push"
+DOCKER_WITH_SSH_DIR=$SCRIPT_DIR/../fixtures/docker-with-ssh
+$DOCKER_WITH_SSH_DIR/scripts/docker/stop
+$DOCKER_WITH_SSH_DIR/scripts/docker/build-once &> /dev/null
 sleep 3
-./scripts/docker/start &> /dev/null &
+$DOCKER_WITH_SSH_DIR/scripts/docker/start &> /dev/null &
 SSH_SERVER_PID=$!
 sleep 3
 
 contract create -f remote_test1.contract
 contract commit -f remote_test1.contract --post /hello.text "world"
-docker cp remote_test1.contract dotcontract-remote:/home/dotcontract/remote_test1.contract
+docker cp remote_test1.contract $CONTAINER_NAME:/home/dotcontract/remote_test1.contract
 
 contract create -d remote_test2
 
 # Link
-contract link -d remote_test2 --url dotcontract@localhost:12345/home/dotcontract/remote_test1.contract -i ./config/id_ed25519
+contract link -d remote_test2 --url dotcontract@localhost:$SSH_PORT/home/dotcontract/remote_test1.contract -i $DOCKER_WITH_SSH_DIR/config/id_ed25519
 
 # Pull
 contract pull -d remote_test2
@@ -95,7 +101,7 @@ contract push -d remote_test2
 contract log -d remote_test2 --linked
 
 # Stop docker
-./scripts/docker/stop
+$DOCKER_WITH_SSH_DIR/scripts/docker/stop
 
 # Cleanup
 rm -f temp.txt

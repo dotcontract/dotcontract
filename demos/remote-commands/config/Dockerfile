@@ -1,1 +1,0 @@
-FROM serversideup/docker-ssh
