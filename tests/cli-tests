@@ -70,9 +70,11 @@ contract push -d localtest1
 contract log -d localtest1
 
 # Remote Link Operations
+## distinct container for each node version
+## used by github actions
 NODE_VERSION_ID=$(node -v | sed 's/[^0-9]*//g')
 export SSH_PORT=$((12300 + $NODE_VERSION_ID))
-export CONTAINER_SUFFIX="-run-push"
+export CONTAINER_SUFFIX="-run-$NODE_VERSION_ID"
 DOCKER_WITH_SSH_DIR=$SCRIPT_DIR/../fixtures/docker-with-ssh
 $DOCKER_WITH_SSH_DIR/scripts/docker/stop
 $DOCKER_WITH_SSH_DIR/scripts/docker/build-once &> /dev/null
