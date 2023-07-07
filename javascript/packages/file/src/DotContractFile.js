@@ -5,6 +5,7 @@ import AdmZip from "adm-zip";
 import path from "path";
 
 import DotContractDirectory from "@dotcontract/directory";
+import { Commit, CommitAction } from "@dotcontract/contract";
 
 export default class DotContractFile {
   constructor(filepath) {
@@ -60,6 +61,15 @@ export default class DotContractFile {
     return dcf;
   }
 
+  async copyAttachmentsToDir() {
+    let attachments_dir = null;
+    if (await this.hasAttachments()) {
+      attachments_dir = temp.mkdirSync();
+      await this.copyAttachments(attachments_dir);
+    }
+    return attachments_dir;
+  }
+
   async open() {
     if (this.dir_path) {
       return;
@@ -89,6 +99,35 @@ export default class DotContractFile {
 
   async commit({ body, head }) {
     return this.directory.commit({ body, head });
+  }
+
+  async reCommit(
+    commitLog,
+    attachments_dir,
+    start_indx,
+    end_indx
+  ) {
+    for (let i = start_indx; i <= end_indx; i++) {
+      const attachments = [];
+      const c = Commit.fromJSONString(commitLog[i]);
+      for (const part of c.body) {
+        const ca = new CommitAction(part);
+        if (ca.hasAttachment()) {
+          const file_hash = ca.getFileHash();
+          const path = ca.getPath();
+          const filepath = `${attachments_dir}/${file_hash}`;
+          attachments.push({
+            path,
+            filepath,
+          });
+        }
+      }
+      for (const attachment of attachments) {
+        await this.attach(attachment);
+      }
+      await this.commit(c.toJSON());
+    }
+    await this.save();
   }
 
   async saveTo(filepath) {
@@ -126,5 +165,27 @@ export default class DotContractFile {
       fs.rmSync(`${this.filepath}`, { recursive: true });
     }
     await this.directory.clear();
+  }
+
+  async createEmptyContract() {
+    const dotcontract_json = await this.getDotContractJson();
+    const config_json = await this.getConfigJson();
+    await this.clear();
+    let dcf = null;
+    if (this.filepath) {
+      dcf = await DotContractFile.create(
+        this.filepath,
+        dotcontract_json,
+        config_json
+      );
+    } else {
+      const dcd = await DotContractDirectory.generate(
+        this.directory.path,
+        dotcontract_json,
+        config_json
+      );
+      dcf = await DotContractFile.fromDir(dcd.path);
+    }
+    return dcf;
   }
 }
