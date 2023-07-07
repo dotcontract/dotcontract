@@ -129,6 +129,117 @@ export default class Sync {
         ssh.close();
         log("Remote contract updated!");
       }
-
-
+      static async sync_source(source_dcf, dcf) {
+        const source_commit_order = await source_dcf.getCommitOrder();
+        const cur_commit_order = await dcf.getCommitOrder();
+        const cur_commit_log = await dcf.getCommitLog();
+      
+        const source_commit_length = source_commit_order.length;
+        const cur_commit_length = cur_commit_order.length;
+      
+        let largest_common_commit_index = -1;
+        let si = 0;
+        let ci = 0;
+      
+        while (si < source_commit_length && ci < cur_commit_length) {
+          if (source_commit_order[si] === cur_commit_order[ci]) {
+            largest_common_commit_index = si;
+            si++;
+            ci++;
+          } else {
+            break;
+          }
+        }
+      
+        if (largest_common_commit_index === cur_commit_length - 1) {
+          // Equal length and equal commits OR additional commits in linked contract
+          log("Nothing to push"); // source_commit_length >= cur_commit_length
+          return;
+        }
+        // Additional commits in local contract
+        else if (largest_common_commit_index === source_commit_length - 1) {
+          // fast-forward push
+          const cur_attachments_dir = await dcf.copyAttachmentsToDir();
+          await source_dcf.reCommit(
+            cur_commit_log,
+            cur_attachments_dir,
+            largest_common_commit_index + 1,
+            cur_commit_length - 1
+          );
+        }
+        // Additional commits in both contracts
+        else {
+          log(`Local and linked contracts have diverged, consider pulling first to rebase and then push.
+          contract pull --dir __contract_name__
+          contract push --dir __contract_name__`);
+          return;
+        }
+      }
+    
+      static async sync_target(source_dcf, dcf) {
+        const source_commit_order = await source_dcf.getCommitOrder();
+        const cur_commit_order = await dcf.getCommitOrder();
+        const source_commit_log = await source_dcf.getCommitLog();
+        const cur_commit_log = await dcf.getCommitLog();
+      
+        const source_commit_length = source_commit_order.length;
+        const cur_commit_length = cur_commit_order.length;
+      
+        let largest_common_commit_index = -1;
+        let si = 0;
+        let ci = 0;
+      
+        while (si < source_commit_length && ci < cur_commit_length) {
+          if (source_commit_order[si] === cur_commit_order[ci]) {
+            largest_common_commit_index = si;
+            si++;
+            ci++;
+          } else {
+            break;
+          }
+        }
+        const source_attachments_dir = await source_dcf.copyAttachmentsToDir();
+      
+        if (largest_common_commit_index === cur_commit_length - 1) {
+          // Equal length and equal commits
+          if (source_commit_length == cur_commit_length) {
+            log("Nothing to pull");
+            return;
+          }
+          // fast-forward pull
+          else if (source_commit_length > cur_commit_length) {
+            await dcf.reCommit(
+              source_commit_log,
+              source_attachments_dir,
+              largest_common_commit_index + 1,
+              source_commit_length - 1
+            );
+            log("Fast-forward pull complete");
+            return;
+          }
+        }
+        // Additional commits in local contract
+        else if (largest_common_commit_index === source_commit_length - 1) {
+          log("Nothing to pull");
+          return;
+        }
+        // Additional commits in both contracts - Rebase
+        else {
+          dcf = await dcf.createEmptyContract();
+          await dcf.reCommit(
+            source_commit_log,
+            source_attachments_dir,
+            0,
+            source_commit_length - 1
+          );
+          const cur_attachments_dir = await dcf.copyAttachmentsToDir();
+          await dcf.reCommit(
+            cur_commit_log,
+            cur_attachments_dir,
+            largest_common_commit_index + 1,
+            cur_commit_length - 1
+          );
+          log("Pull with rebase complete");
+        }
+      }    
 }
