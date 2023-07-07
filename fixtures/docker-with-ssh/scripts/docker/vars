@@ -2,11 +2,7 @@
 
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
 
-IMAGE_NAME="dotcontract-remote"
-CONTAINER_NAME="dotcontract-remote${CONTAINER_SUFFIX}"
-SSH_PORT=${SSH_PORT=12345}
-SSH_USER=dotcontract
-SSH_GROUP=dotcontractgroup
+. `dirname $0`/settings
 
 AUTHORIZED_KEYS="$(cat ${SCRIPT_DIR}/../../config/authorized_keys)"
 ALLOWED_IPS="AllowUsers *"

@@ -80,6 +80,8 @@ sleep 3
 $DOCKER_WITH_SSH_DIR/scripts/docker/start &> /dev/null &
 SSH_SERVER_PID=$!
 sleep 3
+. $DOCKER_WITH_SSH_DIR/scripts/docker/settings
+
 
 contract create -f remote_test1.contract
 contract commit -f remote_test1.contract --post /hello.text "world"

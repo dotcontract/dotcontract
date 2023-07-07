@@ -22,6 +22,8 @@ sleep 3
 set -x
 comment ssh server up
 
+. $DOCKER_WITH_SSH_DIR/scripts/docker/settings
+
 comment create a contract and copy it to the remote server
 contract create --file remote_pull_test.contract
 contract commit --file remote_pull_test.contract --post /hello.text "world"
@@ -44,4 +46,4 @@ contract log --dir remote_pull_test
 comment stop ssh server
 set +x
 # stop ssh server
-$DOCKER_WITH_SSH_DIR/scripts/docker/stop
+# $DOCKER_WITH_SSH_DIR/scripts/docker/stop

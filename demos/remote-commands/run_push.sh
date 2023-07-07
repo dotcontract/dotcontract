@@ -22,6 +22,8 @@ sleep 3
 set -x
 comment ssh server up
 
+. $DOCKER_WITH_SSH_DIR/scripts/docker/settings
+
 comment create a contract and copy it to the remote server
 contract create --file remote_push_test.contract
 docker cp remote_push_test.contract $CONTAINER_NAME:/home/dotcontract/remote_push_test.contract
