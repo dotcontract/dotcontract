@@ -4,6 +4,9 @@
 cd $(dirname -- "$0")
 source ../helpers.sh
 
+export SSH_PORT=12301
+export CONTAINER_SUFFIX="-run-pull"
+
 set -x
 comment start ssh server
 set +x
