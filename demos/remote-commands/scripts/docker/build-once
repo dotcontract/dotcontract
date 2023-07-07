@@ -4,6 +4,6 @@
 
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
 
-if [[ "$(docker images -q $CONTAINER_NAME 2> /dev/null)" == "" ]]; then
-  docker -l "debug" build -t $CONTAINER_NAME ${SCRIPT_DIR}/../../config/
+if [[ "$(docker images -q $IMAGE_NAME 2> /dev/null)" == "" ]]; then
+  docker -l "debug" build -t $IMAGE_NAME ${SCRIPT_DIR}/../../config/
 fi

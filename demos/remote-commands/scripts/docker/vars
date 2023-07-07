@@ -2,8 +2,9 @@
 
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
 
-CONTAINER_NAME="dotcontract-remote"
-LOCAL_PORT=12345
+IMAGE_NAME="dotcontract-remote"
+CONTAINER_NAME="dotcontract-remote${CONTAINER_SUFFIX}"
+SSH_PORT=${SSH_PORT=12345}
 SSH_USER=dotcontract
 SSH_GROUP=dotcontractgroup
 
