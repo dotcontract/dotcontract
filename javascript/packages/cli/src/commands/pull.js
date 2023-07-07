@@ -9,7 +9,7 @@ export const builder = {
 
 import DotContractFile from "@dotcontract/file";
 import { copyAttachmentsToDir, createEmptyContract, reCommit } from "./undo.js";
-import { validateRemoteContract } from "./link.js";
+import Sync from "@dotcontract/sync";
 import temp from "temp";
 temp.track();
 
@@ -87,14 +87,14 @@ export async function sync_target(source_dcf, dcf) {
 
 export async function handler(argv) {
   const { dotcontract_file: dcf } = await ensureContractArgs(argv);
-  const link_config = await dcf.getLinkedContract();
+  const link_config = Sync.getLinkedContract(dcf);
   if (link_config == null) {
     throw new Error("No linked contract found!");
   }
   const contract_path = link_config["path"];
   let source_dcf = null;
   if ("server" in link_config) {
-    source_dcf = await validateRemoteContract(
+    source_dcf = await Sync.validateRemoteContract(
       contract_path,
       link_config["server"],
       link_config["user"],

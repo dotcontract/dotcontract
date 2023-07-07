@@ -227,40 +227,6 @@ export default class Directory {
     );
   }
 
-  async linkContract(
-    contract_path,
-    server = null,
-    user = null,
-    port = null,
-    identity = null
-  ) {
-    const config_str = fs.readFileSync(`${this.path}/config.json`, "utf-8");
-    const config_obj = JSON.parse(config_str);
-
-    config_obj["link"] = {};
-    config_obj["link"]["path"] = `${contract_path}`; // can be a local or remote path
-    if (server) {
-      config_obj["link"]["server"] = server;
-      config_obj["link"]["user"] = user;
-      config_obj["link"]["port"] = port;
-      config_obj["link"]["identity"] = identity;
-    }
-    fs.writeFileSync(
-      `${this.path}/config.json`,
-      JSON.stringify(config_obj),
-      "utf-8"
-    );
-  }
-
-  async getLinkedContract() {
-    const config_str = fs.readFileSync(`${this.path}/config.json`, "utf-8");
-    const config_obj = JSON.parse(config_str);
-    if (!("link" in config_obj)) {
-      return null;
-    }
-    return config_obj["link"];
-  }
-
   async hasAttachments() {
     return fs.existsSync(`${this.path}/attachments`);
   }

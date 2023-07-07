@@ -39,7 +39,7 @@ import {
 } from "../lib/LogStyles.js";
 
 import { Commit } from "@dotcontract/contract";
-import { validateRemoteContract } from "./link.js";
+import Sync from "@dotcontract/sync";
 import DotContractFile from "@dotcontract/file";
 
 function describeCommits({ commitLog, commitOrder, order, limit, all }) {
@@ -117,7 +117,7 @@ export async function handler(argv) {
   }
   var { dotcontract_file: dcf } = await ensureContractArgs(argv);
   if (linked) {
-    const link_config = await dcf.getLinkedContract();
+    const link_config = Sync.getLinkedContract(dcf);
     if (link_config == null) {
       throw new Error("No linked contract found!");
     }
@@ -125,7 +125,7 @@ export async function handler(argv) {
     console.log(contract_path);
 
     if ("server" in link_config) {
-      dcf = await validateRemoteContract(
+      dcf = await Sync.validateRemoteContract(
         contract_path,
         link_config["server"],
         link_config["user"],

@@ -9,7 +9,7 @@ export const builder = {
 
 const log = console.log;
 import { asBold, asSuccess, asError, asWarning } from "../lib/LogStyles.js";
-import { validateRemoteContract } from "./link.js";
+import Sync from "@dotcontract/sync"
 import DotContractFile from "@dotcontract/file";
 
 function describeContract({
@@ -73,13 +73,13 @@ export async function handler(argv) {
   };
   const contract_id = genesis.genesis.contract_id;
 
-  const link_config = await dcf.getLinkedContract();
+  const link_config = Sync.getLinkedContract(dcf);
   let link_status = null;
   if (link_config) {
     const contract_path = link_config["path"];
     let source_dcf = null;
     if ("server" in link_config) {
-      source_dcf = await validateRemoteContract(
+      source_dcf = await Sync.validateRemoteContract(
         contract_path,
         link_config["server"],
         link_config["user"],

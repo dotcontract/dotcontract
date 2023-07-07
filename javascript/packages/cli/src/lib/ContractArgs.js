@@ -79,26 +79,3 @@ export const ensureContractArgs = async function (argv) {
     dotcontract_file,
   };
 };
-
-export const ensureLocalContractPath = async function (contract_path) {
-  let file = null;
-  let dir = null;
-  if (fs.existsSync(path.join(contract_path, ".contract"))) {
-    dir = contract_path;
-  } else if (fs.existsSync(contract_path)) {
-    file = contract_path;
-  }
-  if (!file && !dir) {
-    throw new Error(`ERROR: Invalid contract path`);
-  }
-  let dcf = null;
-  if (file) {
-    dcf = await DotContractFile.open(file);
-  } else if (dir) {
-    dcf = await DotContractFile.fromDir(path.join(dir, ".contract"));
-  }
-  if (!dcf.isValid()) {
-    throw new Error(`ERROR: Invalid contract`);
-  }
-  return dcf;
-};
