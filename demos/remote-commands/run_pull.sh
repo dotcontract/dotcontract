@@ -46,4 +46,4 @@ contract log --dir remote_pull_test
 comment stop ssh server
 set +x
 # stop ssh server
-# $DOCKER_WITH_SSH_DIR/scripts/docker/stop
+$DOCKER_WITH_SSH_DIR/scripts/docker/stop
