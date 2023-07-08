@@ -1,12 +1,11 @@
 import fs from "fs";
 import AdmZip from "adm-zip";
-import path from "path";
 import temp from "temp";
 temp.track();
 
-import DotContractDirectory from "./DotContractDirectory.js"
+import DotContractDirectory from "./DotContractDirectory.js";
 
-export default class DotContractFile extends DotContractDirectory{
+export default class DotContractFile extends DotContractDirectory {
   constructor(filepath) {
     super();
     this.filepath = filepath;

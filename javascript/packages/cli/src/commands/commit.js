@@ -160,7 +160,7 @@ For example: ${path}.text
   if (signing_keys.length) {
     await c.signWith(signing_keys);
   }
-  if (!await dc.canAppendCommitFromJson(c.toJSON())) {
+  if (!(await dc.canAppendCommitFromJson(c.toJSON()))) {
     throw new Error("Unable to append commit to contract.");
   }
 

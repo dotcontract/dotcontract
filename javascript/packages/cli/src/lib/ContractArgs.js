@@ -38,9 +38,7 @@ export const findNearestDotContractDir = async function (dirpath) {
   if (!dotcontract_dirpath) {
     return;
   }
-  const dc = DotContract.create(
-    path.join(dotcontract_dirpath, ".contract")
-  );
+  const dc = DotContract.create(path.join(dotcontract_dirpath, ".contract"));
   if (!(await dc.isValid())) {
     return;
   }

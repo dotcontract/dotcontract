@@ -11,7 +11,7 @@ import DotContract from "./DotContractDirectory.js";
 describe("DotContract", () => {
   it("should work", async () => {
     const dir = temp.mkdirSync("ex1");
-    const pd = new DotContract(dir)
+    const pd = new DotContract(dir);
     await pd.generate();
 
     const dotcontract_json_string = fs

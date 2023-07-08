@@ -1,10 +1,7 @@
 export const command = "link";
 export const describe = "links a contract to a remote/local contract";
 
-import {
-  CommonContractArgs,
-  ensureContractArgs,
-} from "../lib/ContractArgs.js";
+import { CommonContractArgs, ensureContractArgs } from "../lib/ContractArgs.js";
 
 import Sync from "@dotcontract/sync";
 

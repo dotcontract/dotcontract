@@ -9,7 +9,7 @@ export const builder = {
 
 const log = console.log;
 import { asBold, asSuccess, asError, asWarning } from "../lib/LogStyles.js";
-import Sync from "@dotcontract/sync"
+import Sync from "@dotcontract/sync";
 import DotContract from "@dotcontract/storage";
 
 function describeContract({

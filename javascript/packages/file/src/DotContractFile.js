@@ -101,12 +101,7 @@ export default class DotContractFile {
     return this.directory.commit({ body, head });
   }
 
-  async reCommit(
-    commitLog,
-    attachments_dir,
-    start_indx,
-    end_indx
-  ) {
+  async reCommit(commitLog, attachments_dir, start_indx, end_indx) {
     for (let i = start_indx; i <= end_indx; i++) {
       const attachments = [];
       const c = Commit.fromJSONString(commitLog[i]);
