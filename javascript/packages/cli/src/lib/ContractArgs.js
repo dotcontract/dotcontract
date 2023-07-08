@@ -1,5 +1,4 @@
-import DotContractDirectory from "@dotcontract/directory";
-import DotContractFile from "@dotcontract/file";
+import DotContract from "@dotcontract/storage";
 import path from "path";
 import fs from "fs";
 
@@ -30,19 +29,19 @@ export const findNearestDotContractDir = async function (dirpath) {
   const dirs = dirpath.split(path.sep);
   const dir_depth = dirs.length;
   for (let i = 1; i < dir_depth; i++) {
-    const dir_path = dirs.join(path.sep);
-    if (fs.existsSync(path.join(dir_path, ".contract"))) {
-      dotcontract_dirpath = dir_path;
+    const dirpath = dirs.join(path.sep);
+    if (fs.existsSync(path.join(dirpath, ".contract"))) {
+      dotcontract_dirpath = dirpath;
     }
     dirs.pop();
   }
   if (!dotcontract_dirpath) {
     return;
   }
-  const dc_dir = new DotContractDirectory(
+  const dc = DotContract.create(
     path.join(dotcontract_dirpath, ".contract")
   );
-  if (!(await dc_dir.isValid())) {
+  if (!(await dc.isValid())) {
     return;
   }
   return dotcontract_dirpath;
@@ -65,17 +64,17 @@ export const ensureContractArgs = async function (argv) {
 
   const contract_dir = dir || nearest_dotcontract_dir;
 
-  const dotcontract_file = await (() => {
+  const dotcontract = await (() => {
     if (file) {
-      return DotContractFile.open(file);
+      return DotContract.getDCFromFile(file);
     } else if (contract_dir) {
-      return DotContractFile.fromDir(path.join(contract_dir, ".contract"));
+      return DotContract.getDCFromDir(contract_dir);
     }
   })();
 
   return {
     file,
     dir: contract_dir,
-    dotcontract_file,
+    dotcontract,
   };
 };

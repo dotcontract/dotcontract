@@ -40,7 +40,7 @@ import {
 
 import { Commit } from "@dotcontract/contract";
 import Sync from "@dotcontract/sync";
-import DotContractFile from "@dotcontract/file";
+import DotContract from "@dotcontract/storage";
 
 function describeCommits({ commitLog, commitOrder, order, limit, all }) {
   log(`${asBold(`# Contract Commit Log`)}`);
@@ -115,17 +115,16 @@ export async function handler(argv) {
       `ERROR: Invalid limit provided. Valid options are: positive integers`
     );
   }
-  var { dotcontract_file: dcf } = await ensureContractArgs(argv);
+  var { dotcontract: dc } = await ensureContractArgs(argv);
   if (linked) {
-    const link_config = Sync.getLinkedContract(dcf);
+    const link_config = Sync.getLinkedContract(dc);
     if (link_config == null) {
       throw new Error("No linked contract found!");
     }
     const contract_path = link_config["path"];
-    console.log(contract_path);
 
     if ("server" in link_config) {
-      dcf = await Sync.validateRemoteContract(
+      dc = await Sync.validateRemoteContract(
         contract_path,
         link_config["server"],
         link_config["user"],
@@ -133,12 +132,12 @@ export async function handler(argv) {
         link_config["identity"]
       );
     } else {
-      dcf = await DotContractFile.getDcfFromPath(contract_path);
+      dc = await DotContract.getDCFromPath(contract_path);
     }
   }
 
-  const commitLog = await dcf.getCommitLog();
-  const commitOrder = await dcf.getCommitOrder();
+  const commitLog = await dc.getCommitLog();
+  const commitOrder = await dc.getCommitOrder();
 
   describeCommits({ commitLog, commitOrder, order, limit, all });
 }

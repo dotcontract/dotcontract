@@ -21,8 +21,8 @@ import {
 import { Commit } from "@dotcontract/contract";
 
 export async function handler(argv) {
-  const { dotcontract_file: dcf } = await ensureContractArgs(argv);
-  log(JSON.stringify(dcf.directory.contract.km.toJSON(), null, 2));
+  const { dotcontract: dc } = await ensureContractArgs(argv);
+  log(JSON.stringify(dc.getKM(), null, 2));
 }
 
 export default handler;

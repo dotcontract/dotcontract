@@ -28,7 +28,7 @@ const log = console.log;
 
 export async function handler(argv) {
   const { path, url, identity } = argv;
-  const { dotcontract_file: dcf } = await ensureContractArgs(argv);
+  const { dotcontract: dc } = await ensureContractArgs(argv);
   if ((!url && !path) || (url && path)) {
     throw new Error(
       "ERROR: Please provide either a url for an ssh server or a local path"
@@ -38,8 +38,8 @@ export async function handler(argv) {
   if (!url) {
     await Sync.ensureLocalContractPath(path);
     log("Local contract verified...");
-    Sync.linkContract(dcf, path);
-    await dcf.save();
+    Sync.linkContract(dc, path);
+    await dc.save();
     log(`Local contract linked successfully!`);
   } else {
     const [user, server_port_path] = url.split("@");
@@ -58,8 +58,8 @@ export async function handler(argv) {
     }
 
     await Sync.validateRemoteContract(file_path, server, user, port, identity);
-    Sync.linkContract(dcf, file_path, server, user, port, identity);
-    await dcf.save();
+    Sync.linkContract(dc, file_path, server, user, port, identity);
+    await dc.save();
     log(`Remote contract linked successfully!`);
   }
 }

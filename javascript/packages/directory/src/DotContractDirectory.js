@@ -231,7 +231,7 @@ export default class Directory {
     return fs.existsSync(`${this.path}/attachments`);
   }
 
-  async copyAttachments(target_dir) {
+  async copyAttachmentsToDir(target_dir) {
     fs.cpSync(`${this.path}/attachments`, target_dir, { recursive: true });
   }
 

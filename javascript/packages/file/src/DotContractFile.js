@@ -10,7 +10,7 @@ import { Commit, CommitAction } from "@dotcontract/contract";
 export default class DotContractFile {
   constructor(filepath) {
     this.filepath = filepath;
-    this.dir_path = null;
+    this.dirpath = null;
     this.directory = null;
     this.password = null;
     return this;
@@ -45,13 +45,13 @@ export default class DotContractFile {
     return pf;
   }
 
-  static async fromDir(dir_path) {
+  static async fromDir(dirpath) {
     const pf = new DotContractFile(null);
-    pf.directory = await DotContractDirectory.mount(dir_path);
+    pf.directory = await DotContractDirectory.mount(dirpath);
     return pf;
   }
 
-  static async getDcfFromPath(contract_path) {
+  static async getDCFromPath(contract_path) {
     let dcf = null;
     if (contract_path.endsWith(".contract")) {
       dcf = await this.open(contract_path);
@@ -61,23 +61,23 @@ export default class DotContractFile {
     return dcf;
   }
 
-  async copyAttachmentsToDir() {
+  async copyAttachmentsToTempDir() {
     let attachments_dir = null;
     if (await this.hasAttachments()) {
       attachments_dir = temp.mkdirSync();
-      await this.copyAttachments(attachments_dir);
+      await this.copyAttachmentsToDir(attachments_dir);
     }
     return attachments_dir;
   }
 
   async open() {
-    if (this.dir_path) {
+    if (this.dirpath) {
       return;
     }
-    this.dir_path = temp.mkdirSync();
+    this.dirpath = temp.mkdirSync();
     const zip = new AdmZip(this.filepath);
-    zip.extractAllTo(this.dir_path, true, false, this.password);
-    this.directory = await DotContractDirectory.mount(this.dir_path);
+    zip.extractAllTo(this.dirpath, true, false, this.password);
+    this.directory = await DotContractDirectory.mount(this.dirpath);
   }
 
   static unzip(input, output, password) {
@@ -156,8 +156,8 @@ export default class DotContractFile {
     return this.directory.hasAttachments();
   }
 
-  async copyAttachments(path) {
-    await this.directory.copyAttachments(path);
+  async copyAttachmentsToDir(path) {
+    await this.directory.copyAttachmentsToDir(path);
   }
 
   async clear() {
@@ -167,7 +167,7 @@ export default class DotContractFile {
     await this.directory.clear();
   }
 
-  async createEmptyContract() {
+  async emptyDC() {
     const dotcontract_json = await this.getDotContractJson();
     const config_json = await this.getConfigJson();
     await this.clear();

@@ -37,19 +37,19 @@ export function findDeleteIndex(commit_hash, commitOrder) {
 
 export async function handler(argv) {
   const commit_hash = argv["commit-hash"];
-  var { dotcontract_file: dcf } = await ensureContractArgs(argv);
+  var { dotcontract: dc } = await ensureContractArgs(argv);
 
-  const commitLog = await dcf.getCommitLog();
-  const commitOrder = await dcf.getCommitOrder();
+  const commitLog = await dc.getCommitLog();
+  const commitOrder = await dc.getCommitOrder();
 
   if (commitLog.length < 1) {
     throw new Error(`ERROR: No commits in the specified contract`);
   }
 
   const delete_from_indx = findDeleteIndex(commit_hash, commitOrder);
-  const attachments_dir = await dcf.copyAttachmentsToDir();
-  dcf = await dcf.createEmptyContract();
-  await dcf.reCommit(commitLog, attachments_dir, 0, delete_from_indx - 1);
+  const attachments_dir = await dc.copyAttachmentsToTempDir();
+  dc = await dc.emptyDC();
+  await dc.reCommit(commitLog, attachments_dir, 0, delete_from_indx - 1);
 
   if (delete_from_indx == commitOrder.length - 1)
     log(`Deleted latest commit - ${commitOrder[delete_from_indx]}`);

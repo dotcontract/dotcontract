@@ -1,5 +1,6 @@
 #!/bin/bash
 export PATH=$PATH:$PWD/../javascript/packages/cli/bin # Remove
+# set -e 
 
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
 
@@ -8,12 +9,14 @@ rm -f key.keypair
 echo "This is some text" >> temp.txt 
 contract gen_keypair >> key.keypair
 
+echo "Create tests"
 # Create a dotcontract file 
 contract create -f test.contract
 
 # Create a dotcontract directory
 contract create -d test
 
+echo "Commit tests"
 # Commit - Text
 contract commit -d test -m "Commit - Text" --post /hello.text 'Welcome'
 
@@ -25,32 +28,37 @@ contract commit -d test -m "Commit - Sign" --post /sign.text 'Signed' --sign-wit
 
 # Commit - Rule
 
-
+echo "Log tests"
 # Log 
 contract log -d test --order desc
 contract log -d test --order asc
 contract log -d test --limit 10
 contract log -d test --limit 10 --all
 
-
+echo "Undo tests"
 # Undo commit - last commit
 contract undo -d test 
 
 # Undo commit - Commit hash
 contract undo -d test -h d7284479a58a7c1e27e382049cf2bdc4ec529b1109690846ad562e57a8fb16b6
 
+echo "Info test"
 # Info
 contract info -d test
 
+echo "Machine test"
 # Machine
 contract machine -d test
 
+echo "Pack test"
 # Pack
-contract pack --dir test/.contract -o a.contract 
+contract pack --dir test -o a.contract 
 
+echo "Unpack test"
 # Unpack
-contract unpack -i a.contract -d b/.contract
+contract unpack -i a.contract -d test
 
+echo "Local Link tests"
 # Local Link Operations
 contract create -d localtest1
 contract create -d localtest2
@@ -69,6 +77,7 @@ contract push -d localtest1
 # Log linked
 contract log -d localtest1
 
+echo "Remote Link tests"
 # Remote Link Operations
 ## distinct container for each node version
 ## used by github actions

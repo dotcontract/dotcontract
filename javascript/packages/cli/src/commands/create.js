@@ -13,8 +13,7 @@ export const builder = {
 };
 
 const log = console.log;
-import DotContractFile from "@dotcontract/file";
-import DotContractDirectory from "@dotcontract/directory";
+import DotContract from "@dotcontract/storage";
 
 export async function handler(argv) {
   const { dir, file } = argv;
@@ -26,10 +25,10 @@ export async function handler(argv) {
   }
 
   if (file) {
-    await DotContractFile.create(file);
+    await DotContract.create(file, false);
     log(`dotcontract file created at: ${file}`);
   } else if (dir) {
-    await DotContractDirectory.generate(`${dir}/.contract`);
+    await DotContract.create(dir, true);
     log("Contract created successfully");
     log(`dotcontract directory created at: ${dir}`);
   }

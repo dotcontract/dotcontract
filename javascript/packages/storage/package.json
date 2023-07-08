@@ -1,10 +1,10 @@
 {
-  "name": "@dotcontract/sync",
+  "name": "@dotcontract/storage",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"TODO: no tests specified\""
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
   "files": [
     "src",
@@ -18,8 +18,12 @@
   "license": "UNLICENSED",
   "type": "module",
   "dependencies": {
-    "@dotcontract/storage": "workspace:^1.0.0",
-    "ssh2-promise": "^1.0.3",
+    "@dotcontract/contract": "workspace:^1.0.0",
+    "@dotcontract/kripke-machine": "workspace:^1.0.0",
+    "@dotcontract/modality": "workspace:^1.0.0",
+    "@dotcontract/utils": "workspace:^1.0.0",
+    "adm-zip": "^0.5.9",
+    "archiver": "^5.3.1",
     "debug": "^4.3.4",
     "jest": "^28.1.1",
     "lodash": "^4.17.21",

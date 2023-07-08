@@ -4,7 +4,7 @@ import fs from "fs";
 import temp from "temp";
 temp.track();
 
-import DotContractFile from "@dotcontract/file";
+import DotContract from "@dotcontract/storage";
 
 const log = console.log;
 
@@ -29,16 +29,16 @@ export default class Sync {
         if (!file && !dir) {
           throw new Error(`ERROR: Invalid contract path`);
         }
-        let dcf = null;
+        let dc = null;        
         if (file) {
-          dcf = await DotContractFile.open(file);
+          dc =  await DotContract.getDCFromFile(file);
         } else if (dir) {
-          dcf = await DotContractFile.fromDir(path.join(dir, ".contract"));
+          dc = await DotContract.getDCFromDir(dir);
         }
-        if (!dcf.isValid()) {
+        if (!await dc.isValid()) {
           throw new Error(`ERROR: Invalid contract`);
         }
-        return dcf;
+        return dc;
       };
 
     static async validateRemoteContract(
@@ -56,27 +56,27 @@ export default class Sync {
         log("Connection verified...");
       
         const sftp = ssh.sftp();
-        const dir_path = temp.mkdirSync();
-        const temp_file = dir_path + "/temp.contract";
+        const dirpath = temp.mkdirSync();
+        const temp_file = dirpath + "/temp.contract";
         await sftp.fastGet(file_path, temp_file).catch((err) => {
           throw new Error("ERROR: Error in reading contract from remote!");
         });
         ssh.close();
-        const new_dcf = await this.ensureLocalContractPath(temp_file);
+        const new_dc = await this.ensureLocalContractPath(temp_file);
         log("Remote contract verified...");
-        return new_dcf;
+        return new_dc;
     }
 
 
     static linkContract(
-        dcf, 
+        dc, 
         contract_path,
         server = null,
         user = null,
         port = null,
         identity = null
       ) {
-        const config_str = fs.readFileSync(`${dcf.directory.path}/config.json`, "utf-8");
+        const config_str = fs.readFileSync(`${dc.getDirPath()}/config.json`, "utf-8");
         const config_obj = JSON.parse(config_str);
     
         config_obj["link"] = {};
@@ -88,14 +88,14 @@ export default class Sync {
           config_obj["link"]["identity"] = identity;
         }
         fs.writeFileSync(
-          `${dcf.directory.path}/config.json`,
+          `${dc.getDirPath()}/config.json`,
           JSON.stringify(config_obj),
           "utf-8"
         );
       }
     
-      static getLinkedContract(dcf) {
-        const config_str = fs.readFileSync(`${dcf.directory.path}/config.json`, "utf-8");
+      static getLinkedContract(dc) {
+        const config_str = fs.readFileSync(`${dc.getDirPath()}/config.json`, "utf-8");
         const config_obj = JSON.parse(config_str);
         if (!("link" in config_obj)) {
           return null;
@@ -104,7 +104,7 @@ export default class Sync {
       }
 
       static async pushToRemote(
-        dcf,
+        dc,
         file_path,
         server,
         user,
@@ -119,9 +119,9 @@ export default class Sync {
         log("Connection verified...");
       
         const sftp = ssh.sftp();
-        const dir_path = temp.mkdirSync();
-        const temp_file = dir_path + "/" + file_path.split("/").pop();
-        await dcf.directory.zip(temp_file);
+        const dirpath = temp.mkdirSync();
+        const temp_file = dirpath + "/" + file_path.split("/").pop();
+        await dc.zip(temp_file);
         await sftp.unlink(file_path);
         await sftp.fastPut(temp_file, file_path).catch((err) => {
           throw new Error("ERROR: Error in writing contract to remote!");
@@ -129,10 +129,10 @@ export default class Sync {
         ssh.close();
         log("Remote contract updated!");
       }
-      static async sync_source(source_dcf, dcf) {
-        const source_commit_order = await source_dcf.getCommitOrder();
-        const cur_commit_order = await dcf.getCommitOrder();
-        const cur_commit_log = await dcf.getCommitLog();
+      static async sync_source(source_dc, dc) {
+        const source_commit_order = await source_dc.getCommitOrder();
+        const cur_commit_order = await dc.getCommitOrder();
+        const cur_commit_log = await dc.getCommitLog();
       
         const source_commit_length = source_commit_order.length;
         const cur_commit_length = cur_commit_order.length;
@@ -159,8 +159,8 @@ export default class Sync {
         // Additional commits in local contract
         else if (largest_common_commit_index === source_commit_length - 1) {
           // fast-forward push
-          const cur_attachments_dir = await dcf.copyAttachmentsToDir();
-          await source_dcf.reCommit(
+          const cur_attachments_dir = await dc.copyAttachmentsToTempDir();
+          await source_dc.reCommit(
             cur_commit_log,
             cur_attachments_dir,
             largest_common_commit_index + 1,
@@ -176,11 +176,11 @@ export default class Sync {
         }
       }
     
-      static async sync_target(source_dcf, dcf) {
-        const source_commit_order = await source_dcf.getCommitOrder();
-        const cur_commit_order = await dcf.getCommitOrder();
-        const source_commit_log = await source_dcf.getCommitLog();
-        const cur_commit_log = await dcf.getCommitLog();
+      static async sync_target(source_dc, dc) {
+        const source_commit_order = await source_dc.getCommitOrder();
+        const cur_commit_order = await dc.getCommitOrder();
+        const source_commit_log = await source_dc.getCommitLog();
+        const cur_commit_log = await dc.getCommitLog();
       
         const source_commit_length = source_commit_order.length;
         const cur_commit_length = cur_commit_order.length;
@@ -198,7 +198,7 @@ export default class Sync {
             break;
           }
         }
-        const source_attachments_dir = await source_dcf.copyAttachmentsToDir();
+        const source_attachments_dir = await source_dc.copyAttachmentsToTempDir();
       
         if (largest_common_commit_index === cur_commit_length - 1) {
           // Equal length and equal commits
@@ -208,7 +208,7 @@ export default class Sync {
           }
           // fast-forward pull
           else if (source_commit_length > cur_commit_length) {
-            await dcf.reCommit(
+            await dc.reCommit(
               source_commit_log,
               source_attachments_dir,
               largest_common_commit_index + 1,
@@ -225,15 +225,15 @@ export default class Sync {
         }
         // Additional commits in both contracts - Rebase
         else {
-          dcf = await dcf.createEmptyContract();
-          await dcf.reCommit(
+          dc = await dc.emptyDC();
+          await dc.reCommit(
             source_commit_log,
             source_attachments_dir,
             0,
             source_commit_length - 1
           );
-          const cur_attachments_dir = await dcf.copyAttachmentsToDir();
-          await dcf.reCommit(
+          const cur_attachments_dir = await dc.copyAttachmentsToTempDir();
+          await dc.reCommit(
             cur_commit_log,
             cur_attachments_dir,
             largest_common_commit_index + 1,

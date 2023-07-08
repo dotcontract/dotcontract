@@ -1,0 +1,8 @@
+{
+  "genesis": {
+    "contract_id": "12D3KooWPdKHFdyE2mW7gW6FLoDwRvhNF3aSpJqEwmAod1EfjzJT",
+    "network_id": "12D3KooWPdKHFdyE2mW7gW6FLoDwRvhNF3aSpJqEwmAod1EfjzJT"
+  },
+  "genesis.signature": "cs0UadnX594QneGoKZf/UwaClonofjiuddH68uGyvuFbyZZ/E8zY7FbUQOuBtLO8sZhHxxH8kOyoN13gDUlTCQ==",
+  "network_url": "file://./EmptyContract"
+}

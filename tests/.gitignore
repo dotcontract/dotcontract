@@ -1,3 +1,4 @@
 tmp/**
 .contract
 *.contract
+test

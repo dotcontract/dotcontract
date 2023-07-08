@@ -15,8 +15,7 @@
   "type": "module",
   "dependencies": {
     "@dotcontract/contract": "workspace:^1.0.0",
-    "@dotcontract/directory": "workspace:^1.0.0",
-    "@dotcontract/file": "workspace:^1.0.0",
+    "@dotcontract/storage": "workspace:^1.0.0",
     "@dotcontract/utils": "workspace:^1.0.0",
     "@dotcontract/sync": "workspace:^1.0.0",
     "@libp2p/peer-id-factory": "^1.0.15",

@@ -1,7 +1,7 @@
 export const command = "pack";
 export const describe = "pack a contract directory into a contract file";
 
-import DotContractDirectory from "@dotcontract/directory";
+import DotContract from "@dotcontract/storage";
 
 export const builder = {
   output: {
@@ -18,8 +18,8 @@ export const builder = {
 
 export async function handler(argv) {
   const { dir, output } = argv;
-  const dcd = await DotContractDirectory.mount(dir);
-  await dcd.zip(output);
+  const dc = await DotContract.getDCFromDir(dir);
+  await dc.zip(output);
 }
 
 export default handler;
