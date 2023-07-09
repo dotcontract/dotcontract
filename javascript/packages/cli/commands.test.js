@@ -8,7 +8,7 @@ describe("CLI-Tests", () => {
       silent: true,
     });
     expect(out_dir.code).toEqual(0);
-    
+
     const out_file = shell.exec("./cli-tests-file", {
       cwd: "../../../tests",
       silent: true,
