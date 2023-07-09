@@ -8,7 +8,7 @@ const log = console.log;
 export const builder = {
   ...CommonContractArgs,
   "commit-hash": {
-    alias: "h",
+    alias: "c",
     desc: "commit hash",
   },
 };

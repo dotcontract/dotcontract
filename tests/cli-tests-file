@@ -1,0 +1,135 @@
+#!/bin/bash
+export PATH=$PATH:$PWD/../javascript/packages/cli/bin # Remove
+set -e 
+
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
+
+rm -f temp.txt
+rm -f key.keypair
+echo "This is some text" >> temp.txt 
+contract gen_keypair >> key.keypair
+
+# log check function
+check_commit_log() {
+    if [[ "$(contract log -f $1 $3 | wc -l | awk '$1=$1' )" == $2 ]];
+    then
+    echo "Commits are as expected"
+    else
+    echo "Commits are not as expected"
+    exit 1
+    fi
+}
+
+# Tests
+echo "Create test"
+
+# Create a dotcontract file 
+contract create -f test.contract
+
+echo "Commit tests"
+# Commit - Text
+contract commit -f test.contract -m "Commit - Text" --post /hello.text 'Welcome'
+
+# Commit - Text file
+contract commit -f test.contract -m "Commit - Text File" --post /temp.txt ./temp.txt
+
+# Commit - Sign
+contract commit -f test.contract -m "Commit - Sign" --post /sign.text 'Signed' --sign-with key.keypair
+
+# Commit - Rule
+#### 
+
+echo "Log tests"
+# Log 
+
+check_commit_log test.contract 29
+
+contract log -f test.contract --order desc
+contract log -f test.contract --order asc
+contract log -f test.contract --limit 10
+contract log -f test.contract --limit 10 --all
+
+echo "Undo tests"
+# Undo commit - last commit
+contract undo -f test.contract 
+
+check_commit_log test.contract 18
+
+# Undo commit - Commit hash
+contract undo -f test.contract -c d7284479a58a7c1e27e382049cf2bdc4ec529b1109690846ad562e57a8fb16b6
+
+check_commit_log test.contract 2
+
+echo "Info test"
+# Info
+contract info -f test.contract
+
+echo "Machine test"
+# Machine
+contract machine -f test.contract
+
+echo "Local Link tests"
+# Local Link Operations
+contract create -f localtest1.contract
+contract create -f localtest2.contract
+contract commit -f localtest2.contract -m "Commit1" --post /commit1.text 'Commit1'
+
+# Link
+contract link -f localtest1.contract -l localtest2.contract
+
+# Pull
+contract pull -f localtest1.contract
+
+# Push
+contract commit -f localtest1.contract -m "Commit2" --post /commit2.text 'Commit2'
+contract push -f localtest1.contract
+
+# Log linked
+contract log -f localtest1.contract
+
+check_commit_log localtest1.contract 18
+
+echo "Remote Link tests"
+# Remote Link Operations
+## distinct container for each node version
+## used by github actions
+NODE_VERSION_ID=$(node -v | sed 's/[^0-9]*//g')
+export SSH_PORT=$((12300 + $NODE_VERSION_ID))
+export CONTAINER_SUFFIX="-run-$NODE_VERSION_ID"
+DOCKER_WITH_SSH_DIR=$SCRIPT_DIR/../fixtures/docker-with-ssh
+$DOCKER_WITH_SSH_DIR/scripts/docker/stop
+$DOCKER_WITH_SSH_DIR/scripts/docker/build-once &> /dev/null
+sleep 3
+$DOCKER_WITH_SSH_DIR/scripts/docker/start &> /dev/null &
+SSH_SERVER_PID=$!
+sleep 3
+. $DOCKER_WITH_SSH_DIR/scripts/docker/settings
+
+
+contract create -f remote_test1.contract
+contract commit -f remote_test1.contract --post /hello.text "world"
+docker cp remote_test1.contract $CONTAINER_NAME:/home/dotcontract/remote_test1.contract
+
+contract create -f remote_test2.contract
+
+# Link
+contract link -f remote_test2.contract --url dotcontract@localhost:$SSH_PORT/home/dotcontract/remote_test1.contract -i $DOCKER_WITH_SSH_DIR/config/id_ed25519
+
+# Pull
+contract pull -f remote_test2.contract
+
+# Push
+contract commit -f remote_test2.contract --post /welcome.text "back"
+contract push -f remote_test2.contract
+
+# Log linked
+contract log -f remote_test2.contract --linked
+
+check_commit_log remote_test2.contract 14 --linked
+
+# Stop docker
+$DOCKER_WITH_SSH_DIR/scripts/docker/stop
+
+# Cleanup
+rm -f temp.txt
+rm -f key.keypair

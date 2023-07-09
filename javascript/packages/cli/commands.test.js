@@ -3,10 +3,16 @@ import shell from "shelljs";
 
 describe("CLI-Tests", () => {
   it("should run cli tests script", async () => {
-    const out = shell.exec("./cli-tests", {
+    const out_dir = shell.exec("./cli-tests-directory", {
       cwd: "../../../tests",
       silent: true,
     });
-    expect(out.stderr).toEqual("");
+    expect(out_dir.code).toEqual(0);
+    
+    const out_file = shell.exec("./cli-tests-file", {
+      cwd: "../../../tests",
+      silent: true,
+    });
+    expect(out_file.code).toEqual(0);
   });
 });
