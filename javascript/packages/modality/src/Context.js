@@ -1,8 +1,7 @@
-import Functions from "./Functions.js";
-
 export default class Context {
-  constructor(values = {}) {
+  constructor(values = {}, funcs = {}) {
     this.values = values;
+    this.funcs = funcs;
     return this;
   }
 
@@ -15,18 +14,18 @@ export default class Context {
   }
 
   callFunction(name, args) {
-    if (Functions.allFunctions[name]) {
+    //
+    if (this.funcs[name]) {
       return this.callBuiltinFunction(name, args);
-      // } else if (this.userFunctions[])
     } else {
       throw new Error(`Unknown function: ${name}`);
     }
   }
 
   callBuiltinFunction(name, args) {
-    const func = Functions.allFunctions[name];
+    const func = this.funcs[name];
     const ctx = this.getValues();
-    return func(ctx, ...(args || []));
+    return func.withArgs(...(args || [])).evaluate(ctx);
   }
 
   callUserFunction(name, args) {}
