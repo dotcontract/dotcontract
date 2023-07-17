@@ -6,12 +6,13 @@ temp.track();
 
 import Key from "@dotcontract/utils/Key";
 
-import Directory from "./DotContractDirectory.js";
+import DotContract from "./DotContractDirectory.js";
 
-describe("Directory", () => {
+describe("DotContract", () => {
   it("should work", async () => {
     const dir = temp.mkdirSync("ex1");
-    const pd = await Directory.generate(dir);
+    const pd = new DotContract(dir);
+    await pd.generate();
 
     const dotcontract_json_string = fs
       .readFileSync(`${dir}/dotcontract.json`)
@@ -39,7 +40,7 @@ describe("Directory", () => {
     // --
     // creation with specified origin
     // changing origin
-    // status of directory vs origin
+    // status of DotContract vs origin
     // --
     // pulling from origin
     // pushing to origin

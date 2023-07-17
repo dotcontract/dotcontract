@@ -87,7 +87,6 @@ export class Expression {
       parser.removeErrorListeners();
       parser.addErrorListener(new CustomErrorListener());
       const formula = parser.expression();
-      // console.log(antlr4.tree.Trees.toStringTree(formula, parser.ruleNames));
       const visitor = new Visitor();
       return visitor.visit(formula);
     } else if (input?.prototype instanceof BaseFormula) {

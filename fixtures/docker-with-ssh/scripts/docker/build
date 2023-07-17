@@ -4,4 +4,4 @@
 
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
 
-docker -l "debug" build -t $CONTAINER_NAME ${SCRIPT_DIR}/../../config/
+docker -l "debug" build -t $IMAGE_NAME ${SCRIPT_DIR}/../../config/

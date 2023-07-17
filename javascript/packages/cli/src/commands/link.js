@@ -1,15 +1,9 @@
 export const command = "link";
 export const describe = "links a contract to a remote/local contract";
 
-import {
-  CommonContractArgs,
-  ensureContractArgs,
-  ensureLocalContractPath,
-} from "../lib/ContractArgs.js";
+import { CommonContractArgs, ensureContractArgs } from "../lib/ContractArgs.js";
 
-import SSH2Promise from "ssh2-promise";
-import temp from "temp";
-temp.track();
+import Sync from "@dotcontract/sync";
 
 export const builder = {
   ...CommonContractArgs,
@@ -29,60 +23,20 @@ export const builder = {
 
 const log = console.log;
 
-export function getSSHConfig(server, user, port, identity) {
-  return {
-    host: server,
-    username: user,
-    port: port,
-    identity: identity,
-  };
-}
-
-export async function validateRemoteContract(
-  file_path,
-  server,
-  user,
-  port,
-  identity
-) {
-  const sshconfig = getSSHConfig(server, user, port, identity);
-  const ssh = new SSH2Promise(sshconfig);
-  await ssh.connect().catch((err) => {
-    console.error("ERROR: Invalid ssh credentials!");
-    console.error(err);
-    process.exit(1);
-  });
-  log("Connection verified...");
-
-  const sftp = ssh.sftp();
-  const dir_path = temp.mkdirSync();
-  const temp_file = dir_path + "/temp.contract";
-  await sftp.fastGet(file_path, temp_file).catch((err) => {
-    console.error("ERROR: Error in reading contract from remote!");
-    console.error(err);
-    process.exit(1);
-  });
-  ssh.close();
-  const new_dcf = await ensureLocalContractPath(temp_file);
-  log("Remote contract verified...");
-  return new_dcf;
-}
-
 export async function handler(argv) {
   const { path, url, identity } = argv;
-  const { dotcontract_file: dcf } = await ensureContractArgs(argv);
+  const { dotcontract: dc } = await ensureContractArgs(argv);
   if ((!url && !path) || (url && path)) {
-    console.error(
+    throw new Error(
       "ERROR: Please provide either a url for an ssh server or a local path"
     );
-    process.exit(1);
   }
 
   if (!url) {
-    await ensureLocalContractPath(path);
+    await Sync.ensureLocalContractPath(path);
     log("Local contract verified...");
-    await dcf.linkContract(path);
-    await dcf.save();
+    Sync.linkContract(dc, path);
+    await dc.save();
     log(`Local contract linked successfully!`);
   } else {
     const [user, server_port_path] = url.split("@");
@@ -91,20 +45,18 @@ export async function handler(argv) {
     const port = port_path_list[0];
     const file_path = "/" + port_path_list.slice(1).join("/");
     if (!user || !port || !server || !file_path) {
-      console.error(
+      throw new Error(
         "ERROR: Please provide a valid url. Example: user@host:port/path"
       );
-      process.exit(1);
     }
 
     if (!identity) {
-      console.error("ERROR: Please provide a valid identity file");
-      process.exit(1);
+      throw new Error("ERROR: Please provide a valid identity file");
     }
 
-    await validateRemoteContract(file_path, server, user, port, identity);
-    await dcf.linkContract(file_path, server, user, port, identity);
-    await dcf.save();
+    await Sync.validateRemoteContract(file_path, server, user, port, identity);
+    Sync.linkContract(dc, file_path, server, user, port, identity);
+    await dc.save();
     log(`Remote contract linked successfully!`);
   }
 }

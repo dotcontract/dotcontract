@@ -26,7 +26,6 @@ class ThrowingErrorListener extends antlr4.error.ErrorListener {
   }
 
   syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
-    // console.error("line " + line + ":" + column + " " + msg);
     throw new Error(
       `Parsing ERROR: ${offendingSymbol} line ${line}, col ${column}: ${msg}`
     );

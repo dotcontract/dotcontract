@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+IMAGE_NAME="dotcontract-remote"
+CONTAINER_NAME="dotcontract-remote${CONTAINER_SUFFIX}"
+SSH_PORT=${SSH_PORT=12345}
+SSH_USER=dotcontract
+SSH_GROUP=dotcontractgroup

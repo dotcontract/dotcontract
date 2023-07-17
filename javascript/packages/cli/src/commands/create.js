@@ -12,26 +12,25 @@ export const builder = {
   },
 };
 
-import DotContractFile from "@dotcontract/file";
-import DotContractDirectory from "@dotcontract/directory";
+const log = console.log;
+import DotContract from "@dotcontract/storage";
 
 export async function handler(argv) {
   const { dir, file } = argv;
   if (!dir && !file) {
-    console.error(`ERROR: You must specify where to create the dotcontract.
+    throw new Error(`ERROR: You must specify where to create the dotcontract.
 * use --file to create a dotcontract file
 * use --dir to create a dotcontract directory
 `);
-    process.exit(-1);
   }
 
   if (file) {
-    await DotContractFile.create(file);
-    console.log(`dotcontract file created at: ${file}`);
+    await DotContract.create(file, false);
+    log(`dotcontract file created at: ${file}`);
   } else if (dir) {
-    await DotContractDirectory.generate(`${dir}/.contract`);
-    console.log("Contract created successfully");
-    console.log(`dotcontract directory created at: ${dir}`);
+    await DotContract.create(dir, true);
+    log("Contract created successfully");
+    log(`dotcontract directory created at: ${dir}`);
   }
 }
 

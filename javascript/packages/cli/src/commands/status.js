@@ -41,12 +41,12 @@ function describeContract({ contract_id, local_status, network_status }) {
 }
 
 export async function handler(argv) {
-  const { dotcontract_file: dcf } = await ensureContractArgs(argv);
+  const { dotcontract: dc } = await ensureContractArgs(argv);
 
-  const isValid = await dcf.isValid();
-  const genesis = await dcf.getDotContractJson();
-  const commitLog = await dcf.getCommitLog();
-  const commitOrder = await dcf.getCommitOrder();
+  const isValid = await dc.isValid();
+  const genesis = await dc.getDotContractJson();
+  const commitLog = await dc.getCommitLog();
+  const commitOrder = await dc.getCommitOrder();
   const local_status = {
     status: isValid,
     commit_count: commitLog.length,

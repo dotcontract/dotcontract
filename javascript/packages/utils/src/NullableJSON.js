@@ -2,8 +2,7 @@ export const parse = function (str) {
   try {
     return JSON.parse(str);
   } catch (e) {
-    console.error("JSON parse error", { str });
-    return null;
+    throw new Error("JSON parse error", { str });
   }
 };
 

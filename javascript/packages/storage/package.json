@@ -1,5 +1,5 @@
 {
-  "name": "@dotcontract/file",
+  "name": "@dotcontract/storage",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -19,7 +19,6 @@
   "type": "module",
   "dependencies": {
     "@dotcontract/contract": "workspace:^1.0.0",
-    "@dotcontract/directory": "workspace:^1.0.0",
     "@dotcontract/kripke-machine": "workspace:^1.0.0",
     "@dotcontract/modality": "workspace:^1.0.0",
     "@dotcontract/utils": "workspace:^1.0.0",
