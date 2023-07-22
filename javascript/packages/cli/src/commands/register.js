@@ -11,10 +11,10 @@ export const builder = {
   },
 };
 
-import DotContractFile from "@dotcontract/file";
+import DotContract from "@dotcontract/storage";
 
 export async function handler(argv) {
-  const pf = await DotContractFile.open(argv.contract);
+  const pf = await DotContract.getDCFromFile(argv.contract);
   const contract = pf.directory.contract;
   // TODO
 }

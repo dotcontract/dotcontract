@@ -66,7 +66,6 @@ export default class ModalityVisitor extends AbstractVisitor {
   visitAndFormula(ctx) {
     const left = this.visit(ctx.left);
     const right = this.visit(ctx.right);
-    // console.log(ctx.right);
     return new AndFormula(left, right);
   }
 

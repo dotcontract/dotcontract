@@ -24,12 +24,12 @@ importers:
       '@dotcontract/contract':
         specifier: workspace:^1.0.0
         version: link:../contract
-      '@dotcontract/directory':
+      '@dotcontract/storage':
         specifier: workspace:^1.0.0
-        version: link:../directory
-      '@dotcontract/file':
+        version: link:../storage
+      '@dotcontract/sync':
         specifier: workspace:^1.0.0
-        version: link:../file
+        version: link:../sync
       '@dotcontract/utils':
         specifier: workspace:^1.0.0
         version: link:../utils
@@ -54,9 +54,9 @@ importers:
       multiaddr:
         specifier: ^10.0.1
         version: 10.0.1(node-fetch@3.3.0)
-      ssh2-promise:
-        specifier: ^1.0.3
-        version: 1.0.3
+      shelljs:
+        specifier: ^0.8.5
+        version: 0.8.5
       temp:
         specifier: ^0.9.4
         version: 0.9.4
@@ -98,77 +98,6 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
 
-  packages/directory:
-    dependencies:
-      '@dotcontract/contract':
-        specifier: workspace:^1.0.0
-        version: link:../contract
-      '@dotcontract/kripke-machine':
-        specifier: workspace:^1.0.0
-        version: link:../kripke-machine
-      '@dotcontract/modality':
-        specifier: workspace:^1.0.0
-        version: link:../modality
-      '@dotcontract/utils':
-        specifier: workspace:^1.0.0
-        version: link:../utils
-      adm-zip:
-        specifier: ^0.5.9
-        version: 0.5.9
-      archiver:
-        specifier: ^5.3.1
-        version: 5.3.1
-      debug:
-        specifier: ^4.3.4
-        version: 4.3.4
-      jest:
-        specifier: ^28.1.1
-        version: 28.1.3
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      temp:
-        specifier: ^0.9.4
-        version: 0.9.4
-
-  packages/dotcontract: {}
-
-  packages/file:
-    dependencies:
-      '@dotcontract/contract':
-        specifier: workspace:^1.0.0
-        version: link:../contract
-      '@dotcontract/directory':
-        specifier: workspace:^1.0.0
-        version: link:../directory
-      '@dotcontract/kripke-machine':
-        specifier: workspace:^1.0.0
-        version: link:../kripke-machine
-      '@dotcontract/modality':
-        specifier: workspace:^1.0.0
-        version: link:../modality
-      '@dotcontract/utils':
-        specifier: workspace:^1.0.0
-        version: link:../utils
-      adm-zip:
-        specifier: ^0.5.9
-        version: 0.5.9
-      archiver:
-        specifier: ^5.3.1
-        version: 5.3.1
-      debug:
-        specifier: ^4.3.4
-        version: 4.3.4
-      jest:
-        specifier: ^28.1.1
-        version: 28.1.3
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      temp:
-        specifier: ^0.9.4
-        version: 0.9.4
-
   packages/kripke-machine:
     dependencies:
       '@dotcontract/utils':
@@ -192,6 +121,86 @@ importers:
 
   packages/modality:
     dependencies:
+      '@dotcontract/utils':
+        specifier: workspace:^1.0.0
+        version: link:../utils
+      antlr4:
+        specifier: ^4.10.1
+        version: 4.11.0
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4
+      jest:
+        specifier: ^28.1.1
+        version: 28.1.3
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      uint8arrays:
+        specifier: ^3.0.0
+        version: 3.1.1
+
+  packages/dotcontract: {}
+
+  packages/storage:
+    dependencies:
+      '@dotcontract/contract':
+        specifier: workspace:^1.0.0
+        version: link:../contract
+      '@dotcontract/kripke-machine':
+        specifier: workspace:^1.0.0
+        version: link:../kripke-machine
+      '@dotcontract/modality':
+        specifier: workspace:^1.0.0
+        version: link:../modality
+      '@dotcontract/utils':
+        specifier: workspace:^1.0.0
+        version: link:../utils
+      adm-zip:
+        specifier: ^0.5.9
+        version: 0.5.9
+      archiver:
+        specifier: ^5.3.1
+        version: 5.3.1
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4
+      jest:
+        specifier: ^28.1.1
+        version: 28.1.3
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      temp:
+        specifier: ^0.9.4
+        version: 0.9.4
+
+  packages/sync:
+    dependencies:
+      '@dotcontract/storage':
+        specifier: workspace:^1.0.0
+        version: link:../storage
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4
+      jest:
+        specifier: ^28.1.1
+        version: 28.1.3
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      ssh2-promise:
+        specifier: ^1.0.3
+        version: 1.0.3
+      temp:
+        specifier: ^0.9.4
+        version: 0.9.4
+        
+  packages/modality-functions:
+    dependencies:
+      '@dotcontract/modality':
+        specifier: workspace:^
+        version: link:../modality
       '@dotcontract/utils':
         specifier: workspace:^1.0.0
         version: link:../utils
@@ -2071,6 +2080,11 @@ packages:
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dev: false
 
+  /interpret@1.4.0:
+    resolution: {integrity: sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==}
+    engines: {node: '>= 0.10'}
+    dev: false
+
   /ip-address@5.9.4:
     resolution: {integrity: sha512-dHkI3/YNJq4b/qQaz+c8LuarD3pY24JqZWfjB8aZx1gtpc2MDILu9L9jpZe1sHpzo/yWFweQVn+U//FhazUxmw==}
     engines: {node: '>= 0.10'}
@@ -3093,6 +3107,13 @@ packages:
       ms: 2.1.3
     dev: false
 
+  /rechoir@0.6.2:
+    resolution: {integrity: sha512-HFM8rkZ+i3zrV+4LQjwQ0W+ez98pApMGM3HUrN04j3CqzPOzl9nmP15Y8YXNm8QHGv/eacOVEjqhmWpkRV0NAw==}
+    engines: {node: '>= 0.10'}
+    dependencies:
+      resolve: 1.22.1
+    dev: false
+
   /require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
@@ -3188,6 +3209,16 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
+  /shelljs@0.8.5:
+    resolution: {integrity: sha512-TiwcRcrkhHvbrZbnRcFYMLl30Dfov3HKqzp5tO5b4pt6G/SezKcYhmDg15zXVBswHmctSAQKznqNW2LO5tTDow==}
+    engines: {node: '>=4'}
+    hasBin: true
+    dependencies:
+      glob: 7.2.3
+      interpret: 1.4.0
+      rechoir: 0.6.2
+    dev: false
+
   /signal-exit@3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
     dev: false
@@ -3225,11 +3256,11 @@ packages:
     resolution: {integrity: sha512-842MuERRLuGdTneOZhc5HeogBtGFI/WeeJ9LH3Jp+eB57av8hHGDzxZqgWuQmuxVDniRf7B+agSfgc2wKfLY4w==}
     dependencies:
       '@heroku/socksv5': 0.0.9
-      ssh2: 1.13.0
+      ssh2: 1.14.0
     dev: false
 
-  /ssh2@1.13.0:
-    resolution: {integrity: sha512-CIZBFRRY1y9mAZSqBGFE4EB4dNJad2ysT2PqO8OpkiI3UTB/gUZwE5EaN16qVyQ6s/M7EgC/iaV/MnjdlvnuzA==}
+  /ssh2@1.14.0:
+    resolution: {integrity: sha512-AqzD1UCqit8tbOKoj6ztDDi1ffJZ2rV2SwlgrVVrHPkV5vWqGJOVp5pmtj18PunkPJAuKQsnInyKV+/Nb2bUnA==}
     engines: {node: '>=10.16.0'}
     requiresBuild: true
     dependencies:

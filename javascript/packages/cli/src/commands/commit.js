@@ -58,7 +58,6 @@ export const builder = {
 
 import os from "os";
 import path from "path";
-import DotContractFile from "@dotcontract/file";
 import Contract, { Commit, Route } from "@dotcontract/contract";
 import Key from "@dotcontract/utils/Key";
 import FileHash from "@dotcontract/utils/FileHash";
@@ -79,18 +78,16 @@ export async function handler(argv) {
     // send,
     // receive,
   } = argv;
-  const { dotcontract_file: dcf } = await ensureContractArgs(argv);
+  const { dotcontract: dc } = await ensureContractArgs(argv);
 
   if (!post && !rule && !body && !bodyFromFile) {
-    console.error(
+    throw new Error(
       "Missing required argument: body or bodyFromFile or a particular action like post, rule, or define"
     );
-    return process.exit(-1);
   }
   // TODO
   if (body || bodyFromFile) {
-    console.error("Input as body not yet implemented");
-    return process.exit(-1);
+    throw new Error("Input as body not yet implemented");
   }
   // if (bodyFromFile) {
   //   body = fs.readFileSync(bodyFromFile);
@@ -100,9 +97,7 @@ export async function handler(argv) {
   // try {
   //   body = JSON.parse(body);
   // } catch (e) {
-  //   console.error("Unable to parse body.");
-  //   console.error(e);
-  //   return;
+  //   throw new Error("Unable to parse body.");
   // }
 
   const c = new Commit();
@@ -165,17 +160,16 @@ For example: ${path}.text
   if (signing_keys.length) {
     await c.signWith(signing_keys);
   }
-
-  if (!dcf.directory.contract.canAppendCommitFromJson(c.toJSON())) {
+  if (!(await dc.canAppendCommitFromJson(c.toJSON()))) {
     throw new Error("Unable to append commit to contract.");
   }
 
-  await dcf.commit(c.toJSON());
+  await dc.commit(c.toJSON());
 
   for (const attachment of attachments) {
-    await dcf.attach(attachment);
+    await dc.attach(attachment);
   }
-  await dcf.save();
+  await dc.save();
 }
 
 export default handler;

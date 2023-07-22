@@ -1,7 +1,7 @@
 export const command = "unpack";
 export const describe = "unpack a contract file into a contract directory";
 
-import DotContractFile from "@dotcontract/file";
+import DotContract from "@dotcontract/storage";
 
 export const builder = {
   input: {
@@ -10,6 +10,7 @@ export const builder = {
     required: true,
   },
   dir: {
+    alias: "d",
     desc: "contract directory [filepath]",
     required: true,
   },
@@ -17,7 +18,7 @@ export const builder = {
 
 export async function handler(argv) {
   const { dir, input } = argv;
-  await DotContractFile.unzip(input, dir);
+  await DotContract.unzip(input, dir);
 }
 
 export default handler;

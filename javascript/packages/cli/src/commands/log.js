@@ -39,8 +39,8 @@ import {
 } from "../lib/LogStyles.js";
 
 import { Commit } from "@dotcontract/contract";
-import { validateRemoteContract } from "./link.js";
-import DotContractFile from "@dotcontract/file";
+import Sync from "@dotcontract/sync";
+import DotContract from "@dotcontract/storage";
 
 function describeCommits({ commitLog, commitOrder, order, limit, all }) {
   log(`${asBold(`# Contract Commit Log`)}`);
@@ -105,30 +105,26 @@ export async function handler(argv) {
   const { order, limit, all, linked } = argv;
 
   if (order !== "desc" && order !== "asc") {
-    console.error(
+    throw new Error(
       `ERROR: Invalid order provided. Valid options are: desc, asc`
     );
-    process.exit(-1);
   }
 
   if (limit < 1) {
-    console.error(
+    throw new Error(
       `ERROR: Invalid limit provided. Valid options are: positive integers`
     );
-    process.exit(-1);
   }
-  var { dotcontract_file: dcf } = await ensureContractArgs(argv);
+  var { dotcontract: dc } = await ensureContractArgs(argv);
   if (linked) {
-    const link_config = await dcf.getLinkedContract();
+    const link_config = Sync.getLinkedContract(dc);
     if (link_config == null) {
-      log("No linked contract found!");
-      process.exit(-1);
+      throw new Error("No linked contract found!");
     }
     const contract_path = link_config["path"];
-    console.log(contract_path);
 
     if ("server" in link_config) {
-      dcf = await validateRemoteContract(
+      dc = await Sync.validateRemoteContract(
         contract_path,
         link_config["server"],
         link_config["user"],
@@ -136,12 +132,12 @@ export async function handler(argv) {
         link_config["identity"]
       );
     } else {
-      dcf = await DotContractFile.getDcfFromPath(contract_path);
+      dc = await DotContract.getDCFromPath(contract_path);
     }
   }
 
-  const commitLog = await dcf.getCommitLog();
-  const commitOrder = await dcf.getCommitOrder();
+  const commitLog = await dc.getCommitLog();
+  const commitOrder = await dc.getCommitOrder();
 
   describeCommits({ commitLog, commitOrder, order, limit, all });
 }

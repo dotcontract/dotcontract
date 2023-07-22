@@ -9,8 +9,8 @@ export const builder = {
 
 const log = console.log;
 import { asBold, asSuccess, asError, asWarning } from "../lib/LogStyles.js";
-import { validateRemoteContract } from "./link.js";
-import DotContractFile from "@dotcontract/file";
+import Sync from "@dotcontract/sync";
+import DotContract from "@dotcontract/storage";
 
 function describeContract({
   contract_id,
@@ -59,12 +59,12 @@ function describeContract({
 }
 
 export async function handler(argv) {
-  const { dotcontract_file: dcf } = await ensureContractArgs(argv);
+  const { dotcontract: dc } = await ensureContractArgs(argv);
 
-  const isValid = await dcf.isValid();
-  const genesis = await dcf.getDotContractJson();
-  const commitLog = await dcf.getCommitLog();
-  const commitOrder = await dcf.getCommitOrder();
+  const isValid = await dc.isValid();
+  const genesis = await dc.getDotContractJson();
+  const commitLog = await dc.getCommitLog();
+  const commitOrder = await dc.getCommitOrder();
   const local_status = {
     status: isValid,
     commit_count: commitLog.length,
@@ -73,13 +73,13 @@ export async function handler(argv) {
   };
   const contract_id = genesis.genesis.contract_id;
 
-  const link_config = await dcf.getLinkedContract();
+  const link_config = Sync.getLinkedContract(dc);
   let link_status = null;
   if (link_config) {
     const contract_path = link_config["path"];
-    let source_dcf = null;
+    let source_dc = null;
     if ("server" in link_config) {
-      source_dcf = await validateRemoteContract(
+      source_dc = await Sync.validateRemoteContract(
         contract_path,
         link_config["server"],
         link_config["user"],
@@ -87,11 +87,11 @@ export async function handler(argv) {
         link_config["identity"]
       );
     } else {
-      source_dcf = await DotContractFile.getDcfFromPath(contract_path);
+      source_dc = await DotContract.getDCFromPath(contract_path);
     }
-    const isValidLinked = await source_dcf.isValid();
-    const commitLogLinked = await source_dcf.getCommitLog();
-    const commitOrderLinked = await source_dcf.getCommitOrder();
+    const isValidLinked = await source_dc.isValid();
+    const commitLogLinked = await source_dc.getCommitLog();
+    const commitOrderLinked = await source_dc.getCommitOrder();
 
     link_status = {
       status: isValidLinked,

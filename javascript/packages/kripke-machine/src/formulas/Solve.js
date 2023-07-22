@@ -23,7 +23,6 @@ const MAX_RECURSION = process.env.MAX_RECURSION || Infinity;
 
 export default class Solve {
   static inSystem(formula, system, env = {}) {
-    // console.log({ formula, system, env });
     const formula_type = formula.constructor;
     if (formula_type === TrueAtom) {
       return new Set(...system.getAllStateIds());
