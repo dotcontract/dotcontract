@@ -1,7 +1,7 @@
 import BaseFormula from "./BaseFormula.js";
 import NegatedFormula from "./NegatedFormula.js";
 
-import { functionCallToPropName } from "../Functions.js";
+import { getPropFromTest } from "../TestFactory.js";
 
 export default class FunctionAtom extends BaseFormula {
   constructor(name, args) {
@@ -15,7 +15,7 @@ export default class FunctionAtom extends BaseFormula {
   }
 
   expandFunctions() {
-    const funcCallPropName = functionCallToPropName(this.name, this.args);
+    const funcCallPropName = getPropFromTest(this.name, this.args);
     return {
       constraint: funcCallPropName,
       functions: {
@@ -31,7 +31,7 @@ export default class FunctionAtom extends BaseFormula {
   }
 
   toModalFormula() {
-    const funcCallPropName = functionCallToPropName(
+    const funcCallPropName = getPropFromTest(
       this.name,
       this.args.map((i) => (i.toFunctionArg ? i.toFunctionArg() : i))
     );
