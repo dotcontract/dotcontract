@@ -1,7 +1,7 @@
 import BaseFormula from "./BaseFormula.js";
 import NegatedFormula from "./NegatedFormula.js";
 
-import { getPropFromTest } from "../TestFunction.js";
+import { getPropFromTest } from "../TestFactory.js";
 
 export default class FunctionAtom extends BaseFormula {
   constructor(name, args) {

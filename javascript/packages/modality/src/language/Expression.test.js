@@ -1,7 +1,7 @@
 import { expect, describe, it } from "@jest/globals";
 
 import Expression from "./Expression.js";
-import { getPropFromTest, escapeArgs } from "../TestFunction.js";
+import { getPropFromTest, escapeArgs } from "../TestFactory.js";
 import Context from "../Context.js";
 
 const VALID_FORMULAS = {

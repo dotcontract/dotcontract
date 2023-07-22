@@ -1,45 +1,41 @@
 import Expression from "./language/Expression.js";
 
-import TestFunction from "./TestFunction.js";
+import TestFactory from "./TestFactory.js";
 import Test from "./Test.js";
 
 export const SIGNS = {
-  TRUE: '+',
-  FALSE: '-',
-  MAYBE: '?'
-}
+  TRUE: "+",
+  FALSE: "-",
+  MAYBE: "?",
+};
 export default class Modality {
-  static SIGNS = SIGNS
-  
-  static escapeArgs = TestFunction.escapeArgs;
-  static unescapeArgs = TestFunction.unescapeArgs;
+  static SIGNS = SIGNS;
+
+  static escapeArgs = TestFactory.escapeArgs;
+  static unescapeArgs = TestFactory.unescapeArgs;
 
   static toModalFormula(text) {
     const expr = new Expression(text);
     return expr.toModalFormula();
   }
 
-  static createTestFunction(name) {
-    return new TestFunction(name);
-  }
-
   constructor() {
-    this.test_functions = {};
+    this.test_factories = {};
     return this;
   }
 
-  registerTestFunction(tf) {
-    this.test_functions[tf.name] = tf;
+  registerTestFactory(tf) {
+    this.test_factories[tf.name] = tf;
   }
 
-  getAllTestFunctions() {
-    return Object.values(this.test_functions);
+  getAllTestFactories() {
+    return Object.values(this.test_factories);
   }
 
-  getTestFunction(name) {
-    const tf = this.test_functions[name];
+  getTestFactory(name) {
+    const tf = this.test_factories[name];
     if (!tf) {
-      throw new Error(`test '${name}' not found`);
+      throw new Error(`test factory '${name}' not found`);
     }
     return tf;
   }

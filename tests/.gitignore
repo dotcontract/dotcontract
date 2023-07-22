@@ -2,3 +2,5 @@ tmp/**
 .contract
 *.contract
 test
+key.keypair
+temp.txt

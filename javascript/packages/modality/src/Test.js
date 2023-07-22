@@ -1,4 +1,4 @@
-import { parseProp, getPropFromTest } from "./TestFunction.js";
+import { parseProp, getPropFromTest } from "./TestFactory.js";
 
 export default class Test {
   constructor(name, args) {
@@ -8,8 +8,8 @@ export default class Test {
   }
 
   static fromProp(prop) {
-    const {name, args} = parseProp(prop);
-    return new Test({name, args});
+    const { name, args } = parseProp(prop);
+    return new Test({ name, args });
   }
 
   static toProp(name, args) {
@@ -20,12 +20,11 @@ export default class Test {
     Test.toProp(this.name, this.args);
   }
 
-  getRelations(other_tests = []) {
+  async evaluate(context) {
     throw new Error("not implemented");
   }
 
-  evaluate(context) {
+  async correlate(other_tests = []) {
     throw new Error("not implemented");
   }
-
 }

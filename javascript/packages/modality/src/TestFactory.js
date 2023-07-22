@@ -43,7 +43,7 @@ export function parseProp(prop) {
   };
 }
 
-export default class TestFunction {
+export default class TestFactory {
   constructor(name) {
     this.name = name;
     return this;
@@ -54,6 +54,7 @@ export default class TestFunction {
   static getPropFromTest = getPropFromTest;
   static getNameFromProp = getNameFromProp;
   static parseProp = parseProp;
+  static propFromNameAndArgs = getPropFromTest;
 
   getArgsFromProp(prop) {
     const call = parseProp(prop);
@@ -66,14 +67,18 @@ export default class TestFunction {
     return getPropFromTest(this.name, args);
   }
 
-  withArgs(args) {
+  getTestForArgs(args) {
     const test = new Test(this.name, args);
-    if (this.evaluate) {
-      test.evaluate = this.evaluate(args);
-    }
-    if (this.getRelations) {
-      test.getRelations = this.getRelations(args);
-    }
+    test.evaluate = this.getEvaluateForArgs(args);
+    test.correlate = this.getCorrelateForArgs(args);
     return test;
+  }
+
+  getEvaluateForArgs(args) {
+    throw new Error("not implemented");
+  }
+
+  getCorrelateForArgs(args) {
+    throw new Error("not implemented");
   }
 }
