@@ -112,21 +112,26 @@ docker cp remote_test1.contract $CONTAINER_NAME:/home/dotcontract/remote_test1.c
 
 contract create -f remote_test2.contract
 
+echo "Remote Link tests > Link"
 # Link
 contract link -f remote_test2.contract --url dotcontract@localhost:$SSH_PORT/home/dotcontract/remote_test1.contract -i $DOCKER_WITH_SSH_DIR/config/id_ed25519
 
+echo "Remote Link tests > Pull"
 # Pull
 contract pull -f remote_test2.contract
 
+echo "Remote Link tests > Push"
 # Push
 contract commit -f remote_test2.contract --post /welcome.text "back"
 contract push -f remote_test2.contract
 
+echo "Remote Link tests > Log"
 # Log linked
 contract log -f remote_test2.contract --linked
 
 check_commit_log remote_test2.contract 14 --linked
 
+echo "Stop Docker"
 # Stop docker
 $DOCKER_WITH_SSH_DIR/scripts/docker/stop
 
