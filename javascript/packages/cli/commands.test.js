@@ -16,10 +16,10 @@ function runShellScriptTest(name) {
 
 describe("CLI-Tests", () => {
   it("should run cli tests script", async () => {
-    const out_dir = runShellScriptTest('cli-tests-directory');
+    const out_dir = runShellScriptTest("cli-tests-directory");
     expect(out_dir.code).toEqual(0);
 
-    const out_file = runShellScriptTest('cli-tests-file');
+    const out_file = runShellScriptTest("cli-tests-file");
     expect(out_file.code).toEqual(0);
   });
 });
