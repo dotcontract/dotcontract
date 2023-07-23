@@ -55,7 +55,12 @@ export default class Sync {
     await sftp.fastGet(file_path, temp_file).catch((err) => {
       throw new Error("ERROR: Error in reading contract from remote!");
     });
-    ssh.close();
+    // TODO replace this timeout
+    // fastGet doesn't seem to await the end of its write stream
+    await new Promise((resolve) => {
+      setTimeout(resolve, 500);
+    });
+    await ssh.close();
     const new_dc = await this.ensureLocalContractPath(temp_file);
     log("Remote contract verified...");
     return new_dc;
