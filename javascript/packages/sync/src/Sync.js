@@ -52,14 +52,23 @@ export default class Sync {
     const sftp = ssh.sftp();
     const dirpath = temp.mkdirSync();
     const temp_file = dirpath + "/temp.contract";
-    await sftp.fastGet(file_path, temp_file).catch((err) => {
-      throw new Error("ERROR: Error in reading contract from remote!");
+    const write_stream = fs.createWriteStream(temp_file);
+    const read_stream = await sftp.createReadStream(file_path);
+    await new Promise((resolve, reject) => {
+      read_stream.on("data", (data) => {
+        write_stream.write(data);
+      });
+      read_stream.on("end", () => {
+        write_stream.on('finish', () => { resolve(); })
+        write_stream.end();
+      });
+      read_stream.on("error", (e) => {
+        reject(e);
+      });
+    }).catch((err) => {
+      throw new Error(`ERROR: Error in reading contract from remote! ${err}`);
     });
-    // TODO replace this timeout
-    // fastGet doesn't seem to await the end of its write stream
-    await new Promise((resolve) => {
-      setTimeout(resolve, 500);
-    });
+
     await ssh.close();
     const new_dc = await this.ensureLocalContractPath(temp_file);
     log("Remote contract verified...");
