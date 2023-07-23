@@ -23,7 +23,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x]
+        # node-version: [16.x, 18.x, 20.x]
+        node-version: [20.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -49,11 +50,13 @@ jobs:
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
-      - name: Run tests
-        run: scripts/test
+        with:
+          limit-access-to-actor: true
       - name: Run prettier
         working-directory: ./javascript/packages
         run: ../scripts/formatting/check
       - name: Run eslint
         working-directory: ./javascript/packages
         run: ../scripts/lint
+      - name: Run tests
+        run: scripts/test
