@@ -135,7 +135,6 @@ export default class Sync {
     const write_stream = await sftp.createWriteStream(file_path);
     await new Promise((resolve, reject) => {
       read_stream.on("data", (data) => {
-        console.log('writing');
         write_stream.write(data);
       });
       read_stream.on("end", () => {
