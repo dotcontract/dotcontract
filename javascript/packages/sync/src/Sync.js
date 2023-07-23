@@ -131,10 +131,26 @@ export default class Sync {
     const temp_file = dirpath + "/" + file_path.split("/").pop();
     await dc.zip(temp_file);
     await sftp.unlink(file_path);
-    await sftp.fastPut(temp_file, file_path).catch((err) => {
-      throw new Error("ERROR: Error in writing contract to remote!");
+    const read_stream = fs.createReadStream(temp_file);
+    const write_stream = await sftp.createWriteStream(file_path);
+    await new Promise((resolve, reject) => {
+      read_stream.on("data", (data) => {
+        console.log('writing');
+        write_stream.write(data);
+      });
+      read_stream.on("end", () => {
+        write_stream.on("close", () => {
+          resolve();
+        });
+        write_stream.end();
+      });
+      read_stream.on("error", (e) => {
+        reject(e);
+      });
+    }).catch((err) => {
+      throw new Error(`ERROR: Error in writing contract from remote! ${err}`);
     });
-    ssh.close();
+    await ssh.close();
     log("Remote contract updated!");
   }
   static async sync_source(source_dc, dc) {
