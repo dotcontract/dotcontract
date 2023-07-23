@@ -59,7 +59,9 @@ export default class Sync {
         write_stream.write(data);
       });
       read_stream.on("end", () => {
-        write_stream.on('finish', () => { resolve(); })
+        write_stream.on("finish", () => {
+          resolve();
+        });
         write_stream.end();
       });
       read_stream.on("error", (e) => {
