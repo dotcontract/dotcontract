@@ -4,3 +4,4 @@ tmp/**
 test
 key.keypair
 temp.txt
+**/tmp
