@@ -25,7 +25,7 @@ export default class Solve {
   static inSystem(formula, system, env = {}) {
     const formula_type = formula.constructor;
     if (formula_type === TrueAtom) {
-      return new Set(...system.getAllStateIds());
+      return new Set(system.getAllStateIds());
     } else if (formula_type === FalseAtom) {
       return new Set();
     } else if (formula_type === OrFormula) {
@@ -108,7 +108,7 @@ export default class Solve {
       let i = 0;
       do {
         i = i + 1;
-        s = new Set(...env[formula.bound_var.name]);
+        s = new Set(env[formula.bound_var.name]);
         env[formula.bound_var.name] = Solve.inSystem(
           formula.inner,
           system,
@@ -120,12 +120,12 @@ export default class Solve {
       );
       return s;
     } else if (formula_type === GfpFormula) {
-      env[formula.bound_var.name] = new Set(...system.getAllStateIds());
+      env[formula.bound_var.name] = new Set(system.getAllStateIds());
       let s;
       let i = 0;
       do {
         i = i + 1;
-        s = new Set(...env[formula.bound_var.name]);
+        s = new Set(env[formula.bound_var.name]);
         env[formula.bound_var.name] = Solve.inSystem(
           formula.inner,
           system,

@@ -2,6 +2,8 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
 import * as gen_keypair from "../commands/gen_keypair.js";
+import * as pubkey from "../commands/pubkey.js";
+
 import * as pack from "../commands/pack.js";
 import * as unpack from "../commands/unpack.js";
 
@@ -37,5 +39,6 @@ const { argv } = yargs(hideBin(process.argv))
   .command(unpack)
   .command(machine)
   .command(gen_keypair)
+  .command(pubkey)
   .demandCommand(1, "command not recognized")
   .strict();

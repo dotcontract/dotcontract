@@ -83,8 +83,11 @@ importers:
         specifier: workspace:^1.0.0
         version: link:../kripke-machine
       '@dotcontract/modality':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^
         version: link:../modality
+      '@dotcontract/test-factories':
+        specifier: workspace:^
+        version: link:../test-factories
       '@dotcontract/utils':
         specifier: workspace:^1.0.0
         version: link:../utils

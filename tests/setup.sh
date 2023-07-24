@@ -22,8 +22,6 @@ before_test() {
 }
 
 after_test() {
-    echo $1
-    echo $1/tmp
     cd $1
     rm -rf $1/tmp
 }

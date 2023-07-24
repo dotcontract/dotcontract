@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "@dotcontract/kripke-machine": "workspace:^1.0.0",
-    "@dotcontract/modality": "workspace:^1.0.0",
+    "@dotcontract/modality": "workspace:^",
+    "@dotcontract/test-factories": "workspace:^",
     "@dotcontract/utils": "workspace:^1.0.0",
     "debug": "^4.3.4",
     "jest": "^28.1.1",

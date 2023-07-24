@@ -1,5 +1,6 @@
 import Key from "@dotcontract/utils/Key";
 import KripkeMachine, { Step } from "@dotcontract/kripke-machine";
+import Modality from "@dotcontract/modality";
 
 import Commit from "./Commit.js";
 
@@ -38,9 +39,12 @@ export default class Contract {
 
   async appendCommit(commit) {
     const props_text = "";
+    const rule = commit.getRulesConjoined();
+    const rule_text = rule ? Modality.toModalFormula(rule) : null;
+    const evolution_json = commit.getEvolutionJSON();
     const step = new Step(props_text, {
-      rule_text: commit.getRulesConjoined(),
-      evolution_json: commit.getEvolutionJSON(),
+      rule_text,
+      evolution_json,
     });
     await this.km.takeStep(step);
     return this.commits.push(commit);
@@ -67,6 +71,7 @@ export default class Contract {
       await clone.appendCommitFromJson(commit_json);
       return true;
     } catch (e) {
+      console.error(e);
       return false;
     }
   }

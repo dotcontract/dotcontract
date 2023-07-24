@@ -195,7 +195,7 @@ export default class KripkeMachine {
       const system_root_states = rule.root_states
         .filter((i) => i.system === system_index)
         .map((i) => i.state);
-      const ok = areSetsEqual(r, new Set(...system_root_states));
+      const ok = areSetsEqual(r, new Set(system_root_states));
       if (!ok) {
         return false;
       }

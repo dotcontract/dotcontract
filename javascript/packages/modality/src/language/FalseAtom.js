@@ -1,4 +1,5 @@
 import BaseFormula from "./BaseFormula.js";
+import TrueAtom from './TrueAtom.js';
 
 export default class FalseAtom extends BaseFormula {
   constructor() {
@@ -18,5 +19,9 @@ export default class FalseAtom extends BaseFormula {
 
   toModalFormula() {
     return `false`;
+  }
+
+  negated() {
+    return new TrueAtom();
   }
 }
