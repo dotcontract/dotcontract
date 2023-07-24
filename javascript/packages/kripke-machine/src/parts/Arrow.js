@@ -24,6 +24,23 @@ export default class Arrow {
       ensure_required = false;
     }
     const incoming_properties = Property.arrayFromText(properties_text);
+    // TODO consider not hardcoding these
+    if (
+      incoming_properties.find((p) => p.name === "false" && p.value === true)
+    ) {
+      return {
+        ok: false,
+        errors: [`false cannot be true`],
+      };
+    }
+    if (
+      incoming_properties.find((p) => p.name === "true" && p.value === false)
+    ) {
+      return {
+        ok: false,
+        errors: [`true cannot be false`],
+      };
+    }
     for (const prop of incoming_properties) {
       if (this.property_table.get(prop.name) !== prop.value) {
         return {
