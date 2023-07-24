@@ -19,6 +19,6 @@ export default class NotFormula extends BaseFormula {
   }
 
   toText() {
-    return `not (${this.inner.toText()})`;
+    return `not (${this.formula.toText()})`;
   }
 }

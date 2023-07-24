@@ -1,130 +1,70 @@
-// Generated from Modality.g4 by ANTLR 4.9.3
+// Generated from Modality.g4 by ANTLR 4.13.0
 // jshint ignore: start
 import antlr4 from 'antlr4';
 import ModalityListener from './ModalityListener.js';
 import ModalityVisitor from './ModalityVisitor.js';
 
-
-const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
-    "\u5964\u0003#\u00ac\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004",
-    "\t\u0004\u0004\u0005\t\u0005\u0004\u0006\t\u0006\u0004\u0007\t\u0007",
-    "\u0004\b\t\b\u0004\t\t\t\u0003\u0002\u0003\u0002\u0003\u0002\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0007\u0003\u001f\n\u0003\f\u0003\u000e\u0003",
-    "\"\u000b\u0003\u0003\u0003\u0006\u0003%\n\u0003\r\u0003\u000e\u0003",
-    "&\u0005\u0003)\n\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0005\u0003]\n\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0005\u0003g\n\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0005\u0003w\n\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0007\u0003\u007f\n\u0003\f\u0003\u000e\u0003",
-    "\u0082\u000b\u0003\u0003\u0004\u0003\u0004\u0003\u0004\u0003\u0004\u0003",
-    "\u0004\u0007\u0004\u0089\n\u0004\f\u0004\u000e\u0004\u008c\u000b\u0004",
-    "\u0005\u0004\u008e\n\u0004\u0003\u0004\u0003\u0004\u0003\u0005\u0003",
-    "\u0005\u0003\u0006\u0003\u0006\u0007\u0006\u0096\n\u0006\f\u0006\u000e",
-    "\u0006\u0099\u000b\u0006\u0003\u0006\u0003\u0006\u0003\u0007\u0003\u0007",
-    "\u0003\b\u0003\b\u0003\b\u0003\b\u0005\b\u00a3\n\b\u0003\t\u0003\t\u0003",
-    "\t\u0003\t\u0003\t\u0005\t\u00aa\n\t\u0003\t\u0002\u0003\u0004\n\u0002",
-    "\u0004\u0006\b\n\f\u000e\u0010\u0002\u0003\u0003\u0002\u0018\u001a\u0002",
-    "\u00c6\u0002\u0012\u0003\u0002\u0002\u0002\u0004v\u0003\u0002\u0002",
-    "\u0002\u0006\u0083\u0003\u0002\u0002\u0002\b\u0091\u0003\u0002\u0002",
-    "\u0002\n\u0093\u0003\u0002\u0002\u0002\f\u009c\u0003\u0002\u0002\u0002",
-    "\u000e\u00a2\u0003\u0002\u0002\u0002\u0010\u00a9\u0003\u0002\u0002\u0002",
-    "\u0012\u0013\u0005\u0004\u0003\u0002\u0013\u0014\u0007\u0002\u0002\u0003",
-    "\u0014\u0003\u0003\u0002\u0002\u0002\u0015\u0016\b\u0003\u0001\u0002",
-    "\u0016w\u0007\b\u0002\u0002\u0017w\u0007\t\u0002\u0002\u0018\u0019\u0007",
-    "\u0019\u0002\u0002\u0019w\u0005\u0004\u0003\u0013\u001a\u001b\u0007",
-    "\f\u0002\u0002\u001bw\u0005\u0004\u0003\u0012\u001c \u0005\b\u0005\u0002",
-    "\u001d\u001f\u0005\n\u0006\u0002\u001e\u001d\u0003\u0002\u0002\u0002",
-    "\u001f\"\u0003\u0002\u0002\u0002 \u001e\u0003\u0002\u0002\u0002 !\u0003",
-    "\u0002\u0002\u0002!)\u0003\u0002\u0002\u0002\" \u0003\u0002\u0002\u0002",
-    "#%\u0005\n\u0006\u0002$#\u0003\u0002\u0002\u0002%&\u0003\u0002\u0002",
-    "\u0002&$\u0003\u0002\u0002\u0002&\'\u0003\u0002\u0002\u0002\')\u0003",
-    "\u0002\u0002\u0002(\u001c\u0003\u0002\u0002\u0002($\u0003\u0002\u0002",
-    "\u0002)w\u0003\u0002\u0002\u0002*w\u0007 \u0002\u0002+,\u0007\u0010",
-    "\u0002\u0002,-\u0007\u0011\u0002\u0002-w\u0005\u0004\u0003\u000f./\u0007",
-    "\u0012\u0002\u0002/0\u0007\u0013\u0002\u00020w\u0005\u0004\u0003\u000e",
-    "12\u0007\u0010\u0002\u000223\u0005\u0004\u0003\u000234\u0007\u0011\u0002",
-    "\u000245\u0005\u0004\u0003\r5w\u0003\u0002\u0002\u000267\u0007\u0012",
-    "\u0002\u000278\u0005\u0004\u0003\u000289\u0007\u0013\u0002\u00029:\u0005",
-    "\u0004\u0003\f:w\u0003\u0002\u0002\u0002;<\u0007\u001b\u0002\u0002<",
-    "=\u0007\u0014\u0002\u0002=>\u0005\u0004\u0003\u0002>?\u0007\u0017\u0002",
-    "\u0002?@\u0005\u0004\u0003\u0002@A\u0007\u0015\u0002\u0002Aw\u0003\u0002",
-    "\u0002\u0002BC\u0007\u001c\u0002\u0002CD\u0007\u0014\u0002\u0002DE\u0005",
-    "\u0004\u0003\u0002EF\u0007\u0017\u0002\u0002FG\u0005\u0004\u0003\u0002",
-    "GH\u0007\u0015\u0002\u0002Hw\u0003\u0002\u0002\u0002IJ\u0007\u0003\u0002",
-    "\u0002JK\u0007\u0014\u0002\u0002KL\u0005\u0004\u0003\u0002LM\u0007\u0015",
-    "\u0002\u0002Mw\u0003\u0002\u0002\u0002NO\u0007\u0004\u0002\u0002OP\u0007",
-    "\u0014\u0002\u0002PQ\u0005\u0004\u0003\u0002QR\u0007\u0015\u0002\u0002",
-    "Rw\u0003\u0002\u0002\u0002ST\u0007\u0005\u0002\u0002TU\u0007\u0014\u0002",
-    "\u0002UV\u0005\u0004\u0003\u0002V\\\u0007\u0015\u0002\u0002WX\u0007",
-    "\u0007\u0002\u0002XY\u0007\u0014\u0002\u0002YZ\u0005\u0004\u0003\u0002",
-    "Z[\u0007\u0015\u0002\u0002[]\u0003\u0002\u0002\u0002\\W\u0003\u0002",
-    "\u0002\u0002\\]\u0003\u0002\u0002\u0002]w\u0003\u0002\u0002\u0002^_",
-    "\u0007\u0006\u0002\u0002_`\u0007\u0014\u0002\u0002`a\u0005\u0004\u0003",
-    "\u0002af\u0007\u0015\u0002\u0002bc\u0007\u0007\u0002\u0002cd\u0005\u0004",
-    "\u0003\u0002de\u0007\u0015\u0002\u0002eg\u0003\u0002\u0002\u0002fb\u0003",
-    "\u0002\u0002\u0002fg\u0003\u0002\u0002\u0002gw\u0003\u0002\u0002\u0002",
-    "hi\u0007\r\u0002\u0002ij\u0005\u0004\u0003\u0002jk\u0007\u000e\u0002",
-    "\u0002kl\u0005\u0004\u0003\u0005lw\u0003\u0002\u0002\u0002mn\u0007\r",
-    "\u0002\u0002no\u0005\u0004\u0003\u0002op\u0007\u000f\u0002\u0002pq\u0005",
-    "\u0004\u0003\u0004qw\u0003\u0002\u0002\u0002rs\u0007\u0014\u0002\u0002",
-    "st\u0005\u0004\u0003\u0002tu\u0007\u0015\u0002\u0002uw\u0003\u0002\u0002",
-    "\u0002v\u0015\u0003\u0002\u0002\u0002v\u0017\u0003\u0002\u0002\u0002",
-    "v\u0018\u0003\u0002\u0002\u0002v\u001a\u0003\u0002\u0002\u0002v(\u0003",
-    "\u0002\u0002\u0002v*\u0003\u0002\u0002\u0002v+\u0003\u0002\u0002\u0002",
-    "v.\u0003\u0002\u0002\u0002v1\u0003\u0002\u0002\u0002v6\u0003\u0002\u0002",
-    "\u0002v;\u0003\u0002\u0002\u0002vB\u0003\u0002\u0002\u0002vI\u0003\u0002",
-    "\u0002\u0002vN\u0003\u0002\u0002\u0002vS\u0003\u0002\u0002\u0002v^\u0003",
-    "\u0002\u0002\u0002vh\u0003\u0002\u0002\u0002vm\u0003\u0002\u0002\u0002",
-    "vr\u0003\u0002\u0002\u0002w\u0080\u0003\u0002\u0002\u0002xy\f\u0015",
-    "\u0002\u0002yz\u0007\u000b\u0002\u0002z\u007f\u0005\u0004\u0003\u0016",
-    "{|\f\u0014\u0002\u0002|}\u0007\n\u0002\u0002}\u007f\u0005\u0004\u0003",
-    "\u0015~x\u0003\u0002\u0002\u0002~{\u0003\u0002\u0002\u0002\u007f\u0082",
-    "\u0003\u0002\u0002\u0002\u0080~\u0003\u0002\u0002\u0002\u0080\u0081",
-    "\u0003\u0002\u0002\u0002\u0081\u0005\u0003\u0002\u0002\u0002\u0082\u0080",
-    "\u0003\u0002\u0002\u0002\u0083\u0084\u0007\u001d\u0002\u0002\u0084\u008d",
-    "\u0007\u0014\u0002\u0002\u0085\u008a\u0005\u0010\t\u0002\u0086\u0087",
-    "\u0007\u0017\u0002\u0002\u0087\u0089\u0005\u0010\t\u0002\u0088\u0086",
-    "\u0003\u0002\u0002\u0002\u0089\u008c\u0003\u0002\u0002\u0002\u008a\u0088",
-    "\u0003\u0002\u0002\u0002\u008a\u008b\u0003\u0002\u0002\u0002\u008b\u008e",
-    "\u0003\u0002\u0002\u0002\u008c\u008a\u0003\u0002\u0002\u0002\u008d\u0085",
-    "\u0003\u0002\u0002\u0002\u008d\u008e\u0003\u0002\u0002\u0002\u008e\u008f",
-    "\u0003\u0002\u0002\u0002\u008f\u0090\u0007\u0015\u0002\u0002\u0090\u0007",
-    "\u0003\u0002\u0002\u0002\u0091\u0092\u0005\u000e\b\u0002\u0092\t\u0003",
-    "\u0002\u0002\u0002\u0093\u0097\u0005\f\u0007\u0002\u0094\u0096\u0007",
-    "\"\u0002\u0002\u0095\u0094\u0003\u0002\u0002\u0002\u0096\u0099\u0003",
-    "\u0002\u0002\u0002\u0097\u0095\u0003\u0002\u0002\u0002\u0097\u0098\u0003",
-    "\u0002\u0002\u0002\u0098\u009a\u0003\u0002\u0002\u0002\u0099\u0097\u0003",
-    "\u0002\u0002\u0002\u009a\u009b\u0005\u000e\b\u0002\u009b\u000b\u0003",
-    "\u0002\u0002\u0002\u009c\u009d\t\u0002\u0002\u0002\u009d\r\u0003\u0002",
-    "\u0002\u0002\u009e\u00a3\u0007\b\u0002\u0002\u009f\u00a3\u0007\t\u0002",
-    "\u0002\u00a0\u00a3\u0007\u001d\u0002\u0002\u00a1\u00a3\u0005\u0006\u0004",
-    "\u0002\u00a2\u009e\u0003\u0002\u0002\u0002\u00a2\u009f\u0003\u0002\u0002",
-    "\u0002\u00a2\u00a0\u0003\u0002\u0002\u0002\u00a2\u00a1\u0003\u0002\u0002",
-    "\u0002\u00a3\u000f\u0003\u0002\u0002\u0002\u00a4\u00aa\u0007\b\u0002",
-    "\u0002\u00a5\u00aa\u0007\t\u0002\u0002\u00a6\u00aa\u0007\u001e\u0002",
-    "\u0002\u00a7\u00aa\u0007\u001f\u0002\u0002\u00a8\u00aa\u0007!\u0002",
-    "\u0002\u00a9\u00a4\u0003\u0002\u0002\u0002\u00a9\u00a5\u0003\u0002\u0002",
-    "\u0002\u00a9\u00a6\u0003\u0002\u0002\u0002\u00a9\u00a7\u0003\u0002\u0002",
-    "\u0002\u00a9\u00a8\u0003\u0002\u0002\u0002\u00aa\u0011\u0003\u0002\u0002",
-    "\u0002\u000f &(\\fv~\u0080\u008a\u008d\u0097\u00a2\u00a9"].join("");
+const serializedATN = [4,1,33,170,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,
+4,2,5,7,5,2,6,7,6,2,7,7,7,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+1,5,1,29,8,1,10,1,12,1,32,9,1,1,1,4,1,35,8,1,11,1,12,1,36,3,1,39,8,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,91,8,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,3,1,101,8,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,3,1,117,8,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,125,8,1,10,1,12,
+1,128,9,1,1,2,1,2,1,2,1,2,1,2,5,2,135,8,2,10,2,12,2,138,9,2,3,2,140,8,2,
+1,2,1,2,1,3,1,3,1,4,1,4,5,4,148,8,4,10,4,12,4,151,9,4,1,4,1,4,1,5,1,5,1,
+6,1,6,1,6,1,6,3,6,161,8,6,1,7,1,7,1,7,1,7,1,7,3,7,168,8,7,1,7,0,1,2,8,0,
+2,4,6,8,10,12,14,0,1,1,0,22,24,196,0,16,1,0,0,0,2,116,1,0,0,0,4,129,1,0,
+0,0,6,143,1,0,0,0,8,145,1,0,0,0,10,154,1,0,0,0,12,160,1,0,0,0,14,167,1,0,
+0,0,16,17,3,2,1,0,17,18,5,0,0,1,18,1,1,0,0,0,19,20,6,1,-1,0,20,117,5,6,0,
+0,21,117,5,7,0,0,22,23,5,23,0,0,23,117,3,2,1,17,24,25,5,10,0,0,25,117,3,
+2,1,16,26,30,3,6,3,0,27,29,3,8,4,0,28,27,1,0,0,0,29,32,1,0,0,0,30,28,1,0,
+0,0,30,31,1,0,0,0,31,39,1,0,0,0,32,30,1,0,0,0,33,35,3,8,4,0,34,33,1,0,0,
+0,35,36,1,0,0,0,36,34,1,0,0,0,36,37,1,0,0,0,37,39,1,0,0,0,38,26,1,0,0,0,
+38,34,1,0,0,0,39,117,1,0,0,0,40,117,5,30,0,0,41,42,5,14,0,0,42,43,5,15,0,
+0,43,117,3,2,1,13,44,45,5,16,0,0,45,46,5,17,0,0,46,117,3,2,1,12,47,48,5,
+14,0,0,48,49,3,2,1,0,49,50,5,15,0,0,50,51,3,2,1,11,51,117,1,0,0,0,52,53,
+5,16,0,0,53,54,3,2,1,0,54,55,5,17,0,0,55,56,3,2,1,10,56,117,1,0,0,0,57,58,
+5,25,0,0,58,59,5,18,0,0,59,60,3,2,1,0,60,61,5,21,0,0,61,62,3,2,1,0,62,63,
+5,19,0,0,63,117,1,0,0,0,64,65,5,26,0,0,65,66,5,18,0,0,66,67,3,2,1,0,67,68,
+5,21,0,0,68,69,3,2,1,0,69,70,5,19,0,0,70,117,1,0,0,0,71,72,5,1,0,0,72,73,
+5,18,0,0,73,74,3,2,1,0,74,75,5,19,0,0,75,117,1,0,0,0,76,77,5,2,0,0,77,78,
+5,18,0,0,78,79,3,2,1,0,79,80,5,19,0,0,80,117,1,0,0,0,81,82,5,3,0,0,82,83,
+5,18,0,0,83,84,3,2,1,0,84,90,5,19,0,0,85,86,5,5,0,0,86,87,5,18,0,0,87,88,
+3,2,1,0,88,89,5,19,0,0,89,91,1,0,0,0,90,85,1,0,0,0,90,91,1,0,0,0,91,117,
+1,0,0,0,92,93,5,4,0,0,93,94,5,18,0,0,94,95,3,2,1,0,95,100,5,19,0,0,96,97,
+5,5,0,0,97,98,3,2,1,0,98,99,5,19,0,0,99,101,1,0,0,0,100,96,1,0,0,0,100,101,
+1,0,0,0,101,117,1,0,0,0,102,103,5,11,0,0,103,104,3,2,1,0,104,105,5,12,0,
+0,105,106,3,2,1,3,106,117,1,0,0,0,107,108,5,11,0,0,108,109,3,2,1,0,109,110,
+5,13,0,0,110,111,3,2,1,2,111,117,1,0,0,0,112,113,5,18,0,0,113,114,3,2,1,
+0,114,115,5,19,0,0,115,117,1,0,0,0,116,19,1,0,0,0,116,21,1,0,0,0,116,22,
+1,0,0,0,116,24,1,0,0,0,116,38,1,0,0,0,116,40,1,0,0,0,116,41,1,0,0,0,116,
+44,1,0,0,0,116,47,1,0,0,0,116,52,1,0,0,0,116,57,1,0,0,0,116,64,1,0,0,0,116,
+71,1,0,0,0,116,76,1,0,0,0,116,81,1,0,0,0,116,92,1,0,0,0,116,102,1,0,0,0,
+116,107,1,0,0,0,116,112,1,0,0,0,117,126,1,0,0,0,118,119,10,19,0,0,119,120,
+5,9,0,0,120,125,3,2,1,20,121,122,10,18,0,0,122,123,5,8,0,0,123,125,3,2,1,
+19,124,118,1,0,0,0,124,121,1,0,0,0,125,128,1,0,0,0,126,124,1,0,0,0,126,127,
+1,0,0,0,127,3,1,0,0,0,128,126,1,0,0,0,129,130,5,27,0,0,130,139,5,18,0,0,
+131,136,3,14,7,0,132,133,5,21,0,0,133,135,3,14,7,0,134,132,1,0,0,0,135,138,
+1,0,0,0,136,134,1,0,0,0,136,137,1,0,0,0,137,140,1,0,0,0,138,136,1,0,0,0,
+139,131,1,0,0,0,139,140,1,0,0,0,140,141,1,0,0,0,141,142,5,19,0,0,142,5,1,
+0,0,0,143,144,3,12,6,0,144,7,1,0,0,0,145,149,3,10,5,0,146,148,5,32,0,0,147,
+146,1,0,0,0,148,151,1,0,0,0,149,147,1,0,0,0,149,150,1,0,0,0,150,152,1,0,
+0,0,151,149,1,0,0,0,152,153,3,12,6,0,153,9,1,0,0,0,154,155,7,0,0,0,155,11,
+1,0,0,0,156,161,5,6,0,0,157,161,5,7,0,0,158,161,5,27,0,0,159,161,3,4,2,0,
+160,156,1,0,0,0,160,157,1,0,0,0,160,158,1,0,0,0,160,159,1,0,0,0,161,13,1,
+0,0,0,162,168,5,6,0,0,163,168,5,7,0,0,164,168,5,28,0,0,165,168,5,29,0,0,
+166,168,5,31,0,0,167,162,1,0,0,0,167,163,1,0,0,0,167,164,1,0,0,0,167,165,
+1,0,0,0,167,166,1,0,0,0,168,15,1,0,0,0,13,30,36,38,90,100,116,124,126,136,
+139,149,160,167];
 
 
 const atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
 
 const decisionsToDFA = atn.decisionToState.map( (ds, index) => new antlr4.dfa.DFA(ds, index) );
 
-const sharedContextCache = new antlr4.PredictionContextCache();
+const sharedContextCache = new antlr4.atn.PredictionContextCache();
 
 export default class ModalityParser extends antlr4.Parser {
 
@@ -150,10 +90,6 @@ export default class ModalityParser extends antlr4.Parser {
         this.ruleNames = ModalityParser.ruleNames;
         this.literalNames = ModalityParser.literalNames;
         this.symbolicNames = ModalityParser.symbolicNames;
-    }
-
-    get atn() {
-        return atn;
     }
 
     sempred(localctx, ruleIndex, predIndex) {
@@ -263,9 +199,9 @@ export default class ModalityParser extends antlr4.Parser {
 	            this.state = 38;
 	            this._errHandler.sync(this);
 	            switch(this._input.LA(1)) {
-	            case ModalityParser.TRUE:
-	            case ModalityParser.FALSE:
-	            case ModalityParser.NAME:
+	            case 6:
+	            case 7:
+	            case 27:
 	                this.state = 26;
 	                this.unsignedProp();
 	                this.state = 30;
@@ -282,9 +218,9 @@ export default class ModalityParser extends antlr4.Parser {
 	                }
 
 	                break;
-	            case ModalityParser.PLUS:
-	            case ModalityParser.MINUS:
-	            case ModalityParser.QMARK:
+	            case 22:
+	            case 23:
+	            case 24:
 	                this.state = 34; 
 	                this._errHandler.sync(this);
 	                var _alt = 1;
@@ -594,7 +530,7 @@ export default class ModalityParser extends antlr4.Parser {
 	functionProp() {
 	    let localctx = new FunctionPropContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 4, ModalityParser.RULE_functionProp);
-	    var _la = 0; // Token type
+	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 129;
@@ -604,13 +540,13 @@ export default class ModalityParser extends antlr4.Parser {
 	        this.state = 139;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
-	        if((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << ModalityParser.TRUE) | (1 << ModalityParser.FALSE) | (1 << ModalityParser.STRING) | (1 << ModalityParser.NUMBER) | (1 << ModalityParser.VARIABLE))) !== 0)) {
+	        if((((_la) & ~0x1f) === 0 && ((1 << _la) & 2952790208) !== 0)) {
 	            this.state = 131;
 	            this.arg();
 	            this.state = 136;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
-	            while(_la===ModalityParser.COMMA) {
+	            while(_la===21) {
 	                this.state = 132;
 	                this.match(ModalityParser.COMMA);
 	                this.state = 133;
@@ -665,7 +601,7 @@ export default class ModalityParser extends antlr4.Parser {
 	signedProp() {
 	    let localctx = new SignedPropContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 8, ModalityParser.RULE_signedProp);
-	    var _la = 0; // Token type
+	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 145;
@@ -673,7 +609,7 @@ export default class ModalityParser extends antlr4.Parser {
 	        this.state = 149;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
-	        while(_la===ModalityParser.WS) {
+	        while(_la===32) {
 	            this.state = 146;
 	            this.match(ModalityParser.WS);
 	            this.state = 151;
@@ -701,12 +637,12 @@ export default class ModalityParser extends antlr4.Parser {
 	sign() {
 	    let localctx = new SignContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 10, ModalityParser.RULE_sign);
-	    var _la = 0; // Token type
+	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 154;
 	        _la = this._input.LA(1);
-	        if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << ModalityParser.PLUS) | (1 << ModalityParser.MINUS) | (1 << ModalityParser.QMARK))) !== 0))) {
+	        if(!((((_la) & ~0x1f) === 0 && ((1 << _la) & 29360128) !== 0))) {
 	        this._errHandler.recoverInline(this);
 	        }
 	        else {
@@ -785,31 +721,31 @@ export default class ModalityParser extends antlr4.Parser {
 	        this.state = 167;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
-	        case ModalityParser.TRUE:
+	        case 6:
 	            localctx = new TrueArgContext(this, localctx);
 	            this.enterOuterAlt(localctx, 1);
 	            this.state = 162;
 	            this.match(ModalityParser.TRUE);
 	            break;
-	        case ModalityParser.FALSE:
+	        case 7:
 	            localctx = new FalseArgContext(this, localctx);
 	            this.enterOuterAlt(localctx, 2);
 	            this.state = 163;
 	            this.match(ModalityParser.FALSE);
 	            break;
-	        case ModalityParser.STRING:
+	        case 28:
 	            localctx = new StringArgContext(this, localctx);
 	            this.enterOuterAlt(localctx, 3);
 	            this.state = 164;
 	            this.match(ModalityParser.STRING);
 	            break;
-	        case ModalityParser.NUMBER:
+	        case 29:
 	            localctx = new NumberArgContext(this, localctx);
 	            this.enterOuterAlt(localctx, 4);
 	            this.state = 165;
 	            this.match(ModalityParser.NUMBER);
 	            break;
-	        case ModalityParser.VARIABLE:
+	        case 31:
 	            localctx = new VariableArgContext(this, localctx);
 	            this.enterOuterAlt(localctx, 5);
 	            this.state = 166;
@@ -891,7 +827,7 @@ class ExpressionContext extends antlr4.ParserRuleContext {
         super(parent, invokingState);
         this.parser = parser;
         this.ruleIndex = ModalityParser.RULE_expression;
-        this.f = null; // FormulaContext
+        this.f = null;
     }
 
 	EOF() {
@@ -1001,8 +937,8 @@ class WhenAlsoFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.when_formula = null; // FormulaContext;
-        this.also_formula = null; // FormulaContext;
+        this.when_formula = null;;
+        this.also_formula = null;;
         super.copyFrom(ctx);
     }
 
@@ -1054,7 +990,7 @@ class EmptyBoxFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.outer = null; // FormulaContext;
+        this.outer = null;;
         super.copyFrom(ctx);
     }
 
@@ -1099,8 +1035,8 @@ class AlwaysMacroContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.inner_formula = null; // FormulaContext;
-        this.until_formula = null; // FormulaContext;
+        this.inner_formula = null;;
+        this.until_formula = null;;
         super.copyFrom(ctx);
     }
 
@@ -1176,8 +1112,8 @@ class WhenNextFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.when_formula = null; // FormulaContext;
-        this.next_formula = null; // FormulaContext;
+        this.when_formula = null;;
+        this.next_formula = null;;
         super.copyFrom(ctx);
     }
 
@@ -1229,7 +1165,7 @@ class EmptyDiamondFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.outer = null; // FormulaContext;
+        this.outer = null;;
         super.copyFrom(ctx);
     }
 
@@ -1274,8 +1210,8 @@ class AndFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.left = null; // FormulaContext;
-        this.right = null; // FormulaContext;
+        this.left = null;;
+        this.right = null;;
         super.copyFrom(ctx);
     }
 
@@ -1323,7 +1259,7 @@ class NotFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.inner = null; // FormulaContext;
+        this.inner = null;;
         super.copyFrom(ctx);
     }
 
@@ -1364,8 +1300,8 @@ class OrFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.left = null; // FormulaContext;
-        this.right = null; // FormulaContext;
+        this.left = null;;
+        this.right = null;;
         super.copyFrom(ctx);
     }
 
@@ -1413,8 +1349,8 @@ class LfpFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.stateSetVariable = null; // FormulaContext;
-        this.inner = null; // FormulaContext;
+        this.stateSetVariable = null;;
+        this.inner = null;;
         super.copyFrom(ctx);
     }
 
@@ -1522,8 +1458,8 @@ class EventuallyMacroContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.inner_formula = null; // FormulaContext;
-        this.until_formula = null; // FormulaContext;
+        this.inner_formula = null;;
+        this.until_formula = null;;
         super.copyFrom(ctx);
     }
 
@@ -1591,8 +1527,8 @@ class DiamondFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.inner = null; // FormulaContext;
-        this.outer = null; // FormulaContext;
+        this.inner = null;;
+        this.outer = null;;
         super.copyFrom(ctx);
     }
 
@@ -1644,7 +1580,7 @@ class ParenFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.inner = null; // FormulaContext;
+        this.inner = null;;
         super.copyFrom(ctx);
     }
 
@@ -1689,8 +1625,8 @@ class BoxFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.inner = null; // FormulaContext;
-        this.outer = null; // FormulaContext;
+        this.inner = null;;
+        this.outer = null;;
         super.copyFrom(ctx);
     }
 
@@ -1826,7 +1762,7 @@ class NegatedFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.inner = null; // FormulaContext;
+        this.inner = null;;
         super.copyFrom(ctx);
     }
 
@@ -1867,8 +1803,8 @@ class GfpFormulaContext extends FormulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.stateSetVariable = null; // FormulaContext;
-        this.inner = null; // FormulaContext;
+        this.stateSetVariable = null;;
+        this.inner = null;;
         super.copyFrom(ctx);
     }
 
@@ -2008,7 +1944,7 @@ class FunctionPropContext extends antlr4.ParserRuleContext {
         super(parent, invokingState);
         this.parser = parser;
         this.ruleIndex = ModalityParser.RULE_functionProp;
-        this.name = null; // Token
+        this.name = null;
     }
 
 	LPAREN() {
@@ -2083,7 +2019,7 @@ class UnsignedPropContext extends antlr4.ParserRuleContext {
         super(parent, invokingState);
         this.parser = parser;
         this.ruleIndex = ModalityParser.RULE_unsignedProp;
-        this.theProp = null; // PropContext
+        this.theProp = null;
     }
 
 	prop() {
@@ -2127,8 +2063,8 @@ class SignedPropContext extends antlr4.ParserRuleContext {
         super(parent, invokingState);
         this.parser = parser;
         this.ruleIndex = ModalityParser.RULE_signedProp;
-        this.theSign = null; // SignContext
-        this.theProp = null; // PropContext
+        this.theSign = null;
+        this.theProp = null;
     }
 
 	prop() {

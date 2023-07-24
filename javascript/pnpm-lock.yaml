@@ -130,8 +130,8 @@ importers:
         specifier: workspace:^1.0.0
         version: link:../utils
       antlr4:
-        specifier: ^4.10.1
-        version: 4.10.1
+        specifier: ^4.13.0
+        version: 4.13.0
       debug:
         specifier: ^4.3.4
         version: 4.3.4
@@ -1175,6 +1175,11 @@ packages:
   /antlr4@4.10.1:
     resolution: {integrity: sha512-fmxidcOwmktzHUD+tz8y/zKLI/NfVAB0+MOvnFUBzo8ToFnphK8JY88oOJeRdhnTrAhjtu45bvxddzbb8nMeIA==}
     engines: {node: '>=14'}
+    dev: false
+
+  /antlr4@4.13.0:
+    resolution: {integrity: sha512-zooUbt+UscjnWyOrsuY/tVFL4rwrAGwOivpQmvmUDE22hy/lUA467Rc1rcixyRwcRUIXFYBwv7+dClDSHdmmew==}
+    engines: {node: '>=16'}
     dev: false
 
   /antlr4ts@0.5.0-alpha.4:

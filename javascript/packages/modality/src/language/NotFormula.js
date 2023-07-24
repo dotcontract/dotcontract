@@ -25,6 +25,6 @@ export default class NotFormula extends BaseFormula {
   }
 
   toModalFormula() {
-    return `not ${this.inner.toModalFormula()}`;
+    return `not ${this.formula.toModalFormula()}`;
   }
 }

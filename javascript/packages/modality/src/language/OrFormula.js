@@ -1,5 +1,6 @@
 import BaseFormula from "./BaseFormula.js";
-
+import NotFormula from "./NotFormula.js";
+import AndFormula from "./AndFormula.js";
 export default class OrFormula extends BaseFormula {
   constructor(left, right) {
     super();
@@ -25,5 +26,12 @@ export default class OrFormula extends BaseFormula {
 
   toModalFormula() {
     return `${this.left.toModalFormula()} or ${this.right.toModalFormula()}`;
+  }
+
+  negated() {
+    return new AndFormula(
+      new NotFormula(this.left),
+      new NotFormula(this.right)
+    );
   }
 }

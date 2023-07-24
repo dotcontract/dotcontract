@@ -1,0 +1,26 @@
+{
+  "systems": [
+    {
+      "states": {
+        "anything": {
+          "arrows": [
+            [
+              "-post_to__91_34_47_114_101_115_116_114_105_99_116_101_100_34_93",
+              "anything"
+            ]
+          ]
+        }
+      },
+      "possible_current_states": [
+        "anything"
+      ]
+    }
+  ],
+  "mappings": [
+	  {
+		  "source": {"system": 0, "state": "anything"},
+		  "target": {"system": 0, "state": "anything"}
+	  }
+  ],
+  "rules": []
+}
