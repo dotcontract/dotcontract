@@ -21,7 +21,7 @@ export async function handler(argv) {
 
   const key = await Key.fromJSONFile(file);
 
-  if (format === 'multiaddress') {
+  if (format === "multiaddress") {
     log(await key.asPublicMultiaddress());
   } else {
     log(`crypto:/${await key.asPublicMultiaddress()}`);

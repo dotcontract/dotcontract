@@ -1,5 +1,5 @@
 import BaseFormula from "./BaseFormula.js";
-import FalseAtom from './FalseAtom.js';
+import FalseAtom from "./FalseAtom.js";
 export default class TrueAtom extends BaseFormula {
   constructor() {
     super();

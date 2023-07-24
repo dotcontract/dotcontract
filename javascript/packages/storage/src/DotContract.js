@@ -74,7 +74,12 @@ export default class DotContract {
     return new_dc;
   }
 
-  static async create(dotcontract_path, dir = true, genesis = null, config = null) {
+  static async create(
+    dotcontract_path,
+    dir = true,
+    genesis = null,
+    config = null
+  ) {
     let dc = null;
     if (dir) {
       dc = new DotContract(TYPE_DIR);
@@ -85,7 +90,11 @@ export default class DotContract {
       );
     } else {
       dc = new DotContract(TYPE_FILE);
-      dc.dotcontract = await DotContract.createDCF(dotcontract_path, genesis, config);
+      dc.dotcontract = await DotContract.createDCF(
+        dotcontract_path,
+        genesis,
+        config
+      );
     }
     return dc;
   }
