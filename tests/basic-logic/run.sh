@@ -44,7 +44,7 @@ cd agreement
 contract commit \
   -m "require both parties to sign future commits" \
   --evolution ../../evolution-agreement.json \
-  --rule "always( must( include_sig(\"$USER1_PK\") or include_sig(\"$USER2_PK\") ) )"
+  --rule "always( must( include_sig(\"$USER1_PK\") and include_sig(\"$USER2_PK\") ) )"
 assert_line_count "$(contract log)" 9
 cd ..
 
