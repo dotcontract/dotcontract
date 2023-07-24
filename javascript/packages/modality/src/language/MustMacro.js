@@ -23,7 +23,6 @@ export default class MustMacro extends BaseFormula {
 
   toModalFormula() {
     const props = this.formula;
-    console.log(props);
     return `[${props.negated().toModalFormula()}] false`;
   }
 }
