@@ -47,6 +47,17 @@ contract commit \
   --evolution ../../evolution-journal.json \
   --rule "always( must( include_sig(\"$USER1_PK\") ) )"
 assert_line_count "$(contract log)" 9
+contract commit \
+  -m "good commit" \
+  --post "/1.text" "hello" \
+  --sign-with $TEST_DIR/user1.keypair
+set +e
+contract commit \
+  -m "bad commit" \
+  --post "/2.text" "hello" \
+  --sign-with $TEST_DIR/user2.keypair &> /dev/null
+assert_last_exit_code 1
+set -e
 cd ..
 
 contract create -d agreement
@@ -56,6 +67,18 @@ contract commit \
   --evolution ../../evolution-agreement.json \
   --rule "always( must( include_sig(\"$USER1_PK\") and include_sig(\"$USER2_PK\") ) )"
 assert_line_count "$(contract log)" 9
+contract commit \
+  -m "good commit" \
+  --post "/1.text" "hello" \
+  --sign-with $TEST_DIR/user1.keypair \
+  --sign-with $TEST_DIR/user2.keypair
+set +e
+contract commit \
+  -m "bad commit" \
+  --post "/2.text" "hello" \
+  --sign-with $TEST_DIR/user1.keypair &> /dev/null
+assert_last_exit_code 1
+set -e
 cd ..
 
 #after_test $TEST_DIR
