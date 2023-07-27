@@ -6,7 +6,7 @@ export default class IncludeSigTestFactory extends TestFactory {
 
   getEvaluateForArgs(args) {
     const [prefixed_multiaddress] = args;
-    const multiaddress = prefixed_multiaddress.replace(/^crypto:\//,'')
+    const multiaddress = prefixed_multiaddress.replace(/^crypto:\//, "");
     return async (context) => {
       const { body, head } = context;
       if (!head?.signatures) {
