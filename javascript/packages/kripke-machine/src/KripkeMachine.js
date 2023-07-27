@@ -1,6 +1,7 @@
 import System from "./parts/System.js";
 import Rule from "./parts/Rule.js";
 import Solve from "./formulas/Solve.js";
+import ModalMu from "./ModalMu.js";
 
 import { areSetsEqual } from "@dotcontract/utils/sets";
 
@@ -8,6 +9,30 @@ export default class KripkeMachine {
   constructor() {
     this.systems = [];
     this.rules = [];
+    this.language = KripkeMachine.getDefaultLanguage;
+  }
+
+  static setDefaultLanguage(language) {
+    this.languages = {
+      ...(this.languages || {}),
+      [language.name]: language,
+    };
+    this.default_language = language;
+  }
+
+  static getDefaultLanguage() {
+    return this.default_language || ModalMu;
+  }
+
+  static setLanguage(name, language) {
+    this.languages = {
+      ...(this.languages || {}),
+      [name]: language,
+    };
+  }
+
+  static getLanguage(name) {
+    this.languages?.[name];
   }
 
   static createLooper() {
@@ -18,6 +43,11 @@ export default class KripkeMachine {
 
   static fromJSON(json) {
     const km = new KripkeMachine();
+    if (json.language) {
+      km.language =
+        KripkeMachine.getLanguage(json.language) ||
+        KripkeMachine.getDefaultLanguage();
+    }
     for (const systems_json of json.systems) {
       const sys = System.fromJSON(systems_json);
       km.systems.push(sys);
@@ -31,6 +61,7 @@ export default class KripkeMachine {
 
   toJSON() {
     return {
+      language: this.language.name,
       systems: this.systems.map((sys) => sys.toJSON()),
       rules: this.rules.map((rule) => rule.toJSON()),
     };
@@ -38,6 +69,7 @@ export default class KripkeMachine {
 
   clone() {
     const km = new KripkeMachine();
+    km.language = this.language;
     km.systems = this.systems.map((sys) => sys.clone());
     km.rules = this.rules.map((r) => r.clone());
     return km;

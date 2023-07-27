@@ -12,6 +12,10 @@ export default class LfpFormula extends BaseFormula {
     return true; // TODO
   }
 
+  getProps(ctx) {
+    return this.inner.getProps();
+  }
+
   getFreeVars(ctx) {
     return new setMinus(this.inner.getFreeVars(), this.bound_var.toText());
   }

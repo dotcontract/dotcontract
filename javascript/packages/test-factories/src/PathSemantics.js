@@ -18,7 +18,7 @@ export default class PathSemantics {
   }
 
   static expandEffected(effected) {
-    const keys = Object.keys(effected);
+    const keys = effected.map((i) => i.path);
     const r = {};
     for (const key of keys) {
       const dirs = PathSemantics.getEffectedParentDirectories(key);

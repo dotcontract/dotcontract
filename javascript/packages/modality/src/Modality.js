@@ -11,6 +11,8 @@ export const SIGNS = {
 export default class Modality {
   static SIGNS = SIGNS;
 
+  static parseProp = TestFactory.parseProp;
+  static getPropFromTest = TestFactory.getPropFromTest;
   static escapeArgs = TestFactory.escapeArgs;
   static unescapeArgs = TestFactory.unescapeArgs;
 

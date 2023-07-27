@@ -7,20 +7,17 @@ export default class IncludeSigTestFactory extends TestFactory {
   getEvaluateForArgs(args) {
     const [multiaddress] = args;
     return async (context) => {
-      const { content, meta } = context;
-      if (!meta?.signatures) {
+      const { body, head } = context;
+      if (!head?.signatures) {
         return false;
       }
-      const signature = meta.signatures[multiaddress];
+      const signature = head.signatures[multiaddress];
       if (!signature) {
         return false;
       }
 
       const shared_key = Key.fromPublicMultiaddress(multiaddress);
-      const result = await shared_key.verifySignatureForJson(
-        signature,
-        content
-      );
+      const result = await shared_key.verifySignatureForJson(signature, body);
       return result;
     };
   }

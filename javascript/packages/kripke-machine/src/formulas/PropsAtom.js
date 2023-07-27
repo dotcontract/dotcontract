@@ -10,6 +10,10 @@ export default class PropsAtom extends BaseFormula {
     return true; // TODO
   }
 
+  getProps() {
+    return new Set(this.props.map((i) => i.prop));
+  }
+
   getFreeVars() {
     return new Set(this.props.map((i) => i.props).filter((i) => i === "*"));
   }

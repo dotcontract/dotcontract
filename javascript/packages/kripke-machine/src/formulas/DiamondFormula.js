@@ -12,6 +12,10 @@ export default class DiamondFormula extends BaseFormula {
     return true; // TODO
   }
 
+  getProps(ctx) {
+    return new unionOfSets(this.inner.getProps(), this.outer.getProps());
+  }
+
   getFreeVars(ctx) {
     return new unionOfSets(this.inner.getFreeVars(), this.outer.getFreeVars());
   }

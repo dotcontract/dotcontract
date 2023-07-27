@@ -15,6 +15,10 @@ export default class SignedProp {
     return true; // TODO
   }
 
+  getProps() {
+    return new Set([this.prop]);
+  }
+
   getFreeProps() {
     return new Set([this.prop]);
   }

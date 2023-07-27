@@ -24,10 +24,20 @@ cd ..
 contract create -d restricted
 cd restricted
 contract commit \
-  -m "not posting to /restricted" \
+  -m "no posting to /restricted" \
   --evolution ../../evolution-restricted.json \
   --rule "always( must( not( post_to(/restricted) ) ) )"
 assert_line_count "$(contract log)" 9
+set +e
+contract commit \
+  -m "bad commit" \
+  --post "/restricted/1.text" "hello" &> /dev/null
+test $? -eq 1 || (echo 'restriction failed' && exit 1)
+set -e
+contract commit \
+  -m "good commit" \
+  --post "/not-restricted/1.text" "hello" &> /dev/null
+assert_line_count "$(contract log)" 17
 cd ..
 
 contract create -d journal
@@ -48,4 +58,4 @@ contract commit \
 assert_line_count "$(contract log)" 9
 cd ..
 
-after_test $TEST_DIR
+#after_test $TEST_DIR

@@ -9,4 +9,8 @@ export default class Rule {
   clone() {
     return new Rule(this.modal_formula_text, [...this.root_states]);
   }
+
+  getProps() {
+    return this.modal_formula.getProps();
+  }
 }

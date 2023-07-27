@@ -10,6 +10,10 @@ export default class BoundVar extends BaseFormula {
     return true; // TODO
   }
 
+  getProps() {
+    return new Set();
+  }
+
   getFreeVars() {
     return new Set();
   }

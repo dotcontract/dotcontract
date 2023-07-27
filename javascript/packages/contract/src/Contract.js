@@ -1,15 +1,22 @@
 import Key from "@dotcontract/utils/Key";
 import KripkeMachine, { Step } from "@dotcontract/kripke-machine";
 import Modality from "@dotcontract/modality";
+import { unionOfSets } from "@dotcontract/utils/sets";
+import {
+  IncludeSigTestFactory,
+  PostToTestFactory,
+} from "@dotcontract/test-factories";
 
 import Commit from "./Commit.js";
 
+KripkeMachine.setDefaultLanguage(Modality);
 export default class Contract {
   constructor(genesis) {
     this.id = genesis?.genesis?.contract_id;
     this.genesis = genesis;
     this.commits = [];
     this.km = KripkeMachine.createLooper();
+    this.km.language = Modality;
     return this;
   }
 
@@ -38,7 +45,29 @@ export default class Contract {
   }
 
   async appendCommit(commit) {
-    const props_text = "";
+    const observed_tests = Array.from(
+      unionOfSets(...this.km.rules.map((rule) => rule.getProps()))
+    ).map((p) => Modality.parseProp(p));
+    const r = [];
+    for (const observed_test of observed_tests) {
+      let tf;
+      if (observed_test.name === "post_to") {
+        tf = new PostToTestFactory("post_to");
+      } else if (observed_test.name === "include_sig") {
+        tf = new IncludeSigTestFactory("include_sig");
+      }
+      if (tf) {
+        const t = tf.getTestForArgs(observed_test.args);
+        const v = await t.evaluate({ body: commit.body, head: commit.head });
+        r.push(
+          `${v ? "+" : "-"}${Modality.getPropFromTest(
+            observed_test.name,
+            observed_test.args
+          )}`
+        );
+      }
+    }
+    const props_text = r.join(" ");
     const rule = commit.getRulesConjoined();
     const rule_text = rule ? Modality.toModalFormula(rule) : null;
     const evolution_json = commit.getEvolutionJSON();

@@ -7,9 +7,9 @@ export default class PostToTestFactory extends TestFactory {
   getEvaluateForArgs(args) {
     const [path] = args;
     return async (context) => {
-      const { content } = context;
-      const effected_paths = PathSemantics.expandEffected(content);
-      return effected_paths[path];
+      const { body } = context;
+      const effected_paths = PathSemantics.expandEffected(body);
+      return !!effected_paths[path];
     };
   }
 

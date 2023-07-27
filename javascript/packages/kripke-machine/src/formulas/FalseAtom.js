@@ -9,6 +9,10 @@ export default class FalseAtom extends BaseFormula {
     return false;
   }
 
+  getProps() {
+    return new Set();
+  }
+
   getFreeVars() {
     return new Set();
   }

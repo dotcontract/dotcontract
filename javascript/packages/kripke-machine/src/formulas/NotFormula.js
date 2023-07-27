@@ -10,6 +10,10 @@ export default class NotFormula extends BaseFormula {
     return !this.formula.getValue(ctx);
   }
 
+  getProps(ctx) {
+    return this.formula.getProps();
+  }
+
   getFreeVars() {
     return new Set(this.formula.getFreeVars());
   }

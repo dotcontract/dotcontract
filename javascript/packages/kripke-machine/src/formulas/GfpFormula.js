@@ -12,6 +12,10 @@ export default class GfpFormula extends BaseFormula {
     return true; // TODO
   }
 
+  getProps() {
+    return this.inner.getProps();
+  }
+
   getFreeVars(ctx) {
     return new setMinus(this.inner.getFreeVars(), this.bound_var.toText());
   }

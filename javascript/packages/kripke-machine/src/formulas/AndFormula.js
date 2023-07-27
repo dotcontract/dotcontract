@@ -12,6 +12,10 @@ export default class AndFormula extends BaseFormula {
     return this.left.getValue(ctx) && this.right.getValue(ctx);
   }
 
+  getProps() {
+    return new unionOfSets(this.left.getProps(), this.right.getProps());
+  }
+
   getFreeVars() {
     return new unionOfSets(this.left.getFreeVars(), this.right.getFreeVars());
   }
