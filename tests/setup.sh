@@ -10,7 +10,7 @@ assert_last_exit_code() {
 }
 
 assert_line_count() {
-    if [[ "$(expr $(echo "$1" | wc -l))" == $2 ]]
+    if [[ "$(expr $(echo "$1" | wc -l))" == $2 ]]; then
     then
         true
     else
