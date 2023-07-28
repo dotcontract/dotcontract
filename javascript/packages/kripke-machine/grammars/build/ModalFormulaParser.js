@@ -1,80 +1,45 @@
-// Generated from ModalFormula.g4 by ANTLR 4.9.3
+// Generated from ../../../../grammars/ModalFormula.g4 by ANTLR 4.13.0
 // jshint ignore: start
 import antlr4 from 'antlr4';
 import ModalFormulaListener from './ModalFormulaListener.js';
 import ModalFormulaVisitor from './ModalFormulaVisitor.js';
 
-
-const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
-    "\u5964\u0003\u0016d\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004",
-    "\t\u0004\u0004\u0005\t\u0005\u0004\u0006\t\u0006\u0004\u0007\t\u0007",
-    "\u0003\u0002\u0003\u0002\u0003\u0002\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0007\u0003\u0018\n\u0003\f\u0003",
-    "\u000e\u0003\u001b\u000b\u0003\u0003\u0003\u0006\u0003\u001e\n\u0003",
-    "\r\u0003\u000e\u0003\u001f\u0005\u0003\"\n\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0005\u0003H\n\u0003",
-    "\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003",
-    "\u0007\u0003P\n\u0003\f\u0003\u000e\u0003S\u000b\u0003\u0003\u0004\u0003",
-    "\u0004\u0003\u0005\u0003\u0005\u0007\u0005Y\n\u0005\f\u0005\u000e\u0005",
-    "\\\u000b\u0005\u0003\u0005\u0003\u0005\u0003\u0006\u0003\u0006\u0003",
-    "\u0007\u0003\u0007\u0003\u0007\u0002\u0003\u0004\b\u0002\u0004\u0006",
-    "\b\n\f\u0002\u0004\u0003\u0002\t\n\u0004\u0002\u0003\u0004\u0013\u0013",
-    "\u0002n\u0002\u000e\u0003\u0002\u0002\u0002\u0004G\u0003\u0002\u0002",
-    "\u0002\u0006T\u0003\u0002\u0002\u0002\bV\u0003\u0002\u0002\u0002\n_",
-    "\u0003\u0002\u0002\u0002\fa\u0003\u0002\u0002\u0002\u000e\u000f\u0005",
-    "\u0004\u0003\u0002\u000f\u0010\u0007\u0002\u0002\u0003\u0010\u0003\u0003",
-    "\u0002\u0002\u0002\u0011\u0012\b\u0003\u0001\u0002\u0012H\u0007\u0003",
-    "\u0002\u0002\u0013H\u0007\u0004\u0002\u0002\u0014H\u0007\u0014\u0002",
-    "\u0002\u0015\u0019\u0005\u0006\u0004\u0002\u0016\u0018\u0005\b\u0005",
-    "\u0002\u0017\u0016\u0003\u0002\u0002\u0002\u0018\u001b\u0003\u0002\u0002",
-    "\u0002\u0019\u0017\u0003\u0002\u0002\u0002\u0019\u001a\u0003\u0002\u0002",
-    "\u0002\u001a\"\u0003\u0002\u0002\u0002\u001b\u0019\u0003\u0002\u0002",
-    "\u0002\u001c\u001e\u0005\b\u0005\u0002\u001d\u001c\u0003\u0002\u0002",
-    "\u0002\u001e\u001f\u0003\u0002\u0002\u0002\u001f\u001d\u0003\u0002\u0002",
-    "\u0002\u001f \u0003\u0002\u0002\u0002 \"\u0003\u0002\u0002\u0002!\u0015",
-    "\u0003\u0002\u0002\u0002!\u001d\u0003\u0002\u0002\u0002\"H\u0003\u0002",
-    "\u0002\u0002#$\u0007\u000b\u0002\u0002$%\u0007\f\u0002\u0002%H\u0005",
-    "\u0004\u0003\f&\'\u0007\r\u0002\u0002\'(\u0007\u000e\u0002\u0002(H\u0005",
-    "\u0004\u0003\u000b)*\u0007\u000b\u0002\u0002*+\u0005\u0004\u0003\u0002",
-    "+,\u0007\f\u0002\u0002,-\u0005\u0004\u0003\n-H\u0003\u0002\u0002\u0002",
-    "./\u0007\r\u0002\u0002/0\u0005\u0004\u0003\u000201\u0007\u000e\u0002",
-    "\u000212\u0005\u0004\u0003\t2H\u0003\u0002\u0002\u000234\u0007\u0011",
-    "\u0002\u000245\u0007\u000f\u0002\u000256\u0005\u0004\u0003\u000267\u0007",
-    "\b\u0002\u000278\u0005\u0004\u0003\u000289\u0007\u0010\u0002\u00029",
-    "H\u0003\u0002\u0002\u0002:;\u0007\u0012\u0002\u0002;<\u0007\u000f\u0002",
-    "\u0002<=\u0005\u0004\u0003\u0002=>\u0007\b\u0002\u0002>?\u0005\u0004",
-    "\u0003\u0002?@\u0007\u0010\u0002\u0002@H\u0003\u0002\u0002\u0002AB\u0007",
-    "\u0007\u0002\u0002BH\u0005\u0004\u0003\u0004CD\u0007\u000f\u0002\u0002",
-    "DE\u0005\u0004\u0003\u0002EF\u0007\u0010\u0002\u0002FH\u0003\u0002\u0002",
-    "\u0002G\u0011\u0003\u0002\u0002\u0002G\u0013\u0003\u0002\u0002\u0002",
-    "G\u0014\u0003\u0002\u0002\u0002G!\u0003\u0002\u0002\u0002G#\u0003\u0002",
-    "\u0002\u0002G&\u0003\u0002\u0002\u0002G)\u0003\u0002\u0002\u0002G.\u0003",
-    "\u0002\u0002\u0002G3\u0003\u0002\u0002\u0002G:\u0003\u0002\u0002\u0002",
-    "GA\u0003\u0002\u0002\u0002GC\u0003\u0002\u0002\u0002HQ\u0003\u0002\u0002",
-    "\u0002IJ\f\u0006\u0002\u0002JK\u0007\u0006\u0002\u0002KP\u0005\u0004",
-    "\u0003\u0007LM\f\u0005\u0002\u0002MN\u0007\u0005\u0002\u0002NP\u0005",
-    "\u0004\u0003\u0006OI\u0003\u0002\u0002\u0002OL\u0003\u0002\u0002\u0002",
-    "PS\u0003\u0002\u0002\u0002QO\u0003\u0002\u0002\u0002QR\u0003\u0002\u0002",
-    "\u0002R\u0005\u0003\u0002\u0002\u0002SQ\u0003\u0002\u0002\u0002TU\u0005",
-    "\f\u0007\u0002U\u0007\u0003\u0002\u0002\u0002VZ\u0005\n\u0006\u0002",
-    "WY\u0007\u0015\u0002\u0002XW\u0003\u0002\u0002\u0002Y\\\u0003\u0002",
-    "\u0002\u0002ZX\u0003\u0002\u0002\u0002Z[\u0003\u0002\u0002\u0002[]\u0003",
-    "\u0002\u0002\u0002\\Z\u0003\u0002\u0002\u0002]^\u0005\f\u0007\u0002",
-    "^\t\u0003\u0002\u0002\u0002_`\t\u0002\u0002\u0002`\u000b\u0003\u0002",
-    "\u0002\u0002ab\t\u0003\u0002\u0002b\r\u0003\u0002\u0002\u0002\t\u0019",
-    "\u001f!GOQZ"].join("");
+const serializedATN = [4,1,20,98,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,
+2,5,7,5,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,5,1,22,8,1,10,1,12,1,25,9,1,
+1,1,4,1,28,8,1,11,1,12,1,29,3,1,32,8,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,70,8,1,1,1,1,1,1,1,1,1,1,1,1,1,
+5,1,78,8,1,10,1,12,1,81,9,1,1,2,1,2,1,3,1,3,5,3,87,8,3,10,3,12,3,90,9,3,
+1,3,1,3,1,4,1,4,1,5,1,5,1,5,0,1,2,6,0,2,4,6,8,10,0,2,1,0,7,8,2,0,1,2,17,
+17,108,0,12,1,0,0,0,2,69,1,0,0,0,4,82,1,0,0,0,6,84,1,0,0,0,8,93,1,0,0,0,
+10,95,1,0,0,0,12,13,3,2,1,0,13,14,5,0,0,1,14,1,1,0,0,0,15,16,6,1,-1,0,16,
+70,5,1,0,0,17,70,5,2,0,0,18,70,5,18,0,0,19,23,3,4,2,0,20,22,3,6,3,0,21,20,
+1,0,0,0,22,25,1,0,0,0,23,21,1,0,0,0,23,24,1,0,0,0,24,32,1,0,0,0,25,23,1,
+0,0,0,26,28,3,6,3,0,27,26,1,0,0,0,28,29,1,0,0,0,29,27,1,0,0,0,29,30,1,0,
+0,0,30,32,1,0,0,0,31,19,1,0,0,0,31,27,1,0,0,0,32,70,1,0,0,0,33,34,5,9,0,
+0,34,35,5,10,0,0,35,70,3,2,1,10,36,37,5,11,0,0,37,38,5,12,0,0,38,70,3,2,
+1,9,39,40,5,9,0,0,40,41,3,2,1,0,41,42,5,10,0,0,42,43,3,2,1,8,43,70,1,0,0,
+0,44,45,5,11,0,0,45,46,3,2,1,0,46,47,5,12,0,0,47,48,3,2,1,7,48,70,1,0,0,
+0,49,50,5,15,0,0,50,51,5,13,0,0,51,52,3,2,1,0,52,53,5,6,0,0,53,54,3,2,1,
+0,54,55,5,14,0,0,55,70,1,0,0,0,56,57,5,16,0,0,57,58,5,13,0,0,58,59,3,2,1,
+0,59,60,5,6,0,0,60,61,3,2,1,0,61,62,5,14,0,0,62,70,1,0,0,0,63,64,5,5,0,0,
+64,70,3,2,1,2,65,66,5,13,0,0,66,67,3,2,1,0,67,68,5,14,0,0,68,70,1,0,0,0,
+69,15,1,0,0,0,69,17,1,0,0,0,69,18,1,0,0,0,69,31,1,0,0,0,69,33,1,0,0,0,69,
+36,1,0,0,0,69,39,1,0,0,0,69,44,1,0,0,0,69,49,1,0,0,0,69,56,1,0,0,0,69,63,
+1,0,0,0,69,65,1,0,0,0,70,79,1,0,0,0,71,72,10,4,0,0,72,73,5,4,0,0,73,78,3,
+2,1,5,74,75,10,3,0,0,75,76,5,3,0,0,76,78,3,2,1,4,77,71,1,0,0,0,77,74,1,0,
+0,0,78,81,1,0,0,0,79,77,1,0,0,0,79,80,1,0,0,0,80,3,1,0,0,0,81,79,1,0,0,0,
+82,83,3,10,5,0,83,5,1,0,0,0,84,88,3,8,4,0,85,87,5,19,0,0,86,85,1,0,0,0,87,
+90,1,0,0,0,88,86,1,0,0,0,88,89,1,0,0,0,89,91,1,0,0,0,90,88,1,0,0,0,91,92,
+3,10,5,0,92,7,1,0,0,0,93,94,7,0,0,0,94,9,1,0,0,0,95,96,7,1,0,0,96,11,1,0,
+0,0,7,23,29,31,69,77,79,88];
 
 
 const atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
 
 const decisionsToDFA = atn.decisionToState.map( (ds, index) => new antlr4.dfa.DFA(ds, index) );
 
-const sharedContextCache = new antlr4.PredictionContextCache();
+const sharedContextCache = new antlr4.atn.PredictionContextCache();
 
 export default class ModalFormulaParser extends antlr4.Parser {
 
@@ -95,10 +60,6 @@ export default class ModalFormulaParser extends antlr4.Parser {
         this.ruleNames = ModalFormulaParser.ruleNames;
         this.literalNames = ModalFormulaParser.literalNames;
         this.symbolicNames = ModalFormulaParser.symbolicNames;
-    }
-
-    get atn() {
-        return atn;
     }
 
     sempred(localctx, ruleIndex, predIndex) {
@@ -196,9 +157,9 @@ export default class ModalFormulaParser extends antlr4.Parser {
 	            this.state = 31;
 	            this._errHandler.sync(this);
 	            switch(this._input.LA(1)) {
-	            case ModalFormulaParser.TRUE:
-	            case ModalFormulaParser.FALSE:
-	            case ModalFormulaParser.NAME:
+	            case 1:
+	            case 2:
+	            case 17:
 	                this.state = 19;
 	                this.unsignedProp();
 	                this.state = 23;
@@ -215,8 +176,8 @@ export default class ModalFormulaParser extends antlr4.Parser {
 	                }
 
 	                break;
-	            case ModalFormulaParser.PLUS:
-	            case ModalFormulaParser.MINUS:
+	            case 7:
+	            case 8:
 	                this.state = 27; 
 	                this._errHandler.sync(this);
 	                var _alt = 1;
@@ -441,7 +402,7 @@ export default class ModalFormulaParser extends antlr4.Parser {
 	signedProp() {
 	    let localctx = new SignedPropContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 6, ModalFormulaParser.RULE_signedProp);
-	    var _la = 0; // Token type
+	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 84;
@@ -449,7 +410,7 @@ export default class ModalFormulaParser extends antlr4.Parser {
 	        this.state = 88;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
-	        while(_la===ModalFormulaParser.WS) {
+	        while(_la===19) {
 	            this.state = 85;
 	            this.match(ModalFormulaParser.WS);
 	            this.state = 90;
@@ -477,12 +438,12 @@ export default class ModalFormulaParser extends antlr4.Parser {
 	sign() {
 	    let localctx = new SignContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 8, ModalFormulaParser.RULE_sign);
-	    var _la = 0; // Token type
+	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 93;
 	        _la = this._input.LA(1);
-	        if(!(_la===ModalFormulaParser.PLUS || _la===ModalFormulaParser.MINUS)) {
+	        if(!(_la===7 || _la===8)) {
 	        this._errHandler.recoverInline(this);
 	        }
 	        else {
@@ -508,12 +469,12 @@ export default class ModalFormulaParser extends antlr4.Parser {
 	prop() {
 	    let localctx = new PropContext(this, this._ctx, this.state);
 	    this.enterRule(localctx, 10, ModalFormulaParser.RULE_prop);
-	    var _la = 0; // Token type
+	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 95;
 	        _la = this._input.LA(1);
-	        if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << ModalFormulaParser.TRUE) | (1 << ModalFormulaParser.FALSE) | (1 << ModalFormulaParser.NAME))) !== 0))) {
+	        if(!((((_la) & ~0x1f) === 0 && ((1 << _la) & 131078) !== 0))) {
 	        this._errHandler.recoverInline(this);
 	        }
 	        else {
@@ -578,7 +539,7 @@ class FormulaContext extends antlr4.ParserRuleContext {
         super(parent, invokingState);
         this.parser = parser;
         this.ruleIndex = ModalFormulaParser.RULE_formula;
-        this.f = null; // SubformulaContext
+        this.f = null;
     }
 
 	EOF() {
@@ -641,7 +602,7 @@ class EmptyBoxFormulaContext extends SubformulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.outer = null; // SubformulaContext;
+        this.outer = null;;
         super.copyFrom(ctx);
     }
 
@@ -722,7 +683,7 @@ class EmptyDiamondFormulaContext extends SubformulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.outer = null; // SubformulaContext;
+        this.outer = null;;
         super.copyFrom(ctx);
     }
 
@@ -767,8 +728,8 @@ class AndFormulaContext extends SubformulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.left = null; // SubformulaContext;
-        this.right = null; // SubformulaContext;
+        this.left = null;;
+        this.right = null;;
         super.copyFrom(ctx);
     }
 
@@ -816,7 +777,7 @@ class NotFormulaContext extends SubformulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.inner = null; // SubformulaContext;
+        this.inner = null;;
         super.copyFrom(ctx);
     }
 
@@ -857,8 +818,8 @@ class OrFormulaContext extends SubformulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.left = null; // SubformulaContext;
-        this.right = null; // SubformulaContext;
+        this.left = null;;
+        this.right = null;;
         super.copyFrom(ctx);
     }
 
@@ -906,8 +867,8 @@ class LfpFormulaContext extends SubformulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.boundVar = null; // SubformulaContext;
-        this.inner = null; // SubformulaContext;
+        this.boundVar = null;;
+        this.inner = null;;
         super.copyFrom(ctx);
     }
 
@@ -967,8 +928,8 @@ class DiamondFormulaContext extends SubformulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.inner = null; // SubformulaContext;
-        this.outer = null; // SubformulaContext;
+        this.inner = null;;
+        this.outer = null;;
         super.copyFrom(ctx);
     }
 
@@ -1020,7 +981,7 @@ class ParenFormulaContext extends SubformulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.inner = null; // SubformulaContext;
+        this.inner = null;;
         super.copyFrom(ctx);
     }
 
@@ -1065,8 +1026,8 @@ class BoxFormulaContext extends SubformulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.inner = null; // SubformulaContext;
-        this.outer = null; // SubformulaContext;
+        this.inner = null;;
+        this.outer = null;;
         super.copyFrom(ctx);
     }
 
@@ -1154,8 +1115,8 @@ class GfpFormulaContext extends SubformulaContext {
 
     constructor(parser, ctx) {
         super(parser);
-        this.boundVar = null; // SubformulaContext;
-        this.inner = null; // SubformulaContext;
+        this.boundVar = null;;
+        this.inner = null;;
         super.copyFrom(ctx);
     }
 
@@ -1306,7 +1267,7 @@ class UnsignedPropContext extends antlr4.ParserRuleContext {
         super(parent, invokingState);
         this.parser = parser;
         this.ruleIndex = ModalFormulaParser.RULE_unsignedProp;
-        this.theProp = null; // PropContext
+        this.theProp = null;
     }
 
 	prop() {
@@ -1350,8 +1311,8 @@ class SignedPropContext extends antlr4.ParserRuleContext {
         super(parent, invokingState);
         this.parser = parser;
         this.ruleIndex = ModalFormulaParser.RULE_signedProp;
-        this.theSign = null; // SignContext
-        this.theProp = null; // PropContext
+        this.theSign = null;
+        this.theProp = null;
     }
 
 	prop() {
