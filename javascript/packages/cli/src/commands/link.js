@@ -39,11 +39,12 @@ export async function handler(argv) {
     await dc.save();
     log(`Local contract linked successfully!`);
   } else {
-    const [user, server_port_path] = url.split("@");
-    const [server, port_path] = server_port_path.split(":");
-    const port_path_list = port_path.split("/");
-    const port = port_path_list[0];
-    const file_path = "/" + port_path_list.slice(1).join("/");
+    const re = /^(.*)@([a-zA-Z.]*)(:[0-9]*|)(\/.*)$/;
+    const m = url.match(re);
+    const user = m?.[1];
+    const server = m?.[2];
+    const port = parseInt(m?.[3]?.replace(":", "")) || 22;
+    const file_path = m?.[4];
     if (!user || !port || !server || !file_path) {
       throw new Error(
         "ERROR: Please provide a valid url. Example: user@host:port/path"
