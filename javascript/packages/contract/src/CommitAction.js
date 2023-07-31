@@ -57,7 +57,7 @@ export default class CommitAction {
   }
 
   hasAttachment() {
-    return this.value.match("^attachment://");
+    return this.value.match?.("^attachment://");
   }
 
   getFileHash() {
