@@ -20,7 +20,7 @@
       "current_states": ["_"],
       "states": {
         "_": {
-          "arrows": [["sign", "_"]]
+          "arrows": [["+sign", "_"]]
         }
       }
     },

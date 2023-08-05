@@ -5,10 +5,10 @@
       "possible_current_states": ["left", "right"],
       "states": {
         "left": {
-          "arrows": [["right-left", "right"]]
+          "arrows": [["+right -left", "right"]]
         },
         "right": {
-          "arrows": [["left-right", "left"]]
+          "arrows": [["+left -right", "left"]]
         }
       }
     }
