@@ -17,6 +17,7 @@ import * as push from "../commands/push.js";
 import * as machine from "../commands/machine.js";
 import * as undo from "../commands/undo.js";
 import * as link from "../commands/link.js";
+import * as clone from "../commands/clone.js";
 
 // unused return variable prevents node from prematurely exiting yargs
 /* eslint-disable no-unused-vars */
@@ -28,6 +29,7 @@ const { argv } = yargs(hideBin(process.argv))
 
   .command(create)
   .command(commit)
+  .command(clone)
   .command(link)
   .command(undo)
   .command(info)
