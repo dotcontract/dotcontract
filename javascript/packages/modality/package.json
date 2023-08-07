@@ -1,6 +1,6 @@
 {
   "name": "@dotcontract/modality",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "license": "UNLICENSED",
   "type": "module",
   "dependencies": {
-    "@dotcontract/utils": "workspace:^1.0.0",
+    "@dotcontract/utils": "workspace:^0.0.1",
     "antlr4": "^4.13.0",
     "debug": "^4.3.4",
     "jest": "^28.1.1",

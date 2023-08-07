@@ -22,16 +22,16 @@ importers:
   packages/cli:
     dependencies:
       '@dotcontract/contract':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../contract
       '@dotcontract/storage':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../storage
       '@dotcontract/sync':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../sync
       '@dotcontract/utils':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../utils
       '@libp2p/peer-id-factory':
         specifier: ^1.0.15
@@ -80,7 +80,7 @@ importers:
   packages/contract:
     dependencies:
       '@dotcontract/kripke-machine':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../kripke-machine
       '@dotcontract/modality':
         specifier: workspace:^
@@ -89,7 +89,7 @@ importers:
         specifier: workspace:^
         version: link:../test-factories
       '@dotcontract/utils':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../utils
       debug:
         specifier: ^4.3.4
@@ -106,7 +106,7 @@ importers:
   packages/kripke-machine:
     dependencies:
       '@dotcontract/utils':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../utils
       antlr4:
         specifier: ^4.13.0
@@ -124,7 +124,7 @@ importers:
   packages/modality:
     dependencies:
       '@dotcontract/utils':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../utils
       antlr4:
         specifier: ^4.13.0
@@ -145,16 +145,16 @@ importers:
   packages/storage:
     dependencies:
       '@dotcontract/contract':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../contract
       '@dotcontract/kripke-machine':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../kripke-machine
       '@dotcontract/modality':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../modality
       '@dotcontract/utils':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../utils
       adm-zip:
         specifier: ^0.5.9
@@ -178,7 +178,7 @@ importers:
   packages/sync:
     dependencies:
       '@dotcontract/storage':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../storage
       debug:
         specifier: ^4.3.4
@@ -202,7 +202,7 @@ importers:
         specifier: workspace:^
         version: link:../modality
       '@dotcontract/utils':
-        specifier: workspace:^1.0.0
+        specifier: workspace:^0.0.1
         version: link:../utils
       antlr4:
         specifier: ^4.10.1
