@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"TODO: no tests specified\""
   },
-  "author": "",
-  "license": "UNLICENSED",
+  "author": "DotContract",
+  "license": "LGPL-3.0",
   "devDependencies": {
     "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",

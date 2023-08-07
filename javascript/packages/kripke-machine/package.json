@@ -7,8 +7,8 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
     "debug_test": "NODE_OPTIONS=--experimental-vm-modules node --inspect --inspect-brk ./node_modules/jest/bin/jest.js --runInBand -i"
   },
-  "author": "",
-  "license": "UNLICENSED",
+  "author": "DotContract",
+  "license": "LGPL-3.0",
   "type": "module",
   "files": [
     "src",

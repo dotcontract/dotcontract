@@ -199,7 +199,7 @@ importers:
   packages/test-factories:
     dependencies:
       '@dotcontract/modality':
-        specifier: workspace:^
+        specifier: workspace:^0.0.1
         version: link:../modality
       '@dotcontract/utils':
         specifier: workspace:^0.0.1

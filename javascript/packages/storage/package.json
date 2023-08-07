@@ -14,8 +14,8 @@
     ".": "./src/index.js",
     "./*": "./src/*.js"
   },
-  "author": "",
-  "license": "UNLICENSED",
+  "author": "DotContract",
+  "license": "LGPL-3.0",
   "type": "module",
   "dependencies": {
     "@dotcontract/contract": "workspace:^0.0.1",
