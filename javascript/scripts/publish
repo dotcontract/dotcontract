@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
+
+cd $SCRIPT_DIR/../packages
+
+cd utils
+pnpm publish --access public
+cd ..
+
+cd kripke-machine
+pnpm publish --access public
+cd ..
+
+cd modality
+pnpm publish --access public
+cd ..
+
+cd contract
+pnpm publish --access public
+cd ..
+
+cd cli
+pnpm publish --access public
+cd ..
