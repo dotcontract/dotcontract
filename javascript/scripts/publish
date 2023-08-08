@@ -16,6 +16,18 @@ cd modality
 pnpm publish --access public
 cd ..
 
+cd storage
+pnpm publish --access public
+cd ..
+
+cd sync
+pnpm publish --access public
+cd ..
+
+cd test-factories
+pnpm publish --access public
+cd ..
+
 cd contract
 pnpm publish --access public
 cd ..
