@@ -1,7 +1,7 @@
 {
   "name": "@dotcontract/cli",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "CLI for interacting with .contract files",
   "main": "index.js",
   "bin": {
     "dotcontract-cli": "src/bin/dotcontract-cli.js",

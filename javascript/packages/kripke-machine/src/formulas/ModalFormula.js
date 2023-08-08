@@ -1,7 +1,7 @@
 import antlr4 from "antlr4";
 
-import Parser from "../../grammars/build/ModalFormulaParser.js";
-import Lexer from "../../grammars/build/ModalFormulaLexer.js";
+import Parser from "../grammars/build/ModalFormulaParser.js";
+import Lexer from "../grammars/build/ModalFormulaLexer.js";
 import Visitor from "./Visitor.js";
 import { unionOfSets, setMinus } from "@dotcontract/utils/sets";
 

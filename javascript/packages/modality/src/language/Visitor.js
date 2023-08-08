@@ -1,4 +1,4 @@
-import AbstractVisitor from "../../grammars/build/ModalityVisitor.js";
+import AbstractVisitor from "../grammars/build/ModalityVisitor.js";
 
 import {
   // propositions

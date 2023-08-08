@@ -1,7 +1,7 @@
 import antlr4 from "antlr4";
 
-import Parser from "../../grammars/build/ModalityParser.js";
-import Lexer from "../../grammars/build/ModalityLexer.js";
+import Parser from "../grammars/build/ModalityParser.js";
+import Lexer from "../grammars/build/ModalityLexer.js";
 import Visitor from "./Visitor.js";
 
 import BaseFormula from "./BaseFormula.js";

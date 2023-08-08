@@ -1,4 +1,4 @@
-import AbstractVisitor from "../../grammars/build/ModalFormulaVisitor.js";
+import AbstractVisitor from "../grammars/build/ModalFormulaVisitor.js";
 
 import {
   TrueAtom,
