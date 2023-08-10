@@ -24,7 +24,7 @@ describe("KripkeMachine", () => {
     const evolution_one_party = Evolution.fromJSON(evolution_one_party_json);
 
     const km1 = km.clone();
-    r = km1.canEvolve(
+    [r] = km1.canEvolve(
       evolution_one_party,
       "gfp(@x, []@x and ([-PARTY_A_SIGNS]false or [-PARTY_B_SIGNS]false))"
     );
@@ -41,14 +41,14 @@ describe("KripkeMachine", () => {
       evolution_either_party_json
     );
     const km2 = km1.clone();
-    r = km2.canEvolve(evolution_either_party, null);
+    [r] = km2.canEvolve(evolution_either_party, null);
     expect(r).toBe(true);
 
     const km3 = km1.clone();
     step = new Step("+PARTY_B_SIGNS", {
       evolution_json: { ...evolution_either_party_json, apply_first: true },
     });
-    r = km3.canTakeStep(step);
+    [r] = km3.canTakeStep(step);
     expect(r).toBe(true);
   });
 });

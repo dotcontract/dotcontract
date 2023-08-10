@@ -1,7 +1,7 @@
 {
   "rules": [
     {
-      "modal_formula": "gfp(@x, []@x and ([-sign]false))",
+      "modal_formula": "gfp(@x, []@x and [-sign] false)",
       "root_states": [{ "system": 0, "state": "_" }]
     }
   ],
@@ -10,7 +10,7 @@
       "possible_current_states": ["_"],
       "states": {
         "_": {
-          "arrows": [["sign", "_"]]
+          "arrows": [["+sign", "_"]]
         }
       }
     }

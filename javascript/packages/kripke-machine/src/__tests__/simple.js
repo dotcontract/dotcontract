@@ -13,28 +13,28 @@ function fixturesFile(fn) {
 
 describe("KripkeMachine", () => {
   it("should work", async () => {
-    let km, r;
+    let km, r, e;
     km = KripkeMachine.createLooper();
-    r = km.canTakeStep(new Step("anything"));
+    [r] = km.canTakeStep(new Step("anything"));
     expect(r).toBe(true);
 
     const json = JSONFile.readSync(fixturesFile("km/two_step.json"));
     km = KripkeMachine.fromJSON(json);
 
-    r = km.canTakeStep(new Step("left"));
+    [r] = km.canTakeStep(new Step("left"));
     expect(r).toBe(true);
-    r = km.canTakeStep(new Step("right"));
+    [r] = km.canTakeStep(new Step("right"));
     expect(r).toBe(true);
 
     km.takeStep(new Step("left"));
-    r = km.canTakeStep(new Step("left"));
+    [r] = km.canTakeStep(new Step("left"));
     expect(r).toBe(false);
-    r = km.canTakeStep(new Step("right"));
+    [r] = km.canTakeStep(new Step("right"));
     expect(r).toBe(true);
   });
 
   it("evolves", async () => {
-    let km, r;
+    let km, r, e;
     const json = JSONFile.readSync(fixturesFile("km/sign.json"));
     km = KripkeMachine.fromJSON(json);
 
@@ -42,19 +42,24 @@ describe("KripkeMachine", () => {
       fixturesFile("evolution/sign_and_not_defraud.json")
     );
     const evolution = Evolution.fromJSON(evolution_json);
+    [r, e] = km.canEvolve(evolution);
+    expect(r).toBe(true);
 
     // test trivial rules with evolution
     const km1 = km.clone();
-    r = km1.canEvolve(evolution, "true");
+    [r, e] = km1.canEvolve(null, "true");
     expect(r).toBe(true);
-    r = km1.canEvolve(evolution, "false");
+    [r] = km1.canEvolve(null, "false");
     expect(r).toBe(false);
 
     // test rule and its inverse rule with evolution
     const km2 = km.clone();
-    r = km2.canEvolve(evolution, "gfp(@x, []@x and [defraud]false)");
+    [r] = km2.canEvolve(null, "gfp(@x, []@x and [defraud]false)");
     expect(r).toBe(true);
-    r = km2.canEvolve(evolution, "gfp(@x, []@x and [-defraud]false)");
+
+    const km2a = km.clone();
+    km2a.evolve(evolution);
+    [r, e] = km2a.canEvolve(null, "gfp(@x, []@x and [-defraud]false)");
     expect(r).toBe(false);
 
     // test application of evolution without rule

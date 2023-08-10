@@ -71,12 +71,37 @@ export default class System {
     return Object.keys(this.states_by_id);
   }
 
-  getAllState() {
+  getAllStates() {
     return this.getStates(this.getAllStateIds());
   }
 
   getPossibleCurrentStates() {
     return this.possible_current_state_ids.map((id) => this.states_by_id[id]);
+  }
+
+  getPossibleArrows() {
+    const pcs = this.getPossibleCurrentStates();
+    const r = [];
+    for (const s of pcs) {
+      s.arrows.forEach((a) => {
+        r.push(a);
+      });
+    }
+    return r;
+  }
+
+  getObservedProperties() {
+    const r = new Set();
+    const states = this.getAllStates();
+    for (const s of states) {
+      for (const a of s.arrows) {
+        const props = a.getObservedProperties();
+        for (const p of props) {
+          r.add(p);
+        }
+      }
+    }
+    return r;
   }
 
   getPossibleNextStateIdsFor(properties_text) {

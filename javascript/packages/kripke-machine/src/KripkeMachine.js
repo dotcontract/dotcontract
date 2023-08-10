@@ -4,7 +4,7 @@ import Rule from "./parts/Rule.js";
 import Solve from "./formulas/Solve.js";
 import ModalMu from "./ModalMu.js";
 
-import { areSetsEqual } from "@dotcontract/utils/sets";
+import { areSetsEqual, intersectionOfSets } from "@dotcontract/utils/sets";
 
 export default class KripkeMachine {
   constructor() {
@@ -90,29 +90,29 @@ export default class KripkeMachine {
     for (const sys of this.systems) {
       const r = sys.canTakeStep(step);
       if (!r) {
-        return false;
+        return [false, "simple step failed"];
       }
     }
-    return true;
+    return [true];
   }
 
   canTakeStep(step) {
     const km = this.clone();
     if (step.hasEarlyEvolution()) {
       const evolution = step.getEvolution();
-      if (!km.canEvolve(evolution, null)) {
-        return false;
+      if (!km.canEvolve(evolution, null)[0]) {
+        return [false, "early evolution failed"];
       }
       km.evolve(evolution, null);
       if (!step.hasRule()) {
         step = new Step(step.properties_text);
       }
     }
-    if (!km.canTakeSimpleStep(step)) {
-      return false;
+    if (!km.canTakeSimpleStep(step)[0]) {
+      return [false, "simple step failed"];
     }
     if (!step.hasEvolution() && !step.hasRule()) {
-      return true;
+      return [true];
     }
     const evolution = step.getEvolution();
     return this.canEvolve(evolution, step.rule_text);
@@ -127,6 +127,14 @@ export default class KripkeMachine {
     for (const sys of km.systems) {
       const r = sys.canTakeStep(step);
       if (!r) {
+        console.error(
+          [
+            `no arrow matching step:`,
+            step.properties_text,
+            `\n\npossible arrows:`,
+            ...sys.getPossibleArrows().map((a) => a.getProperties()),
+          ].join("\n")
+        );
         throw new Error(`can't take step`);
       }
     }
@@ -194,9 +202,9 @@ export default class KripkeMachine {
     const km = this.clone();
     try {
       km.evolve(evolution, rule_text);
-      return true;
+      return [true, null];
     } catch (e) {
-      return false;
+      return [false, e];
     }
   }
 
@@ -206,7 +214,9 @@ export default class KripkeMachine {
       const new_rule = new Rule(rule_text, this.getPossibleCurrentStateIds());
       km.rules.push(new_rule);
     }
-    km.applyEvolution(evolution);
+    if (evolution) {
+      km.applyEvolution(evolution);
+    }
     const r = km.satisfiesRules();
     if (!r.ok) {
       throw new Error(
@@ -229,6 +239,8 @@ export default class KripkeMachine {
   }
 
   satisfiesRule(rule) {
+    const rule_props = rule.getProps();
+    let skipped_all = true;
     for (const [system_index, system] of this.systems.entries()) {
       const r = Solve.inSystem(rule.modal_formula, system);
       const system_root_states = rule.root_states
@@ -236,8 +248,19 @@ export default class KripkeMachine {
         .map((i) => i.state);
       const ok = areSetsEqual(r, new Set(system_root_states));
       if (!ok) {
-        return false;
+        const system_observed_props = system.getObservedProperties();
+        const rel_props = intersectionOfSets(system_observed_props, rule_props);
+        if (rel_props.size === 0) {
+          continue;
+        } else {
+          return false;
+        }
+      } else {
+        skipped_all = false;
       }
+    }
+    if (skipped_all) {
+      return false;
     }
     return true;
   }

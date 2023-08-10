@@ -81,4 +81,26 @@ assert_last_exit_code 1
 set -e
 cd ..
 
+contract create -d either_party
+cd either_party
+contract commit \
+  -m "require either parties to sign future commits"  \
+  --evolution ../../evolution-either_party.json \
+  --rule "always( must( include_sig(\"$USER1_PK\")) or must( include_sig(\"$USER2_PK\") ) )"
+cd ..
+
+contract create -d either_party_fix
+cd either_party_fix
+contract commit \
+  -m "require either parties to sign future commits"  \
+  --evolution ../../evolution-journal.json \
+  --rule "always( must( include_sig(\"$USER1_PK\")) or must( include_sig(\"$USER2_PK\") ) )"
+set +e
+contract commit \
+  -m "require either parties to sign future commits"  \
+  --evolution ../../evolution-either_party_fix.json \
+  --post "/hello.text" "world" \
+  --sign-with $TEST_DIR/user2.keypair
+cd ..
+
 #after_test $TEST_DIR
