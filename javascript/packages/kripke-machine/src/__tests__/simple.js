@@ -1,14 +1,14 @@
 import { expect, describe, it } from "@jest/globals";
 
-import KripkeMachine from "./KripkeMachine.js";
-import Step from "./parts/Step.js";
-import Evolution from "./parts/Evolution.js";
+import KripkeMachine from "../KripkeMachine.js";
+import Step from "../parts/Step.js";
+import Evolution from "../parts/Evolution.js";
 
 import JSONFile from "@dotcontract/utils/JSONFile";
 import dirnameFromImportMeta from "@dotcontract/utils/dirnameFromImportMeta";
 const __dirname = dirnameFromImportMeta(import.meta);
 function fixturesFile(fn) {
-  return `${__dirname}/../fixtures/${fn}`;
+  return `${__dirname}/../../fixtures/${fn}`;
 }
 
 describe("KripkeMachine", () => {

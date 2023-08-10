@@ -2,7 +2,7 @@
   "rules": [],
   "systems": [
     {
-      "current_states": ["_"],
+      "possible_current_states": ["_"],
       "states": {
         "_": {
           "arrows": [["", "_"]]
