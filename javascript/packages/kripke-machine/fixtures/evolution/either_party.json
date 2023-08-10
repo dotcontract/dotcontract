@@ -4,14 +4,8 @@
       "states": {
         "_": {
           "arrows": [
-            [
-              "+PARTY_A_SIGNS",
-              "_"
-            ],
-            [
-              "+PARTY_B_SIGNS",
-              "_"
-            ]
+            ["+PARTY_A_SIGNS", "_"],
+            ["+PARTY_B_SIGNS", "_"]
           ]
         }
       },

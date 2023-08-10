@@ -1,5 +1,5 @@
 import System from "./parts/System.js";
-import Step from './parts/Step.js';
+import Step from "./parts/Step.js";
 import Rule from "./parts/Rule.js";
 import Solve from "./formulas/Solve.js";
 import ModalMu from "./ModalMu.js";
@@ -101,8 +101,8 @@ export default class KripkeMachine {
     if (step.hasEarlyEvolution()) {
       const evolution = step.getEvolution();
       if (!km.canEvolve(evolution, null)) {
-        return false; 
-      };
+        return false;
+      }
       km.evolve(evolution, null);
       if (!step.hasRule()) {
         step = new Step(step.properties_text);

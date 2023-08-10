@@ -3,23 +3,16 @@
     {
       "states": {
         "_": {
-          "arrows": [
-            [
-              "+PARTY_A_SIGNS",
-              "_"
-            ]
-          ]
+          "arrows": [["+PARTY_A_SIGNS", "_"]]
         }
       },
-      "possible_current_states": [
-        "_"
-      ]
+      "possible_current_states": ["_"]
     }
   ],
   "mappings": [
-	  {
-		  "source": {"system": 0, "state": "_"},
-		  "target": {"system": 0, "state": "_"}
-	  }
+    {
+      "source": { "system": 0, "state": "_" },
+      "target": { "system": 0, "state": "_" }
+    }
   ]
 }
