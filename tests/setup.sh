@@ -1,5 +1,5 @@
 if [ -n "$DOTCONTRACT_CLI_BIN_DIR" ]; then
-    export PATH=$PATH:$DOTCONTRACT_CLI_BIN_DIR
+    export PATH=$DOTCONTRACT_CLI_BIN_DIR:$PATH
 fi
 
 TESTS_DIR=$(dirname "${BASH_SOURCE[0]}") 
