@@ -196,6 +196,27 @@ importers:
         specifier: ^0.9.4
         version: 0.9.4
 
+  packages/synthesizer:
+    dependencies:
+      '@dotcontract/synthesizer':
+        specifier: workspace:^1.0.0
+        version: 'link:'
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4
+      jest:
+        specifier: ^28.1.1
+        version: 28.1.1
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      ssh2-promise:
+        specifier: ^1.0.3
+        version: 1.0.3
+      temp:
+        specifier: ^0.9.4
+        version: 0.9.4
+
   packages/test-factories:
     dependencies:
       '@dotcontract/modality':
