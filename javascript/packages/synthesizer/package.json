@@ -1,0 +1,28 @@
+{
+  "name": "@dotcontract/synthesizer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"TODO: no tests specified\""
+  },
+  "files": [
+    "src",
+    "src/*"
+  ],
+  "exports": {
+    ".": "./src/index.js",
+    "./*": "./src/*.js"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "@dotcontract/synthesizer": "workspace:^1.0.0",
+    "ssh2-promise": "^1.0.3",
+    "debug": "^4.3.4",
+    "jest": "^28.1.1",
+    "lodash": "^4.17.21",
+    "temp": "^0.9.4"
+  }
+}
