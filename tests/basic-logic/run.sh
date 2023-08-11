@@ -87,6 +87,7 @@ contract commit \
   -m "require either parties to sign future commits"  \
   --evolution ../../evolution-either_party.json \
   --rule "always( must( include_sig(\"$USER1_PK\")) or must( include_sig(\"$USER2_PK\") ) )"
+assert_line_count "$(contract log)" 9
 cd ..
 
 contract create -d either_party_fix
@@ -101,6 +102,7 @@ contract commit \
   --evolution ../../evolution-either_party_fix.json \
   --post "/hello.text" "world" \
   --sign-with $TEST_DIR/user2.keypair
+assert_line_count "$(contract log)" 20
 cd ..
 
 #after_test $TEST_DIR
