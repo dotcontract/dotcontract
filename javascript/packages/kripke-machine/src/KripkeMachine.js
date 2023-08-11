@@ -104,9 +104,6 @@ export default class KripkeMachine {
         return [false, "early evolution failed"];
       }
       km.evolve(evolution, null);
-      // if (!step.hasRule()) {
-      //   step = new Step(step.properties_text);
-      // }
     }
     if (!km.canTakeSimpleStep(step)[0]) {
       return [false, "simple step failed"];
@@ -155,10 +152,11 @@ export default class KripkeMachine {
         return;
       }
       else {
-        if (!km.satisfiesRule(step.rule_text)) {
+        const new_rule = new Rule(step.rule_text, km.getPossibleCurrentStateIds());
+        if (!km.satisfiesRule(new_rule)) {
           throw new Error("new rule not satisfied");
         }
-        km.rules.push(new Rule(step.rule_text, km.getPossibleCurrentStateIds()));
+        km.rules.push(new_rule);
         this.systems = km.systems;
         this.rules = km.rules;
         return;
