@@ -104,18 +104,26 @@ export default class KripkeMachine {
         return [false, "early evolution failed"];
       }
       km.evolve(evolution, null);
-      if (!step.hasRule()) {
-        step = new Step(step.properties_text);
-      }
+      // if (!step.hasRule()) {
+      //   step = new Step(step.properties_text);
+      // }
     }
     if (!km.canTakeSimpleStep(step)[0]) {
       return [false, "simple step failed"];
     }
-    if (!step.hasEvolution() && !step.hasRule()) {
-      return [true];
+    if (!step.hasEvolution()) {
+      if(!step.hasRule()) {
+        return [true];
+      }
+      else if (!km.satisfiesRule(step.rule_text)) {
+        return [false, "new rule not satisfied"];
+      }
     }
-    const evolution = step.getEvolution();
-    return this.canEvolve(evolution, step.rule_text);
+    else if (!step.hasEarlyEvolution()){
+      const evolution = step.getEvolution();
+      return this.canEvolve(evolution, step.rule_text);
+    }
+    return [true];
   }
 
   takeStep(step) {
@@ -141,20 +149,25 @@ export default class KripkeMachine {
     for (const sys of km.systems) {
       sys.takeStep(step);
     }
-    if (!step.hasEvolution() && !step.hasRule()) {
-      this.systems = km.systems;
-      return;
-    }
-    if (!step.hasEvolution() && step.hasRule()) {
-      if (!km.satisfiesRule(step.rule_text)) {
-        throw new Error("new rule not satisfied");
+    if (!step.hasEvolution()) {
+      if (!step.hasRule()) {
+        this.systems = km.systems;
+        return;
       }
-      km.rules.push(new Rule(step.rule_text, km.getPossibleCurrentStateIds()));
-      this.systems = km.systems;
-      return;
+      else {
+        if (!km.satisfiesRule(step.rule_text)) {
+          throw new Error("new rule not satisfied");
+        }
+        km.rules.push(new Rule(step.rule_text, km.getPossibleCurrentStateIds()));
+        this.systems = km.systems;
+        this.rules = km.rules;
+        return;
+      }
     }
-    const evolution = step.getEvolution();
-    this.evolve(evolution, step.rule_text);
+    else if (!step.hasEarlyEvolution()) {
+      const evolution = step.getEvolution();
+      this.evolve(evolution, step.rule_text);
+    }
   }
 
   applyEvolution(evolution) {
