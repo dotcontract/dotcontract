@@ -90,6 +90,7 @@ export default class Contract {
       await clone.appendCommit(commit);
       return true;
     } catch (e) {
+      console.error(e);
       return false;
     }
   }
