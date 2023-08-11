@@ -109,14 +109,12 @@ export default class KripkeMachine {
       return [false, "simple step failed"];
     }
     if (!step.hasEvolution()) {
-      if(!step.hasRule()) {
+      if (!step.hasRule()) {
         return [true];
-      }
-      else if (!km.satisfiesRule(step.rule_text)) {
+      } else if (!km.satisfiesRule(step.rule_text)) {
         return [false, "new rule not satisfied"];
       }
-    }
-    else if (!step.hasEarlyEvolution()){
+    } else if (!step.hasEarlyEvolution()) {
       const evolution = step.getEvolution();
       return this.canEvolve(evolution, step.rule_text);
     }
@@ -150,9 +148,11 @@ export default class KripkeMachine {
       if (!step.hasRule()) {
         this.systems = km.systems;
         return;
-      }
-      else {
-        const new_rule = new Rule(step.rule_text, km.getPossibleCurrentStateIds());
+      } else {
+        const new_rule = new Rule(
+          step.rule_text,
+          km.getPossibleCurrentStateIds()
+        );
         if (!km.satisfiesRule(new_rule)) {
           throw new Error("new rule not satisfied");
         }
@@ -161,8 +161,7 @@ export default class KripkeMachine {
         this.rules = km.rules;
         return;
       }
-    }
-    else if (!step.hasEarlyEvolution()) {
+    } else if (!step.hasEarlyEvolution()) {
       const evolution = step.getEvolution();
       this.evolve(evolution, step.rule_text);
     }

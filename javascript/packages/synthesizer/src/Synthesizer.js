@@ -4,9 +4,6 @@
 // import temp from "temp";
 // temp.track();
 
-
 const log = console.log;
 
-export default class Synthesizer {
-  
-}
+export default class Synthesizer {}
