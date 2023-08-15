@@ -86,47 +86,28 @@ export default class KripkeMachine {
     return r;
   }
 
-  canTakeSimpleStep(step) {
-    for (const sys of this.systems) {
-      const r = sys.canTakeStep(step);
-      if (!r) {
-        return [false, "simple step failed"];
-      }
-    }
-    return [true];
-  }
-
   canTakeStep(step) {
     const km = this.clone();
-    if (step.hasEarlyEvolution()) {
-      const evolution = step.getEvolution();
-      if (!km.canEvolve(evolution, null)[0]) {
-        return [false, "early evolution failed"];
-      }
-      km.evolve(evolution, null);
+    try{
+      km.takeStep(step);
     }
-    if (!km.canTakeSimpleStep(step)[0]) {
-      return [false, "simple step failed"];
-    }
-    if (!step.hasEvolution()) {
-      if (!step.hasRule()) {
-        return [true];
-      } else if (!km.satisfiesRule(step.rule_text)) {
-        return [false, "new rule not satisfied"];
-      }
-    } else if (!step.hasEarlyEvolution()) {
-      const evolution = step.getEvolution();
-      return this.canEvolve(evolution, step.rule_text);
+    catch(e){
+      return [false, e.message];
     }
     return [true];
   }
 
   takeStep(step) {
     const km = this.clone();
+    // Early Evolution
     if (step.hasEarlyEvolution()) {
       const evolution = step.getEvolution();
+      if (!km.canEvolve(evolution, null)[0]) {
+        throw new Error("early evolution failed");
+      }
       km.evolve(evolution, null);
     }
+    // Take step
     for (const sys of km.systems) {
       const r = sys.canTakeStep(step);
       if (!r) {
@@ -144,25 +125,39 @@ export default class KripkeMachine {
     for (const sys of km.systems) {
       sys.takeStep(step);
     }
+    // No Evolution
     if (!step.hasEvolution()) {
+      // No rule
       if (!step.hasRule()) {
         this.systems = km.systems;
         return;
-      } else {
-        const new_rule = new Rule(
-          step.rule_text,
-          km.getPossibleCurrentStateIds()
+      } else{ // Rule without evolution
+          const new_rule = new Rule(
+            step.rule_text,
+            km.getPossibleCurrentStateIds()
         );
-        if (!km.satisfiesRule(new_rule)) {
-          throw new Error("new rule not satisfied");
+        if (!km.satisfiesRule(new_rule)) { // Unsatisfiable new rule
+          // Synthesize evolution
+          synthesized_evolution = Synthesizer.getPossibleEvolution(km.toJSON(), step.rule_text);
+          if (!evolution || !km.canEvolve(synthesized_evolution, step.rule_text)[0]) {
+            throw new Error("Synthesizer could not find a possible evolution for unsatisfiable rule");
+          }
+          km.evolve(synthesized_evolution, step.rule_text);
+          // Check if new rule is satisfiable after synthesized evolution
+          if(!km.satisfiesRule(new_rule)) {
+            throw new Error("Synthesizer could not find a possible evolution for unsatisfiable rule");
+          }
         }
         km.rules.push(new_rule);
         this.systems = km.systems;
         this.rules = km.rules;
         return;
-      }
-    } else if (!step.hasEarlyEvolution()) {
+      } 
+    } else if (!step.hasEarlyEvolution()) { // Late Evolution
       const evolution = step.getEvolution();
+      if (!km.canEvolve(evolution, step.rule_text)[0]) {
+        throw new Error("evolution failed");
+      }
       this.evolve(evolution, step.rule_text);
     }
   }
