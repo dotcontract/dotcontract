@@ -4,7 +4,7 @@ import Rule from "./parts/Rule.js";
 import Solve from "./formulas/Solve.js";
 import ModalMu from "./ModalMu.js";
 
-import { areSetsEqual, intersectionOfSets } from "@dotcontract/utils/sets";
+import { isSubsetOf, intersectionOfSets } from "@dotcontract/utils/sets";
 
 export default class KripkeMachine {
   constructor() {
@@ -221,7 +221,7 @@ export default class KripkeMachine {
   evolve(evolution, rule_text) {
     const km = this.clone();
     if (rule_text) {
-      const new_rule = new Rule(rule_text, this.getPossibleCurrentStateIds());
+      const new_rule = new Rule(rule_text, km.getPossibleCurrentStateIds());
       km.rules.push(new_rule);
     }
     if (evolution) {
@@ -256,7 +256,7 @@ export default class KripkeMachine {
       const system_root_states = rule.root_states
         .filter((i) => i.system === system_index)
         .map((i) => i.state);
-      const ok = areSetsEqual(r, new Set(system_root_states));
+      const ok = isSubsetOf(r, new Set(system_root_states));
       if (!ok) {
         const system_observed_props = system.getObservedProperties();
         const rel_props = intersectionOfSets(system_observed_props, rule_props);
