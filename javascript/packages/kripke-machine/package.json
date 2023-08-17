@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@dotcontract/utils": "workspace:^0.0.3",
+    "@dotcontract/synthesizer": "workspace:^0.0.3",
     "antlr4": "^4.13.0",
     "debug": "^4.3.4",
     "jest": "^28.1.1",

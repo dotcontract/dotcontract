@@ -105,6 +105,9 @@ importers:
 
   packages/kripke-machine:
     dependencies:
+      '@dotcontract/synthesizer':
+        specifier: workspace:^0.0.3
+        version: link:../synthesizer
       '@dotcontract/utils':
         specifier: workspace:^0.0.3
         version: link:../utils
@@ -198,9 +201,6 @@ importers:
 
   packages/synthesizer:
     dependencies:
-      '@dotcontract/synthesizer':
-        specifier: workspace:^1.0.0
-        version: 'link:'
       debug:
         specifier: ^4.3.4
         version: 4.3.4

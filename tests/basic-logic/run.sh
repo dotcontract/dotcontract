@@ -12,13 +12,6 @@ cd $TEST_DIR/tmp
 USER1_PK=$(contract pubkey -f ../user1.keypair)
 USER2_PK=$(contract pubkey -f ../user2.keypair)
 
-contract create -d test-no-evo
-cd test-no-evo
-contract commit \
-  -m "no evolution" \
-  --rule "true"
-cd ..
-
 contract create -d test-no-rule
 cd test-no-rule
 contract commit \
@@ -79,7 +72,7 @@ cd agreement
 contract commit \
   -m "require both parties to sign future commits" \
   --evolution ../../evolution-agreement.json \
-  --rule "always( must( include_sig(\"$USER1_PK\") ) and must ( include_sig(\"$USER2_PK\") ) )"
+  --rule "always( must( include_sig(\"$USER1_PK\") ) ) and always ( must ( include_sig(\"$USER2_PK\") ) )"
 assert_line_count "$(contract log)" 9
 contract commit \
   -m "good commit" \
@@ -100,7 +93,7 @@ cd either_party
 contract commit \
   -m "require either parties to sign future commits"  \
   --evolution ../../evolution-either_party.json \
-  --rule "always( must( include_sig(\"$USER1_PK\")) or must( include_sig(\"$USER2_PK\") ) )"
+  --rule "always( must( include_sig(\"$USER1_PK\") ) )  or always ( must( include_sig(\"$USER2_PK\") ) )"
 assert_line_count "$(contract log)" 9
 cd ..
 
@@ -109,7 +102,7 @@ cd either_party_fix
 contract commit \
   -m "require either parties to sign future commits"  \
   --evolution ../../evolution-journal.json \
-  --rule "always( must( include_sig(\"$USER1_PK\")) or must( include_sig(\"$USER2_PK\") ) )"
+  --rule "always( must( include_sig(\"$USER1_PK\") ) ) or always ( must( include_sig(\"$USER2_PK\") ) )"
 set +e
 contract commit \
   -m "require either parties to sign future commits"  \

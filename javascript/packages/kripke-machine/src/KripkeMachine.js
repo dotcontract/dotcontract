@@ -3,6 +3,8 @@ import Step from "./parts/Step.js";
 import Rule from "./parts/Rule.js";
 import Solve from "./formulas/Solve.js";
 import ModalMu from "./ModalMu.js";
+import Evolution from "./parts/Evolution.js";
+import Synthesizer from "@dotcontract/synthesizer";
 
 import { isSubsetOf, intersectionOfSets } from "@dotcontract/utils/sets";
 
@@ -138,9 +140,11 @@ export default class KripkeMachine {
         );
         if (!km.satisfiesRule(new_rule)) { // Unsatisfiable new rule
           // Synthesize evolution
-          synthesized_evolution = Synthesizer.getPossibleEvolution(km.toJSON(), step.rule_text);
-          if (!evolution || !km.canEvolve(synthesized_evolution, step.rule_text)[0]) {
-            throw new Error("Synthesizer could not find a possible evolution for unsatisfiable rule");
+          const synth = new Synthesizer('simple');
+          const synthesized_evolution_json = synth.getPossibleEvolutionJson(km.toJSON(), new_rule);
+          const synthesized_evolution = Evolution.fromJSON(synthesized_evolution_json);
+          if (!synthesized_evolution || !km.canEvolve(synthesized_evolution, step.rule_text)[0]) {
+            throw new Error("Synthesizer could not produce a valid evolution for unsatisfiable rule");
           }
           km.evolve(synthesized_evolution, step.rule_text);
           // Check if new rule is satisfiable after synthesized evolution
