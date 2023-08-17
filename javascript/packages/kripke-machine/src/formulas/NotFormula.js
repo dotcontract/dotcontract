@@ -14,6 +14,10 @@ export default class NotFormula extends BaseFormula {
     return this.formula.getProps();
   }
 
+  getSignedProps(ctx) {
+    return this.formula.getSignedProps();
+  }
+
   getFreeVars() {
     return new Set(this.formula.getFreeVars());
   }

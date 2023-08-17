@@ -16,6 +16,10 @@ export default class BoxFormula extends BaseFormula {
     return new unionOfSets(this.inner.getProps(), this.outer.getProps());
   }
 
+  getSignedProps() {
+    return new unionOfSets(this.inner.getSignedProps(), this.outer.getSignedProps());
+  }
+
   getFreeVars(ctx) {
     return new unionOfSets(this.inner.getFreeVars(), this.outer.getFreeVars());
   }

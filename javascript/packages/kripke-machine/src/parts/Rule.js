@@ -13,4 +13,9 @@ export default class Rule {
   getProps() {
     return this.modal_formula.getProps();
   }
+
+  getSignedProps() {
+    return this.modal_formula.getSignedProps();
+  }
+  
 }

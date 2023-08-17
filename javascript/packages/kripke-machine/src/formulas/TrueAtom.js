@@ -13,6 +13,10 @@ export default class TrueAtom extends BaseFormula {
     return new Set();
   }
 
+  getSignedProps() {
+    return new Set();
+  }
+
   getFreeVars() {
     return new Set();
   }

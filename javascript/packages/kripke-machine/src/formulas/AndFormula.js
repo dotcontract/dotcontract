@@ -16,6 +16,10 @@ export default class AndFormula extends BaseFormula {
     return new unionOfSets(this.left.getProps(), this.right.getProps());
   }
 
+  getSignedProps() {
+    return new unionOfSets(this.left.getSignedProps(), this.right.getSignedProps());
+  }
+
   getFreeVars() {
     return new unionOfSets(this.left.getFreeVars(), this.right.getFreeVars());
   }

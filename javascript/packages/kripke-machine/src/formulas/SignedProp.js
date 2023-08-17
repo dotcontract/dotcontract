@@ -19,6 +19,10 @@ export default class SignedProp {
     return new Set([this.prop]);
   }
 
+  getSignedProps() {
+    return new Set([`${this.sign ? "+" : "-"}${this.prop}`]);
+  }
+
   getFreeProps() {
     return new Set([this.prop]);
   }

@@ -16,6 +16,10 @@ export default class OrFormula extends BaseFormula {
     return new unionOfSets(this.left.getProps(), this.right.getProps());
   }
 
+  getSignedProps(ctx) {
+    return new unionOfSets(this.left.getSignedProps(), this.right.getSignedProps());
+  }
+
   getFreeVars() {
     return new unionOfSets(this.left.getFreeVars(), this.right.getFreeVars());
   }
