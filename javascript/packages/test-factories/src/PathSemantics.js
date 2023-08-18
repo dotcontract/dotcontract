@@ -1,5 +1,7 @@
 export default class PathSemantics {
   static getEffectedParentDirectories(variable) {
+    if(!variable)
+      return [];
     if (variable[0] !== "/") {
       return [variable];
     }
