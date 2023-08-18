@@ -39,7 +39,7 @@ describe("Modality", () => {
     const is_zero_tf = new IsZeroTestFactory();
     const is_zero__a = is_zero_tf.getTestForArgs(["a"]);
 
-    expect(await is_zero__a.evaluate({ a: 0 })).toBe(true);
-    expect(await is_zero__a.evaluate({ a: 1 })).toBe(false);
+    expect(is_zero__a.evaluate({ a: 0 })).toBe(true);
+    expect(is_zero__a.evaluate({ a: 1 })).toBe(false);
   });
 });

@@ -7,7 +7,7 @@ export default class IncludeSigTestFactory extends TestFactory {
   getEvaluateForArgs(args) {
     const [prefixed_multiaddress] = args;
     const multiaddress = prefixed_multiaddress.replace(/^crypto:\//, "");
-    return async (context) => {
+    return (context) => {
       const { body, head } = context;
       if (!head?.signatures) {
         return false;
@@ -18,7 +18,7 @@ export default class IncludeSigTestFactory extends TestFactory {
       }
 
       const shared_key = Key.fromPublicMultiaddress(multiaddress);
-      const result = await shared_key.verifySignatureForJson(signature, body);
+      const result = shared_key.verifySignatureForJson(signature, body);
       return result;
     };
   }

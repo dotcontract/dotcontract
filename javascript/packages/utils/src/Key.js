@@ -210,7 +210,7 @@ export default class Key {
     return this.verifySignatureForBytes(signature, bytes);
   }
 
-  async verifySignatureForJson(signature, json) {
+  verifySignatureForJson(signature, json) {
     const str = JSONStringifyDeterministic(json);
     return this.verifySignatureForString(signature, str);
   }
