@@ -20,11 +20,11 @@ export default class Test {
     Test.toProp(this.name, this.args);
   }
 
-  evaluate(context) {
+  async evaluate(context) {
     throw new Error("not implemented");
   }
 
-  correlate(other_tests = []) {
+  async correlate(other_tests = []) {
     throw new Error("not implemented");
   }
 }

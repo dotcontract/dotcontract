@@ -6,7 +6,7 @@ export default class PostToTestFactory extends TestFactory {
 
   getEvaluateForArgs(args) {
     const [path] = args;
-    return (context) => {
+    return async (context) => {
       const { body } = context;
       const effected_paths = PathSemantics.expandEffected(body);
       return !!effected_paths[path];
@@ -15,7 +15,7 @@ export default class PostToTestFactory extends TestFactory {
 
   getCorrelateForArgs(args) {
     const [path] = args;
-    return (other_tests) => {
+    return async (other_tests) => {
       const parent_dirs = PathSemantics.getEffectedParentDirectories(path);
       const r = [];
       for (const parent_dir of parent_dirs) {

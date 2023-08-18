@@ -58,7 +58,7 @@ export default class Contract {
       }
       if (tf) {
         const t = tf.getTestForArgs(observed_test.args);
-        const v = t.evaluate({ body: commit.body, head: commit.head });
+        const v = await t.evaluate({ body: commit.body, head: commit.head });
         r.push(
           `${v ? "+" : "-"}${Modality.getPropFromTest(
             observed_test.name,

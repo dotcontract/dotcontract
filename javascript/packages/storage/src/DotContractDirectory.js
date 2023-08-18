@@ -70,7 +70,7 @@ export default class DotContractDirectory {
     if (!fs.existsSync(this.dirpath)) {
       return false;
     }
-    if (!this.isDotContractJsonValid()) {
+    if (!await this.isDotContractJsonValid()) {
       return false;
     }
     return true;

@@ -11,7 +11,7 @@ export default class SignedProp {
     return this;
   }
 
-  getValue() {
+  async getValue() {
     return true; // TODO
   }
 

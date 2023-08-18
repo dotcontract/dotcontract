@@ -7,7 +7,7 @@ export default class PropsAtom extends BaseFormula {
     this.props = signed_props;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true; // TODO
   }
 

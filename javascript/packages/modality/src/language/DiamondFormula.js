@@ -8,7 +8,7 @@ export default class DiamondFormula extends BaseFormula {
     this.outer = outer;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true; // TODO
   }
 

@@ -7,7 +7,7 @@ export default class CanMacro extends BaseFormula {
   }
 
   // TODO
-  getValue(ctx) {
+  async getValue(ctx) {
     return true;
   }
 

@@ -8,7 +8,7 @@ export default class GfpFormula extends BaseFormula {
     this.inner = inner;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true; // TODO
   }
 

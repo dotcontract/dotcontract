@@ -17,7 +17,7 @@ describe("Key", () => {
       await shared_key.asPublicMultiaddress();
     expect(shared_key_as_public_multiaddress).toBe(public_multiaddress);
 
-    const result = shared_key.verifySignatureForJson(signature, json);
+    const result = await shared_key.verifySignatureForJson(signature, json);
     expect(result).toBe(true);
 
     const json_with_signature = await key.signJSONElement(json, "ok");

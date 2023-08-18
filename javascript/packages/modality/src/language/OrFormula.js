@@ -8,8 +8,8 @@ export default class OrFormula extends BaseFormula {
     this.right = right;
   }
 
-  getValue(ctx) {
-    return this.left.getValue(ctx) || this.right.getValue(ctx);
+  async getValue(ctx) {
+    return await this.left.getValue(ctx) || await this.right.getValue(ctx);
   }
 
   expandFunctions() {

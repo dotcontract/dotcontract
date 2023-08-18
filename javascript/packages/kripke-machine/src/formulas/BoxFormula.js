@@ -8,7 +8,7 @@ export default class BoxFormula extends BaseFormula {
     this.outer = outer;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true; // TODO
   }
 

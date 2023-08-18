@@ -24,8 +24,8 @@ export default class Key {
 
   // base58identity is used for addresses
 
-  static async uint8ArrayAsBase58Identity(bytes) {
-    const encoding = await identity.digest(bytes);
+  static uint8ArrayAsBase58Identity(bytes) {
+    const encoding = identity.digest(bytes);
     return base58btc.encode(encoding.bytes).substring(1);
   }
 
@@ -38,11 +38,11 @@ export default class Key {
   }
 
   async asPublicKeyId() {
-    return this.publicKeyAsBase58Identity();
+    return await this.publicKeyAsBase58Identity();
   }
 
   async asPublicAddress() {
-    return this.publicKeyAsBase58Identity();
+    return await this.publicKeyAsBase58Identity();
   }
 
   // base64pad is used for storage
@@ -72,7 +72,7 @@ export default class Key {
   }
 
   async asPublicMultiaddress() {
-    return this.publicKeyToMultiaddrString();
+    return await this.publicKeyToMultiaddrString();
   }
 
   static fromPublicKey(public_key_id, type = "ed25519") {
@@ -112,11 +112,11 @@ export default class Key {
   }
 
   static async fromJSONString(str) {
-    return this.fromJSON(JSON.parse(str));
+    return await this.fromJSON(JSON.parse(str));
   }
 
   static async fromJSONFile(fp) {
-    return this.fromJSONString(readFileSync(fp));
+    return await this.fromJSONString(readFileSync(fp));
   }
 
   async asPublicJSON() {
@@ -179,7 +179,7 @@ export default class Key {
 
   async signJSON(json) {
     const str = JSONStringifyDeterministic(json);
-    return this.signStringAsBase64Pad(str);
+    return await this.signStringAsBase64Pad(str);
   }
 
   async signJSONElement(json, name, suffix = ".signature") {
@@ -202,17 +202,17 @@ export default class Key {
 
   async verifySignatureForBytes(signature, bytes) {
     const signature_bytes = uint8ArrayFromString(signature, "base64pad");
-    return this.key.public.verify(bytes, signature_bytes);
+    return await this.key.public.verify(bytes, signature_bytes);
   }
 
   async verifySignatureForString(signature, str) {
     const bytes = uint8ArrayFromString(str);
-    return this.verifySignatureForBytes(signature, bytes);
+    return await this.verifySignatureForBytes(signature, bytes);
   }
 
-  verifySignatureForJson(signature, json) {
+  async verifySignatureForJson(signature, json) {
     const str = JSONStringifyDeterministic(json);
-    return this.verifySignatureForString(signature, str);
+    return await this.verifySignatureForString(signature, str);
   }
 
   async verifySignaturesInJson(json, suffix = ".signature") {

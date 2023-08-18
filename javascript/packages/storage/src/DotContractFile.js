@@ -24,7 +24,7 @@ export default class DotContractFile extends DotContractDirectory {
     await pf.open();
     if (output_file) {
       pf.filepath = output_file;
-      pf.save();
+      await pf.save();
     }
     return pf;
   }

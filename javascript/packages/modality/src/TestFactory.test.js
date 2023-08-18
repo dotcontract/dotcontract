@@ -12,14 +12,14 @@ class IsZeroTestFactory extends TestFactory {
 
   getEvaluateForArgs(args) {
     const key = args[0];
-    return (context) => {
+    return async (context) => {
       return context[key] === 0;
     };
   }
 
   getCorrelateForArgs(args) {
     const key = args[0];
-    return (other_tests) => {
+    return async (other_tests) => {
       return [
         {
           test: TestFactory.propFromNameAndArgs("is_one", [key]),
@@ -39,7 +39,7 @@ describe("Modality", () => {
     const is_zero_tf = new IsZeroTestFactory();
     const is_zero__a = is_zero_tf.getTestForArgs(["a"]);
 
-    expect(is_zero__a.evaluate({ a: 0 })).toBe(true);
-    expect(is_zero__a.evaluate({ a: 1 })).toBe(false);
+    expect(await is_zero__a.evaluate({ a: 0 })).toBe(true);
+    expect(await is_zero__a.evaluate({ a: 1 })).toBe(false);
   });
 });

@@ -21,13 +21,13 @@ describe("ModalFormula", () => {
       new ModalFormula("true]");
     }).toThrow();
     f = new ModalFormula("not(false)");
-    expect(f.getValue()).toBe(true);
+    expect(await f.getValue()).toBe(true);
     f = new ModalFormula("not(true)");
-    expect(f.getValue()).toBe(false);
+    expect(await f.getValue()).toBe(false);
     f = new ModalFormula("true and (true or false)");
-    expect(f.getValue()).toBe(true);
+    expect(await f.getValue()).toBe(true);
     f = new ModalFormula("false or (true and false)");
-    expect(f.getValue()).toBe(false);
+    expect(await f.getValue()).toBe(false);
   });
 
   it("should parse multiActions", async () => {

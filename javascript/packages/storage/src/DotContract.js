@@ -149,7 +149,7 @@ export default class DotContract {
   }
 
   async zip(filepath) {
-    this.dotcontract.zip(filepath);
+    await this.dotcontract.zip(filepath);
   }
 
   static unzip(input, output, password) {
@@ -157,7 +157,7 @@ export default class DotContract {
   }
 
   async clear() {
-    this.dotcontract.clear();
+    await this.dotcontract.clear();
   }
 
   getDirPath() {
