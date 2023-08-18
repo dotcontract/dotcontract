@@ -10,9 +10,9 @@ export default class Synthesizer {
     /*
     Simple Heuristics:
     Heristic 1: Always - Must
-    // If new rule is of the form - 
-        //  always (must(x1)) and always (must(x2)) and ... and always (must(xn)) where x1, x2, ..., xn are individual propositions
-        // then, for each system, all arrows must satisfy [-x1 -x2 ... -xn]
+    If new rule is of the form - 
+        always (must(x1)) and always (must(x2)) and ... and always (must(xn)) where x1, x2, ..., xn are individual propositions
+        then, for each system, all arrows must satisfy [-x1 -x2 ... -xn]
     */
     check_always_must_heuristic(modal_formula){
         if(modal_formula.constructor.name === 'GfpFormula'){
@@ -46,11 +46,8 @@ export default class Synthesizer {
                 for(const state_name of Object.keys(system.states)){
                     for(const arrow of system.states[state_name].arrows){
                         const index = arrow[0].indexOf(unsigned_prop);
-                        if(index!=-1){
-                            if(signed_prop[0] === corr_sign)
-                                continue;
-                            else
-                                arrow[0][index-1] = corr_sign; // check this
+                        if(index!=-1 && signed_prop[0] === corr_sign){
+                            continue;
                         }
                         else{
                             arrow[0] += ' ' + corr_sign + unsigned_prop + ' ';
