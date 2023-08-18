@@ -5,10 +5,6 @@ fi
 TESTS_DIR=$(dirname "${BASH_SOURCE[0]}") 
 FIXTURES_DIR=$TEST_DIR/fixtures
 
-assert_last_exit_code() {
-  test $? -eq "$1" || (echo 'exit code wrong' && exit 1)
-}
-
 assert_line_count() {
     if [[ "$(expr $(echo "$1" | wc -l))" == $2 ]]; then
         true

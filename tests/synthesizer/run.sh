@@ -35,8 +35,9 @@ contract commit \
   -m "bad commit" \
   --post "/2.text" "hello" \
   --sign-with $TEST_DIR/user2.keypair &> /dev/null
-assert_last_exit_code 1
+exit_code=$?
 set -e
+test $exit_code -eq 1 || (echo 'exit code wrong' && exit 1)
 cd ..
 
 contract create -d restricted
@@ -49,8 +50,9 @@ set +e
 contract commit \
   -m "bad commit" \
   --post "/restricted/1.text" "hello" &> /dev/null
-test $? -eq 1 || (echo 'restriction failed' && exit 1)
+exit_code=$?
 set -e
+test $exit_code -eq 1 || (echo 'exit code wrong' && exit 1)
 contract commit \
   -m "good commit" \
   --post "/not-restricted/1.text" "hello"\
@@ -68,14 +70,18 @@ set +e
 contract commit \
   -m "bad commit" \
   --post "/restricted/1.text" "hello" &> /dev/null
-test $? -eq 1 || (echo 'restriction failed' && exit 1)
+exit_code=$?
+set -e
+test $exit_code -eq 1 || (echo 'exit code wrong' && exit 1)
 
+set +e
 contract commit \
   -m "bad commit" \
   --post "/restricted/2.text" "hello" \
   --sign-with $TEST_DIR/user1.keypair &> /dev/null
-test $? -eq 1 || (echo 'restriction failed' && exit 1)
+exit_code=$?
 set -e
+test $exit_code -eq 1 || (echo 'exit code wrong' && exit 1)
 contract commit \
   -m "good commit" \
   --post "/not-restricted/1.text" "hello"\
@@ -106,8 +112,9 @@ contract commit \
   -m "Bad commit: Testing commit with User2 verification and posting to restricted" \
   --post "/restricted/1.text" "hello" \
   --sign-with $TEST_DIR/user2.keypair &> /dev/null
-test $? -eq 1 || (echo 'restriction failed' && exit 1)
+exit_code=$?
 set -e
+test $exit_code -eq 1 || (echo 'exit code wrong' && exit 1)
 contract commit \
   -m "Testing commit with User2 verification" \
   --post "/3.text" "hello" \
@@ -116,7 +123,8 @@ assert_line_count "$(contract log)" 47
 set +e
 contract commit \
   -m "Bad commit: Allowing post to restricted" \
-  --rule "always ( must ( post_to(/restricted) ) )"
-test $? -eq 1 || (echo 'restriction failed' && exit 1)
+  --rule "always ( must ( post_to(/restricted) ) )" 
+exit_code=$?
 set -e
+test $exit_code -eq 1 || (echo 'exit code wrong2' && exit 1)
 # after_test $TEST_DIR
