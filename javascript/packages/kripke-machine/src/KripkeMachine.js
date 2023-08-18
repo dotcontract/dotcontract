@@ -151,11 +151,14 @@ export default class KripkeMachine {
           if(!km.satisfiesRule(new_rule)) {
             throw new Error("Synthesizer could not find a possible evolution for unsatisfiable rule");
           }
+          this.evolve(synthesized_evolution, step.rule_text);
+          return;
         }
-        km.rules.push(new_rule);
-        this.systems = km.systems;
-        this.rules = km.rules;
-        return;
+        else{// Satisfiable new rule
+          this.rules.push(new_rule);
+          this.systems = km.systems;
+          return;
+        }
       } 
     } else if (!step.hasEarlyEvolution()) { // Late Evolution
       const evolution = step.getEvolution();
