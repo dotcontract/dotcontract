@@ -22,6 +22,7 @@ import { Commit } from "@dotcontract/contract";
 
 export async function handler(argv) {
   const { dotcontract: dc } = await ensureContractArgs(argv);
+  log(asGreen(asBold("Kripke Machine:"))  + "\n");
   log(JSON.stringify(dc.getKM(), null, 2));
 }
 
