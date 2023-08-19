@@ -150,9 +150,7 @@ export default class KripkeMachine {
           if(!b){
             throw new Error("Synthesizer attempted to synthesize an evolution but failed to satisfy all the rules. "+m);
           }
-          km.evolve(synthesized_evolution, step.rule_text);
-          this.systems = km.systems;
-          this.rules = km.rules;
+          this.evolve(synthesized_evolution, step.rule_text);
           return;
         }
         else{// Satisfiable new rule
