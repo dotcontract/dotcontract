@@ -81,7 +81,7 @@ export default class Solve {
         let shouldIncludeState = false;
         for (const arrow of state.arrows) {
           if (
-            arrow.accepts(inner.toText()).ok &&
+            arrow.accepts(inner.toText(), false).ok &&
             outer_set.has(arrow.target_state_id)
           ) {
             shouldIncludeState = true;
