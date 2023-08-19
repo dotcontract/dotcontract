@@ -6,7 +6,7 @@ import ModalMu from "./ModalMu.js";
 import Evolution from "./parts/Evolution.js";
 import Synthesizer from "@dotcontract/synthesizer";
 
-import { isSubsetOf, intersectionOfSets } from "@dotcontract/utils/sets";
+import { isSupersetOf, intersectionOfSets } from "@dotcontract/utils/sets";
 
 export default class KripkeMachine {
   constructor() {
@@ -140,18 +140,17 @@ export default class KripkeMachine {
         );
         if (!km.satisfiesRule(new_rule)) { // Unsatisfiable new rule
           // Synthesize evolution
+          console.debug("\n\nSynthesizing evolution to satisfy rule!!\n\n")
           const synth = new Synthesizer('simple');
           const synthesized_evolution_json = synth.getPossibleEvolutionJson(km.toJSON(), new_rule);
           const synthesized_evolution = Evolution.fromJSON(synthesized_evolution_json);
           if (!synthesized_evolution || !km.canEvolve(synthesized_evolution, step.rule_text)[0]) {
             throw new Error("Synthesizer could not produce a valid evolution for unsatisfiable rule");
           }
-          km.evolve(synthesized_evolution, step.rule_text);
-          // Check if new rule is satisfiable after synthesized evolution
-          if(!km.satisfiesRule(new_rule)) {
-            throw new Error("Synthesizer could not find a possible evolution for unsatisfiable rule");
-          }
-          this.evolve(synthesized_evolution, step.rule_text);
+          this.systems = km.systems;
+          this.rules = km.rules;
+          // console.debug("After synthesizing evolution")
+          // console.debug(JSON.stringify(this.toJSON(), null, 2));
           return;
         }
         else{// Satisfiable new rule
@@ -242,8 +241,10 @@ export default class KripkeMachine {
   }
 
   satisfiesRules() {
+    console.debug(JSON.stringify(this.toJSON(), null, 2));
     for (const rule of this.rules) {
       if (!this.satisfiesRule(rule)) {
+        console.debug("HMMMM")
         return { ok: false, errors: [rule] };
       }
     }
@@ -253,15 +254,23 @@ export default class KripkeMachine {
   satisfiesRule(rule) {
     const rule_props = rule.getProps();
     let skipped_all = true;
+    console.debug("rule", rule);
     for (const [system_index, system] of this.systems.entries()) {
       const r = Solve.inSystem(rule.modal_formula, system);
       const system_root_states = rule.root_states
         .filter((i) => i.system === system_index)
         .map((i) => i.state);
-      const ok = isSubsetOf(r, new Set(system_root_states));
+      console.debug("system_index", system_index)
+      console.debug("Solved", r)
+      console.debug("system_root_states", system_root_states)
+      const ok = isSupersetOf(r, new Set(system_root_states));
+      console.debug("ok", ok)
       if (!ok) {
         const system_observed_props = system.getObservedProperties();
+        console.debug("system_observed_props", system_observed_props)
+        console.debug("rule_props", rule_props)
         const rel_props = intersectionOfSets(system_observed_props, rule_props);
+        console.debug("rel_props", rel_props)
         if (rel_props.size === 0) {
           continue;
         } else {
@@ -274,6 +283,7 @@ export default class KripkeMachine {
     if (skipped_all) {
       return false;
     }
+    console.debug("\n\nsatisfied rule\n\n")
     return true;
   }
 }

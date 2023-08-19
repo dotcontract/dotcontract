@@ -45,7 +45,7 @@ export function areSetsEqual(...sets) {
   return true;
 }
 
-export function isSubsetOf(...sets) {
+export function isSupersetOf(...sets) {
   if (sets.length === 0) {
     return true;
   }

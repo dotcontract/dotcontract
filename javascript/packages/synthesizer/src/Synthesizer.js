@@ -44,15 +44,23 @@ export default class Synthesizer {
             for(const system of evolution_json.systems)
             {
                 for(const state_name of Object.keys(system.states)){
-                    for(const arrow of system.states[state_name].arrows){
+                    let rm_arrow_list = [];
+                    for(const [arr_indx, arrow] of system.states[state_name].arrows.entries()){
                         const index = arrow[0].indexOf(unsigned_prop);
-                        if(index!=-1 && signed_prop[0] === corr_sign){
-                            continue;
+                        if(index!=-1){
+                            if(signed_prop[0] === corr_sign)
+                                continue;
+                            else{
+                                rm_arrow_list.push(arr_indx);
+                            }
                         }
                         else{
                             arrow[0] += ' ' + corr_sign + unsigned_prop + ' ';
                         }
                                 
+                    }
+                    for(const arr_indx of rm_arrow_list){
+                        system.states[state_name].arrows.splice(arr_indx, 1);
                     }
                 }
             }
@@ -86,9 +94,13 @@ export default class Synthesizer {
 
             evolution_json.systems = km_json.systems;
 
+            // console.debug(new_rule);
+
             // Run Simple heuristics
             if(this.check_always_must_heuristic(modal_formula)){
+                // console.debug('Simple Heuristic 1: Always - Must satisfied')
                 evolution_json = this.get_always_must_evolution(evolution_json, new_rule);
+                // console.debug(JSON.stringify(evolution_json, null, 2));
                 return evolution_json;
             }            
 
