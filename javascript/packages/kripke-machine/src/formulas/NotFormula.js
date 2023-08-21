@@ -7,7 +7,7 @@ export default class NotFormula extends BaseFormula {
   }
 
   async getValue(ctx) {
-    return !await this.formula.getValue(ctx);
+    return !(await this.formula.getValue(ctx));
   }
 
   getProps(ctx) {

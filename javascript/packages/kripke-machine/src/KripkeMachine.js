@@ -90,10 +90,9 @@ export default class KripkeMachine {
 
   canTakeStep(step) {
     const km = this.clone();
-    try{
+    try {
       km.takeStep(step);
-    }
-    catch(e){
+    } catch (e) {
       return [false, e.message];
     }
     return [true];
@@ -133,33 +132,46 @@ export default class KripkeMachine {
       if (!step.hasRule()) {
         this.systems = km.systems;
         return;
-      } else{ // Rule without evolution
-          const new_rule = new Rule(
-            step.rule_text,
-            km.getPossibleCurrentStateIds()
+      } else {
+        // Rule without evolution
+        const new_rule = new Rule(
+          step.rule_text,
+          km.getPossibleCurrentStateIds()
         );
-        if (!km.satisfiesRule(new_rule)) { // Unsatisfiable new rule
+        if (!km.satisfiesRule(new_rule)) {
+          // Unsatisfiable new rule
           // Synthesize evolution
-          const synth = new Synthesizer('simple');
-          const synthesized_evolution_json = synth.getPossibleEvolutionJson(km.toJSON(), new_rule);
-          const synthesized_evolution = Evolution.fromJSON(synthesized_evolution_json);
+          const synth = new Synthesizer("simple");
+          const synthesized_evolution_json = synth.getPossibleEvolutionJson(
+            km.toJSON(),
+            new_rule
+          );
+          const synthesized_evolution = Evolution.fromJSON(
+            synthesized_evolution_json
+          );
           if (!synthesized_evolution) {
-            throw new Error("Synthesizer could not produce a valid evolution for unsatisfiable rule");
+            throw new Error(
+              "Synthesizer could not produce a valid evolution for unsatisfiable rule"
+            );
           }
-          const [b, m] = km.canEvolve(synthesized_evolution, step.rule_text)
-          if(!b){
-            throw new Error("Synthesizer attempted to synthesize an evolution but failed to satisfy all the rules. "+m);
+          const [b, m] = km.canEvolve(synthesized_evolution, step.rule_text);
+          if (!b) {
+            throw new Error(
+              "Synthesizer attempted to synthesize an evolution but failed to satisfy all the rules. " +
+                m
+            );
           }
           this.evolve(synthesized_evolution, step.rule_text);
           return;
-        }
-        else{// Satisfiable new rule
+        } else {
+          // Satisfiable new rule
           this.rules.push(new_rule);
           this.systems = km.systems;
           return;
         }
-      } 
-    } else if (!step.hasEarlyEvolution()) { // Late Evolution
+      }
+    } else if (!step.hasEarlyEvolution()) {
+      // Late Evolution
       const evolution = step.getEvolution();
       if (!km.canEvolve(evolution, step.rule_text)[0]) {
         throw new Error("evolution failed");

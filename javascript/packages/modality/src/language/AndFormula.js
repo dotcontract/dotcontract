@@ -10,7 +10,7 @@ export default class AndFormula extends BaseFormula {
   }
 
   async getValue(ctx) {
-    return await this.left.getValue(ctx) && await this.right.getValue(ctx);
+    return (await this.left.getValue(ctx)) && (await this.right.getValue(ctx));
   }
 
   expandFunctions() {

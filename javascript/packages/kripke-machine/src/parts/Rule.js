@@ -25,5 +25,4 @@ export default class Rule {
       root_states: this.root_states,
     };
   }
-  
 }

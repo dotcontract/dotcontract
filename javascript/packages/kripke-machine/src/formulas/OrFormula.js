@@ -9,7 +9,7 @@ export default class OrFormula extends BaseFormula {
   }
 
   async getValue(ctx) {
-    return await this.left.getValue(ctx) || await this.right.getValue(ctx);
+    return (await this.left.getValue(ctx)) || (await this.right.getValue(ctx));
   }
 
   getProps(ctx) {
@@ -17,7 +17,10 @@ export default class OrFormula extends BaseFormula {
   }
 
   getSignedProps(ctx) {
-    return new unionOfSets(this.left.getSignedProps(), this.right.getSignedProps());
+    return new unionOfSets(
+      this.left.getSignedProps(),
+      this.right.getSignedProps()
+    );
   }
 
   getFreeVars() {

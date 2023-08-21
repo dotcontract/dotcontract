@@ -7,8 +7,7 @@ export default class Evolution {
   }
 
   static fromJSON(json) {
-    if(!json) 
-      return null;
+    if (!json) return null;
     const evolution = new Evolution();
     for (const json_ss of json.systems) {
       evolution.systems.push(System.fromJSON(json_ss));

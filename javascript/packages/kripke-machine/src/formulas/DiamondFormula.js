@@ -17,7 +17,10 @@ export default class DiamondFormula extends BaseFormula {
   }
 
   getSignedProps(ctx) {
-    return new unionOfSets(this.inner.getSignedProps(), this.outer.getSignedProps());
+    return new unionOfSets(
+      this.inner.getSignedProps(),
+      this.outer.getSignedProps()
+    );
   }
 
   getFreeVars(ctx) {

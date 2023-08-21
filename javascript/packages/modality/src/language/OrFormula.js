@@ -9,7 +9,7 @@ export default class OrFormula extends BaseFormula {
   }
 
   async getValue(ctx) {
-    return await this.left.getValue(ctx) || await this.right.getValue(ctx);
+    return (await this.left.getValue(ctx)) || (await this.right.getValue(ctx));
   }
 
   expandFunctions() {

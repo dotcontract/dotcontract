@@ -7,7 +7,7 @@ export default class NegatedFormula extends BaseFormula {
   }
 
   async getValue(ctx) {
-    return !await this.formula.getValue(ctx);
+    return !(await this.formula.getValue(ctx));
   }
 
   negated() {

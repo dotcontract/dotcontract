@@ -32,7 +32,7 @@ export async function handler(argv) {
     source_dc = await DotContract.getDCFromPath(contract_path);
   }
 
-  if (!await source_dc.isValid()) {
+  if (!(await source_dc.isValid())) {
     throw new Error("Invalid linked contract!");
   }
   await Sync.sync_target(source_dc, dc);
