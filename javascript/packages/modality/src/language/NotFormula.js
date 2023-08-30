@@ -6,8 +6,8 @@ export default class NotFormula extends BaseFormula {
     this.formula = formula;
   }
 
-  getValue(ctx) {
-    return !this.formula.getValue(ctx);
+  async getValue(ctx) {
+    return !(await this.formula.getValue(ctx));
   }
 
   expandFunctions() {

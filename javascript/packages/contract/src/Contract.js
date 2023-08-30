@@ -75,13 +75,13 @@ export default class Contract {
       rule_text,
       evolution_json,
     });
-    await this.km.takeStep(step);
+    this.km.takeStep(step);
     return this.commits.push(commit);
   }
 
-  appendCommitFromJson(commit_json) {
+  async appendCommitFromJson(commit_json) {
     const commit = Commit.fromJSON(commit_json);
-    return this.appendCommit(commit);
+    return await this.appendCommit(commit);
   }
 
   async canAppendCommit(commit) {

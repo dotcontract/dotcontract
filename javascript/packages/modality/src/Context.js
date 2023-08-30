@@ -13,19 +13,19 @@ export default class Context {
     return this.values;
   }
 
-  callFunction(name, args) {
+  async callFunction(name, args) {
     //
     if (this.funcs[name]) {
-      return this.callBuiltinFunction(name, args);
+      return await this.callBuiltinFunction(name, args);
     } else {
       throw new Error(`Unknown function: ${name}`);
     }
   }
 
-  callBuiltinFunction(name, args) {
+  async callBuiltinFunction(name, args) {
     const func = this.funcs[name];
     const ctx = this.getValues();
-    return func.withArgs(...(args || [])).evaluate(ctx);
+    return await func.withArgs(...(args || [])).evaluate(ctx);
   }
 
   callUserFunction(name, args) {}

@@ -1,4 +1,5 @@
 import BaseFormula from "./BaseFormula.js";
+import { unionOfSets } from "@dotcontract/utils/sets";
 
 export default class PropsAtom extends BaseFormula {
   constructor(signed_props) {
@@ -6,12 +7,16 @@ export default class PropsAtom extends BaseFormula {
     this.props = signed_props;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true; // TODO
   }
 
   getProps() {
     return new Set(this.props.map((i) => i.prop));
+  }
+
+  getSignedProps() {
+    return new Set(this.props.map((i) => `${i.sign ? "+" : "-"}${i.prop}`));
   }
 
   getFreeVars() {

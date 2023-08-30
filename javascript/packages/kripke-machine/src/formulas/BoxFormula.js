@@ -8,12 +8,19 @@ export default class BoxFormula extends BaseFormula {
     this.outer = outer;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true; // TODO
   }
 
   getProps() {
     return new unionOfSets(this.inner.getProps(), this.outer.getProps());
+  }
+
+  getSignedProps() {
+    return new unionOfSets(
+      this.inner.getSignedProps(),
+      this.outer.getSignedProps()
+    );
   }
 
   getFreeVars(ctx) {

@@ -8,7 +8,7 @@ export default class Variable extends BaseFormula {
   }
 
   // TODO
-  getValue(ctx) {
+  async getValue(ctx) {
     return false;
   }
 

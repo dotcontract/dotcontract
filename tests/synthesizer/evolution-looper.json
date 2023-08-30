@@ -1,0 +1,26 @@
+{
+  "systems": [
+    {
+      "states": {
+        "anything": {
+          "arrows": [
+            [
+              "",
+              "anything"
+            ]
+          ]
+        }
+      },
+      "possible_current_states": [
+        "anything"
+      ]
+    }
+  ],
+  "mappings": [
+	  {
+		  "source": {"system": 0, "state": "anything"},
+		  "target": {"system": 0, "state": "anything"}
+	  }
+  ],
+  "rules": []
+}

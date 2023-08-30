@@ -25,8 +25,7 @@ export default class Arrow {
     return a;
   }
 
-  accepts(properties_text) {
-    let ensure_required = true;
+  accepts(properties_text, ensure_required = true) {
     const incoming_properties = Property.arrayFromText(properties_text);
     // TODO consider not hardcoding these
     if (

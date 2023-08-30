@@ -6,7 +6,7 @@ export default class StateSetVariable extends BaseFormula {
     this.name = name;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true; // TODO
   }
 

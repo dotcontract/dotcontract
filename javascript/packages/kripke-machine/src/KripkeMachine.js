@@ -3,8 +3,10 @@ import Step from "./parts/Step.js";
 import Rule from "./parts/Rule.js";
 import Solve from "./formulas/Solve.js";
 import ModalMu from "./ModalMu.js";
+import Evolution from "./parts/Evolution.js";
+import Synthesizer from "@dotcontract/synthesizer";
 
-import { areSetsEqual, intersectionOfSets } from "@dotcontract/utils/sets";
+import { isSupersetOf, intersectionOfSets } from "@dotcontract/utils/sets";
 
 export default class KripkeMachine {
   constructor() {
@@ -86,47 +88,27 @@ export default class KripkeMachine {
     return r;
   }
 
-  canTakeSimpleStep(step) {
-    for (const sys of this.systems) {
-      const r = sys.canTakeStep(step);
-      if (!r) {
-        return [false, "simple step failed"];
-      }
-    }
-    return [true];
-  }
-
   canTakeStep(step) {
     const km = this.clone();
-    if (step.hasEarlyEvolution()) {
-      const evolution = step.getEvolution();
-      if (!km.canEvolve(evolution, null)[0]) {
-        return [false, "early evolution failed"];
-      }
-      km.evolve(evolution, null);
-    }
-    if (!km.canTakeSimpleStep(step)[0]) {
-      return [false, "simple step failed"];
-    }
-    if (!step.hasEvolution()) {
-      if (!step.hasRule()) {
-        return [true];
-      } else if (!km.satisfiesRule(step.rule_text)) {
-        return [false, "new rule not satisfied"];
-      }
-    } else if (!step.hasEarlyEvolution()) {
-      const evolution = step.getEvolution();
-      return this.canEvolve(evolution, step.rule_text);
+    try {
+      km.takeStep(step);
+    } catch (e) {
+      return [false, e.message];
     }
     return [true];
   }
 
   takeStep(step) {
     const km = this.clone();
+    // Early Evolution
     if (step.hasEarlyEvolution()) {
       const evolution = step.getEvolution();
+      if (!km.canEvolve(evolution, null)[0]) {
+        throw new Error("early evolution failed");
+      }
       km.evolve(evolution, null);
     }
+    // Take step
     for (const sys of km.systems) {
       const r = sys.canTakeStep(step);
       if (!r) {
@@ -144,25 +126,56 @@ export default class KripkeMachine {
     for (const sys of km.systems) {
       sys.takeStep(step);
     }
+    // No Evolution
     if (!step.hasEvolution()) {
+      // No rule
       if (!step.hasRule()) {
         this.systems = km.systems;
         return;
       } else {
+        // Rule without evolution
         const new_rule = new Rule(
           step.rule_text,
           km.getPossibleCurrentStateIds()
         );
         if (!km.satisfiesRule(new_rule)) {
-          throw new Error("new rule not satisfied");
+          // Unsatisfiable new rule
+          // Synthesize evolution
+          const synth = new Synthesizer("simple");
+          const synthesized_evolution_json = synth.getPossibleEvolutionJson(
+            km.toJSON(),
+            new_rule
+          );
+          const synthesized_evolution = Evolution.fromJSON(
+            synthesized_evolution_json
+          );
+          if (!synthesized_evolution) {
+            throw new Error(
+              "Synthesizer could not produce a valid evolution for unsatisfiable rule"
+            );
+          }
+          const [b, m] = km.canEvolve(synthesized_evolution, step.rule_text);
+          if (!b) {
+            throw new Error(
+              "Synthesizer attempted to synthesize an evolution but failed to satisfy all the rules. " +
+                m
+            );
+          }
+          this.evolve(synthesized_evolution, step.rule_text);
+          return;
+        } else {
+          // Satisfiable new rule
+          this.rules.push(new_rule);
+          this.systems = km.systems;
+          return;
         }
-        km.rules.push(new_rule);
-        this.systems = km.systems;
-        this.rules = km.rules;
-        return;
       }
     } else if (!step.hasEarlyEvolution()) {
+      // Late Evolution
       const evolution = step.getEvolution();
+      if (!km.canEvolve(evolution, step.rule_text)[0]) {
+        throw new Error("evolution failed");
+      }
       this.evolve(evolution, step.rule_text);
     }
   }
@@ -221,7 +234,7 @@ export default class KripkeMachine {
   evolve(evolution, rule_text) {
     const km = this.clone();
     if (rule_text) {
-      const new_rule = new Rule(rule_text, this.getPossibleCurrentStateIds());
+      const new_rule = new Rule(rule_text, km.getPossibleCurrentStateIds());
       km.rules.push(new_rule);
     }
     if (evolution) {
@@ -230,7 +243,7 @@ export default class KripkeMachine {
     const r = km.satisfiesRules();
     if (!r.ok) {
       throw new Error(
-        `new rule not satisfied: ${r.errors
+        `new rule not satisfied: \n${r.errors
           .map((i) => i.modal_formula_text)
           .join(", ")}`
       );
@@ -256,7 +269,7 @@ export default class KripkeMachine {
       const system_root_states = rule.root_states
         .filter((i) => i.system === system_index)
         .map((i) => i.state);
-      const ok = areSetsEqual(r, new Set(system_root_states));
+      const ok = isSupersetOf(r, new Set(system_root_states));
       if (!ok) {
         const system_observed_props = system.getObservedProperties();
         const rel_props = intersectionOfSets(system_observed_props, rule_props);

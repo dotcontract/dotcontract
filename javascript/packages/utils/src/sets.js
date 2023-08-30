@@ -10,7 +10,7 @@ export function unionOfSets(...sets) {
 
 export function intersectionOfSets(...sets) {
   if (!sets.length === 0) {
-    return r;
+    return new Set();
   }
   if (!sets.length === 1) {
     return new Set(sets[0]);
@@ -36,6 +36,22 @@ export function areSetsEqual(...sets) {
   const set_a = sets.pop();
   for (const set_b of sets) {
     if (set_a.size !== set_b.size) {
+      return false;
+    }
+    if (![...set_a].every((value) => set_b.has(value))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+export function isSupersetOf(...sets) {
+  if (sets.length === 0) {
+    return true;
+  }
+  const set_a = sets.pop();
+  for (const set_b of sets) {
+    if (set_a.size > set_b.size) {
       return false;
     }
     if (![...set_a].every((value) => set_b.has(value))) {

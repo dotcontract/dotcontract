@@ -6,7 +6,7 @@ export default class PropAtom extends BaseFormula {
     this.text = text;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return !!ctx?.[this.text];
   }
 

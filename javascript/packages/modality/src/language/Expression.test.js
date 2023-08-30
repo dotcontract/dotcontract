@@ -89,18 +89,18 @@ describe("Expression", () => {
     let formula, ctx, expandedFormula;
     formula = new Expression(`true and method_is("post")`);
     ctx = new Context({});
-    expect(formula.getValue(ctx)).toBe(false);
+    expect(await formula.getValue(ctx)).toBe(false);
     ctx.setValue("method", "post");
-    expect(formula.getValue(ctx)).toBe(true);
+    expect(await formula.getValue(ctx)).toBe(true);
     const methodIsPostPropName = getPropFromTest("method_is", ["post"]);
     expandedFormula = formula.expandFunctions();
     expect(expandedFormula.constraint).toBe(`true and ${methodIsPostPropName}`);
     expect(expandedFormula.functions[methodIsPostPropName]).not.toBeNull();
-    // expect(formula.getValue({ signedByMe: true })).toBe(true);
+    // expect(await formula.getValue({ signedByMe: true })).toBe(true);
 
     // formula = new Expression("true and not ((not signedByMe))");
-    // expect(formula.getValue()).toBe(false);
-    // expect(formula.getValue({ signedByMe: true })).toBe(true);
+    // expect(await formula.getValue()).toBe(false);
+    // expect(await formula.getValue({ signedByMe: true })).toBe(true);
   });
 
   it("should not parse formulas with trailing extra text", async () => {

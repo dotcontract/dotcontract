@@ -8,12 +8,16 @@ export default class LfpFormula extends BaseFormula {
     this.inner = inner;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true; // TODO
   }
 
   getProps(ctx) {
     return this.inner.getProps();
+  }
+
+  getSignedProps(ctx) {
+    return this.inner.getSignedProps();
   }
 
   getFreeVars(ctx) {

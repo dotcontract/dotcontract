@@ -24,7 +24,7 @@ export default class IncludeSigTestFactory extends TestFactory {
   }
 
   getCorrelateForArgs(args) {
-    return (other_tests) => {
+    return async (other_tests) => {
       return [];
     };
   }

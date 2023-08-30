@@ -7,7 +7,7 @@ export default class WhenNextFormula extends BaseFormula {
     this.next_formula = next_formula;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true;
   }
 

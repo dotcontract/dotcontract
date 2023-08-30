@@ -8,12 +8,19 @@ export default class OrFormula extends BaseFormula {
     this.right = right;
   }
 
-  getValue(ctx) {
-    return this.left.getValue(ctx) || this.right.getValue(ctx);
+  async getValue(ctx) {
+    return (await this.left.getValue(ctx)) || (await this.right.getValue(ctx));
   }
 
   getProps(ctx) {
     return new unionOfSets(this.left.getProps(), this.right.getProps());
+  }
+
+  getSignedProps(ctx) {
+    return new unionOfSets(
+      this.left.getSignedProps(),
+      this.right.getSignedProps()
+    );
   }
 
   getFreeVars() {

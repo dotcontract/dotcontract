@@ -35,7 +35,7 @@ export default class DotContractDirectory {
       throw new Error("unable to mount invalid dotcontract directory");
     }
     const genesis = await this.getDotContractJson();
-    this.set_contract(genesis);
+    await this.set_contract(genesis);
   }
 
   static async fromDir(dirpath) {
@@ -70,7 +70,7 @@ export default class DotContractDirectory {
     if (!fs.existsSync(this.dirpath)) {
       return false;
     }
-    if (!this.isDotContractJsonValid()) {
+    if (!(await this.isDotContractJsonValid())) {
       return false;
     }
     return true;

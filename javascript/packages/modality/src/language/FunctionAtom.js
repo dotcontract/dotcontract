@@ -10,8 +10,8 @@ export default class FunctionAtom extends BaseFormula {
     this.args = args;
   }
 
-  getValue(ctx) {
-    return ctx.callFunction(this.name, this.args);
+  async getValue(ctx) {
+    return await ctx.callFunction(this.name, this.args);
   }
 
   expandFunctions() {
@@ -19,8 +19,8 @@ export default class FunctionAtom extends BaseFormula {
     return {
       constraint: funcCallPropName,
       functions: {
-        [funcCallPropName]: (ctx) => {
-          return ctx.callFunction(this.name, this.args);
+        [funcCallPropName]: async (ctx) => {
+          return await ctx.callFunction(this.name, this.args);
         },
       },
     };

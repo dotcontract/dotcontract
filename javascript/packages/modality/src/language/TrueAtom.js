@@ -5,7 +5,7 @@ export default class TrueAtom extends BaseFormula {
     super();
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true;
   }
 

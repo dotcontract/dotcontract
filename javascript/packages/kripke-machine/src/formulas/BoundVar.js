@@ -6,11 +6,15 @@ export default class BoundVar extends BaseFormula {
     this.name = name;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true; // TODO
   }
 
   getProps() {
+    return new Set();
+  }
+
+  getSignedProps() {
     return new Set();
   }
 

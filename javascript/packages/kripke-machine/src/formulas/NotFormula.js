@@ -6,12 +6,16 @@ export default class NotFormula extends BaseFormula {
     this.formula = formula;
   }
 
-  getValue(ctx) {
-    return !this.formula.getValue(ctx);
+  async getValue(ctx) {
+    return !(await this.formula.getValue(ctx));
   }
 
   getProps(ctx) {
     return this.formula.getProps();
+  }
+
+  getSignedProps(ctx) {
+    return this.formula.getSignedProps();
   }
 
   getFreeVars() {

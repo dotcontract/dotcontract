@@ -6,7 +6,7 @@ export default class PropsSet extends BaseFormula {
     this.props = signed_props;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true; // TODO
   }
 

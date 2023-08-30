@@ -5,11 +5,15 @@ export default class FalseAtom extends BaseFormula {
     super();
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return false;
   }
 
   getProps() {
+    return new Set();
+  }
+
+  getSignedProps() {
     return new Set();
   }
 

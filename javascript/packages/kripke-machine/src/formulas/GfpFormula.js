@@ -8,12 +8,16 @@ export default class GfpFormula extends BaseFormula {
     this.inner = inner;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true; // TODO
   }
 
   getProps() {
     return this.inner.getProps();
+  }
+
+  getSignedProps() {
+    return this.inner.getSignedProps();
   }
 
   getFreeVars(ctx) {

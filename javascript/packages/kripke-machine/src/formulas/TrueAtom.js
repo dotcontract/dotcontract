@@ -5,11 +5,15 @@ export default class TrueAtom extends BaseFormula {
     super();
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true;
   }
 
   getProps() {
+    return new Set();
+  }
+
+  getSignedProps() {
     return new Set();
   }
 

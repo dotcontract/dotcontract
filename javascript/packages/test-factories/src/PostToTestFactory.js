@@ -15,7 +15,7 @@ export default class PostToTestFactory extends TestFactory {
 
   getCorrelateForArgs(args) {
     const [path] = args;
-    return (other_tests) => {
+    return async (other_tests) => {
       const parent_dirs = PathSemantics.getEffectedParentDirectories(path);
       const r = [];
       for (const parent_dir of parent_dirs) {

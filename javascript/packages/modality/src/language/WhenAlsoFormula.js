@@ -7,7 +7,7 @@ export default class WhenAlsoFormula extends BaseFormula {
     this.also_formula = also_formula;
   }
 
-  getValue(ctx) {
+  async getValue(ctx) {
     return true;
   }
 
