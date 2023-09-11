@@ -155,7 +155,7 @@ export default class Key {
   }
 
   async asJSONFile(path) {
-    const json_string = await this.toJSONString();
+    const json_string = await this.asJSONString();
     return writeFileSync(path, json_string, "utf-8");
   }
 

@@ -20,6 +20,8 @@ import * as machine from "../commands/machine.js";
 import * as undo from "../commands/undo.js";
 import * as link from "../commands/link.js";
 import * as clone from "../commands/clone.js";
+import * as new_id from "../commands/new_id.js";
+import * as whoami from "../commands/whoami.js";
 
 // unused return variable prevents node from prematurely exiting yargs
 /* eslint-disable no-unused-vars */
@@ -28,7 +30,6 @@ const { argv } = yargs(hideBin(process.argv))
   .help("h")
   .alias("h", "help")
   .wrap(null)
-
   .command(create)
   .command(commit)
   .command(clone)
@@ -44,5 +45,10 @@ const { argv } = yargs(hideBin(process.argv))
   .command(machine)
   .command(gen_keypair)
   .command(pubkey)
+  .command(new_id)
+  .command(whoami)
   .demandCommand(1, "command not recognized")
+  .epilogue(
+    "for more information, view the docs at https://www.dotcontract.org/docs"
+  )
   .strict();

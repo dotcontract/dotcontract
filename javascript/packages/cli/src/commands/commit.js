@@ -12,7 +12,12 @@ export const builder = {
     desc: "commit body in standard format from a local file [filepath]",
   },
   sign: {
-    desc: "signs a commit using your default dotcontract keypair ($HOME/.dotcontract/default.keypair)",
+    desc: "signs a commit using your default dotcontract keypair ($HOME/.dotcontract/default/signing.keypair)",
+  },
+  "sign-as": {
+    desc: "signs a commit using your named dotcontract keypair ($HOME/.dotcontract/{{NAME}}/signing.keypair)",
+    nargs: 1,
+    array: true,
   },
   "sign-with": {
     desc: "signs a commit using the given keypair file [filepath]",
@@ -68,6 +73,7 @@ export async function handler(argv) {
     body,
     bodyFromFile,
     sign,
+    ["sign-as"]: sign_as,
     ["sign-with"]: sign_with,
     post,
     rule,
@@ -146,10 +152,19 @@ For example: ${path}.text
   const signing_keys = [];
   if (sign) {
     const keypair_path = path.resolve(
-      `${os.homedir}/.dotcontract/default.keypair`
+      `${os.homedir}/.dotcontract/default/signing.keypair`
     );
     const key = await Key.fromJSONFile(keypair_path);
     signing_keys.push(key);
+  }
+  if (sign_as) {
+    for (const id_name of sign_as) {
+      const keypair_path = path.resolve(
+        `${os.homedir}/.dotcontract/${id_name}/signing.keypair`
+      );
+      const key = await Key.fromJSONFile(keypair_path);
+      signing_keys.push(key);
+    }
   }
   if (sign_with) {
     for (const keypair_path of sign_with) {
