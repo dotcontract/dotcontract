@@ -11,6 +11,7 @@ const log = console.log;
 import { asBold, asSuccess, asError, asWarning } from "../lib/LogStyles.js";
 import Sync from "@dotcontract/sync";
 import DotContract from "@dotcontract/storage";
+import { Commit } from "@dotcontract/contract";
 
 function describeContract({
   contract_id,
@@ -18,11 +19,13 @@ function describeContract({
   link_status,
   network_status,
 }) {
+
   log(`${asBold(`# Contract Info`)}`);
   log(`* ID = ${asBold(contract_id)}`);
   log();
 
   if (link_status) {
+
     log(`${asBold(`## Link status`)}`);
     log(
       `* Status = ${
@@ -44,14 +47,42 @@ function describeContract({
   }
 
   if (local_status) {
+    const commit_log = local_status.commit_log;
+    const count = [];
+    let rules_count=0;
+
+    for (let i = 0; i<local_status.commit_count; i++){
+      count.push(i);
+    }
+
+    for(const i of count ){
+      const c = Commit.fromJSONString(commit_log[i])
+      //log(c)
+      if(!c.body.length){
+        rules_count = 0;
+      }
+      else{
+        for(const part of c.body){
+          if(part.method?.toString().match("rule")){
+            rules_count++; 
+          }
+        }
+      }
+    }
+    
+    //log(commit_log)
     log();
+    log(`${asBold(`##SUMMARY`)}`);
+    log()
     log(`${asBold(`## Local Status`)}`);
     log(
       `* Status = ${
         local_status.status ? asSuccess("VALID") : asError("INVALID")
       }`
     );
-    log(`* Commit Count = ${local_status.commit_count}`);
+    
+    log(`* Commits: ${local_status.commit_count}`);
+    log(`* Rules:  ${rules_count}`);
     if (local_status.commit_count) {
       log(`* Latest Commit = ${local_status.latest_commit}`);
     }
@@ -67,6 +98,7 @@ export async function handler(argv) {
   const commitOrder = await dc.getCommitOrder();
   const local_status = {
     status: isValid,
+    commit_log: commitLog,
     commit_count: commitLog.length,
     latest_commit:
       commitOrder.length > 0 ? commitOrder[commitOrder.length - 1] : null,
@@ -101,6 +133,7 @@ export async function handler(argv) {
       identity: link_config?.identity,
       path: link_config?.path,
       remote: "server" in link_config,
+      commit_log: commitLogLinked,
       commit_count: commitLogLinked.length,
       latest_commit:
         commitOrderLinked.length > 0
