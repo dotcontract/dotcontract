@@ -22,6 +22,7 @@ import * as link from "../commands/link.js";
 import * as clone from "../commands/clone.js";
 import * as new_id from "../commands/new_id.js";
 import * as whoami from "../commands/whoami.js";
+import * as rules from "../commands/rules.js";
 
 // unused return variable prevents node from prematurely exiting yargs
 /* eslint-disable no-unused-vars */
@@ -47,6 +48,7 @@ const { argv } = yargs(hideBin(process.argv))
   .command(pubkey)
   .command(new_id)
   .command(whoami)
+  .command(rules)
   .demandCommand(1, "command not recognized")
   .epilogue(
     "for more information, view the docs at https://www.dotcontract.org/docs"

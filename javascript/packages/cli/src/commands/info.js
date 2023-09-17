@@ -19,13 +19,11 @@ function describeContract({
   link_status,
   network_status,
 }) {
-
   log(`${asBold(`# Contract Info`)}`);
   log(`* ID = ${asBold(contract_id)}`);
   log();
 
   if (link_status) {
-
     log(`${asBold(`## Link status`)}`);
     log(
       `* Status = ${
@@ -49,38 +47,37 @@ function describeContract({
   if (local_status) {
     const commit_log = local_status.commit_log;
     const count = [];
-    let rules_count=0;
+    let rules_count = 0;
 
-    for (let i = 0; i<local_status.commit_count; i++){
+    for (let i = 0; i < local_status.commit_count; i++) {
       count.push(i);
     }
 
-    for(const i of count ){
-      const c = Commit.fromJSONString(commit_log[i])
+    for (const i of count) {
+      const c = Commit.fromJSONString(commit_log[i]);
       //log(c)
-      if(!c.body.length){
+      if (!c.body.length) {
         rules_count = 0;
-      }
-      else{
-        for(const part of c.body){
-          if(part.method?.toString().match("rule")){
-            rules_count++; 
+      } else {
+        for (const part of c.body) {
+          if (part.method?.toString().match("rule")) {
+            rules_count++;
           }
         }
       }
     }
-    
+
     //log(commit_log)
     log();
     log(`${asBold(`##SUMMARY`)}`);
-    log()
+    log();
     log(`${asBold(`## Local Status`)}`);
     log(
       `* Status = ${
         local_status.status ? asSuccess("VALID") : asError("INVALID")
       }`
     );
-    
+
     log(`* Commits: ${local_status.commit_count}`);
     log(`* Rules:  ${rules_count}`);
     if (local_status.commit_count) {
