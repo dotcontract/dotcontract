@@ -293,16 +293,16 @@ export default class DotContractDirectory {
       r.push({
         path,
         value: await this.getPathValue(path),
-        type: await this.getPathType(path)
+        type: await this.getPathType(path),
       });
     }
-    return r.filter(i => i.type);
+    return r.filter((i) => i.type);
   }
   async getPathType(path) {
     if (Route.isPrimitive(path)) {
-      return 'primitive';
+      return "primitive";
     } else if (Route.isAttachment(path)) {
-      return 'attachment';
+      return "attachment";
     }
     return null;
   }
