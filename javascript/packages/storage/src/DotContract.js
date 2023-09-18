@@ -171,4 +171,8 @@ export default class DotContract {
   getKM() {
     return this.dotcontract.contract.km.toJSON();
   }
+
+  listContents() {
+    return this.dotcontract.listContents();
+  }
 }

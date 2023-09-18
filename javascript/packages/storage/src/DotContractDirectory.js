@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import archiver from "archiver";
-import Contract, { Commit, CommitAction } from "@dotcontract/contract";
+import Contract, { Commit, CommitAction, Route } from "@dotcontract/contract";
 import FileHash from "@dotcontract/utils/FileHash";
 import temp from "temp";
 temp.track();
@@ -202,6 +202,21 @@ export default class DotContractDirectory {
       ),
       `${this.dirpath}/ordered_commits/${index}.json`
     );
+    for (const el of (commit.body || []).filter((i) => i.method === "post")) {
+      const subpath = el.path.split("/").slice(0, -1).join("/");
+      if (!fs.existsSync(`${this.dirpath}/../${subpath}`)) {
+        fs.mkdirSync(`${this.dirpath}/../${subpath}`, { recursive: true });
+      }
+      if (Route.isPrimitive(el.path)) {
+        fs.writeFileSync(`${this.dirpath}/../${el.path}`, el.value);
+      } else if (Route.isAttachment(el.path)) {
+        const attachment_hash = el.value.replace("attachment://", "");
+        fs.copyFileSync(
+          `${this.dirpath}/attachments/${attachment_hash}`,
+          `${this.dirpath}/../${el.path}`
+        );
+      }
+    }
   }
 
   async commit({ body, head }) {
@@ -262,6 +277,44 @@ export default class DotContractDirectory {
       await this.copyAttachmentsToDir(attachments_dir);
     }
     return attachments_dir;
+  }
+
+  async listContents() {
+    const contents_dir = `${this.dirpath}/..`;
+    if (!fs.existsSync(contents_dir)) {
+      return [];
+    }
+    const f = fs
+      .readdirSync(contents_dir, { recursive: true })
+      .filter((f) => !f.match(/^\.contract/));
+    const r = [];
+    for (const p of f) {
+      const path = `/${p}`;
+      r.push({
+        path,
+        value: await this.getPathValue(path),
+        type: await this.getPathType(path)
+      });
+    }
+    return r.filter(i => i.type);
+  }
+  async getPathType(path) {
+    if (Route.isPrimitive(path)) {
+      return 'primitive';
+    } else if (Route.isAttachment(path)) {
+      return 'attachment';
+    }
+    return null;
+  }
+
+  async getPathValue(path) {
+    if (Route.isPrimitive(path)) {
+      return fs.readFileSync(`${this.dirpath}/../${path}`);
+    } else if (Route.isAttachment(path)) {
+      const attachment_hash = FileHash(`${this.dirpath}/../${path}`);
+      return `attachment://${attachment_hash}`;
+    }
+    return null;
   }
 
   async clear() {

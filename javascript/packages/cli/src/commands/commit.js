@@ -179,11 +179,11 @@ For example: ${path}.text
     throw new Error("Unable to append commit to contract.");
   }
 
-  await dc.commit(c.toJSON());
-
   for (const attachment of attachments) {
     await dc.attach(attachment);
   }
+  await dc.commit(c.toJSON());
+
   await dc.save();
 }
 
