@@ -41,7 +41,6 @@ import {
 import { Commit } from "@dotcontract/contract";
 import Sync from "@dotcontract/sync";
 import DotContract from "@dotcontract/storage";
-import WhenAlsoFormula from "../../../test-factories/node_modules/@dotcontract/modality/src/language/WhenAlsoFormula.js";
 
 function describeRules({ commitLog, commitOrder, order, limit, all }) {
   log(`${asBold(`# Contract Rules Log`)}`);
