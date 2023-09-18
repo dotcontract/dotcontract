@@ -37,7 +37,10 @@ export default class DotContractFile extends DotContractDirectory {
 
   static unzip(input, output, password) {
     const zip = new AdmZip(input);
-    zip.extractAllTo(output, true, false, password);
+    if (!fs.existsSync(output)) {
+      fs.mkdirSync(output, { recursive: true });
+    }
+    zip.extractAllTo(`${output}/.contract`, true, false, password);
   }
 
   async save() {
