@@ -23,8 +23,11 @@ export async function handler(argv) {
   let { dotcontract: dc } = await ensureContractArgs(argv);
 
   const contents = await dc.listContents();
+  const max_path = Math.max(
+    ...contents.map((file) => file.path.length).filter((i) => i)
+  );
   for (const file of contents) {
-    log(`${asBold(file.path)}\t\t\t\t${file.value}`);
+    log(`${asBold(file.path.padEnd(max_path + 4, " "))}  ${file.value}`);
   }
 }
 
