@@ -175,4 +175,8 @@ export default class DotContract {
   listContents() {
     return this.dotcontract.listContents();
   }
+
+  extractPath(path, { output }) {
+    return this.dotcontract.extractPath(path, { output });
+  }
 }

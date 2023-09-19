@@ -1,4 +1,5 @@
 import fs from "fs";
+import { pipeline } from "stream/promises";
 import path from "path";
 import archiver from "archiver";
 import Contract, { Commit, CommitAction, Route } from "@dotcontract/contract";
@@ -305,6 +306,11 @@ export default class DotContractDirectory {
       return "attachment";
     }
     return null;
+  }
+
+  async extractPath(path, { output }) {
+    const read_stream = fs.createReadStream(`${this.dirpath}/../${path}`);
+    return pipeline(read_stream, output, {});
   }
 
   async getPathValue(path) {
