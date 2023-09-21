@@ -179,4 +179,16 @@ export default class DotContract {
   extractPath(path, { output }) {
     return this.dotcontract.extractPath(path, { output });
   }
+
+  createDraft(name) {
+    return this.dotcontract.createDraft(name);
+  }
+
+  deleteAllDrafts() {
+    return this.dotcontract.deleteAllDrafts();
+  }
+
+  deleteDraft(name) {
+    return this.dotcontract.deleteDraft(name);
+  }
 }

@@ -350,4 +350,30 @@ export default class DotContractDirectory {
     }
     await this.save();
   }
+
+  async createDraft(name) {
+    if (!name.match(/[a-zA-Z0-9\-_]+/)) {
+      throw new Error("invalid draft name");
+    }
+    if (fs.existsSync(`${this.dirpath}/drafts/${name}`)) {
+      throw new Error("draft already exists");
+    }
+    fs.mkdirSync(`${this.dirpath}/drafts/${name}/commits`, { recursive: true });
+    fs.writeFileSync(`${this.dirpath}/drafts/${name}/commit_order.json`, "[]");
+  }
+
+  async deleteAllDrafts() {
+    if (fs.existsSync(`${this.dirpath}/drafts`)) {
+      fs.rmSync(`${this.dirpath}/drafts`, { recursive: true });
+    }
+  }
+
+  async deleteDraft(name) {
+    if (!name.match(/[a-zA-Z0-9\-_]+/)) {
+      throw new Error("invalid draft name");
+    }
+    if (fs.existsSync(`${this.dirpath}/drafts/${name}`)) {
+      fs.rmSync(`${this.dirpath}/drafts/${name}`, { recursive: true });
+    }
+  }
 }
