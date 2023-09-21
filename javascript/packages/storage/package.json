@@ -1,6 +1,6 @@
 {
   "name": "@dotcontract/storage",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,10 +18,10 @@
   "license": "LGPL-3.0",
   "type": "module",
   "dependencies": {
-    "@dotcontract/contract": "workspace:^0.0.4",
-    "@dotcontract/kripke-machine": "workspace:^0.0.4",
-    "@dotcontract/modality": "workspace:^0.0.4",
-    "@dotcontract/utils": "workspace:^0.0.4",
+    "@dotcontract/contract": "workspace:^0.0.5",
+    "@dotcontract/kripke-machine": "workspace:^0.0.5",
+    "@dotcontract/modality": "workspace:^0.0.5",
+    "@dotcontract/utils": "workspace:^0.0.5",
     "adm-zip": "^0.5.9",
     "archiver": "^5.3.1",
     "debug": "^4.3.4",

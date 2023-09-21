@@ -1,6 +1,6 @@
 {
   "name": "@dotcontract/sync",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "license": "LGPL-3.0",
   "type": "module",
   "dependencies": {
-    "@dotcontract/storage": "workspace:^0.0.4",
+    "@dotcontract/storage": "workspace:^0.0.5",
     "ssh2-promise": "^1.0.3",
     "debug": "^4.3.4",
     "jest": "^28.1.1",

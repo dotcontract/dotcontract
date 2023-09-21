@@ -1,6 +1,6 @@
 {
   "name": "@dotcontract/modality",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "main": "src/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "./*": "./src/*.js"
   },
   "dependencies": {
-    "@dotcontract/utils": "workspace:^0.0.4",
+    "@dotcontract/utils": "workspace:^0.0.5",
     "antlr4": "^4.13.0",
     "debug": "^4.3.4",
     "jest": "^28.1.1",

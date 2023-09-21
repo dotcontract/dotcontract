@@ -1,6 +1,6 @@
 {
   "name": "@dotcontract/test-factories",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,8 +10,8 @@
   "license": "LGPL-3.0",
   "type": "module",
   "dependencies": {
-    "@dotcontract/modality": "workspace:^0.0.4",
-    "@dotcontract/utils": "workspace:^0.0.4",
+    "@dotcontract/modality": "workspace:^0.0.5",
+    "@dotcontract/utils": "workspace:^0.0.5",
     "antlr4": "^4.10.1",
     "debug": "^4.3.4",
     "jest": "^28.1.1",
