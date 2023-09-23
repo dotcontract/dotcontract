@@ -4,7 +4,7 @@ import path from "path";
 import archiver from "archiver";
 import Contract, { Commit, CommitAction, Route } from "@dotcontract/contract";
 import FileHash from "@dotcontract/utils/FileHash";
-import JSONFile from "@dotcontract/utils/JSONfile";
+import JSONFile from "@dotcontract/utils/JSONFile";
 
 import temp from "temp";
 temp.track();
