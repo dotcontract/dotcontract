@@ -95,7 +95,7 @@ contract create -d complex-contract
 cd complex-contract
 contract commit \
   -m "User1 or User2 can sign to become verified" \
-  --evolution ../../evolution-complex.json \
+  --evolve ../../evolution-complex.json \
   --rule "can( include_sig(\"$USER1_PK\") ) or can( include_sig(\"$USER2_PK\") )"
 assert_line_count "$(contract machine)" 93
 contract commit \

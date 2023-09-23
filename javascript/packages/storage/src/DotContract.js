@@ -191,4 +191,20 @@ export default class DotContract {
   deleteDraft(name) {
     return this.dotcontract.deleteDraft(name);
   }
+
+  listDrafts() {
+    return this.dotcontract.listDrafts();
+  }
+
+  checkoutDraft(name) {
+    return this.dotcontract.checkoutDraft(name);
+  }
+
+  activeDraft() {
+    return this.dotcontract.activeDraft();
+  }
+
+  checkoutLocal() {
+    return this.dotcontract.checkoutLocal();
+  }
 }

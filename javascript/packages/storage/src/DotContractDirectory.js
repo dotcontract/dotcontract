@@ -4,6 +4,8 @@ import path from "path";
 import archiver from "archiver";
 import Contract, { Commit, CommitAction, Route } from "@dotcontract/contract";
 import FileHash from "@dotcontract/utils/FileHash";
+import JSONFile from "@dotcontract/utils/JSONfile";
+
 import temp from "temp";
 temp.track();
 
@@ -375,5 +377,38 @@ export default class DotContractDirectory {
     if (fs.existsSync(`${this.dirpath}/drafts/${name}`)) {
       fs.rmSync(`${this.dirpath}/drafts/${name}`, { recursive: true });
     }
+  }
+
+  async listDrafts() {
+    if (!fs.existsSync(`${this.dirpath}/drafts`)) {
+      return [];
+    }
+    const dirs = fs.readdirSync(`${this.dirpath}/drafts`);
+    return dirs;
+  }
+
+  async checkoutDraft(name) {
+    if (!name.match(/[a-zA-Z0-9\-_]+/)) {
+      throw new Error("invalid draft name");
+    }
+    if (fs.existsSync(`${this.dirpath}/drafts/${name}`)) {
+      JSONFile.writeOrPatchObjectSync(`${this.dirpath}/local.json`, {
+        draft: name,
+      });
+    }
+  }
+
+  async activeDraft() {
+    const local = JSONFile.readSyncOrReturnDefault(
+      `${this.dirpath}/local.json`,
+      {}
+    );
+    return local.draft;
+  }
+
+  async checkoutLocal() {
+    JSONFile.writeOrPatchObjectSync(`${this.dirpath}/local.json`, {
+      draft: null,
+    });
   }
 }

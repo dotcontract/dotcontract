@@ -27,7 +27,7 @@ import * as contents from "../commands/contents.js";
 import * as extract from "../commands/extract.js";
 import * as drafts from "../commands/drafts.js";
 import * as create_draft from "../commands/create_draft.js";
-import * as checkout_draft from "../commands/checkout_draft.js";
+import * as checkout from "../commands/checkout.js";
 import * as edit_draft from "../commands/edit_draft.js";
 import * as merge_draft from "../commands/merge_draft.js";
 import * as delete_draft from "../commands/delete_draft.js";
@@ -60,8 +60,8 @@ const { argv } = yargs(hideBin(process.argv))
   .command(contents)
   .command(extract)
   .command(drafts)
+  .command(checkout)
   .command(create_draft)
-  .command(checkout_draft)
   .command(edit_draft)
   .command(merge_draft)
   .command(delete_draft)

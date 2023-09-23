@@ -24,6 +24,12 @@ export const CommonContractWithOutputArgs = {
   },
 };
 
+export const DraftArgs = {
+  draft: {
+    desc: "name of draft to work on",
+  },
+};
+
 export const findNearestDotContractDir = async function (dirpath) {
   let dotcontract_dirpath = null;
   const dirs = dirpath.split(path.sep);

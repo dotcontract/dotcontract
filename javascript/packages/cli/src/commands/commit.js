@@ -1,16 +1,22 @@
 export const command = "commit";
 export const describe = "adds a commit to a contract";
-import { CommonContractArgs, ensureContractArgs } from "../lib/ContractArgs.js";
+import {
+  CommonContractArgs,
+  DraftArgs,
+  ensureContractArgs,
+} from "../lib/ContractArgs.js";
 import fs from "fs";
 
 export const builder = {
   ...CommonContractArgs,
-  body: {
-    desc: "commit body in standard format [text]",
-  },
-  bodyFromFile: {
-    desc: "commit body in standard format from a local file [filepath]",
-  },
+  ...DraftArgs,
+  // TODO
+  // body: {
+  //   desc: "commit body in standard format [text]",
+  // },
+  // bodyFromFile: {
+  //   desc: "commit body in standard format from a local file [filepath]",
+  // },
   sign: {
     desc: "signs a commit using your default dotcontract keypair ($HOME/.dotcontract/default/signing.keypair)",
   },
@@ -38,15 +44,10 @@ export const builder = {
     array: true,
     nargs: 1,
   },
-  evolution: {
-    desc: "evolves kripke machine, one arg: [evolution.json]",
+  evolve: {
+    desc: "replaces the governing model, one arg: [evolution.json]",
   },
   // TODO
-  // define: {
-  //   desc: "defines the type of a contract path, two args: [path] [value]",
-  //   array: true,
-  //   nargs: 2,
-  // },
   // repost: {
   //   desc: "reposts a post from another contract",
   // },
@@ -69,44 +70,29 @@ import FileHash from "@dotcontract/utils/FileHash";
 
 export async function handler(argv) {
   let {
+    draft,
     message,
-    body,
-    bodyFromFile,
     sign,
     ["sign-as"]: sign_as,
     ["sign-with"]: sign_with,
     post,
     rule,
-    evolution,
-    // define,
-    // repost,
-    // create,
-    // send,
-    // receive,
+    evolve,
   } = argv;
   const { dotcontract: dc } = await ensureContractArgs(argv);
+  if (draft) {
+    dc.checkoutDraft(draft);
+  }
 
-  if (!evolution && !post && !rule && !body && !bodyFromFile) {
+  if (!evolve && !post && !rule) {
     throw new Error(
-      "Missing required argument: body or bodyFromFile or a particular action like post, rule, or define"
+      "Commit requires at least one action such a post, rule, evolve"
     );
   }
-  // TODO
-  if (body || bodyFromFile) {
-    throw new Error("Input as body not yet implemented");
-  }
-  // if (bodyFromFile) {
-  //   body = fs.readFileSync(bodyFromFile);
-  // } else if (!body) {
-  //   body = "";
-  // }
-  // try {
-  //   body = JSON.parse(body);
-  // } catch (e) {
-  //   throw new Error("Unable to parse body.");
-  // }
 
   const c = new Commit();
+  // TODO
+  // c.allow_blank_fields = !!dc.draft;
   const attachments = [];
   if (post && post.length) {
     for (let i = 0; i < post.length; i = i + 2) {
@@ -145,10 +131,27 @@ For example: ${path}.text
     c.setHead("message", message);
   }
 
-  if (evolution) {
-    c.setHead("evolution", JSON.parse(fs.readFileSync(evolution)));
+  if (evolve) {
+    c.setHead("evolution", JSON.parse(fs.readFileSync(evolve)));
   }
 
+  const signing_keys = await getSigningKeys({ sign, sign_as, sign_with });
+  if (signing_keys.length) {
+    await c.signWith(signing_keys);
+  }
+
+  // TODO draft mode
+  if (!(await dc.canAppendCommitFromJson(c.toJSON()))) {
+    throw new Error("Unable to append commit to contract.");
+  }
+  for (const attachment of attachments) {
+    await dc.attach(attachment);
+  }
+  await dc.commit(c.toJSON());
+  await dc.save();
+}
+
+async function getSigningKeys({ sign, sign_as, sign_with }) {
   const signing_keys = [];
   if (sign) {
     const keypair_path = path.resolve(
@@ -172,19 +175,8 @@ For example: ${path}.text
       signing_keys.push(key);
     }
   }
-  if (signing_keys.length) {
-    await c.signWith(signing_keys);
-  }
-  if (!(await dc.canAppendCommitFromJson(c.toJSON()))) {
-    throw new Error("Unable to append commit to contract.");
-  }
 
-  for (const attachment of attachments) {
-    await dc.attach(attachment);
-  }
-  await dc.commit(c.toJSON());
-
-  await dc.save();
+  return signing_keys;
 }
 
 export default handler;
