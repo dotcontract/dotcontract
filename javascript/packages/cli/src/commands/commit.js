@@ -47,6 +47,11 @@ export const builder = {
   evolve: {
     desc: "replaces the governing model, one arg: [evolution.json]",
   },
+  "post-blank": {
+    desc: "posts a blank field to contract path in a draft, one args: [path]",
+    array: true,
+    nargs: 1,
+  },
   // TODO
   // repost: {
   //   desc: "reposts a post from another contract",
@@ -78,13 +83,14 @@ export async function handler(argv) {
     post,
     rule,
     evolve,
+    ["post-blank"]: post_blank,
   } = argv;
   const { dotcontract: dc } = await ensureContractArgs(argv);
   if (draft) {
     dc.checkoutDraft(draft);
   }
 
-  if (!evolve && !post && !rule) {
+  if (!evolve && !post && !rule && !post_blank) {
     throw new Error(
       "Commit requires at least one action such a post, rule, evolve"
     );

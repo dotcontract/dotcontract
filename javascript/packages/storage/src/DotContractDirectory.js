@@ -101,11 +101,12 @@ export default class DotContractDirectory {
   }
 
   async getCommitOrder() {
-    if (!fs.existsSync(`${this.dirpath}/commit_order.json`)) {
+    const dir = await this.activeDir();
+    if (!fs.existsSync(`${dir}/commit_order.json`)) {
       return [];
     }
     const commit_order_json = fs.readFileSync(
-      `${this.dirpath}/commit_order.json`,
+      `${dir}/commit_order.json`,
       "utf-8"
     );
     return JSON.parse(commit_order_json);
@@ -116,9 +117,26 @@ export default class DotContractDirectory {
     return commit_order[commit_order.length - 1];
   }
 
-  async writeCommitOrder(commit_order) {
-    fs.writeFileSync(
+  async getMainCommitOrder() {
+    if (!fs.existsSync(`${this.dirpath}/commit_order.json`)) {
+      return [];
+    }
+    const commit_order_json = fs.readFileSync(
       `${this.dirpath}/commit_order.json`,
+      "utf-8"
+    );
+    return JSON.parse(commit_order_json);
+  }
+
+  async getMainCurrentCommitHash() {
+    const commit_order = await this.getMainCommitOrder();
+    return commit_order[commit_order.length - 1];
+  }
+
+  async writeCommitOrder(commit_order) {
+    const dir = await this.activeDir();
+    fs.writeFileSync(
+      `${dir}/commit_order.json`,
       JSON.stringify(commit_order),
       "utf-8"
     );
@@ -127,12 +145,24 @@ export default class DotContractDirectory {
   async getCommitLog() {
     const commit_order = await this.getCommitOrder();
     const commit_log = [];
+    const possible_dirs = [`${this.dirpath}`];
+    const draft = await this.activeDraft();
+    if (draft) {
+      possible_dirs.push(`${this.dirpath}/drafts/${draft}`);
+    }
     for (const commit_id of commit_order) {
-      const commit_json = fs.readFileSync(
-        `${this.dirpath}/commits/${commit_id}.json`,
-        "utf-8"
-      );
-      commit_log.push(commit_json);
+      let found = false;
+      for (const dir of possible_dirs) {
+        if (found) {
+          continue;
+        }
+        const f = `${dir}/commits/${commit_id}.json`;
+        if (fs.existsSync(f)) {
+          const commit_json = fs.readFileSync(f, "utf-8");
+          commit_log.push(commit_json);
+          found = true;
+        }
+      }
     }
     return commit_log;
   }
@@ -187,36 +217,37 @@ export default class DotContractDirectory {
   }
 
   async writeCommit(commit_id, commit, index) {
-    if (!fs.existsSync(`${this.dirpath}/commits`)) {
-      fs.mkdirSync(`${this.dirpath}/commits`, { recursive: true });
+    const dir = await this.activeDir();
+    if (!fs.existsSync(`${dir}/commits`)) {
+      fs.mkdirSync(`${dir}/commits`, { recursive: true });
     }
-    if (!fs.existsSync(`${this.dirpath}/ordered_commits`)) {
-      fs.mkdirSync(`${this.dirpath}/ordered_commits`, { recursive: true });
+    if (!fs.existsSync(`${dir}/ordered_commits`)) {
+      fs.mkdirSync(`${dir}/ordered_commits`, { recursive: true });
     }
     fs.writeFileSync(
-      `${this.dirpath}/commits/${commit_id}.json`,
+      `${dir}/commits/${commit_id}.json`,
       JSON.stringify(commit),
       "utf-8"
     );
     fs.symlinkSync(
       path.relative(
-        `${this.dirpath}/ordered_commits`,
-        `${this.dirpath}/commits/${commit_id}.json`
+        `${dir}/ordered_commits`,
+        `${dir}/commits/${commit_id}.json`
       ),
-      `${this.dirpath}/ordered_commits/${index}.json`
+      `${dir}/ordered_commits/${index}.json`
     );
     for (const el of (commit.body || []).filter((i) => i.method === "post")) {
       const subpath = el.path.split("/").slice(0, -1).join("/");
-      if (!fs.existsSync(`${this.dirpath}/../${subpath}`)) {
-        fs.mkdirSync(`${this.dirpath}/../${subpath}`, { recursive: true });
+      if (!fs.existsSync(`${dir}/../${subpath}`)) {
+        fs.mkdirSync(`${dir}/../${subpath}`, { recursive: true });
       }
       if (Route.isPrimitive(el.path)) {
-        fs.writeFileSync(`${this.dirpath}/../${el.path}`, el.value);
+        fs.writeFileSync(`${dir}/../${el.path}`, el.value);
       } else if (Route.isAttachment(el.path)) {
         const attachment_hash = el.value.replace("attachment://", "");
         fs.copyFileSync(
-          `${this.dirpath}/attachments/${attachment_hash}`,
-          `${this.dirpath}/../${el.path}`
+          `${dir}/attachments/${attachment_hash}`,
+          `${dir}/../${el.path}`
         );
       }
     }
@@ -236,32 +267,28 @@ export default class DotContractDirectory {
 
   async attach({ path: contract_path, filepath }) {
     const attachment_hash = FileHash(filepath);
-    if (!fs.existsSync(`${this.dirpath}/attachments`)) {
-      fs.mkdirSync(`${this.dirpath}/attachments`, { recursive: true });
+    const dir = await this.activeDir();
+    if (!fs.existsSync(`${dir}/attachments`)) {
+      fs.mkdirSync(`${dir}/attachments`, { recursive: true });
     }
-    if (!fs.existsSync(`${this.dirpath}/attached_files`)) {
-      fs.mkdirSync(`${this.dirpath}/attached_files`, { recursive: true });
+    if (!fs.existsSync(`${dir}/attached_files`)) {
+      fs.mkdirSync(`${dir}/attached_files`, { recursive: true });
     }
-    fs.copyFileSync(filepath, `${this.dirpath}/attachments/${attachment_hash}`);
-    if (fs.existsSync(`${this.dirpath}/attached_files${contract_path}`)) {
-      fs.rmSync(`${this.dirpath}/attached_files${contract_path}`);
+    fs.copyFileSync(filepath, `${dir}/attachments/${attachment_hash}`);
+    if (fs.existsSync(`${dir}/attached_files${contract_path}`)) {
+      fs.rmSync(`${dir}/attached_files${contract_path}`);
     }
-    if (
-      !fs.existsSync(
-        path.dirname(`${this.dirpath}/attached_files${contract_path}`)
-      )
-    ) {
-      fs.mkdirSync(
-        path.dirname(`${this.dirpath}/attached_files${contract_path}`),
-        { recursive: true }
-      );
+    if (!fs.existsSync(path.dirname(`${dir}/attached_files${contract_path}`))) {
+      fs.mkdirSync(path.dirname(`${dir}/attached_files${contract_path}`), {
+        recursive: true,
+      });
     }
     fs.symlinkSync(
       path.relative(
-        path.dirname(`${this.dirpath}/attached_files${contract_path}`),
-        `${this.dirpath}/attachments/${attachment_hash}`
+        path.dirname(`${dir}/attached_files${contract_path}`),
+        `${dir}/attachments/${attachment_hash}`
       ),
-      `${this.dirpath}/attached_files${contract_path}`
+      `${dir}/attached_files${contract_path}`
     );
   }
 
@@ -361,7 +388,11 @@ export default class DotContractDirectory {
       throw new Error("draft already exists");
     }
     fs.mkdirSync(`${this.dirpath}/drafts/${name}/commits`, { recursive: true });
-    fs.writeFileSync(`${this.dirpath}/drafts/${name}/commit_order.json`, "[]");
+    const hash = await this.getMainCurrentCommitHash();
+    fs.writeFileSync(
+      `${this.dirpath}/drafts/${name}/commit_order.json`,
+      JSON.stringify(hash ? [hash] : [])
+    );
   }
 
   async deleteAllDrafts() {
@@ -404,6 +435,11 @@ export default class DotContractDirectory {
       {}
     );
     return local.draft;
+  }
+
+  async activeDir() {
+    const draft = await this.activeDraft();
+    return draft ? `${this.dirpath}/drafts/${draft}` : this.dirpath;
   }
 
   async checkoutLocal() {
