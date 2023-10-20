@@ -4,7 +4,7 @@ export default class JSONFile {
   /**
    *
    * @param {string} path
-   * @returns
+   * @returns {string}
    */
   static readSync(path) {
     if (!path) {
@@ -14,6 +14,12 @@ export default class JSONFile {
     return JSON.parse(buf);
   }
 
+  /**
+   *
+   * @param {string} path
+   * @param {string} defaultValue
+   * @returns {string}
+   */
   static readSyncOrReturnDefault(path, defaultValue) {
     try {
       return JSONFile.readSync(path);
@@ -26,18 +32,16 @@ export default class JSONFile {
    *
    * @param {string} path
    * @param {JSON} json
-   * @returns
    */
   static writeSync(path, json) {
     const json_string = JSON.stringify(json);
-    return fs.writeFileSync(path, json_string, "utf-8");
+    fs.writeFileSync(path, json_string, "utf-8");
   }
 
   /**
    *
    * @param {string} path
    * @param {JSON} patch
-   * @returns
    */
   static patchObjectSync(path, patch) {
     const original_json = JSONFile.readSync(path);
@@ -45,9 +49,14 @@ export default class JSONFile {
       ...original_json,
       ...patch,
     };
-    return JSONFile.writeSync(path, json);
+    JSONFile.writeSync(path, json);
   }
 
+  /**
+   *
+   * @param {string} path
+   * @param {object} patch
+   */
   static writeOrPatchObjectSync(path, patch) {
     if (!fs.existsSync(path)) {
       JSONFile.writeSync(path, patch);

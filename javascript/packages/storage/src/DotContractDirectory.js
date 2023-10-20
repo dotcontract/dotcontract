@@ -26,6 +26,14 @@ export default class DotContractDirectory {
     return;
   }
 
+  async clone(path = null) {
+    if (!path) {
+      path = temp.mkdirSync();
+    }
+    fs.cpSync(this.dirpath, path, { recursive: true });
+    return new DotContractDirectory(path);
+  }
+
   async set_contract(genesis) {
     this.contract = new Contract(genesis);
     const commit_log = await this.getCommitLog();

@@ -26,6 +26,9 @@ function describeContract({ contract_id, local_status, network_status }) {
       log(`* Latest Commit = ${local_status.latest_commit}`);
     }
   }
+  if (local_status.active_draft) {
+    log(`* Active Draft = ${local_status.active_draft}`);
+  }
   // if (network_status && network_status?.commit_count) {
   //   log();
   //   log(`${asBold(`## Network Status`)}`);
@@ -47,11 +50,15 @@ export async function handler(argv) {
   const genesis = await dc.getDotContractJson();
   const commitLog = await dc.getCommitLog();
   const commitOrder = await dc.getCommitOrder();
+  const drafts = await dc.listDrafts();
+  const active_draft = await dc.activeDraft();
   const local_status = {
     status: isValid,
     commit_count: commitLog.length,
     latest_commit:
       commitOrder.length > 0 ? commitOrder[commitOrder.length - 1] : null,
+    active_draft,
+    drafts,
   };
   const contract_id = genesis.genesis.contract_id;
 

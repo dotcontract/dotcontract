@@ -152,10 +152,16 @@ export default class Sync {
     await ssh.close();
     log("Remote contract updated!");
   }
-  static async sync_source(source_dc, dc) {
+
+  /**
+   * Finds latest common commit index of two contracts
+   * @param {DotContract} source_dc
+   * @param {DotContract} dc
+   * @returns {number}
+   */
+  static async findLatestCommonCommitIndex(source_dc, dc) {
     const source_commit_order = await source_dc.getCommitOrder();
     const cur_commit_order = await dc.getCommitOrder();
-    const cur_commit_log = await dc.getCommitLog();
 
     const source_commit_length = source_commit_order.length;
     const cur_commit_length = cur_commit_order.length;
@@ -173,6 +179,25 @@ export default class Sync {
         break;
       }
     }
+
+    return largest_common_commit_index;
+  }
+
+  /**
+   * Attempts to sync source contract to latest from target contract
+   * @param {DotContract} source_dc
+   * @param {DotContract} dc
+   */
+  static async sync_source(source_dc, dc) {
+    const largest_common_commit_index = await this.findLatestCommonCommitIndex(
+      source_dc,
+      dc
+    );
+    const source_commit_order = await source_dc.getCommitOrder();
+    const cur_commit_order = await dc.getCommitOrder();
+    const cur_commit_log = await dc.getCommitLog();
+    const source_commit_length = source_commit_order.length;
+    const cur_commit_length = cur_commit_order.length;
 
     if (largest_common_commit_index === cur_commit_length - 1) {
       // Equal length and equal commits OR additional commits in linked contract
@@ -199,28 +224,23 @@ export default class Sync {
     }
   }
 
+  /**
+   * Attempts to sync target contract to latest from target contract
+   * @param {DotContract} source_dc
+   * @param {DotContract} dc
+   */
   static async sync_target(source_dc, dc) {
+    const largest_common_commit_index = await this.findLatestCommonCommitIndex(
+      source_dc,
+      dc
+    );
     const source_commit_order = await source_dc.getCommitOrder();
     const cur_commit_order = await dc.getCommitOrder();
     const source_commit_log = await source_dc.getCommitLog();
     const cur_commit_log = await dc.getCommitLog();
-
     const source_commit_length = source_commit_order.length;
     const cur_commit_length = cur_commit_order.length;
 
-    let largest_common_commit_index = -1;
-    let si = 0;
-    let ci = 0;
-
-    while (si < source_commit_length && ci < cur_commit_length) {
-      if (source_commit_order[si] === cur_commit_order[ci]) {
-        largest_common_commit_index = si;
-        si++;
-        ci++;
-      } else {
-        break;
-      }
-    }
     const source_attachments_dir = await source_dc.copyAttachmentsToTempDir();
 
     if (largest_common_commit_index === cur_commit_length - 1) {

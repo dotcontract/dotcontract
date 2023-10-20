@@ -52,6 +52,9 @@ export const builder = {
     array: true,
     nargs: 1,
   },
+  force: {
+    desc: "forces invalid commits",
+  },
   // TODO
   // repost: {
   //   desc: "reposts a post from another contract",
@@ -84,11 +87,13 @@ export async function handler(argv) {
     rule,
     evolve,
     ["post-blank"]: post_blank,
+    force,
   } = argv;
   const { dotcontract: dc } = await ensureContractArgs(argv);
   if (draft) {
-    dc.checkoutDraft(draft);
+    await dc.checkoutDraft(draft);
   }
+  const active_draft = await dc.activeDraft();
 
   if (!evolve && !post && !rule && !post_blank) {
     throw new Error(
@@ -147,7 +152,11 @@ For example: ${path}.text
   }
 
   // TODO draft mode
-  if (!(await dc.canAppendCommitFromJson(c.toJSON()))) {
+  if (
+    !force &&
+    !active_draft &&
+    !(await dc.canAppendCommitFromJson(c.toJSON()))
+  ) {
     throw new Error("Unable to append commit to contract.");
   }
   for (const attachment of attachments) {

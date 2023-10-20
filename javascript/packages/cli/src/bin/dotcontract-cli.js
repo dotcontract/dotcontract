@@ -29,8 +29,8 @@ import * as drafts from "../commands/drafts.js";
 import * as create_draft from "../commands/create_draft.js";
 import * as checkout from "../commands/checkout.js";
 import * as edit_draft from "../commands/edit_draft.js";
-import * as merge_draft from "../commands/merge_draft.js";
 import * as delete_draft from "../commands/delete_draft.js";
+import * as merge from "../commands/merge.js";
 
 // unused return variable prevents node from prematurely exiting yargs
 /* eslint-disable no-unused-vars */
@@ -63,8 +63,8 @@ const { argv } = yargs(hideBin(process.argv))
   .command(checkout)
   .command(create_draft)
   .command(edit_draft)
-  .command(merge_draft)
   .command(delete_draft)
+  .command(merge)
   .demandCommand(1, "command not recognized")
   .epilogue(
     "for more information, view the docs at https://www.dotcontract.org/docs"

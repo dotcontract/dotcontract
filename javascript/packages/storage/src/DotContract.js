@@ -119,6 +119,12 @@ export default class DotContract {
     await this.dotcontract.save();
   }
 
+  async clone(path = null) {
+    const dc = new DotContract(TYPE_DIR);
+    dc.dotcontract = await this.dotcontract.clone((path = null));
+    return dc;
+  }
+
   async getDotContractJson() {
     return await this.dotcontract.getDotContractJson();
   }
