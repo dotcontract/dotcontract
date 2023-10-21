@@ -32,7 +32,7 @@ docker cp remote_pull_test.contract $CONTAINER_NAME:/home/dotcontract/remote_pul
 
 comment create a contract and link it to the remote contract
 contract create --dir remote_pull_test
-contract link --dir remote_pull_test --url dotcontract@localhost:$SSH_PORT/home/dotcontract/remote_pull_test.contract -i ./../../fixtures/docker-with-ssh/config/id_ed25519
+contract link --dir remote_pull_test --url dotcontract@localhost:$SSH_PORT/home/dotcontract/remote_pull_test.contract --access-with ./../../fixtures/docker-with-ssh/config/id_ed25519
 
 comment check log before pull
 contract log --dir remote_pull_test

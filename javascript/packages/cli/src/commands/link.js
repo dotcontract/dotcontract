@@ -4,6 +4,8 @@ export const describe = "links a contract to a remote/local contract";
 import { CommonContractArgs, ensureContractArgs } from "../lib/ContractArgs.js";
 
 import Sync from "@dotcontract/sync";
+import os from "os";
+import node_path from "path";
 
 export const builder = {
   ...CommonContractArgs,
@@ -15,22 +17,47 @@ export const builder = {
     alias: "u",
     describe: "SSH server url to remote contract. Example: user@host:port/path",
   },
-  identity: {
-    alias: "i",
-    describe: "SSH identity file",
+  "access-with": {
+    describe: "access using an SSH identity file",
+  },
+  "no-access-key": {
+    describe: "don't use any access key",
+  },
+  "access-as": {
+    describe: "access as a DotContract profile",
   },
 };
 
 const log = console.log;
 
 export async function handler(argv) {
-  const { path, url, identity } = argv;
+  let { ["access-with"]: access_with } = argv;
+  const {
+    path,
+    url,
+    ["no-access-key"]: no_access_key,
+    ["access-as"]: access_as,
+  } = argv;
+
   const { dotcontract: dc } = await ensureContractArgs(argv);
   if ((!url && !path) || (url && path)) {
     throw new Error(
       "ERROR: Please provide either a url for an ssh server or a local path"
     );
   }
+
+  if (!access_with) {
+    if (no_access_key) {
+      access_with = null;
+    } else {
+      const login_name = access_as || "default";
+      access_with = node_path.resolve(
+        `${os.homedir}/.dotcontract/${login_name}/access/id_rsa`
+      );
+    }
+  }
+
+  const identity = access_with;
 
   if (!url) {
     await Sync.ensureLocalContractPath(path);

@@ -6,4 +6,4 @@ SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
 
 chmod 600 ${SCRIPT_DIR}/../../config/id_ed25519
 
-ssh -o StrictHostKeyChecking=no -o "UserKnownHostsFile=/dev/null" -o "LogLevel ERROR" -i ./config/id_ed25519 dotcontract@localhost -p $SSH_PORT -x $1
+ssh -o StrictHostKeyChecking=no -o "UserKnownHostsFile=/dev/null" -o "LogLevel ERROR" --access-with ./config/id_ed25519 dotcontract@localhost -p $SSH_PORT -x $1

@@ -37,7 +37,7 @@ contract create -f remote_test2.contract
 
 echo "Remote Link tests > Link"
 # Link
-contract link -f remote_test2.contract --url dotcontract@localhost:$SSH_PORT/home/dotcontract/remote_test1.contract -i $DOCKER_WITH_SSH_DIR/config/id_ed25519
+contract link -f remote_test2.contract --url dotcontract@localhost:$SSH_PORT/home/dotcontract/remote_test1.contract --access-with $DOCKER_WITH_SSH_DIR/config/id_ed25519
 
 echo "Remote Link tests > Pull"
 # Pull

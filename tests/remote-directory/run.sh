@@ -36,7 +36,7 @@ docker cp remote_test1.contract $CONTAINER_NAME:/home/dotcontract/remote_test1.c
 contract create -d remote_test2
 
 # Link
-contract link -d remote_test2 --url dotcontract@localhost:$SSH_PORT/home/dotcontract/remote_test1.contract -i $DOCKER_WITH_SSH_DIR/config/id_ed25519
+contract link -d remote_test2 --url dotcontract@localhost:$SSH_PORT/home/dotcontract/remote_test1.contract --access-with $DOCKER_WITH_SSH_DIR/config/id_ed25519
 
 # Pull
 contract pull -d remote_test2

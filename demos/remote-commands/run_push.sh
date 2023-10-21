@@ -30,7 +30,7 @@ docker cp remote_push_test.contract $CONTAINER_NAME:/home/dotcontract/remote_pus
 
 comment create a contract and link it to the remote contract
 contract create --dir remote_push_test
-contract link --dir remote_push_test --url dotcontract@localhost:$SSH_PORT/home/dotcontract/remote_push_test.contract -i $DOCKER_WITH_SSH_DIR/config/id_ed25519
+contract link --dir remote_push_test --url dotcontract@localhost:$SSH_PORT/home/dotcontract/remote_push_test.contract --access-with $DOCKER_WITH_SSH_DIR/config/id_ed25519
 
 comment make commits to the local contract
 contract commit --dir remote_push_test --post /hello.text "world"
