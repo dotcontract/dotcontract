@@ -52,7 +52,7 @@ export async function handler(argv) {
     } else {
       const login_name = access_as || "default";
       access_with = node_path.resolve(
-        `${os.homedir}/.dotcontract/${login_name}/access/id_rsa`
+        `${os.homedir}/.dotcontract/${login_name}/access/id_ed25519`
       );
     }
   }

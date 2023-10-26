@@ -22,6 +22,117 @@ export default class Key {
     return new Key(key);
   }
 
+  // SSH keys
+
+  async asSSHPrivatePem() {
+    const preamble = uint8ArrayFromString("openssh-key-v1");
+    const null_terminator = new Uint8Array([0]);
+    const cipher_name_length = uint8ArrayFromString("00000004", "base16");
+    const cipher_name = uint8ArrayFromString("none");
+    const kdfname_length = uint8ArrayFromString("00000004", "base16");
+    const kdfname = uint8ArrayFromString("none");
+    const kdfopts_length = uint8ArrayFromString("00000000", "base16");
+    const kdfopts = new Uint8Array([]);
+    const num_of_keys = uint8ArrayFromString("00000001", "base16");
+    const pubkey_section_length = uint8ArrayFromString("00000033", "base16");
+    const key_type_length = uint8ArrayFromString("0000000b", "base16");
+    const key_type = uint8ArrayFromString("ssh-ed25519");
+    const pubkey_inner_length = uint8ArrayFromString("00000020", "base16");
+    // ...
+    const pubkey_inner = this.key.public.bytes.subarray(4);
+    const pk_section_length = uint8ArrayFromString("00000090", "base16");
+    const dummy_text = uint8ArrayFromString("a2224bbaa2224bba", "base16");
+    const pk_inner_length = uint8ArrayFromString("00000040", "base16");
+    const pk_inner = this.key.bytes.subarray(4);
+    const comment_length = uint8ArrayFromString("0000000a", "base16");
+    const comment = uint8ArrayFromString("no-comment");
+    const final_padding = uint8ArrayFromString("010203", "base16");
+    const pkeyhex = uint8ArrayToString(
+      new Uint8Array([
+        ...preamble,
+        ...null_terminator,
+        // options
+        ...cipher_name_length,
+        ...cipher_name,
+        ...kdfname_length,
+        ...kdfname,
+        ...kdfopts_length,
+        ...kdfopts,
+        ...num_of_keys,
+        // public key
+        ...pubkey_section_length,
+        ...key_type_length,
+        ...key_type,
+        ...pubkey_inner_length,
+        ...pubkey_inner,
+        // private key
+        ...pk_section_length,
+        ...dummy_text,
+        ...key_type_length,
+        ...key_type,
+        ...pubkey_inner_length,
+        ...pubkey_inner,
+        ...pk_inner_length,
+        ...pk_inner,
+        ...comment_length,
+        ...comment,
+        ...final_padding,
+      ]),
+      "base64"
+    );
+    return `-----BEGIN OPENSSH PRIVATE KEY-----
+${pkeyhex.match(/.{1,70}/g).join("\n")}
+-----END OPENSSH PRIVATE KEY-----`;
+  }
+
+  asSSHDotPub(comment = "") {
+    const arr = new Uint8Array([
+      // length of "ssh-ed25519"
+      0x00,
+      0x00,
+      0x00,
+      0x0b,
+      // "ssh-ed25519"
+      0x73,
+      0x73,
+      0x68,
+      0x2d,
+      0x65,
+      0x64,
+      0x32,
+      0x35,
+      0x35,
+      0x31,
+      0x39,
+      // length of pubkey
+      0x00,
+      0x00,
+      0x00,
+      0x20,
+      // pubkey
+      ...this.key.public.bytes.subarray(4),
+    ]);
+    const inner_pub_key = uint8ArrayToString(arr, "base64");
+    return `ssh-ed25519 ${inner_pub_key} ${comment}`;
+  }
+
+  static fromSSHDotPub(public_key_str, type = "ed25519") {
+    const inner_pubkey_str = public_key_str.split(" ")[1];
+    const inner_pubkey_uint8a = uint8ArrayFromString(
+      inner_pubkey_str,
+      "base64"
+    );
+    const pubkey_uint8a = new Uint8Array([
+      8,
+      1,
+      18,
+      32,
+      ...inner_pubkey_uint8a.subarray(19),
+    ]);
+    const public_key_id = Key.uint8ArrayAsBase58Identity(pubkey_uint8a);
+    return this.fromPublicMultiaddress(`/${type}-pub/${public_key_id}`);
+  }
+
   // base58identity is used for addresses
 
   static uint8ArrayAsBase58Identity(bytes) {

@@ -25,5 +25,9 @@ describe("Key", () => {
       json_with_signature
     );
     expect(result2).toBe(true);
+
+    const ssh_dotpub = await key.asSSHDotPub();
+    const key_from_ssh_dotpub = await Key.fromSSHDotPub(ssh_dotpub);
+    expect(key.asPublicKeyId()).toEqual(key_from_ssh_dotpub.asPublicKeyId());
   });
 });

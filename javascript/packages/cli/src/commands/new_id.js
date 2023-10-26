@@ -28,6 +28,16 @@ export async function handler(argv) {
   fs.mkdirSync(base_path, { recursive: true });
   await key.asJSONFile(`${base_path}/signing.keypair`);
 
+  const access_key = await Key.generate();
+  await fs.writeFileSync(
+    `${base_path}/access/id_ed25519`,
+    await access_key.asSSHPrivatePem()
+  );
+  await fs.writeFileSync(
+    `${base_path}/access/id_ed25519.pub`,
+    await access_key.fromSSHDotPub()
+  );
+
   log(`crypto:/${await key.asPublicMultiaddress()}`);
 }
 
