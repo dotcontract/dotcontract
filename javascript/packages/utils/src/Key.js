@@ -10,6 +10,7 @@ import { base58btc } from "multiformats/bases/base58";
 import { identity } from "multiformats/hashes/identity";
 import * as Digest from "multiformats/hashes/digest";
 import JSONStringifyDeterministic from "json-stringify-deterministic";
+import SSHPem from "./SSHPem.js";
 
 export default class Key {
   constructor(key) {
@@ -24,96 +25,21 @@ export default class Key {
 
   // SSH keys
 
-  async asSSHPrivatePem() {
-    const preamble = uint8ArrayFromString("openssh-key-v1");
-    const null_terminator = new Uint8Array([0]);
-    const cipher_name_length = uint8ArrayFromString("00000004", "base16");
-    const cipher_name = uint8ArrayFromString("none");
-    const kdfname_length = uint8ArrayFromString("00000004", "base16");
-    const kdfname = uint8ArrayFromString("none");
-    const kdfopts_length = uint8ArrayFromString("00000000", "base16");
-    const kdfopts = new Uint8Array([]);
-    const num_of_keys = uint8ArrayFromString("00000001", "base16");
-    const pubkey_section_length = uint8ArrayFromString("00000033", "base16");
-    const key_type_length = uint8ArrayFromString("0000000b", "base16");
-    const key_type = uint8ArrayFromString("ssh-ed25519");
-    const pubkey_inner_length = uint8ArrayFromString("00000020", "base16");
-    // ...
-    const pubkey_inner = this.key.public.bytes.subarray(4);
-    const pk_section_length = uint8ArrayFromString("00000090", "base16");
-    const dummy_text = uint8ArrayFromString("a2224bbaa2224bba", "base16");
-    const pk_inner_length = uint8ArrayFromString("00000040", "base16");
-    const pk_inner = this.key.bytes.subarray(4);
-    const comment_length = uint8ArrayFromString("0000000a", "base16");
-    const comment = uint8ArrayFromString("no-comment");
-    const final_padding = uint8ArrayFromString("010203", "base16");
-    const pkeyhex = uint8ArrayToString(
-      new Uint8Array([
-        ...preamble,
-        ...null_terminator,
-        // options
-        ...cipher_name_length,
-        ...cipher_name,
-        ...kdfname_length,
-        ...kdfname,
-        ...kdfopts_length,
-        ...kdfopts,
-        ...num_of_keys,
-        // public key
-        ...pubkey_section_length,
-        ...key_type_length,
-        ...key_type,
-        ...pubkey_inner_length,
-        ...pubkey_inner,
-        // private key
-        ...pk_section_length,
-        ...dummy_text,
-        ...key_type_length,
-        ...key_type,
-        ...pubkey_inner_length,
-        ...pubkey_inner,
-        ...pk_inner_length,
-        ...pk_inner,
-        ...comment_length,
-        ...comment,
-        ...final_padding,
-      ]),
-      "base64"
-    );
-    return `-----BEGIN OPENSSH PRIVATE KEY-----
-${pkeyhex.match(/.{1,70}/g).join("\n")}
------END OPENSSH PRIVATE KEY-----`;
+  async asSSHPrivatePem(comment = "dotcontract") {
+    const pem = new SSHPem();
+    pem.key_type = "ed25519";
+    pem.public_key = this.key.public.bytes.subarray(4);
+    pem.private_key = this.key.bytes.subarray(4);
+    pem.comment = comment;
+    return pem.toSSHPrivatePemString();
   }
 
-  asSSHDotPub(comment = "") {
-    const arr = new Uint8Array([
-      // length of "ssh-ed25519"
-      0x00,
-      0x00,
-      0x00,
-      0x0b,
-      // "ssh-ed25519"
-      0x73,
-      0x73,
-      0x68,
-      0x2d,
-      0x65,
-      0x64,
-      0x32,
-      0x35,
-      0x35,
-      0x31,
-      0x39,
-      // length of pubkey
-      0x00,
-      0x00,
-      0x00,
-      0x20,
-      // pubkey
-      ...this.key.public.bytes.subarray(4),
-    ]);
-    const inner_pub_key = uint8ArrayToString(arr, "base64");
-    return `ssh-ed25519 ${inner_pub_key} ${comment}`;
+  asSSHDotPub(comment = "dotcontract") {
+    const pem = new SSHPem();
+    pem.key_type = "ed25519";
+    pem.public_key = this.key.public.bytes.subarray(4);
+    pem.comment = comment;
+    return pem.toSSHDotPubString();
   }
 
   static fromSSHDotPub(public_key_str, type = "ed25519") {

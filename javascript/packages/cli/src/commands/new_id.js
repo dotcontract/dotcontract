@@ -6,8 +6,7 @@ export const builder = {
     desc: "name",
     default: "default",
   },
-  overwrite: {
-  }
+  overwrite: {},
 };
 
 import os from "os";
@@ -21,7 +20,7 @@ export async function handler(argv) {
 
   const base_path = `${os.homedir()}/.dotcontract/${name}`;
   const path_to_keypair = `${base_path}/signing.keypair`;
-  if (fs.existsSync(path_to_keypair) ) {
+  if (fs.existsSync(path_to_keypair)) {
     if (!overwrite) {
       console.error(`ERROR: "${name}" identity already exists`);
       return;
