@@ -12,7 +12,7 @@ export default class EventuallyMacro extends BaseFormula {
     const inner_formula = this.inner_formula.expandFunctions();
     const until_formula = this.until_formula.expandFunctions();
     return {
-      constraint: `${inner_formula.constraint} and ${until_formula.constraint}`,
+      constraint: `true`,
       functions: {
         ...inner_formula.functions,
         ...until_formula.functions,

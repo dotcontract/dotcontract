@@ -14,7 +14,7 @@ export default class MustMacro extends BaseFormula {
   expandFunctions() {
     const formula = this.formula.expandFunctions();
     return {
-      constraint: `not (${formula.constraint})`,
+      constraint: `true`,
       functions: {
         ...formula.functions,
       },
