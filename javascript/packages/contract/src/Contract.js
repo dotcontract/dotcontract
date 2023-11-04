@@ -50,6 +50,10 @@ export default class Contract {
     ).map((p) => Modality.parseProp(p));
     const r = [];
     for (const observed_test of observed_tests) {
+      // not actually a test
+      if (!observed_test) {
+        continue;
+      }
       let tf;
       if (observed_test.name === "post_to") {
         tf = new PostToTestFactory("post_to");

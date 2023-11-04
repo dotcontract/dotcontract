@@ -39,7 +39,14 @@ export default class CommitAction {
       return true;
     } else if (this.method === "rule") {
       try {
-        new ModalityExpression(this.value);
+        const m = new ModalityExpression(this.value);
+        const ef = m.expandFunctions();
+        const props = Object.keys(ef.functions);
+        for (const prop of props) {
+          if (!prop.match('__')) {
+            throw new Error(`Unrecognized prop used "${prop}". Please use one of the builtin test functions like include_sig or post_to.`)
+          }
+        }
       } catch (e) {
         throw new Error(`unable to parse rule: ${this.value}\n ${e}`);
       }

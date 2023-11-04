@@ -10,6 +10,19 @@ export default class PropsSet extends BaseFormula {
     return true; // TODO
   }
 
+  expandFunctions() {
+    const used_props = this.props.map((sa) => sa.toUnsignedText());
+    return {
+      constraint: 'true',
+      functions: used_props.reduce((acc, i) => {
+        return {
+          ...acc,
+          [i]: true
+        }
+      }, {})
+    }
+  }
+
   getFreeVars() {
     return new Set(this.props.map((i) => i.props).filter((i) => i === "*"));
   }

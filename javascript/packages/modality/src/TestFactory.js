@@ -22,7 +22,7 @@ export function getPropFromTest(name, args) {
 export function getNameFromProp(prop) {
   const m = prop.match(/^([a-zA-Z][a-zA-Z0-9_]*)__([0-9_]*)$/);
   if (!m) {
-    null;
+    return null;
   }
   return m[1];
 }
@@ -30,7 +30,7 @@ export function getNameFromProp(prop) {
 export function parseProp(prop) {
   const m = prop.match(/^([a-zA-Z][a-zA-Z0-9_]*)__([0-9_]*)$/);
   if (!m) {
-    null;
+    return null;
   }
   const name = m[1];
   const arg_suffix = m[2];
