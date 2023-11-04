@@ -48,6 +48,8 @@ function describeContract({
     const commit_log = local_status.commit_log;
     const count = [];
     let rules_count = 0;
+    let contributors = []; 
+    let contributors_unknown = 0;
 
     for (let i = 0; i < local_status.commit_count; i++) {
       count.push(i);
@@ -55,7 +57,8 @@ function describeContract({
 
     for (const i of count) {
       const c = Commit.fromJSONString(commit_log[i]);
-      //log(c)
+      
+      //rules count
       if (!c.body.length) {
         rules_count = 0;
       } else {
@@ -65,9 +68,17 @@ function describeContract({
           }
         }
       }
+      //contributors count
+      if(c.head.signatures ){
+        contributors.push(Object.keys(c.head.signatures))
+      }else{
+        contributors_unknown = 1;
+      }
     }
+    
+    contributors = contributors.flat(1)
+    contributors = [...new Set(contributors)];
 
-    //log(commit_log)
     log();
     log(`${asBold(`##SUMMARY`)}`);
     log();
@@ -77,7 +88,7 @@ function describeContract({
         local_status.status ? asSuccess("VALID") : asError("INVALID")
       }`
     );
-
+    log(`* Contributors: ${contributors.length + contributors_unknown }`);
     log(`* Commits: ${local_status.commit_count}`);
     log(`* Rules:  ${rules_count}`);
     if (local_status.commit_count) {
