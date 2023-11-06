@@ -13,14 +13,14 @@ export default class PropsSet extends BaseFormula {
   expandFunctions() {
     const used_props = this.props.map((sa) => sa.toUnsignedText());
     return {
-      constraint: 'true',
+      constraint: "true",
       functions: used_props.reduce((acc, i) => {
         return {
           ...acc,
-          [i]: true
-        }
-      }, {})
-    }
+          [i]: true,
+        };
+      }, {}),
+    };
   }
 
   getFreeVars() {

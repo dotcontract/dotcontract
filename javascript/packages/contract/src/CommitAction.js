@@ -43,8 +43,10 @@ export default class CommitAction {
         const ef = m.expandFunctions();
         const props = Object.keys(ef.functions);
         for (const prop of props) {
-          if (!prop.match('__')) {
-            throw new Error(`Unrecognized prop used "${prop}". Please use one of the builtin test functions like include_sig or post_to.`)
+          if (!prop.match("__")) {
+            throw new Error(
+              `Unrecognized prop used "${prop}". Please use one of the builtin test functions like include_sig or post_to.`
+            );
           }
         }
       } catch (e) {
