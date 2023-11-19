@@ -35,3 +35,7 @@ cd ..
 cd cli
 pnpm publish --access public
 cd ..
+
+cd synthesizer
+pnpm publish --access public
+cd ..
