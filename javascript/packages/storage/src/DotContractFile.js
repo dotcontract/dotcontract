@@ -7,7 +7,10 @@ import DotContractDirectory from "./DotContractDirectory.js";
 
 export default class DotContractFile extends DotContractDirectory {
   constructor(filepath) {
-    super();
+    const temp_dir = temp.mkdirSync();
+    const dirpath = `${temp_dir}/.contract`;
+    fs.mkdirSync(dirpath);
+    super(dirpath);
     this.filepath = filepath;
     this.password = null;
     return this;

@@ -1,4 +1,5 @@
 import fs from "fs";
+import fse from "fs-extra";
 import { pipeline } from "stream/promises";
 import path from "path";
 import archiver from "archiver";
@@ -336,6 +337,7 @@ export default class DotContractDirectory {
     }
     return r.filter((i) => i.type);
   }
+
   async getPathType(path) {
     if (Route.isPrimitive(path)) {
       return "primitive";
@@ -386,6 +388,48 @@ export default class DotContractDirectory {
       await this.commit(c.toJSON());
     }
     await this.save();
+  }
+
+  async cleanPathValues() {
+    const commit_log = await this.getCommitLog();
+    for (const commit of commit_log) {
+      const contents = [];
+      const c = Commit.fromJSONString(commit);
+      for (const part of c.body) {
+        const ca = new CommitAction(part);
+        if (ca.hasAttachment()) {
+          const file_hash = ca.getFileHash();
+          const path = ca.getPath();
+          const filepath = `${this.dirpath}/attachments/${file_hash}`;
+          contents.push({
+            path,
+            filepath,
+          });
+        } else if (ca.method === "post") {
+          const path = ca.getPath();
+          const value = ca.value;
+          contents.push({
+            path,
+            value,
+          });
+        }
+      }
+      for (const content of contents) {
+        fse.ensureFileSync(`${this.dirpath}/..${content.path}`);
+        if (content.filepath) {
+          fs.copyFileSync(
+            content.filepath,
+            `${this.dirpath}/..${content.path}`
+          );
+        } else {
+          fs.writeFileSync(
+            `${this.dirpath}/..${content.path}`,
+            content.value,
+            "utf-8"
+          );
+        }
+      }
+    }
   }
 
   async createDraft(name) {

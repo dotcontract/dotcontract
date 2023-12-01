@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}") 
+
+cd $SCRIPT_DIR/../packages
+
+cd utils
+pnpm pack --pack-destination ../../build
+cd ..
+
+cd kripke-machine
+pnpm pack --pack-destination ../../build
+cd ..
+
+cd modality
+pnpm pack --pack-destination ../../build
+cd ..
+
+cd storage
+pnpm pack --pack-destination ../../build
+cd ..
+
+cd sync
+pnpm pack --pack-destination ../../build
+cd ..
+
+cd test-factories
+pnpm pack --pack-destination ../../build
+cd ..
+
+cd contract
+pnpm pack --pack-destination ../../build
+cd ..
+
+cd cli
+pnpm pack --pack-destination ../../build
+cd ..
+
+cd synthesizer
+pnpm pack --pack-destination ../../build
+cd ..

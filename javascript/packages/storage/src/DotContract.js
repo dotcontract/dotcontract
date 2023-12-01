@@ -154,6 +154,10 @@ export default class DotContract {
     );
   }
 
+  async cleanPathValues() {
+    await this.dotcontract.cleanPathValues();
+  }
+
   async zip(filepath) {
     await this.dotcontract.zip(filepath);
   }
@@ -178,7 +182,8 @@ export default class DotContract {
     return this.dotcontract.contract.km.toJSON();
   }
 
-  listContents() {
+  async listContents() {
+    await this.cleanPathValues();
     return this.dotcontract.listContents();
   }
 
