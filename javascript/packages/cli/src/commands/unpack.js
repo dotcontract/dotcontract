@@ -4,21 +4,29 @@ export const describe = "unpack a contract file into a contract directory";
 import DotContract from "@dotcontract/storage";
 
 export const builder = {
-  input: {
-    alias: "i",
+  file: {
+    alias: "f",
     desc: "input contract file [filepath]",
-    required: true,
   },
   dir: {
     alias: "d",
-    desc: "contract directory [filepath]",
-    required: true,
+    desc: "output contract directory [filepath]",
+  },
+  input: {
+    alias: "i",
+    desc: "input contract file [filepath]",
+  },
+  output: {
+    alias: "o",
+    desc: "output contract directory [filepath]",
   },
 };
 
 export async function handler(argv) {
-  const { dir, input } = argv;
-  await DotContract.unzip(input, dir);
+  const { file, dir, input, output } = argv;
+  await DotContract.unzip(file || input, dir || output);
+  const dc = await DotContract.getDCFromDir(dir || output);
+  await dc.cleanPathValues();
 }
 
 export default handler;
